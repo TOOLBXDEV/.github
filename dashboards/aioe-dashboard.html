@@ -170,7 +170,7 @@ tr.clickable:hover td{background:var(--bg-hover)}
 .pace-label{display:inline-block;font-size:10px;color:var(--fg3);background:var(--bg-inset);padding:2px 6px;border-radius:3px;margin-left:6px;font-weight:500}
 
 .tab-bar{display:flex;gap:0;border-bottom:2px solid var(--border);margin:16px 0 0}
-.tab-btn{padding:8px 18px;font-size:13px;font-weight:600;color:var(--fg3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
+.tab-btn{padding:8px 18px;font-size:13px;font-weight:600;font-family:inherit;color:var(--fg3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
 .tab-btn:hover{color:var(--fg)}
 .tab-btn.active{color:var(--accent-fg);border-bottom-color:var(--brand)}
 .meth{padding:20px 0;font-size:13px;line-height:1.75;color:var(--fg2)}
@@ -445,17 +445,17 @@ function getPrevPeriod(range){
 
 // ─── FILTER RATIO ───
 function filterRatio(m,filters){
-  if(!filters)return 1;
+  if(!filters||!m.quotes)return m.quotes?1:0;
   let r=1;
-  if(filters.source&&m.quotes>0){
+  if(filters.source){
     const srcMap={EMAIL:'sourceEmail',UPLOAD:'sourceUpload',ADD_IN:'sourceAddIn'};
     r*=(m[srcMap[filters.source]]||0)/m.quotes;
   }
-  if(filters.status&&m.quotes>0){
+  if(filters.status){
     const stMap={COMPLETED:'completedQuotes',FAILED:'failedQuotes',REQUIRES_REVIEW:'needsReviewQuotes',PENDING:null,PROCESSING:null};
     const field=stMap[filters.status];
     if(field)r*=(m[field]||0)/m.quotes;
-    else r*=Math.max(0,m.quotes-(m.completedQuotes||0)-(m.failedQuotes||0)-(m.needsReviewQuotes||0))/m.quotes;
+    else{const known=(m.completedQuotes||0)+(m.failedQuotes||0)+(m.needsReviewQuotes||0);r*=Math.max(0,m.quotes-known)/m.quotes;}
   }
   if(filters.matchSource){
     const total=(m.rulesEngineMatches||0)+(m.llmMatches||0)+(m.manualMatches||0);
@@ -465,6 +465,33 @@ function filterRatio(m,filters){
     } else r=0;
   }
   return r;
+}
+function applyFilterToMetric(m,r,key,filters){
+  if(!filters)return(m[key]||0)*r;
+  if(filters.status){
+    const stMap={COMPLETED:'completedQuotes',FAILED:'failedQuotes',REQUIRES_REVIEW:'needsReviewQuotes'};
+    if(key==='quotes'){const f=stMap[filters.status];return f?(m[f]||0):(m[key]||0)*r;}
+    if(key==='completedQuotes'||key==='failedQuotes'||key==='needsReviewQuotes'){
+      if(key===stMap[filters.status])return m[key]||0;
+      return 0;
+    }
+  }
+  if(filters.source){
+    const srcMap={EMAIL:'sourceEmail',UPLOAD:'sourceUpload',ADD_IN:'sourceAddIn'};
+    if(key==='quotes'){return m[srcMap[filters.source]]||0;}
+    if(key==='sourceEmail'||key==='sourceUpload'||key==='sourceAddIn'){
+      if(key===srcMap[filters.source])return(m[key]||0);
+      return 0;
+    }
+  }
+  if(filters.matchSource){
+    const msMap={RULES_ENGINE:'rulesEngineMatches',LLM:'llmMatches',MANUAL:'manualMatches'};
+    if(key==='rulesEngineMatches'||key==='llmMatches'||key==='manualMatches'){
+      if(key===msMap[filters.matchSource])return m[key]||0;
+      return 0;
+    }
+  }
+  return(m[key]||0)*r;
 }
 
 // ─── AGGREGATION ───
@@ -488,7 +515,7 @@ function aggDaily(dealers,start,end,dealerId,filters){
       if(m.date>=s&&m.date<=e){
         const r=hasFilters?filterRatio(m,filters):1;
         if(r>0){
-          Object.keys(acc).forEach(k=>{if(k!=='dayCount'&&k!=='p50Sum'&&k!=='p90Sum'&&m[k]!=null)acc[k]+=m[k]*r});
+          Object.keys(acc).forEach(k=>{if(k!=='dayCount'&&k!=='p50Sum'&&k!=='p90Sum'&&m[k]!=null)acc[k]+=hasFilters?applyFilterToMetric(m,r,k,filters):m[k]});
           acc.p50Sum+=m.p50LatencySeconds||0;acc.p90Sum+=m.p90LatencySeconds||0;acc.dayCount++;
           hadActivity=true;
         }
@@ -528,7 +555,7 @@ function getDailyTimeSeries(dealers,start,end,dealerId,filters){
           const bd=byDate[m.date];
           ['quotes','matchedLineItems','totalLineItems','correctedItems','rulesEngineMatches','llmMatches','manualMatches',
            'billedCents','extractionCostUsd','matchingCostUsd','resolutionCostUsd','convertedQuotes','completedQuotes',
-           'sourceEmail','sourceUpload','sourceAddIn'].forEach(k=>{bd[k]+=((m[k]||0)*r)});
+           'sourceEmail','sourceUpload','sourceAddIn'].forEach(k=>{bd[k]+=(hasFilters?applyFilterToMetric(m,r,k,filters):(m[k]||0))});
           bd.activeDealers.add(d.id);
         }
       }
@@ -547,7 +574,7 @@ function aggDealer(dealer,start,end,filters){
   dealer.dailyMetrics.forEach(m=>{
     if(m.date>=s&&m.date<=e){
       const r=hasFilters?filterRatio(m,filters):1;
-      if(r>0)Object.keys(a).forEach(k=>{a[k]+=(m[k]||0)*r});
+      if(r>0)Object.keys(a).forEach(k=>{a[k]+=(hasFilters?applyFilterToMetric(m,r,k,filters):(m[k]||0))});
     }
   });
   Object.keys(a).forEach(k=>{if(typeof a[k]==='number')a[k]=Math.round(a[k]*100)/100});
