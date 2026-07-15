@@ -169,6 +169,22 @@ tr.clickable:hover td{background:var(--bg-hover)}
 
 .pace-label{display:inline-block;font-size:10px;color:var(--fg3);background:var(--bg-inset);padding:2px 6px;border-radius:3px;margin-left:6px;font-weight:500}
 
+.tab-bar{display:flex;gap:0;border-bottom:2px solid var(--border);margin:16px 0 0}
+.tab-btn{padding:8px 18px;font-size:13px;font-weight:600;color:var(--fg3);background:none;border:none;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
+.tab-btn:hover{color:var(--fg)}
+.tab-btn.active{color:var(--accent-fg);border-bottom-color:var(--brand)}
+.meth{padding:20px 0;font-size:13px;line-height:1.75;color:var(--fg2)}
+.meth h2{font-size:15px;font-weight:600;color:var(--fg);margin:24px 0 8px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.meth h2:first-child{margin-top:0}
+.meth h3{font-size:13px;font-weight:600;color:var(--fg);margin:16px 0 6px}
+.meth p{margin:6px 0}
+.meth ul{margin:4px 0 12px 20px}
+.meth li{margin:3px 0}
+.meth code{font-family:'SFMono-Regular',Consolas,monospace;font-size:11.5px;background:var(--bg-inset);padding:1px 5px;border-radius:3px;color:var(--accent-fg)}
+.meth table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0 16px}
+.meth th{text-align:left;padding:6px 10px;background:var(--bg-inset);border:1px solid var(--border);font-weight:600;color:var(--fg);white-space:nowrap}
+.meth td{padding:6px 10px;border:1px solid var(--border);vertical-align:top}
+.meth td code{font-size:11px}
 @media(max-width:900px){.tiles{grid-template-columns:repeat(3,1fr)}.chart-grid{grid-template-columns:1fr}.ops-strip{grid-template-columns:1fr}}
 @media(max-width:600px){.tiles{grid-template-columns:repeat(2,1fr)}.filter-bar{gap:4px}}
 </style>
@@ -189,6 +205,10 @@ tr.clickable:hover td{background:var(--bg-hover)}
     </div>
   </header>
   <nav class="filter-bar" id="filter-bar"></nav>
+  <div class="tab-bar" id="tab-bar">
+    <button class="tab-btn active" data-tab="dashboard">Dashboard</button>
+    <button class="tab-btn" data-tab="methodology">Methodology</button>
+  </div>
   <main id="main"></main>
 </div>
 <div class="tooltip" id="tooltip"></div>
@@ -388,7 +408,7 @@ const DATA=genData();
 const state={
   period:'this-month',dealer:null,source:null,status:null,matchSource:null,
   sort:{col:'quotes',dir:'desc'},expandedTiles:new Set(),expandedQuotes:new Set(),
-  compare:true
+  compare:true,tab:'dashboard'
 };
 
 // ─── DATE UTILS ───
@@ -423,8 +443,32 @@ function getPrevPeriod(range){
   return{start,end,label:'prev',totalDays:len,elapsed:len};
 }
 
+// ─── FILTER RATIO ───
+function filterRatio(m,filters){
+  if(!filters)return 1;
+  let r=1;
+  if(filters.source&&m.quotes>0){
+    const srcMap={EMAIL:'sourceEmail',UPLOAD:'sourceUpload',ADD_IN:'sourceAddIn'};
+    r*=(m[srcMap[filters.source]]||0)/m.quotes;
+  }
+  if(filters.status&&m.quotes>0){
+    const stMap={COMPLETED:'completedQuotes',FAILED:'failedQuotes',REQUIRES_REVIEW:'needsReviewQuotes',PENDING:null,PROCESSING:null};
+    const field=stMap[filters.status];
+    if(field)r*=(m[field]||0)/m.quotes;
+    else r*=Math.max(0,m.quotes-(m.completedQuotes||0)-(m.failedQuotes||0)-(m.needsReviewQuotes||0))/m.quotes;
+  }
+  if(filters.matchSource){
+    const total=(m.rulesEngineMatches||0)+(m.llmMatches||0)+(m.manualMatches||0);
+    if(total>0){
+      const msMap={RULES_ENGINE:'rulesEngineMatches',LLM:'llmMatches',MANUAL:'manualMatches'};
+      r*=(m[msMap[filters.matchSource]]||0)/total;
+    } else r=0;
+  }
+  return r;
+}
+
 // ─── AGGREGATION ───
-function aggDaily(dealers,start,end,dealerId){
+function aggDaily(dealers,start,end,dealerId,filters){
   const s=fmtDate(start),e=fmtDate(end);
   const acc={quotes:0,completedQuotes:0,failedQuotes:0,needsReviewQuotes:0,convertedQuotes:0,
     totalLineItems:0,matchedLineItems:0,correctedItems:0,
@@ -435,15 +479,19 @@ function aggDaily(dealers,start,end,dealerId){
     hasCustomerName:0,hasCustomerEmail:0,hasCustomerPhone:0,hasAccountNumber:0,
     hasDeliveryAddress:0,hasRequestedDeliveryDate:0,hasNotes:0,
     rerunCount:0,capsHit:0,capSavingsCents:0};
+  const hasFilters=filters&&(filters.source||filters.status||filters.matchSource);
   const activeDealers=new Set();
   const filtered=dealerId?dealers.filter(d=>d.id===dealerId):dealers;
   filtered.forEach(d=>{
     let hadActivity=false;
     d.dailyMetrics.forEach(m=>{
       if(m.date>=s&&m.date<=e){
-        Object.keys(acc).forEach(k=>{if(k!=='dayCount'&&k!=='p50Sum'&&k!=='p90Sum'&&m[k]!=null)acc[k]+=m[k]});
-        acc.p50Sum+=m.p50LatencySeconds||0;acc.p90Sum+=m.p90LatencySeconds||0;acc.dayCount++;
-        hadActivity=true;
+        const r=hasFilters?filterRatio(m,filters):1;
+        if(r>0){
+          Object.keys(acc).forEach(k=>{if(k!=='dayCount'&&k!=='p50Sum'&&k!=='p90Sum'&&m[k]!=null)acc[k]+=m[k]*r});
+          acc.p50Sum+=m.p50LatencySeconds||0;acc.p90Sum+=m.p90LatencySeconds||0;acc.dayCount++;
+          hadActivity=true;
+        }
       }
     });
     if(hadActivity)activeDealers.add(d.id);
@@ -459,40 +507,50 @@ function aggDaily(dealers,start,end,dealerId){
   acc.margin=acc.revenueUsd?Math.max(0,(acc.revenueUsd-acc.totalCostUsd)/acc.revenueUsd):0;
   acc.p50Latency=acc.dayCount?acc.p50Sum/acc.dayCount:0;
   acc.p90Latency=acc.dayCount?acc.p90Sum/acc.dayCount:0;
+  Object.keys(acc).forEach(k=>{if(typeof acc[k]==='number'&&k!=='matchRate'&&k!=='correctionRate'&&k!=='conversionRate'&&k!=='failureRate'&&k!=='rulesRate'&&k!=='margin'&&k!=='p50Latency'&&k!=='p90Latency')acc[k]=Math.round(acc[k]*100)/100});
   return acc;
 }
 
-function getDailyTimeSeries(dealers,start,end,dealerId){
+function getDailyTimeSeries(dealers,start,end,dealerId,filters){
   const s=fmtDate(start),e=fmtDate(end);
+  const hasFilters=filters&&(filters.source||filters.status||filters.matchSource);
   const byDate={};
   const filtered=dealerId?dealers.filter(d=>d.id===dealerId):dealers;
   filtered.forEach(d=>{
     d.dailyMetrics.forEach(m=>{
       if(m.date>=s&&m.date<=e){
-        if(!byDate[m.date])byDate[m.date]={date:m.date,quotes:0,matchedLineItems:0,totalLineItems:0,correctedItems:0,
-          rulesEngineMatches:0,llmMatches:0,manualMatches:0,billedCents:0,
-          extractionCostUsd:0,matchingCostUsd:0,resolutionCostUsd:0,convertedQuotes:0,completedQuotes:0,
-          sourceEmail:0,sourceUpload:0,sourceAddIn:0,activeDealers:new Set()};
-        const bd=byDate[m.date];
-        ['quotes','matchedLineItems','totalLineItems','correctedItems','rulesEngineMatches','llmMatches','manualMatches',
-         'billedCents','extractionCostUsd','matchingCostUsd','resolutionCostUsd','convertedQuotes','completedQuotes',
-         'sourceEmail','sourceUpload','sourceAddIn'].forEach(k=>{bd[k]+=m[k]||0});
-        bd.activeDealers.add(d.id);
+        const r=hasFilters?filterRatio(m,filters):1;
+        if(r>0){
+          if(!byDate[m.date])byDate[m.date]={date:m.date,quotes:0,matchedLineItems:0,totalLineItems:0,correctedItems:0,
+            rulesEngineMatches:0,llmMatches:0,manualMatches:0,billedCents:0,
+            extractionCostUsd:0,matchingCostUsd:0,resolutionCostUsd:0,convertedQuotes:0,completedQuotes:0,
+            sourceEmail:0,sourceUpload:0,sourceAddIn:0,activeDealers:new Set()};
+          const bd=byDate[m.date];
+          ['quotes','matchedLineItems','totalLineItems','correctedItems','rulesEngineMatches','llmMatches','manualMatches',
+           'billedCents','extractionCostUsd','matchingCostUsd','resolutionCostUsd','convertedQuotes','completedQuotes',
+           'sourceEmail','sourceUpload','sourceAddIn'].forEach(k=>{bd[k]+=((m[k]||0)*r)});
+          bd.activeDealers.add(d.id);
+        }
       }
     });
   });
   return Object.values(byDate).sort((a,b)=>a.date.localeCompare(b.date)).map(d=>({...d,activeDealers:d.activeDealers.size}));
 }
 
-function aggDealer(dealer,start,end){
+function aggDealer(dealer,start,end,filters){
   const s=fmtDate(start),e=fmtDate(end);
+  const hasFilters=filters&&(filters.source||filters.status||filters.matchSource);
   const a={quotes:0,completedQuotes:0,failedQuotes:0,convertedQuotes:0,
     totalLineItems:0,matchedLineItems:0,correctedItems:0,
     rulesEngineMatches:0,llmMatches:0,manualMatches:0,
     units:0,billedCents:0,extractionCostUsd:0,matchingCostUsd:0,resolutionCostUsd:0};
   dealer.dailyMetrics.forEach(m=>{
-    if(m.date>=s&&m.date<=e)Object.keys(a).forEach(k=>{a[k]+=m[k]||0});
+    if(m.date>=s&&m.date<=e){
+      const r=hasFilters?filterRatio(m,filters):1;
+      if(r>0)Object.keys(a).forEach(k=>{a[k]+=(m[k]||0)*r});
+    }
   });
+  Object.keys(a).forEach(k=>{if(typeof a[k]==='number')a[k]=Math.round(a[k]*100)/100});
   a.matchRate=a.totalLineItems?a.matchedLineItems/a.totalLineItems:0;
   a.correctionRate=a.matchedLineItems?a.correctedItems/a.matchedLineItems:0;
   a.conversionRate=a.completedQuotes?a.convertedQuotes/a.completedQuotes:0;
@@ -771,10 +829,11 @@ function drawHBar(canvas,items,opts={}){
 function renderAll(){
   const range=getPeriodRange(state.period);
   const prev=getPrevPeriod(range);
-  const cur=aggDaily(DATA.dealers,range.start,range.end,state.dealer);
-  const prv=aggDaily(DATA.dealers,prev.start,prev.end,state.dealer);
-  const ts=getDailyTimeSeries(DATA.dealers,range.start,range.end,state.dealer);
-  const prevTs=state.compare?getDailyTimeSeries(DATA.dealers,prev.start,prev.end,state.dealer):null;
+  const flt={source:state.source,status:state.status,matchSource:state.matchSource};
+  const cur=aggDaily(DATA.dealers,range.start,range.end,state.dealer,flt);
+  const prv=aggDaily(DATA.dealers,prev.start,prev.end,state.dealer,flt);
+  const ts=getDailyTimeSeries(DATA.dealers,range.start,range.end,state.dealer,flt);
+  const prevTs=state.compare?getDailyTimeSeries(DATA.dealers,prev.start,prev.end,state.dealer,flt):null;
 
   document.getElementById('date-range-label').textContent=
     fmtMonDay(range.start)+' – '+fmtMonDay(range.end)+
@@ -782,6 +841,8 @@ function renderAll(){
 
   const main=document.getElementById('main');
   main.innerHTML='';
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.toggle('active',b.dataset.tab===state.tab)});
+  if(state.tab==='methodology'){main.appendChild(renderMethodology());return;}
   main.appendChild(renderSummary(cur,prv,range,prev));
   main.appendChild(renderTiles(cur,prv,range,ts));
   main.appendChild(renderTrendCharts(ts,prevTs));
@@ -844,7 +905,8 @@ function renderTiles(cur,prv,range,ts){
 
   const expandConfigs=[
     {key:'quotes',title:'Daily Quote Volume',h:200,render:(c)=>{
-      const prevTsData=state.compare?getDailyTimeSeries(DATA.dealers,getPrevPeriod(range).start,getPrevPeriod(range).end,state.dealer):null;
+      const fltE={source:state.source,status:state.status,matchSource:state.matchSource};
+      const prevTsData=state.compare?getDailyTimeSeries(DATA.dealers,getPrevPeriod(range).start,getPrevPeriod(range).end,state.dealer,fltE):null;
       drawBarChart(c,ts.map(d=>({label:d.date.slice(5),value:d.quotes})),prevTsData?prevTsData.map(d=>({value:d.quotes})):null);
     }},
     {key:'matchRate',title:'Confidence Distribution',h:180,render:(c)=>{
@@ -920,10 +982,11 @@ function renderSourceEconomics(ts,prevTs,cur,prv){
 
 function renderDealerLeaderboard(range,prev){
   const sec=document.createElement('div');sec.className='section';
+  const flt={source:state.source,status:state.status,matchSource:state.matchSource};
   let html='<div class="section-title">Dealer Leaderboard</div>';
   const rows=DATA.dealers.map(d=>{
-    const cur=aggDealer(d,range.start,range.end);
-    const prv=state.compare?aggDealer(d,prev.start,prev.end):null;
+    const cur=aggDealer(d,range.start,range.end,flt);
+    const prv=state.compare?aggDealer(d,prev.start,prev.end,flt):null;
     return{dealer:d,cur,prv};
   }).filter(r=>r.cur.quotes>0||r.prv?.quotes>0);
 
@@ -1018,7 +1081,8 @@ function renderOpsStrip(cur,prv){
         {label:'Notes',key:'hasNotes'}
       ];
       const range=getPeriodRange(state.period);
-      const agg=aggDaily(DATA.dealers,range.start,range.end,state.dealer);
+      const fltH={source:state.source,status:state.status,matchSource:state.matchSource};
+      const agg=aggDaily(DATA.dealers,range.start,range.end,state.dealer,fltH);
       const items=fields.map(f=>({label:f.label,value:agg.quotes?agg[f.key]/agg.quotes:0}));
       drawHBar(c,items);
     }
@@ -1199,6 +1263,7 @@ function syncHash(){
   if(state.status)parts.push('status='+state.status);
   if(state.matchSource)parts.push('matchSource='+state.matchSource);
   if(!state.compare)parts.push('compare=off');
+  if(state.tab==='methodology')parts.push('tab=methodology');
   location.hash=parts.join('&');
 }
 function readHash(){
@@ -1211,6 +1276,7 @@ function readHash(){
     if(k==='status')state.status=v;
     if(k==='matchSource')state.matchSource=v;
     if(k==='compare')state.compare=v!=='off';
+    if(k==='tab')state.tab=v;
   });
 }
 
@@ -1219,9 +1285,10 @@ function exportCSV(type){
   let csv='';
   if(type==='dealers'){
     const range=getPeriodRange(state.period);
+    const fltC={source:state.source,status:state.status,matchSource:state.matchSource};
     csv='Dealer,Quotes,Units,Match Rate,Correction Rate,Rules %,Revenue,Cost,Margin,Conversion\n';
     DATA.dealers.forEach(d=>{
-      const a=aggDealer(d,range.start,range.end);
+      const a=aggDealer(d,range.start,range.end,fltC);
       csv+=`"${d.name}",${a.quotes},${a.units},${(a.matchRate*100).toFixed(1)}%,${(a.correctionRate*100).toFixed(1)}%,${(a.rulesRate*100).toFixed(1)}%,$${a.revenueUsd.toFixed(2)},$${a.totalCostUsd.toFixed(2)},${(a.margin*100).toFixed(1)}%,${(a.conversionRate*100).toFixed(1)}%\n`;
     });
   } else {
@@ -1240,6 +1307,168 @@ function exportCSV(type){
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);
   a.download=`aioe-${type}-${fmtDate(TODAY)}.csv`;a.click();
   URL.revokeObjectURL(a.href);
+}
+
+// ─── TAB SWITCHING ───
+document.getElementById('tab-bar').addEventListener('click',e=>{
+  const btn=e.target.closest('.tab-btn');if(!btn)return;
+  state.tab=btn.dataset.tab;syncHash();renderAll();
+});
+
+// ─── METHODOLOGY ───
+function renderMethodology(){
+  const sec=document.createElement('div');sec.className='meth';
+  sec.innerHTML=`
+<h2>How This Dashboard Works</h2>
+<p>Self-contained HTML artifact with all charts rendered via <code>&lt;canvas&gt;</code> (no external libraries). Data is aggregated client-side from a JSON payload of daily metrics per dealer. Period comparison shifts the date window backward by the same number of days.</p>
+<ul>
+  <li><strong>Aggregation</strong> &mdash; daily metric rows are summed across the selected period and dealer; rates (match, correction, conversion, margin) are derived from the summed numerators/denominators.</li>
+  <li><strong>Filter cascade</strong> &mdash; Source, Status, and Match Source filters scale all sections proportionally using daily sub-counts (e.g. <code>sourceEmail / quotes</code>). Quote Detail uses exact per-quote filtering.</li>
+  <li><strong>Period comparison</strong> &mdash; the previous period is the same-length window immediately before the current range. Deltas show absolute change; arrows indicate direction.</li>
+</ul>
+
+<h2>Billing Assumptions</h2>
+<ul>
+  <li><strong>Billable units</strong> = non-MANUAL line items + populated header fields (7 possible: customerName, customerEmail, customerPhone, accountNumber, deliveryAddress, requestedDeliveryDate, notes) + <code>rerunCount</code> per line item.</li>
+  <li><strong>Cost per ingestion</strong> = <code>min(units &times; perUnitRateCents, perIngestionCapCents)</code>. When the cap is hit, the excess is tracked as <code>capSavingsCents</code>.</li>
+  <li><strong>Monthly minimum</strong> applies at the dealer level via <code>monthlyMinimumCents</code>.</li>
+  <li><strong>AI cost</strong> = sum of <code>extractionCost</code> + <code>matchingCost</code> + <code>resolutionCost</code> from the LLM API calls.</li>
+  <li><strong>Margin</strong> = <code>(revenue &minus; AI cost) / revenue</code>, floored at 0%.</li>
+</ul>
+
+<h2>Metric Definitions</h2>
+<ul>
+  <li><strong>Match Rate</strong> &mdash; <code>matchedLineItems / totalLineItems</code>. A line item is "matched" if it has a non-null <code>matchedProductSku</code>.</li>
+  <li><strong>Correction Rate</strong> &mdash; <code>correctedItems / matchedLineItems</code>. A correction is detected when <code>matchedProductSku &ne; aiOriginalMatch.matchedProductSku</code> (the user changed the AI's initial match).</li>
+  <li><strong>Rules %</strong> &mdash; fraction of matches resolved by the deterministic rules engine vs. LLM vs. manual.</li>
+  <li><strong>Conversion</strong> &mdash; <code>convertedQuotes / completedQuotes</code>. A quote is "converted" when <code>convertedQuoteId</code> is populated.</li>
+</ul>
+
+<h2>Match Tier Hierarchy</h2>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Tier</th><th>Name</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>Exact SKU</td><td>Input matches a catalog SKU exactly</td></tr>
+    <tr><td>1</td><td>Dealer Rules</td><td>Matched by a dealer-specific tip/synonym rule</td></tr>
+    <tr><td>1.5</td><td>Structured Unambiguous</td><td>Parsed attributes resolve to a single product</td></tr>
+    <tr><td>2.5</td><td>Structured Resolved</td><td>Attributes narrow to a small set, resolved deterministically</td></tr>
+    <tr><td>2.7</td><td>Product Identity</td><td>Product identity match (e.g. different packaging)</td></tr>
+    <tr><td>3+</td><td>LLM Fallback</td><td>Sent to the LLM for semantic matching</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Database Tables &amp; Fields</h2>
+
+<h3>ai_draft_quote</h3>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Field</th><th>Type</th><th>Used For</th></tr></thead>
+  <tbody>
+    <tr><td><code>id</code></td><td>UUID</td><td>Quote identifier</td></tr>
+    <tr><td><code>"ecommerceConfigId"</code></td><td>UUID FK</td><td>Links to dealer</td></tr>
+    <tr><td><code>"createdAt"</code></td><td>timestamp</td><td>Period filtering</td></tr>
+    <tr><td><code>"processingStatus"</code></td><td>enum</td><td>COMPLETED, FAILED, PENDING, PROCESSING, REQUIRES_REVIEW</td></tr>
+    <tr><td><code>"source"</code></td><td>enum</td><td>EMAIL, UPLOAD, ADD_IN</td></tr>
+    <tr><td><code>"isActive"</code></td><td>boolean</td><td>Excludes deleted quotes</td></tr>
+    <tr><td><code>"convertedQuoteId"</code></td><td>UUID</td><td>Non-null = converted to order</td></tr>
+    <tr><td><code>"customerName"</code></td><td>text</td><td>Header field extraction rate</td></tr>
+    <tr><td><code>"customerEmail"</code></td><td>text</td><td>Header field extraction rate</td></tr>
+    <tr><td><code>"customerPhone"</code></td><td>text</td><td>Header field extraction rate</td></tr>
+    <tr><td><code>"accountNumber"</code></td><td>text</td><td>Header field extraction rate</td></tr>
+    <tr><td><code>"deliveryAddress"</code></td><td>text</td><td>Header field extraction rate</td></tr>
+    <tr><td><code>"requestedDeliveryDate"</code></td><td>text</td><td>Header field extraction rate</td></tr>
+    <tr><td><code>"notes"</code></td><td>text</td><td>Header field extraction rate</td></tr>
+    <tr><td><code>"senderEmail"</code></td><td>text</td><td>Unique senders count</td></tr>
+    <tr><td><code>"subject"</code></td><td>text</td><td>Quote detail display</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ai_draft_quote."lineItems" (JSONB array)</h3>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Field</th><th>Used For</th></tr></thead>
+  <tbody>
+    <tr><td><code>"matchedProductSku"</code></td><td>Match rate (non-null = matched)</td></tr>
+    <tr><td><code>"originalMatchSource"</code></td><td>RULES_ENGINE, LLM, or MANUAL</td></tr>
+    <tr><td><code>"rerunCount"</code></td><td>Adds to billable units</td></tr>
+    <tr><td><code>"aiOriginalMatch"."matchedProductSku"</code></td><td>Compared to current SKU to detect corrections</td></tr>
+    <tr><td><code>"confidence"</code></td><td>Confidence distribution chart</td></tr>
+    <tr><td><code>"isSectionLine"</code></td><td>Excluded from line item counts</td></tr>
+    <tr><td><code>"isDeleted"</code></td><td>Excluded from line item counts</td></tr>
+    <tr><td><code>"needsReview"</code></td><td>Flagged for manual review</td></tr>
+    <tr><td><code>"isConfirmed"</code></td><td>User confirmed the match</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ai_draft_quote."aiAnalysis" (JSONB)</h3>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Field</th><th>Used For</th></tr></thead>
+  <tbody>
+    <tr><td><code>"extractionCost"</code></td><td>LLM cost for document parsing</td></tr>
+    <tr><td><code>"matchingCost"</code></td><td>LLM cost for product matching</td></tr>
+    <tr><td><code>"resolutionCost"</code></td><td>LLM cost for ambiguity resolution</td></tr>
+    <tr><td><code>"processingError"</code></td><td>Error categorization</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ai_draft_quote."billingRate" (JSONB)</h3>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Field</th><th>Used For</th></tr></thead>
+  <tbody>
+    <tr><td><code>"perUnitRateCents"</code></td><td>Per-unit billing rate</td></tr>
+    <tr><td><code>"perIngestionCapCents"</code></td><td>Max charge per ingestion</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ecommerce_config</h3>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Field</th><th>Used For</th></tr></thead>
+  <tbody>
+    <tr><td><code>id</code></td><td>Dealer identifier (= <code>toolbx_id</code> in HubSpot)</td></tr>
+    <tr><td><code>name</code></td><td>Dealer name</td></tr>
+    <tr><td><code>"groupName"</code></td><td>Dealer group</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Knowledge Base Tables</h3>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Table</th><th>Key Fields</th><th>Role</th></tr></thead>
+  <tbody>
+    <tr><td><code>ai_draft_quote_tip</code></td><td><code>"ecommerceConfigId"</code>, <code>"for"</code>, <code>"tip"</code></td><td>Dealer-specific matching rules (flywheel)</td></tr>
+    <tr><td><code>ai_draft_quote_synonym</code></td><td><code>"from"</code>, <code>"to"</code></td><td>Global product name synonyms</td></tr>
+    <tr><td><code>ai_draft_quote_special_order_product</code></td><td><code>"pattern"</code>, <code>"type"</code></td><td>Special order detection patterns</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>ecommerce_setting</h3>
+<div style="overflow-x:auto">
+<table>
+  <thead><tr><th>Field</th><th>Used For</th></tr></thead>
+  <tbody>
+    <tr><td><code>"automations"."aioe"."rulesFirstMatching"</code></td><td>Whether dealer uses rules-first matching strategy</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>HubSpot Integration</h3>
+<p>Dealer links use <code>toolbx_id</code> custom property on HubSpot companies (portal 49044619) to construct direct links: <code>https://app.hubspot.com/contacts/49044619/record/0-2/{hs_object_id}</code>.</p>
+
+<h2>Pre-computed Snapshots</h2>
+<p>The <code>ai_draft_quote_stats_snapshot</code> table stores daily pre-aggregated metrics per dealer. Each row contains the counts shown in this dashboard (quotes, line items, matches by source, billing, costs, header field extraction counts, latency percentiles). The dashboard consumes these snapshots rather than querying raw quote data for performance.</p>
+`;
+  return sec;
 }
 
 // ─── RESIZE ───
