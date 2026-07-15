@@ -1,0 +1,1235 @@
+<title>TOOLBX AIOE — Product Usage Dashboard</title>
+<style>
+:root {
+  --bg: #f3f4f6; --bg-card: #ffffff; --bg-inset: #e9ebf0; --bg-hover: #f9fafb;
+  --fg: #111827; --fg2: #4b5563; --fg3: #9ca3af;
+  --border: #e5e7eb; --border-focus: #93c5fd;
+  --accent: #2563eb; --accent-hover: #1d4ed8; --accent-soft: #eff6ff; --accent-fg: #1e40af;
+  --good: #059669; --good-soft: #ecfdf5; --good-fg: #065f46;
+  --warn: #d97706; --warn-soft: #fffbeb; --warn-fg: #92400e;
+  --bad: #dc2626; --bad-soft: #fef2f2; --bad-fg: #991b1b;
+  --chart-1: #2563eb; --chart-2: #7c3aed; --chart-3: #0891b2;
+  --chart-prev: rgba(37,99,235,0.2);
+  --radius: 6px; --shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+@media (prefers-color-scheme:dark) { :root {
+  --bg: #0d1117; --bg-card: #161b22; --bg-inset: #1c2128; --bg-hover: #1c2128;
+  --fg: #e6edf3; --fg2: #8b949e; --fg3: #484f58;
+  --border: #30363d; --border-focus: #58a6ff;
+  --accent: #58a6ff; --accent-hover: #79b8ff; --accent-soft: #0d1d31; --accent-fg: #a5d6ff;
+  --good: #3fb950; --good-soft: #0d1f0d; --good-fg: #56d364;
+  --warn: #d29922; --warn-soft: #1f1802; --warn-fg: #e3b341;
+  --bad: #f85149; --bad-soft: #200c0b; --bad-fg: #ff7b72;
+  --chart-1: #58a6ff; --chart-2: #bc8cff; --chart-3: #39d2c0;
+  --chart-prev: rgba(88,166,255,0.18);
+}}
+:root[data-theme="dark"] {
+  --bg: #0d1117; --bg-card: #161b22; --bg-inset: #1c2128; --bg-hover: #1c2128;
+  --fg: #e6edf3; --fg2: #8b949e; --fg3: #484f58;
+  --border: #30363d; --border-focus: #58a6ff;
+  --accent: #58a6ff; --accent-hover: #79b8ff; --accent-soft: #0d1d31; --accent-fg: #a5d6ff;
+  --good: #3fb950; --good-soft: #0d1f0d; --good-fg: #56d364;
+  --warn: #d29922; --warn-soft: #1f1802; --warn-fg: #e3b341;
+  --bad: #f85149; --bad-soft: #200c0b; --bad-fg: #ff7b72;
+  --chart-1: #58a6ff; --chart-2: #bc8cff; --chart-3: #39d2c0;
+  --chart-prev: rgba(88,166,255,0.18);
+}
+:root[data-theme="light"] {
+  --bg: #f3f4f6; --bg-card: #ffffff; --bg-inset: #e9ebf0; --bg-hover: #f9fafb;
+  --fg: #111827; --fg2: #4b5563; --fg3: #9ca3af;
+  --border: #e5e7eb; --border-focus: #93c5fd;
+  --accent: #2563eb; --accent-hover: #1d4ed8; --accent-soft: #eff6ff; --accent-fg: #1e40af;
+  --good: #059669; --good-soft: #ecfdf5; --good-fg: #065f46;
+  --warn: #d97706; --warn-soft: #fffbeb; --warn-fg: #92400e;
+  --bad: #dc2626; --bad-soft: #fef2f2; --bad-fg: #991b1b;
+  --chart-1: #2563eb; --chart-2: #7c3aed; --chart-3: #0891b2;
+  --chart-prev: rgba(37,99,235,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--fg);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.app{max-width:1280px;margin:0 auto;padding:0 16px 64px}
+.app-header{display:flex;align-items:center;justify-content:space-between;padding:20px 0 12px;border-bottom:1px solid var(--border);margin-bottom:0}
+.app-header h1{font-size:18px;font-weight:700;letter-spacing:-0.01em}
+.app-header .eyebrow{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:2px}
+.app-header .subtitle{font-size:12px;color:var(--fg2);margin-top:2px}
+.header-actions{display:flex;gap:8px;align-items:center}
+
+.filter-bar{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:10px 0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.filter-chip{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);font-size:12px;font-weight:500;color:var(--fg2);cursor:pointer;user-select:none;white-space:nowrap;transition:border-color .15s,background .15s}
+.filter-chip:hover{border-color:var(--fg3);background:var(--bg-hover)}
+.filter-chip.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.filter-chip .arrow{font-size:8px;opacity:.5;margin-left:2px}
+.filter-sep{width:1px;height:20px;background:var(--border);margin:0 2px}
+.compare-btn{padding:5px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);font-size:12px;font-weight:500;color:var(--fg2);cursor:pointer}
+.compare-btn.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+
+.dropdown{position:absolute;z-index:200;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 12px rgba(0,0,0,.12);min-width:180px;max-height:320px;overflow-y:auto;display:none;padding:4px}
+.dropdown.show{display:block}
+.dd-item{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:4px;font-size:12px;color:var(--fg);cursor:pointer;white-space:nowrap}
+.dd-item:hover{background:var(--bg-inset)}
+.dd-item.selected{color:var(--accent);font-weight:600}
+.dd-item .check{width:14px;font-size:12px;color:var(--accent)}
+.dd-search{width:100%;padding:6px 8px;border:1px solid var(--border);border-radius:4px;font-size:12px;margin-bottom:4px;background:var(--bg);color:var(--fg);outline:none}
+.dd-search:focus{border-color:var(--border-focus)}
+
+.summary-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin:16px 0;font-size:13px;line-height:1.7;color:var(--fg2)}
+.summary-box strong{color:var(--fg);font-weight:600}
+.summary-box .hs-link{font-weight:600}
+
+.tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:16px 0}
+.tile{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;cursor:pointer;transition:border-color .15s,box-shadow .15s;position:relative}
+.tile:hover{border-color:var(--fg3);box-shadow:var(--shadow)}
+.tile.expanded{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.tile-label{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg3);margin-bottom:4px}
+.tile-value{font-size:22px;font-weight:700;color:var(--fg);font-variant-numeric:tabular-nums;letter-spacing:-0.02em}
+.tile-prev{font-size:11px;color:var(--fg3);font-variant-numeric:tabular-nums;margin-top:2px}
+.tile-delta{font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
+.tile canvas{width:100%;height:28px;margin-top:6px;display:block}
+.tile-expand{display:none;grid-column:1/-1;background:var(--bg-card);border:1px solid var(--accent);border-radius:var(--radius);padding:16px;margin-top:-5px}
+.tile-expand.show{display:block}
+
+.delta-up{color:var(--good)} .delta-down{color:var(--bad)} .delta-flat{color:var(--fg3)} .delta-new{color:var(--accent)}
+.delta-up-inv{color:var(--bad)} .delta-down-inv{color:var(--good)}
+
+.section{margin:24px 0}
+.section-title{font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--fg3);margin-bottom:12px}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chart-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px}
+.chart-box h3{font-size:12px;font-weight:600;color:var(--fg);margin-bottom:8px}
+.chart-box canvas{width:100%;height:220px;display:block}
+.chart-legend{display:flex;gap:14px;margin-top:8px;flex-wrap:wrap}
+.chart-legend-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--fg2)}
+.chart-legend-item .swatch{width:10px;height:3px;border-radius:1px}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card)}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:12px}
+thead{background:var(--bg-inset)}
+th{text-align:left;padding:8px 10px;font-weight:600;font-size:11px;letter-spacing:0.03em;text-transform:uppercase;color:var(--fg2);border-bottom:1px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--fg)}
+th .sort-arrow{font-size:9px;margin-left:2px;opacity:.4}
+th.sorted .sort-arrow{opacity:1;color:var(--accent)}
+td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--fg);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr.clickable{cursor:pointer}
+tr.clickable:hover td{background:var(--bg-hover)}
+
+.hs-link{color:var(--accent);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:4px;font-size:12px}
+.hs-link:hover{text-decoration:underline}
+.hs-badge{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;background:var(--accent);border-radius:3px;color:var(--bg-card);font-size:8px;font-weight:800;flex-shrink:0}
+.dealer-plain{font-weight:600;font-size:12px;color:var(--fg)}
+
+.pill{display:inline-block;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600;letter-spacing:0.02em}
+.pill-rules{background:var(--good-soft);color:var(--good-fg)}
+.pill-llm{background:var(--accent-soft);color:var(--accent-fg)}
+.pill-manual{background:var(--warn-soft);color:var(--warn-fg)}
+.pill-completed{background:var(--good-soft);color:var(--good-fg)}
+.pill-failed{background:var(--bad-soft);color:var(--bad-fg)}
+.pill-pending{background:var(--warn-soft);color:var(--warn-fg)}
+.pill-review{background:var(--accent-soft);color:var(--accent-fg)}
+.pill-new{background:var(--accent-soft);color:var(--accent-fg)}
+
+.ops-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:16px 0}
+.ops-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px}
+.ops-card h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:var(--fg3);margin-bottom:6px}
+.ops-card .val{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}
+.ops-card .sub{font-size:11px;color:var(--fg2);margin-top:2px}
+
+.quote-expand{display:none;background:var(--bg-inset);border-top:1px solid var(--border)}
+.quote-expand.show{display:table-row}
+.quote-expand td{padding:10px 14px}
+.li-table{width:100%;font-size:11px;border:1px solid var(--border);border-radius:4px;background:var(--bg-card)}
+.li-table th{font-size:10px;padding:5px 8px}
+.li-table td{padding:4px 8px;font-size:11px}
+.conf-bar{display:inline-block;height:6px;border-radius:3px;background:var(--accent);vertical-align:middle}
+.correction-mark{background:var(--warn-soft);border-radius:2px;padding:1px 4px}
+
+.csv-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 12px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);font-size:12px;font-weight:500;color:var(--fg2);cursor:pointer}
+.csv-btn:hover{border-color:var(--fg3);background:var(--bg-hover)}
+
+.empty-state{text-align:center;padding:40px;color:var(--fg3);font-size:13px}
+
+.tooltip{position:fixed;z-index:300;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:8px 10px;font-size:11px;box-shadow:0 4px 12px rgba(0,0,0,.15);pointer-events:none;display:none;max-width:260px;font-variant-numeric:tabular-nums}
+.tooltip.show{display:block}
+.tooltip .tt-label{color:var(--fg3);margin-bottom:2px}
+.tooltip .tt-value{color:var(--fg);font-weight:600}
+.tooltip .tt-delta{font-weight:600;margin-top:2px}
+
+.pace-label{display:inline-block;font-size:10px;color:var(--fg3);background:var(--bg-inset);padding:2px 6px;border-radius:3px;margin-left:6px;font-weight:500}
+
+@media(max-width:900px){.tiles{grid-template-columns:repeat(3,1fr)}.chart-grid{grid-template-columns:1fr}.ops-strip{grid-template-columns:1fr}}
+@media(max-width:600px){.tiles{grid-template-columns:repeat(2,1fr)}.filter-bar{gap:4px}}
+</style>
+
+<div class="app">
+  <header class="app-header">
+    <div>
+      <div class="eyebrow">TOOLBX AIOE</div>
+      <h1>Product Usage Dashboard</h1>
+      <div class="subtitle" id="date-range-label"></div>
+    </div>
+    <div class="header-actions">
+      <button class="csv-btn" onclick="exportCSV('dealers')">Export Dealers CSV</button>
+      <button class="csv-btn" onclick="exportCSV('quotes')">Export Quotes CSV</button>
+    </div>
+  </header>
+  <nav class="filter-bar" id="filter-bar"></nav>
+  <main id="main"></main>
+</div>
+<div class="tooltip" id="tooltip"></div>
+<div class="dropdown" id="dropdown"></div>
+
+<script>
+// ─── PRNG ───
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const R=mulberry32(2026);
+function rn(a,b){return a+(b-a)*R()}
+function ri(a,b){return Math.floor(rn(a,b+1))}
+
+// ─── SAMPLE DATA ───
+function genData(){
+  const dealers=[
+    {name:'Central Valley Building Supply',vol:12,mr:0.82,grp:'West Coast'},
+    {name:'Mohler Lumber Co',vol:8,mr:0.76,grp:'Pacific NW'},
+    {name:'State Lumber & Hardware',vol:9,mr:0.88,grp:'West Coast'},
+    {name:'Pacific Coast Millwork',vol:3,mr:0.70,grp:null},
+    {name:'Summit Building Materials',vol:10,mr:0.79,grp:'Mountain'},
+    {name:'Cascade Truss & Timber',vol:6,mr:0.81,grp:'Pacific NW'},
+    {name:'Heritage Hardwoods Inc',vol:4,mr:0.90,grp:null},
+    {name:'Mountain West Supply',vol:7,mr:0.74,grp:'Mountain'},
+    {name:'Lakeview Building Products',vol:5,mr:0.77,grp:'Midwest'},
+    {name:'Pioneer Building Center',vol:2,mr:0.72,grp:null}
+  ];
+  const uuids=[
+    '250e371d-3d82-46e7-8918-405fb0611318','f4cffe05-9b2a-4c8e-b1d3-7a6e5f892401',
+    'a83d2e1f-5c74-4b9a-ae82-3f1d6c8e9502','b72f4a3e-8d15-4e6c-9f73-2e5a1b7d8603',
+    'c61e3b2d-7f06-4d5b-8e64-1d4f0a6c7704','d50d2c1e-6e97-4c4a-7d55-0c3e9f5b6805',
+    'e49c1b0f-5d88-4b39-6c46-fb2d8e4a5906','f38b0a9e-4c79-4a28-5b37-ea1c7d394a07',
+    'a27a9f8d-3b6a-4917-4a28-d90b6c283b08','b169e87c-2a5b-4806-3919-c8fa5b172c09'
+  ];
+  const hsIds=['39312228506','38975296096','41023847152','40187654321','39856742310','38654921708','41298367045',null,'40512983476',null];
+  const hsMap={};
+  uuids.forEach((u,i)=>{if(hsIds[i])hsMap[u]={hsId:hsIds[i],hsName:dealers[i].name}});
+  const TODAY=new Date();TODAY.setHours(0,0,0,0);
+  const DAYS=90;
+  const startDate=new Date(TODAY);startDate.setDate(startDate.getDate()-DAYS+1);
+  const products=['2x4x8 SPF #2 KD','2x6x10 SPF #2','4x8 1/2" CDX Plywood','4x8 3/4" Sanded Plywood','5/8" Type X Drywall 4x8','1/2" Regular Drywall 4x12','30yr Arch Shingles Charcoal','Ice & Water Shield 200sqft','R-19 Fiberglass Batt 6.25x15','R-30 Blown-In Cellulose','1-1/4" Galv Roofing Nails 5lb','3" Deck Screws 1lb','4x4x10 PT #2 Ground Contact','6x6x12 PT #1','2x12x16 DFL #1','LVL 1.75x11.875x24','OSB 7/16 4x8','T1-11 Siding 4x8 8"OC','Simpson H2.5A Hurricane Tie','Simpson A35 Framing Angle','PVC Trim 1x4x18','Cedar 1x6x8 S4S','Hardie Plank 8.25x144','Trex Enhance 1x6x16 Clam Shell'];
+  const skus=products.map((_,i)=>'SKU-'+String(10000+i));
+  const subjects=['Quote Request - New Construction','RE: Material List for Project','Fwd: Lumber Order','Material Takeoff - Smith Residence','Bid Package - Commercial','Supply List - Renovation','Framing Package Request','Deck Materials Quote','Roofing Materials Order','Siding & Trim Quote'];
+  const senders=['orders@','purchasing@','mike.johnson@','sarah.chen@','bob.williams@','quotes@','estimating@','tom.garcia@','lisa.martinez@','dave.anderson@'];
+  const domains=['gmail.com','yahoo.com','outlook.com','contractor.com','buildpro.com'];
+  const errors=['PDF_PARSE_FAILURE','EXTRACTION_TIMEOUT','CATALOG_UNAVAILABLE','LLM_RATE_LIMIT','INVALID_FORMAT'];
+  const dealerData=dealers.map((d,di)=>{
+    const dm=[];
+    for(let day=0;day<DAYS;day++){
+      const dt=new Date(startDate);dt.setDate(dt.getDate()+day);
+      const dateStr=dt.toISOString().slice(0,10);
+      const dayOfWeek=dt.getDay();
+      const weekendFactor=dayOfWeek===0||dayOfWeek===6?0.3:1;
+      const trendFactor=1+day/DAYS*0.15;
+      const baseQ=Math.max(0,Math.round(d.vol/5*weekendFactor*trendFactor*rn(0.6,1.4)));
+      if(baseQ===0){dm.push(null);continue}
+      const completed=Math.max(0,baseQ-ri(0,Math.max(0,Math.floor(baseQ*0.08))));
+      const failed=ri(0,Math.min(2,baseQ-completed));
+      const review=Math.max(0,baseQ-completed-failed);
+      const converted=Math.round(completed*rn(0.55,0.75));
+      const liPerQ=rn(6,18);
+      const totalLI=Math.round(baseQ*liPerQ);
+      const dayMR=Math.min(0.98,d.mr+day/DAYS*0.06+rn(-0.04,0.04));
+      const matched=Math.round(totalLI*dayMR);
+      const corrected=Math.round(matched*rn(0.08,0.2)*(1-day/DAYS*0.3));
+      const rulesRate=Math.min(0.85,0.35+day/DAYS*0.25+rn(-0.05,0.05));
+      const ruleM=Math.round(matched*rulesRate);
+      const manualM=ri(0,Math.round(totalLI*0.03));
+      const llmM=Math.max(0,matched-ruleM-manualM);
+      const headerFields=7;
+      const unitsPerQ=Math.round(liPerQ-liPerQ*0.03+rn(3,headerFields)+rn(0,1));
+      const units=baseQ*unitsPerQ;
+      const rateCents=ri(3,8);
+      const capCents=ri(80,200);
+      const billedPerQ=Math.min(unitsPerQ*rateCents,capCents);
+      const billedCents=baseQ*billedPerQ;
+      const extCost=baseQ*rn(0.02,0.06);
+      const matchCost=llmM*rn(0.003,0.008);
+      const resCost=baseQ*rn(0.01,0.03);
+      const srcE=Math.round(baseQ*rn(0.3,0.5));
+      const srcA=Math.round(baseQ*rn(0.1,0.3)*(1+day/DAYS*0.5));
+      const srcU=Math.max(0,baseQ-srcE-srcA);
+      const pSec=rn(8,45);
+      dm.push({
+        date:dateStr,quotes:baseQ,completedQuotes:completed,failedQuotes:failed,
+        needsReviewQuotes:review,convertedQuotes:converted,
+        totalLineItems:totalLI,matchedLineItems:matched,correctedItems:corrected,
+        rulesEngineMatches:ruleM,llmMatches:llmM,manualMatches:manualM,
+        units:Math.round(units),billedCents:Math.round(billedCents),
+        extractionCostUsd:+extCost.toFixed(4),matchingCostUsd:+matchCost.toFixed(4),
+        resolutionCostUsd:+resCost.toFixed(4),
+        uniqueSenders:ri(1,Math.min(baseQ,5)),
+        sourceEmail:srcE,sourceUpload:srcU,sourceAddIn:srcA,
+        sumProcessingSeconds:Math.round(baseQ*pSec),
+        p50LatencySeconds:Math.round(pSec*0.7),p90LatencySeconds:Math.round(pSec*1.8),
+        hasCustomerName:Math.round(baseQ*rn(0.7,0.95)),hasCustomerEmail:Math.round(baseQ*rn(0.5,0.8)),
+        hasCustomerPhone:Math.round(baseQ*rn(0.3,0.6)),hasAccountNumber:Math.round(baseQ*rn(0.4,0.7)),
+        hasDeliveryAddress:Math.round(baseQ*rn(0.3,0.55)),hasRequestedDeliveryDate:Math.round(baseQ*rn(0.2,0.5)),
+        hasNotes:Math.round(baseQ*rn(0.4,0.65)),
+        rerunCount:ri(0,Math.round(baseQ*0.1)),capsHit:ri(0,Math.round(baseQ*0.15)),
+        capSavingsCents:ri(0,baseQ*5)
+      });
+    }
+    const dailyMetrics=dm.filter(Boolean);
+    const topSenders=Array.from({length:ri(3,6)},(_,si)=>({
+      email:senders[si%senders.length]+d.name.split(' ')[0].toLowerCase()+'.com',
+      quoteCount:ri(5,40),avgLineItems:+rn(8,16).toFixed(1)
+    })).sort((a,b)=>b.quoteCount-a.quoteCount);
+    return{
+      id:uuids[di],name:d.name,groupName:d.grp,
+      isRulesEnabled:di<8,
+      firstQuoteDate:dailyMetrics.length?dailyMetrics[0].date:null,
+      billingConfig:{perUnitRateCents:ri(3,8),perIngestionCapCents:ri(80,200),monthlyMinimumCents:ri(5000,15000)},
+      knowledgeBase:{tipCount:ri(5,50),synonymCount:ri(10,80),specialOrderProductCount:ri(2,20)},
+      dailyMetrics,topSenders
+    };
+  });
+
+  const quotes=[];
+  dealerData.forEach(dealer=>{
+    const nq=ri(8,15);
+    for(let qi=0;qi<nq;qi++){
+      const dayIdx=ri(DAYS-30,DAYS-1);
+      const dt=new Date(startDate);dt.setDate(dt.getDate()+dayIdx);
+      const nli=ri(4,16);
+      const lineItems=Array.from({length:nli},(_,li)=>{
+        const pidx=ri(0,products.length-1);
+        const conf=+rn(0.55,1.0).toFixed(3);
+        const ms=['RULES_ENGINE','RULES_ENGINE','RULES_ENGINE','LLM','LLM','MANUAL'][ri(0,5)];
+        const origSku=skus[pidx];
+        const wasCorrected=R()<0.12;
+        return{
+          lineItemId:`li-${dealer.id.slice(0,8)}-${qi}-${li}`,
+          originalDescription:products[pidx]+(R()>0.7?' '+ri(1,100)+'pc':''),
+          quantity:ri(1,200),unit:['EA','BDL','PC','LF','SF'][ri(0,4)],
+          matchedProductSku:wasCorrected?skus[(pidx+1)%skus.length]:origSku,
+          matchedProductName:wasCorrected?products[(pidx+1)%products.length]:products[pidx],
+          confidence:ms==='MANUAL'?null:conf,matchSource:ms,matchedVia:ms==='RULES_ENGINE'?'rule':ms==='LLM'?'llm':null,
+          rerunCount:ri(0,2),isSectionLine:R()<0.05,isDeleted:R()<0.03,
+          needsReview:R()<0.08,isConfirmed:R()>0.15,
+          aiOriginalSku:origSku,ocrConfidence:+rn(0.8,1.0).toFixed(2),
+          usedTipCount:ri(0,3),usedRuleCount:ri(0,5),usedSynonymCount:ri(0,2)
+        };
+      });
+      const matchedCount=lineItems.filter(l=>l.matchedProductSku&&!l.isSectionLine&&!l.isDeleted).length;
+      const corrCount=lineItems.filter(l=>l.aiOriginalSku&&l.matchedProductSku&&l.aiOriginalSku!==l.matchedProductSku).length;
+      const billableLI=lineItems.filter(l=>l.matchSource!=='MANUAL'&&!l.isSectionLine).length;
+      const headerCount=ri(3,7);const rerunU=lineItems.reduce((s,l)=>s+l.rerunCount,0);
+      const units=billableLI+headerCount+rerunU;
+      const rCents=dealer.billingConfig.perUnitRateCents;const capC=dealer.billingConfig.perIngestionCapCents;
+      const billed=capC?Math.min(units*rCents,capC):units*rCents;
+      const status=['COMPLETED','COMPLETED','COMPLETED','COMPLETED','COMPLETED','COMPLETED','COMPLETED','FAILED','PENDING','REQUIRES_REVIEW'][ri(0,9)];
+      quotes.push({
+        id:`q-${dealer.id.slice(0,8)}-${qi}`,createdAt:dt.toISOString(),dealerId:dealer.id,
+        subject:subjects[ri(0,subjects.length-1)],
+        senderEmail:senders[ri(0,senders.length-1)]+(dealer.name.split(' ')[0].toLowerCase())+'.com',
+        customerName:R()>0.2?['John Smith','Sarah Chen','Mike Johnson','Lisa Garcia','Bob Williams','Tom Anderson'][ri(0,5)]:null,
+        source:['EMAIL','EMAIL','EMAIL','UPLOAD','UPLOAD','ADD_IN','ADD_IN'][ri(0,6)],
+        processingStatus:status,isActive:true,
+        processingLatencySeconds:status==='COMPLETED'?ri(8,60):null,
+        errorMessage:status==='FAILED'?errors[ri(0,errors.length-1)]:null,
+        lineItemCount:nli,matchedItemCount:matchedCount,correctedItemCount:corrCount,
+        units,rerunUnits:rerunU,headerFieldCount:headerCount,sectionLineCount:lineItems.filter(l=>l.isSectionLine).length,
+        billedCents:billed,extractionCostUsd:+rn(0.02,0.06).toFixed(4),
+        matchingCostUsd:+rn(0.01,0.05).toFixed(4),resolutionCostUsd:+rn(0.005,0.025).toFixed(4),
+        convertedQuoteId:R()>0.35?`conv-${ri(1000,9999)}`:null,
+        lineItems
+      });
+    }
+  });
+  quotes.sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+
+  const confDist=Array.from({length:10},(_, i)=>({min:i/10,max:(i+1)/10,count:0}));
+  quotes.forEach(q=>q.lineItems.forEach(li=>{
+    if(li.confidence!=null){const b=Math.min(9,Math.floor(li.confidence*10));confDist[b].count++}
+  }));
+
+  const errCats={};
+  quotes.filter(q=>q.errorMessage).forEach(q=>{
+    if(!errCats[q.errorMessage])errCats[q.errorMessage]={error:q.errorMessage,count:0,lastSeen:q.createdAt,affectedDealers:new Set()};
+    errCats[q.errorMessage].count++;errCats[q.errorMessage].affectedDealers.add(q.dealerId);
+    if(q.createdAt>errCats[q.errorMessage].lastSeen)errCats[q.errorMessage].lastSeen=q.createdAt;
+  });
+  const errorCategories=Object.values(errCats).map(e=>({...e,affectedDealers:[...e.affectedDealers]})).sort((a,b)=>b.count-a.count);
+
+  const staleQueue=quotes.filter(q=>q.processingStatus==='PENDING'||q.processingStatus==='PROCESSING').slice(0,5).map(q=>({
+    id:q.id,dealerId:q.dealerId,status:q.processingStatus,
+    ageMinutes:ri(5,180),createdAt:q.createdAt,subject:q.subject
+  }));
+
+  return{generatedAt:new Date().toISOString(),hubspotMap:hsMap,hubspotPortalId:'49044619',
+    dealers:dealerData,quotes,confidenceDistribution:confDist,errorCategories,staleQueue};
+}
+
+const DATA=genData();
+
+// ─── STATE ───
+const state={
+  period:'this-month',dealer:null,source:null,status:null,matchSource:null,
+  sort:{col:'quotes',dir:'desc'},expandedTiles:new Set(),expandedQuotes:new Set(),
+  compare:true
+};
+
+// ─── DATE UTILS ───
+const TODAY=new Date();TODAY.setHours(0,0,0,0);
+function parseDate(s){const d=new Date(s+'T00:00:00');d.setHours(0,0,0,0);return d}
+function fmtDate(d){return d.toISOString().slice(0,10)}
+function addDays(d,n){const r=new Date(d);r.setDate(r.getDate()+n);return r}
+function startOfWeek(d){const r=new Date(d);const day=r.getDay();r.setDate(r.getDate()-(day===0?6:day-1));return r}
+function startOfMonth(d){return new Date(d.getFullYear(),d.getMonth(),1)}
+function endOfMonth(d){return new Date(d.getFullYear(),d.getMonth()+1,0)}
+function daysBetween(a,b){return Math.round((b-a)/864e5)}
+function fmtMon(d){return d.toLocaleDateString('en-US',{month:'short',year:'numeric'})}
+function fmtMonDay(d){return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})}
+
+function getPeriodRange(key){
+  const t=new Date(TODAY);
+  switch(key){
+    case'this-week':{const s=startOfWeek(t);return{start:s,end:t,label:'This week',totalDays:7,elapsed:daysBetween(s,t)+1}}
+    case'last-week':{const e=addDays(startOfWeek(t),-1);const s=addDays(e,-6);return{start:s,end:e,label:'Last week',totalDays:7,elapsed:7}}
+    case'this-month':{const s=startOfMonth(t);const e=endOfMonth(t);return{start:s,end:t,label:fmtMon(t),totalDays:daysBetween(s,e)+1,elapsed:daysBetween(s,t)+1}}
+    case'last-month':{const pm=new Date(t.getFullYear(),t.getMonth()-1,1);const e=endOfMonth(pm);return{start:pm,end:e,label:fmtMon(pm),totalDays:daysBetween(pm,e)+1,elapsed:daysBetween(pm,e)+1}}
+    case'this-quarter':{const qm=Math.floor(t.getMonth()/3)*3;const s=new Date(t.getFullYear(),qm,1);const e=new Date(t.getFullYear(),qm+3,0);return{start:s,end:t,label:`Q${qm/3+1} ${t.getFullYear()}`,totalDays:daysBetween(s,e)+1,elapsed:daysBetween(s,t)+1}}
+    case'last-30':{const s=addDays(t,-29);return{start:s,end:t,label:'Last 30 days',totalDays:30,elapsed:30}}
+    case'last-90':{const s=addDays(t,-89);return{start:s,end:t,label:'Last 90 days',totalDays:90,elapsed:90}}
+    default:return getPeriodRange('this-month');
+  }
+}
+function getPrevPeriod(range){
+  const len=daysBetween(range.start,range.end)+1;
+  const end=addDays(range.start,-1);
+  const start=addDays(end,-len+1);
+  return{start,end,label:'prev',totalDays:len,elapsed:len};
+}
+
+// ─── AGGREGATION ───
+function aggDaily(dealers,start,end,dealerId){
+  const s=fmtDate(start),e=fmtDate(end);
+  const acc={quotes:0,completedQuotes:0,failedQuotes:0,needsReviewQuotes:0,convertedQuotes:0,
+    totalLineItems:0,matchedLineItems:0,correctedItems:0,
+    rulesEngineMatches:0,llmMatches:0,manualMatches:0,
+    units:0,billedCents:0,extractionCostUsd:0,matchingCostUsd:0,resolutionCostUsd:0,
+    uniqueSenders:0,sourceEmail:0,sourceUpload:0,sourceAddIn:0,
+    p50Sum:0,p90Sum:0,dayCount:0,
+    hasCustomerName:0,hasCustomerEmail:0,hasCustomerPhone:0,hasAccountNumber:0,
+    hasDeliveryAddress:0,hasRequestedDeliveryDate:0,hasNotes:0,
+    rerunCount:0,capsHit:0,capSavingsCents:0};
+  const activeDealers=new Set();
+  const filtered=dealerId?dealers.filter(d=>d.id===dealerId):dealers;
+  filtered.forEach(d=>{
+    let hadActivity=false;
+    d.dailyMetrics.forEach(m=>{
+      if(m.date>=s&&m.date<=e){
+        Object.keys(acc).forEach(k=>{if(k!=='dayCount'&&k!=='p50Sum'&&k!=='p90Sum'&&m[k]!=null)acc[k]+=m[k]});
+        acc.p50Sum+=m.p50LatencySeconds||0;acc.p90Sum+=m.p90LatencySeconds||0;acc.dayCount++;
+        hadActivity=true;
+      }
+    });
+    if(hadActivity)activeDealers.add(d.id);
+  });
+  acc.activeDealers=activeDealers.size;
+  acc.matchRate=acc.totalLineItems?acc.matchedLineItems/acc.totalLineItems:0;
+  acc.correctionRate=acc.matchedLineItems?acc.correctedItems/acc.matchedLineItems:0;
+  acc.conversionRate=acc.completedQuotes?acc.convertedQuotes/acc.completedQuotes:0;
+  acc.failureRate=acc.quotes?acc.failedQuotes/acc.quotes:0;
+  acc.rulesRate=(acc.rulesEngineMatches+acc.llmMatches+acc.manualMatches)?acc.rulesEngineMatches/(acc.rulesEngineMatches+acc.llmMatches+acc.manualMatches):0;
+  acc.totalCostUsd=acc.extractionCostUsd+acc.matchingCostUsd+acc.resolutionCostUsd;
+  acc.revenueUsd=acc.billedCents/100;
+  acc.margin=acc.revenueUsd?Math.max(0,(acc.revenueUsd-acc.totalCostUsd)/acc.revenueUsd):0;
+  acc.p50Latency=acc.dayCount?acc.p50Sum/acc.dayCount:0;
+  acc.p90Latency=acc.dayCount?acc.p90Sum/acc.dayCount:0;
+  return acc;
+}
+
+function getDailyTimeSeries(dealers,start,end,dealerId){
+  const s=fmtDate(start),e=fmtDate(end);
+  const byDate={};
+  const filtered=dealerId?dealers.filter(d=>d.id===dealerId):dealers;
+  filtered.forEach(d=>{
+    d.dailyMetrics.forEach(m=>{
+      if(m.date>=s&&m.date<=e){
+        if(!byDate[m.date])byDate[m.date]={date:m.date,quotes:0,matchedLineItems:0,totalLineItems:0,correctedItems:0,
+          rulesEngineMatches:0,llmMatches:0,manualMatches:0,billedCents:0,
+          extractionCostUsd:0,matchingCostUsd:0,resolutionCostUsd:0,convertedQuotes:0,completedQuotes:0,
+          sourceEmail:0,sourceUpload:0,sourceAddIn:0,activeDealers:new Set()};
+        const bd=byDate[m.date];
+        ['quotes','matchedLineItems','totalLineItems','correctedItems','rulesEngineMatches','llmMatches','manualMatches',
+         'billedCents','extractionCostUsd','matchingCostUsd','resolutionCostUsd','convertedQuotes','completedQuotes',
+         'sourceEmail','sourceUpload','sourceAddIn'].forEach(k=>{bd[k]+=m[k]||0});
+        bd.activeDealers.add(d.id);
+      }
+    });
+  });
+  return Object.values(byDate).sort((a,b)=>a.date.localeCompare(b.date)).map(d=>({...d,activeDealers:d.activeDealers.size}));
+}
+
+function aggDealer(dealer,start,end){
+  const s=fmtDate(start),e=fmtDate(end);
+  const a={quotes:0,completedQuotes:0,failedQuotes:0,convertedQuotes:0,
+    totalLineItems:0,matchedLineItems:0,correctedItems:0,
+    rulesEngineMatches:0,llmMatches:0,manualMatches:0,
+    units:0,billedCents:0,extractionCostUsd:0,matchingCostUsd:0,resolutionCostUsd:0};
+  dealer.dailyMetrics.forEach(m=>{
+    if(m.date>=s&&m.date<=e)Object.keys(a).forEach(k=>{a[k]+=m[k]||0});
+  });
+  a.matchRate=a.totalLineItems?a.matchedLineItems/a.totalLineItems:0;
+  a.correctionRate=a.matchedLineItems?a.correctedItems/a.matchedLineItems:0;
+  a.conversionRate=a.completedQuotes?a.convertedQuotes/a.completedQuotes:0;
+  a.rulesRate=(a.rulesEngineMatches+a.llmMatches+a.manualMatches)?a.rulesEngineMatches/(a.rulesEngineMatches+a.llmMatches+a.manualMatches):0;
+  a.totalCostUsd=a.extractionCostUsd+a.matchingCostUsd+a.resolutionCostUsd;
+  a.revenueUsd=a.billedCents/100;
+  a.margin=a.revenueUsd?Math.max(0,(a.revenueUsd-a.totalCostUsd)/a.revenueUsd):0;
+  return a;
+}
+
+// ─── FORMAT UTILS ───
+function fmt(n,type){
+  switch(type){
+    case'pct':return(n*100).toFixed(1)+'%';
+    case'pp':return(n*100).toFixed(1)+'pp';
+    case'$':return'$'+n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
+    case'$2':return'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    case'int':return Math.round(n).toLocaleString();
+    default:return String(n);
+  }
+}
+
+const INVERTED_METRICS=new Set(['correctionRate','failureRate','internalCost','totalCostUsd','extractionCostUsd','matchingCostUsd','resolutionCostUsd']);
+const RATE_METRICS=new Set(['matchRate','correctionRate','conversionRate','failureRate','rulesRate','margin']);
+
+function deltaClass(diff,metric){
+  if(diff===0)return'delta-flat';
+  const inv=INVERTED_METRICS.has(metric);
+  const pos=diff>0;
+  if(inv)return pos?'delta-up-inv':'delta-down-inv';
+  return pos?'delta-up':'delta-down';
+}
+
+function fmtDelta(cur,prev,metric){
+  if(prev==null)return{text:'New',cls:'delta-new'};
+  const diff=cur-prev;
+  if(diff===0)return{text:'0',cls:'delta-flat'};
+  const isRate=RATE_METRICS.has(metric);
+  const cls=deltaClass(diff,metric);
+  let text;
+  if(isRate){
+    text=(diff>0?'+':'')+((diff)*100).toFixed(1)+'pp';
+  } else if(metric.includes('Cost')||metric.includes('revenue')||metric==='revenueUsd'){
+    const pct=prev!==0?((diff/prev)*100).toFixed(1):'∞';
+    text=(diff>0?'+':'')+fmt(diff,'$')+' ('+(diff>0?'+':'')+pct+'%)';
+  } else {
+    const pct=prev!==0?((diff/prev)*100).toFixed(1):'∞';
+    text=(diff>0?'+':'')+Math.round(diff).toLocaleString()+' ('+(diff>0?'+':'')+pct+'%)';
+  }
+  return{text,cls};
+}
+
+function hsLink(dealerId,name){
+  const hs=DATA.hubspotMap[dealerId];
+  if(!hs)return`<span class="dealer-plain">${esc(name)}</span>`;
+  return`<a class="hs-link" href="https://app.hubspot.com/contacts/${DATA.hubspotPortalId}/record/0-2/${hs.hsId}" target="_blank" rel="noopener"><span class="hs-badge">H</span> ${esc(name)}</a>`;
+}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+// ─── CHART ENGINE ───
+function initCanvas(canvas){
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  return{ctx,w:rect.width,h:rect.height};
+}
+
+function getStyle(prop){return getComputedStyle(document.documentElement).getPropertyValue(prop).trim()}
+
+function drawSparkline(canvas,values,color){
+  if(!values.length)return;
+  const{ctx,w,h}=initCanvas(canvas);
+  const max=Math.max(...values,1);const min=Math.min(...values,0);
+  const range=max-min||1;
+  const pad=2;const pw=w-pad*2;const ph=h-pad*2;
+  ctx.beginPath();
+  values.forEach((v,i)=>{
+    const x=pad+i/(values.length-1)*pw;
+    const y=pad+ph-(v-min)/range*ph;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.strokeStyle=color||getStyle('--accent');ctx.lineWidth=1.5;ctx.lineJoin='round';ctx.stroke();
+  ctx.lineTo(pad+pw,pad+ph);ctx.lineTo(pad,pad+ph);ctx.closePath();
+  ctx.fillStyle=(color||getStyle('--accent')).replace(')',',0.08)').replace('rgb','rgba');
+  ctx.fill();
+}
+
+function drawBarChart(canvas,data,prevData,opts={}){
+  const{ctx,w,h}=initCanvas(canvas);
+  const pad={top:20,right:16,bottom:36,left:48};
+  const pw=w-pad.left-pad.right;const ph=h-pad.top-pad.bottom;
+  const vals=data.map(d=>d.value);
+  const prevVals=prevData?prevData.map(d=>d.value):null;
+  const allVals=[...vals,...(prevVals||[])];
+  const maxV=Math.max(...allVals,1);
+  const gridLines=4;
+  ctx.font='10px system-ui';ctx.textAlign='right';ctx.textBaseline='middle';
+  ctx.fillStyle=getStyle('--fg3');
+  for(let i=0;i<=gridLines;i++){
+    const y=pad.top+ph-ph*i/gridLines;
+    const v=maxV*i/gridLines;
+    ctx.fillText(opts.fmtY?opts.fmtY(v):Math.round(v).toLocaleString(),pad.left-6,y);
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+pw,y);
+    ctx.strokeStyle=getStyle('--border');ctx.lineWidth=0.5;ctx.stroke();
+  }
+  const barW=Math.max(4,pw/data.length*0.6);
+  const gap=pw/data.length;
+  data.forEach((d,i)=>{
+    const x=pad.left+i*gap+gap/2;
+    const bh=ph*d.value/maxV;
+    if(prevVals&&prevVals[i]!=null){
+      const pbh=ph*prevVals[i]/maxV;
+      ctx.strokeStyle=getStyle('--chart-prev');ctx.lineWidth=1.5;
+      ctx.strokeRect(x-barW/2,pad.top+ph-pbh,barW,pbh);
+    }
+    ctx.fillStyle=opts.color||getStyle('--chart-1');
+    ctx.fillRect(x-barW/2,pad.top+ph-bh,barW,bh);
+    if(i%(Math.ceil(data.length/10))===0||data.length<=15){
+      ctx.fillStyle=getStyle('--fg3');ctx.font='9px system-ui';ctx.textAlign='center';
+      ctx.fillText(d.label,x,pad.top+ph+14);
+    }
+  });
+  if(opts.title){ctx.fillStyle=getStyle('--fg2');ctx.font='600 11px system-ui';ctx.textAlign='left';ctx.fillText(opts.title,pad.left,12)}
+}
+
+function drawLineChart(canvas,series,prevSeries,opts={}){
+  const{ctx,w,h}=initCanvas(canvas);
+  const pad={top:20,right:16,bottom:36,left:48};
+  const pw=w-pad.left-pad.right;const ph=h-pad.top-pad.bottom;
+  let maxV=0;
+  series.forEach(s=>{maxV=Math.max(maxV,...s.data.map(d=>d.value))});
+  if(prevSeries)prevSeries.forEach(s=>{maxV=Math.max(maxV,...s.data.map(d=>d.value))});
+  maxV=maxV||1;
+  if(opts.maxY)maxV=opts.maxY;
+  const gridLines=4;
+  ctx.font='10px system-ui';ctx.textAlign='right';ctx.textBaseline='middle';
+  for(let i=0;i<=gridLines;i++){
+    const y=pad.top+ph-ph*i/gridLines;const v=maxV*i/gridLines;
+    ctx.fillStyle=getStyle('--fg3');
+    ctx.fillText(opts.fmtY?opts.fmtY(v):Math.round(v).toLocaleString(),pad.left-6,y);
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+pw,y);
+    ctx.strokeStyle=getStyle('--border');ctx.lineWidth=0.5;ctx.stroke();
+  }
+  const colors=[getStyle('--chart-1'),getStyle('--chart-2'),getStyle('--chart-3')];
+  if(prevSeries){
+    prevSeries.forEach((s,si)=>{
+      if(!s.data.length)return;
+      ctx.beginPath();ctx.setLineDash([4,4]);ctx.strokeStyle=colors[si%3];ctx.globalAlpha=0.3;ctx.lineWidth=1.5;
+      s.data.forEach((d,i)=>{
+        const x=pad.left+i/(s.data.length-1)*pw;
+        const y=pad.top+ph-d.value/maxV*ph;
+        i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      });
+      ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+    });
+  }
+  series.forEach((s,si)=>{
+    if(!s.data.length)return;
+    ctx.beginPath();ctx.strokeStyle=s.color||colors[si%3];ctx.lineWidth=2;ctx.lineJoin='round';
+    s.data.forEach((d,i)=>{
+      const x=pad.left+i/(s.data.length-1)*pw;
+      const y=pad.top+ph-d.value/maxV*ph;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.stroke();
+    ctx.beginPath();
+    s.data.forEach((d,i)=>{
+      const x=pad.left+i/(s.data.length-1)*pw;
+      const y=pad.top+ph-d.value/maxV*ph;
+      ctx.moveTo(x+2.5,y);ctx.arc(x,y,2.5,0,Math.PI*2);
+    });
+    ctx.fillStyle=s.color||colors[si%3];ctx.fill();
+  });
+  if(series[0]&&series[0].data.length){
+    const labels=series[0].data;
+    const step=Math.max(1,Math.ceil(labels.length/10));
+    ctx.font='9px system-ui';ctx.textAlign='center';ctx.fillStyle=getStyle('--fg3');
+    labels.forEach((d,i)=>{if(i%step===0){
+      const x=pad.left+i/(labels.length-1)*pw;
+      ctx.fillText(d.label,x,pad.top+ph+14);
+    }});
+  }
+  if(opts.title){ctx.fillStyle=getStyle('--fg2');ctx.font='600 11px system-ui';ctx.textAlign='left';ctx.fillText(opts.title,pad.left,12)}
+}
+
+function drawStackedArea(canvas,seriesArr,opts={}){
+  const{ctx,w,h}=initCanvas(canvas);
+  const pad={top:20,right:16,bottom:36,left:48};
+  const pw=w-pad.left-pad.right;const ph=h-pad.top-pad.bottom;
+  const len=seriesArr[0]?.data.length||0;if(!len)return;
+  const totals=Array.from({length:len},(_,i)=>seriesArr.reduce((s,sr)=>s+(sr.data[i]?.value||0),0));
+  const maxV=Math.max(...totals,1);
+  const gridLines=4;
+  ctx.font='10px system-ui';ctx.textAlign='right';ctx.textBaseline='middle';
+  for(let i=0;i<=gridLines;i++){
+    const y=pad.top+ph-ph*i/gridLines;const v=maxV*i/gridLines;
+    ctx.fillStyle=getStyle('--fg3');ctx.fillText(Math.round(v).toLocaleString(),pad.left-6,y);
+    ctx.beginPath();ctx.moveTo(pad.left,y);ctx.lineTo(pad.left+pw,y);
+    ctx.strokeStyle=getStyle('--border');ctx.lineWidth=0.5;ctx.stroke();
+  }
+  const colors=[getStyle('--chart-1'),getStyle('--chart-2'),getStyle('--chart-3')];
+  for(let si=seriesArr.length-1;si>=0;si--){
+    ctx.beginPath();
+    const cumBelow=Array.from({length:len},(_,i)=>{
+      let s=0;for(let j=0;j<si;j++)s+=seriesArr[j].data[i]?.value||0;return s;
+    });
+    for(let i=0;i<len;i++){
+      const x=pad.left+i/(len-1)*pw;
+      const y=pad.top+ph-(cumBelow[i]+(seriesArr[si].data[i]?.value||0))/maxV*ph;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    for(let i=len-1;i>=0;i--){
+      const x=pad.left+i/(len-1)*pw;
+      const y=pad.top+ph-cumBelow[i]/maxV*ph;
+      ctx.lineTo(x,y);
+    }
+    ctx.closePath();ctx.fillStyle=colors[si%3];ctx.globalAlpha=0.5;ctx.fill();ctx.globalAlpha=1;
+    ctx.strokeStyle=colors[si%3];ctx.lineWidth=1.5;
+    ctx.beginPath();
+    for(let i=0;i<len;i++){
+      const x=pad.left+i/(len-1)*pw;
+      const y=pad.top+ph-(cumBelow[i]+(seriesArr[si].data[i]?.value||0))/maxV*ph;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.stroke();
+  }
+  if(seriesArr[0]?.data.length){
+    const labels=seriesArr[0].data;const step=Math.max(1,Math.ceil(labels.length/10));
+    ctx.font='9px system-ui';ctx.textAlign='center';ctx.fillStyle=getStyle('--fg3');
+    labels.forEach((d,i)=>{if(i%step===0){const x=pad.left+i/(labels.length-1)*pw;ctx.fillText(d.label,x,pad.top+ph+14)}});
+  }
+  if(opts.title){ctx.fillStyle=getStyle('--fg2');ctx.font='600 11px system-ui';ctx.textAlign='left';ctx.fillText(opts.title,pad.left,12)}
+}
+
+function drawDonut(canvas,segments,opts={}){
+  const{ctx,w,h}=initCanvas(canvas);
+  const cx=w/2;const cy=h/2;const r=Math.min(w,h)/2-20;const inner=r*0.55;
+  const total=segments.reduce((s,seg)=>s+seg.value,0)||1;
+  const colors=[getStyle('--chart-1'),getStyle('--chart-2'),getStyle('--chart-3'),getStyle('--fg3')];
+  let angle=-Math.PI/2;
+  segments.forEach((seg,i)=>{
+    const sweep=seg.value/total*Math.PI*2;
+    ctx.beginPath();ctx.moveTo(cx+inner*Math.cos(angle),cy+inner*Math.sin(angle));
+    ctx.arc(cx,cy,r,angle,angle+sweep);ctx.arc(cx,cy,inner,angle+sweep,angle,true);
+    ctx.closePath();ctx.fillStyle=seg.color||colors[i%4];ctx.fill();
+    angle+=sweep;
+  });
+  if(opts.centerText){
+    ctx.fillStyle=getStyle('--fg');ctx.font='700 16px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(opts.centerText,cx,cy-6);
+    if(opts.centerSub){ctx.fillStyle=getStyle('--fg3');ctx.font='10px system-ui';ctx.fillText(opts.centerSub,cx,cy+10)}
+  }
+}
+
+function drawHBar(canvas,items,opts={}){
+  const{ctx,w,h}=initCanvas(canvas);
+  const pad={top:8,right:50,bottom:8,left:120};
+  const pw=w-pad.left-pad.right;const ph=h-pad.top-pad.bottom;
+  const maxV=Math.max(...items.map(d=>d.value),0.01);
+  const barH=Math.min(20,ph/items.length*0.7);
+  const gap=ph/items.length;
+  items.forEach((d,i)=>{
+    const y=pad.top+i*gap+gap/2;
+    const bw=pw*d.value/maxV;
+    ctx.fillStyle=getStyle('--chart-1');ctx.globalAlpha=0.7;
+    ctx.fillRect(pad.left,y-barH/2,bw,barH);ctx.globalAlpha=1;
+    ctx.fillStyle=getStyle('--fg2');ctx.font='11px system-ui';ctx.textAlign='right';ctx.textBaseline='middle';
+    ctx.fillText(d.label,pad.left-8,y);
+    ctx.fillStyle=getStyle('--fg');ctx.textAlign='left';ctx.font='600 11px system-ui';
+    ctx.fillText((d.value*100).toFixed(0)+'%',pad.left+bw+6,y);
+  });
+}
+
+// ─── RENDER FUNCTIONS ───
+function renderAll(){
+  const range=getPeriodRange(state.period);
+  const prev=getPrevPeriod(range);
+  const cur=aggDaily(DATA.dealers,range.start,range.end,state.dealer);
+  const prv=aggDaily(DATA.dealers,prev.start,prev.end,state.dealer);
+  const ts=getDailyTimeSeries(DATA.dealers,range.start,range.end,state.dealer);
+  const prevTs=state.compare?getDailyTimeSeries(DATA.dealers,prev.start,prev.end,state.dealer):null;
+
+  document.getElementById('date-range-label').textContent=
+    fmtMonDay(range.start)+' – '+fmtMonDay(range.end)+
+    (range.elapsed<range.totalDays?` (${range.elapsed} of ${range.totalDays} days)`:'');
+
+  const main=document.getElementById('main');
+  main.innerHTML='';
+  main.appendChild(renderSummary(cur,prv,range,prev));
+  main.appendChild(renderTiles(cur,prv,range,ts));
+  main.appendChild(renderTrendCharts(ts,prevTs));
+  main.appendChild(renderSourceEconomics(ts,prevTs,cur,prv));
+  main.appendChild(renderDealerLeaderboard(range,prev));
+  main.appendChild(renderOpsStrip(cur,prv));
+  main.appendChild(renderQuoteDetail(range));
+}
+
+function renderSummary(cur,prv,range,prev){
+  const el=document.createElement('div');el.className='summary-box';
+  const topDealer=DATA.dealers.slice().sort((a,b)=>{
+    const aa=aggDealer(a,range.start,range.end);const bb=aggDealer(b,range.start,range.end);
+    return bb.quotes-aa.quotes;
+  })[0];
+  const topA=topDealer?aggDealer(topDealer,range.start,range.end):null;
+  const paceNote=range.elapsed<range.totalDays?` (${range.elapsed} of ~${range.totalDays} days)`:'';
+  const qDelta=state.compare?fmtDelta(cur.quotes,prv.quotes,'quotes'):{text:'',cls:''};
+  const mrDelta=state.compare?fmtDelta(cur.matchRate,prv.matchRate,'matchRate'):{text:'',cls:''};
+  el.innerHTML=`In <strong>${range.label}</strong>${paceNote}, <strong>${cur.activeDealers} active dealers</strong> processed <strong>${fmt(cur.quotes,'int')} quotes</strong>${state.compare?' ('+qDelta.text+' vs prev)':''}. Match rate: <strong>${fmt(cur.matchRate,'pct')}</strong>${state.compare?' ('+mrDelta.text+')':''}. Revenue: <strong>${fmt(cur.revenueUsd,'$')}</strong> at a <strong>${fmt(cur.margin,'pct')} margin</strong>. Rules engine handles <strong>${fmt(cur.rulesRate,'pct')}</strong> of matches. ${cur.failedQuotes?`<strong>${cur.failedQuotes}</strong> failed quotes.`:''} ${topDealer&&topA?`Top dealer: ${hsLink(topDealer.id,topDealer.name)} with ${topA.quotes} quotes.`:''}`;
+  return el;
+}
+
+function renderTiles(cur,prv,range,ts){
+  const wrap=document.createElement('div');
+  const tiles=[
+    {key:'quotes',label:'Quotes',value:fmt(cur.quotes,'int'),prev:prv.quotes,cur:cur.quotes,metric:'quotes',spark:ts.map(d=>d.quotes)},
+    {key:'dealers',label:'Active Dealers',value:cur.activeDealers,prev:prv.activeDealers,cur:cur.activeDealers,metric:'activeDealers',spark:[]},
+    {key:'matchRate',label:'Match Rate',value:fmt(cur.matchRate,'pct'),prev:prv.matchRate,cur:cur.matchRate,metric:'matchRate',
+      spark:ts.map(d=>d.totalLineItems?d.matchedLineItems/d.totalLineItems:0)},
+    {key:'correctionRate',label:'Correction Rate',value:fmt(cur.correctionRate,'pct'),prev:prv.correctionRate,cur:cur.correctionRate,metric:'correctionRate',
+      spark:ts.map(d=>d.matchedLineItems?d.correctedItems/d.matchedLineItems:0)},
+    {key:'revenue',label:'Revenue',value:fmt(cur.revenueUsd,'$'),prev:prv.revenueUsd,cur:cur.revenueUsd,metric:'revenueUsd',
+      spark:ts.map(d=>d.billedCents/100),sub:fmt(cur.margin,'pct')+' margin'},
+    {key:'conversion',label:'Conversion',value:fmt(cur.conversionRate,'pct'),prev:prv.conversionRate,cur:cur.conversionRate,metric:'conversionRate',
+      spark:ts.map(d=>d.completedQuotes?d.convertedQuotes/d.completedQuotes:0)}
+  ];
+  const grid=document.createElement('div');grid.className='tiles';
+  tiles.forEach(t=>{
+    const d=fmtDelta(t.cur,t.prev,t.metric);
+    const prevRange=getPrevPeriod(range);
+    const div=document.createElement('div');div.className='tile'+(state.expandedTiles.has(t.key)?' expanded':'');
+    div.innerHTML=`<div class="tile-label">${t.label}</div>
+      <div class="tile-value">${t.value}${t.sub?'<span style="font-size:11px;color:var(--fg3);margin-left:6px;font-weight:500">'+t.sub+'</span>':''}</div>
+      ${state.compare?`<div class="tile-prev">vs ${typeof t.prev==='number'&&t.metric&&RATE_METRICS.has(t.metric)?fmt(t.prev,'pct'):typeof t.prev==='number'&&(t.metric==='revenueUsd'||t.metric.includes('Cost'))?fmt(t.prev,'$'):typeof t.prev==='number'?fmt(t.prev,'int'):t.prev} prev</div>
+      <div class="tile-delta ${d.cls}">${d.text}</div>`:''}
+      ${range.elapsed<range.totalDays?`<span class="pace-label">${range.elapsed}/${range.totalDays} days</span>`:''}
+      <canvas></canvas>`;
+    div.onclick=()=>{
+      if(state.expandedTiles.has(t.key))state.expandedTiles.delete(t.key);else state.expandedTiles.add(t.key);
+      renderAll();
+    };
+    grid.appendChild(div);
+    requestAnimationFrame(()=>{
+      const c=div.querySelector('canvas');
+      if(c&&t.spark.length)drawSparkline(c,t.spark);
+    });
+  });
+  wrap.appendChild(grid);
+
+  const expandConfigs=[
+    {key:'quotes',title:'Daily Quote Volume',h:200,render:(c)=>{
+      const prevTsData=state.compare?getDailyTimeSeries(DATA.dealers,getPrevPeriod(range).start,getPrevPeriod(range).end,state.dealer):null;
+      drawBarChart(c,ts.map(d=>({label:d.date.slice(5),value:d.quotes})),prevTsData?prevTsData.map(d=>({value:d.quotes})):null);
+    }},
+    {key:'matchRate',title:'Confidence Distribution',h:180,render:(c)=>{
+      drawBarChart(c,DATA.confidenceDistribution.map(b=>({label:(b.min*100).toFixed(0)+'-'+(b.max*100).toFixed(0)+'%',value:b.count})),null,{color:getStyle('--chart-2')});
+    }},
+    {key:'revenue',title:'Cost Composition',h:180,render:(c)=>{
+      drawDonut(c,[
+        {label:'Extraction',value:cur.extractionCostUsd,color:getStyle('--chart-1')},
+        {label:'Matching',value:cur.matchingCostUsd,color:getStyle('--chart-2')},
+        {label:'Resolution',value:cur.resolutionCostUsd,color:getStyle('--chart-3')}
+      ],{centerText:fmt(cur.totalCostUsd,'$2'),centerSub:'Total cost'});
+    }}
+  ];
+  expandConfigs.forEach(cfg=>{
+    if(state.expandedTiles.has(cfg.key)){
+      const div=document.createElement('div');div.className='tile-expand show';
+      div.innerHTML=`<h3 style="font-size:12px;font-weight:600;margin-bottom:8px">${cfg.title}</h3><canvas style="width:100%;height:${cfg.h}px"></canvas>`;
+      wrap.appendChild(div);
+      requestAnimationFrame(()=>cfg.render(div.querySelector('canvas')));
+    }
+  });
+  return wrap;
+}
+
+function renderTrendCharts(ts,prevTs){
+  const sec=document.createElement('div');sec.className='section';
+  sec.innerHTML='<div class="section-title">Trends</div><div class="chart-grid"><div class="chart-box"><h3>Volume & Active Dealers</h3><canvas id="chart-volume"></canvas><div class="chart-legend"><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-1)"></span>Quotes</div><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-2)"></span>Active Dealers</div></div></div><div class="chart-box"><h3>AI Quality Metrics</h3><canvas id="chart-quality"></canvas><div class="chart-legend"><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-1)"></span>Match Rate</div><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-2)"></span>Correction Rate</div><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-3)"></span>Rules %</div></div></div></div>';
+  requestAnimationFrame(()=>{
+    const volCanvas=sec.querySelector('#chart-volume');
+    if(volCanvas){
+      drawBarChart(volCanvas,ts.map(d=>({label:d.date.slice(5),value:d.quotes})),
+        prevTs?prevTs.map(d=>({value:d.quotes})):null);
+    }
+    const qualCanvas=sec.querySelector('#chart-quality');
+    if(qualCanvas){
+      const mkSeries=(arr,fn,label)=>({label,data:arr.map(d=>({label:d.date.slice(5),value:fn(d)}))});
+      drawLineChart(qualCanvas,[
+        mkSeries(ts,d=>d.totalLineItems?d.matchedLineItems/d.totalLineItems:0,'Match Rate'),
+        mkSeries(ts,d=>d.matchedLineItems?d.correctedItems/d.matchedLineItems:0,'Correction Rate'),
+        mkSeries(ts,d=>{const t=d.rulesEngineMatches+d.llmMatches+d.manualMatches;return t?d.rulesEngineMatches/t:0},'Rules %')
+      ],prevTs?[
+        mkSeries(prevTs,d=>d.totalLineItems?d.matchedLineItems/d.totalLineItems:0,''),
+        mkSeries(prevTs,d=>d.matchedLineItems?d.correctedItems/d.matchedLineItems:0,''),
+        mkSeries(prevTs,d=>{const t=d.rulesEngineMatches+d.llmMatches+d.manualMatches;return t?d.rulesEngineMatches/t:0},'')
+      ]:null,{maxY:1,fmtY:v=>(v*100).toFixed(0)+'%'});
+    }
+  });
+  return sec;
+}
+
+function renderSourceEconomics(ts,prevTs,cur,prv){
+  const sec=document.createElement('div');sec.className='section';
+  sec.innerHTML='<div class="section-title">Source & Economics</div><div class="chart-grid"><div class="chart-box"><h3>Ingestion Channels</h3><canvas id="chart-source"></canvas><div class="chart-legend"><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-1)"></span>Email</div><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-2)"></span>Upload</div><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-3)"></span>Add-in</div></div></div><div class="chart-box"><h3>Revenue vs Cost</h3><canvas id="chart-revenue"></canvas><div class="chart-legend"><div class="chart-legend-item"><span class="swatch" style="background:var(--chart-1)"></span>Revenue</div><div class="chart-legend-item"><span class="swatch" style="background:var(--bad)"></span>Cost</div></div></div></div>';
+  requestAnimationFrame(()=>{
+    const srcCanvas=sec.querySelector('#chart-source');
+    if(srcCanvas&&ts.length){
+      drawStackedArea(srcCanvas,[
+        {label:'Email',data:ts.map(d=>({label:d.date.slice(5),value:d.sourceEmail}))},
+        {label:'Upload',data:ts.map(d=>({label:d.date.slice(5),value:d.sourceUpload}))},
+        {label:'Add-in',data:ts.map(d=>({label:d.date.slice(5),value:d.sourceAddIn}))}
+      ]);
+    }
+    const revCanvas=sec.querySelector('#chart-revenue');
+    if(revCanvas&&ts.length){
+      drawLineChart(revCanvas,[
+        {label:'Revenue',data:ts.map(d=>({label:d.date.slice(5),value:d.billedCents/100})),color:getStyle('--chart-1')},
+        {label:'Cost',data:ts.map(d=>({label:d.date.slice(5),value:d.extractionCostUsd+d.matchingCostUsd+d.resolutionCostUsd})),color:getStyle('--bad')}
+      ],null,{fmtY:v=>'$'+Math.round(v)});
+    }
+  });
+  return sec;
+}
+
+function renderDealerLeaderboard(range,prev){
+  const sec=document.createElement('div');sec.className='section';
+  let html='<div class="section-title">Dealer Leaderboard</div>';
+  const rows=DATA.dealers.map(d=>{
+    const cur=aggDealer(d,range.start,range.end);
+    const prv=state.compare?aggDealer(d,prev.start,prev.end):null;
+    return{dealer:d,cur,prv};
+  }).filter(r=>r.cur.quotes>0||r.prv?.quotes>0);
+
+  const sortKey=state.sort.col;const sortDir=state.sort.dir==='asc'?1:-1;
+  rows.sort((a,b)=>{
+    const av=a.cur[sortKey]??a.cur.quotes;const bv=b.cur[sortKey]??b.cur.quotes;
+    return(bv-av)*sortDir;
+  });
+
+  const cols=[
+    {key:'quotes',label:'Quotes',fmt:'int'},{key:'units',label:'Units',fmt:'int'},
+    {key:'matchRate',label:'Match Rate',fmt:'pct'},{key:'correctionRate',label:'Corr. Rate',fmt:'pct'},
+    {key:'rulesRate',label:'Rules %',fmt:'pct'},{key:'revenueUsd',label:'Revenue',fmt:'$'},
+    {key:'totalCostUsd',label:'Int. Cost',fmt:'$2'},{key:'margin',label:'Margin',fmt:'pct'},
+    {key:'conversionRate',label:'Conversion',fmt:'pct'}
+  ];
+  html+='<div class="tbl-wrap"><table><thead><tr><th>Dealer</th>';
+  cols.forEach(c=>{
+    const sorted=state.sort.col===c.key;
+    html+=`<th class="${sorted?'sorted':''}" data-col="${c.key}">${c.label} <span class="sort-arrow">${sorted?(state.sort.dir==='asc'?'▲':'▼'):'▼'}</span></th>`;
+    if(state.compare)html+=`<th style="font-size:10px;padding:8px 6px">Δ</th>`;
+  });
+  html+='<th>KB</th></tr></thead><tbody>';
+  rows.forEach(r=>{
+    html+=`<tr class="clickable" data-dealer-id="${r.dealer.id}">`;
+    html+=`<td style="white-space:nowrap">${hsLink(r.dealer.id,r.dealer.name)}</td>`;
+    cols.forEach(c=>{
+      html+=`<td>${fmt(r.cur[c.key],c.fmt)}</td>`;
+      if(state.compare){
+        if(r.prv&&r.prv.quotes>0){
+          const d=fmtDelta(r.cur[c.key],r.prv[c.key],c.key);
+          html+=`<td class="${d.cls}" style="font-size:11px;font-weight:600;white-space:nowrap">${d.text}</td>`;
+        } else if(r.prv&&r.prv.quotes===0&&r.cur.quotes>0){
+          html+=`<td><span class="pill pill-new">New</span></td>`;
+        } else {
+          html+=`<td>—</td>`;
+        }
+      }
+    });
+    html+=`<td style="font-size:11px;color:var(--fg2)">${r.dealer.knowledgeBase.tipCount}t / ${r.dealer.knowledgeBase.synonymCount}s / ${r.dealer.knowledgeBase.specialOrderProductCount}sop</td>`;
+    html+='</tr>';
+  });
+  html+='</tbody></table></div>';
+  sec.innerHTML=html;
+
+  sec.querySelectorAll('th[data-col]').forEach(th=>{
+    th.addEventListener('click',()=>{
+      const col=th.dataset.col;
+      if(state.sort.col===col)state.sort.dir=state.sort.dir==='desc'?'asc':'desc';
+      else{state.sort.col=col;state.sort.dir='desc'}
+      renderAll();
+    });
+  });
+  sec.querySelectorAll('tr[data-dealer-id]').forEach(tr=>{
+    tr.addEventListener('click',()=>{
+      state.dealer=state.dealer===tr.dataset.dealerId?null:tr.dataset.dealerId;
+      syncHash();renderAll();renderFilters();
+    });
+  });
+  return sec;
+}
+
+function renderOpsStrip(cur,prv){
+  const sec=document.createElement('div');sec.className='section';
+  sec.innerHTML=`<div class="section-title">Operational Health</div>
+    <div class="ops-strip">
+      <div class="ops-card"><h4>Failures</h4>
+        <div class="val" style="color:${cur.failedQuotes>0?'var(--bad)':'var(--good)'}">${cur.failedQuotes}</div>
+        <div class="sub">${fmt(cur.failureRate,'pct')} failure rate${state.compare?' ('+fmtDelta(cur.failureRate,prv.failureRate,'failureRate').text+')':''}</div>
+        ${DATA.errorCategories.length?'<div class="sub" style="margin-top:4px">Top: '+esc(DATA.errorCategories[0].error)+' ('+DATA.errorCategories[0].count+')</div>':''}
+      </div>
+      <div class="ops-card"><h4>Stale Queue</h4>
+        <div class="val">${DATA.staleQueue.length}</div>
+        <div class="sub">${DATA.staleQueue.length?'Oldest: '+DATA.staleQueue.reduce((m,q)=>Math.max(m,q.ageMinutes),0)+' min':'Queue clear'}</div>
+      </div>
+      <div class="ops-card"><h4>Latency</h4>
+        <div class="val">${Math.round(cur.p50Latency)}s <span style="font-size:12px;color:var(--fg3);font-weight:500">p50</span></div>
+        <div class="sub">${Math.round(cur.p90Latency)}s p90</div>
+      </div>
+    </div>`;
+
+  const hfSec=document.createElement('div');hfSec.className='chart-box';hfSec.style.marginTop='10px';
+  hfSec.innerHTML='<h3>Header Field Extraction Rates</h3><canvas id="chart-hf" style="width:100%;height:200px"></canvas>';
+  sec.appendChild(hfSec);
+  requestAnimationFrame(()=>{
+    const c=sec.querySelector('#chart-hf');
+    if(c){
+      const fields=[
+        {label:'Customer Name',key:'hasCustomerName'},{label:'Email',key:'hasCustomerEmail'},
+        {label:'Phone',key:'hasCustomerPhone'},{label:'Account #',key:'hasAccountNumber'},
+        {label:'Address',key:'hasDeliveryAddress'},{label:'Delivery Date',key:'hasRequestedDeliveryDate'},
+        {label:'Notes',key:'hasNotes'}
+      ];
+      const range=getPeriodRange(state.period);
+      const agg=aggDaily(DATA.dealers,range.start,range.end,state.dealer);
+      const items=fields.map(f=>({label:f.label,value:agg.quotes?agg[f.key]/agg.quotes:0}));
+      drawHBar(c,items);
+    }
+  });
+  return sec;
+}
+
+function renderQuoteDetail(range){
+  const sec=document.createElement('div');sec.className='section';
+  let quotes=DATA.quotes.filter(q=>{
+    const d=new Date(q.createdAt);d.setHours(0,0,0,0);
+    if(d<range.start||d>range.end)return false;
+    if(state.dealer&&q.dealerId!==state.dealer)return false;
+    if(state.source&&q.source!==state.source)return false;
+    if(state.status&&q.processingStatus!==state.status)return false;
+    return true;
+  });
+  if(state.matchSource){
+    quotes=quotes.filter(q=>q.lineItems.some(li=>li.matchSource===state.matchSource));
+  }
+
+  let html=`<div class="section-title">Quote Detail (${quotes.length})</div><div class="tbl-wrap"><table><thead><tr>
+    <th>Date</th><th>Dealer</th><th>Subject</th><th>Source</th><th>Status</th>
+    <th>Items</th><th>Match Rate</th><th>Units</th><th>Billed</th><th>Conv.</th>
+  </tr></thead><tbody>`;
+  quotes.slice(0,50).forEach(q=>{
+    const dealer=DATA.dealers.find(d=>d.id===q.dealerId);
+    const mr=q.lineItemCount?q.matchedItemCount/q.lineItemCount:0;
+    const expanded=state.expandedQuotes.has(q.id);
+    const statusCls={'COMPLETED':'pill-completed','FAILED':'pill-failed','PENDING':'pill-pending','PROCESSING':'pill-pending','REQUIRES_REVIEW':'pill-review'}[q.processingStatus]||'';
+    html+=`<tr class="clickable" data-quote-id="${q.id}">
+      <td style="white-space:nowrap">${q.createdAt.slice(0,10)}</td>
+      <td style="white-space:nowrap">${dealer?hsLink(dealer.id,dealer.name):esc(q.dealerId.slice(0,8))}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(q.subject)}</td>
+      <td><span class="pill pill-${q.source==='EMAIL'?'completed':q.source==='UPLOAD'?'pending':'review'}">${q.source}</span></td>
+      <td><span class="pill ${statusCls}">${q.processingStatus.replace('REQUIRES_','')}</span></td>
+      <td>${q.lineItemCount}</td><td>${fmt(mr,'pct')}</td><td>${q.units}</td>
+      <td>${fmt(q.billedCents/100,'$2')}</td>
+      <td>${q.convertedQuoteId?'<span class="pill pill-completed">Yes</span>':'—'}</td>
+    </tr>`;
+    if(expanded){
+      html+=`<tr class="quote-expand show"><td colspan="10"><table class="li-table"><thead><tr>
+        <th>Description</th><th>Qty</th><th>Matched SKU</th><th>Conf.</th><th>Source</th><th>Orig. SKU</th>
+      </tr></thead><tbody>`;
+      q.lineItems.forEach(li=>{
+        const corrected=li.aiOriginalSku&&li.matchedProductSku&&li.aiOriginalSku!==li.matchedProductSku;
+        const srcCls={'RULES_ENGINE':'pill-rules','LLM':'pill-llm','MANUAL':'pill-manual'}[li.matchSource]||'';
+        html+=`<tr${li.isSectionLine?' style="color:var(--fg3);font-style:italic"':''}${li.isDeleted?' style="text-decoration:line-through;opacity:.5"':''}>
+          <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis">${esc(li.originalDescription)}</td>
+          <td>${li.quantity} ${li.unit||''}</td>
+          <td>${corrected?'<span class="correction-mark">':''}<span>${esc(li.matchedProductSku||'—')}</span>${corrected?'</span>':''}</td>
+          <td>${li.confidence!=null?'<span class="conf-bar" style="width:'+Math.round(li.confidence*50)+'px"></span> '+(li.confidence*100).toFixed(0)+'%':'—'}</td>
+          <td><span class="pill ${srcCls}">${li.matchSource||'—'}</span></td>
+          <td style="color:${corrected?'var(--warn)':'var(--fg3)'}">${esc(li.aiOriginalSku||'—')}</td>
+        </tr>`;
+      });
+      html+='</tbody></table></td></tr>';
+    }
+  });
+  if(!quotes.length)html+='<tr><td colspan="10" class="empty-state">No quotes match the current filters.</td></tr>';
+  html+='</tbody></table></div>';
+  if(quotes.length>50)html+=`<div style="text-align:center;padding:12px;color:var(--fg3);font-size:12px">Showing 50 of ${quotes.length} quotes</div>`;
+  sec.innerHTML=html;
+
+  sec.querySelectorAll('tr[data-quote-id]').forEach(tr=>{
+    tr.addEventListener('click',()=>{
+      const id=tr.dataset.quoteId;
+      if(state.expandedQuotes.has(id))state.expandedQuotes.delete(id);else state.expandedQuotes.add(id);
+      renderAll();
+    });
+  });
+  return sec;
+}
+
+// ─── FILTER BAR ───
+const PERIODS=[
+  {key:'this-week',label:'This week'},{key:'last-week',label:'Last week'},
+  {key:'this-month',label:'This month'},{key:'last-month',label:'Last month'},
+  {key:'this-quarter',label:'This quarter'},
+  {key:'last-30',label:'Last 30 days'},{key:'last-90',label:'Last 90 days'}
+];
+const SOURCES=[{key:null,label:'All sources'},{key:'EMAIL',label:'Email'},{key:'UPLOAD',label:'Upload'},{key:'ADD_IN',label:'Add-in'}];
+const STATUSES=[{key:null,label:'All statuses'},{key:'COMPLETED',label:'Completed'},{key:'FAILED',label:'Failed'},{key:'PENDING',label:'Pending'},{key:'PROCESSING',label:'Processing'},{key:'REQUIRES_REVIEW',label:'Needs Review'}];
+const MATCH_SOURCES=[{key:null,label:'All match sources'},{key:'RULES_ENGINE',label:'Rules Engine'},{key:'LLM',label:'LLM'},{key:'MANUAL',label:'Manual'}];
+
+function renderFilters(){
+  const bar=document.getElementById('filter-bar');
+  const periodLabel=PERIODS.find(p=>p.key===state.period)?.label||'This month';
+  const dealerLabel=state.dealer?DATA.dealers.find(d=>d.id===state.dealer)?.name||'Dealer':'All dealers';
+  const sourceLabel=SOURCES.find(s=>s.key===state.source)?.label||'All sources';
+  const statusLabel=STATUSES.find(s=>s.key===state.status)?.label||'All statuses';
+  const msLabel=MATCH_SOURCES.find(s=>s.key===state.matchSource)?.label||'All match sources';
+
+  bar.innerHTML=`
+    <button class="filter-chip ${state.period!=='this-month'?'active':''}" data-filter="period">${periodLabel} <span class="arrow">▾</span></button>
+    <button class="compare-btn ${state.compare?'active':''}" id="compare-toggle">${state.compare?'Compare: On':'Compare: Off'}</button>
+    <div class="filter-sep"></div>
+    <button class="filter-chip ${state.dealer?'active':''}" data-filter="dealer">${state.dealer?dealerLabel.length>20?dealerLabel.slice(0,18)+'…':dealerLabel:'All dealers'} <span class="arrow">▾</span></button>
+    <button class="filter-chip ${state.source?'active':''}" data-filter="source">${sourceLabel} <span class="arrow">▾</span></button>
+    <button class="filter-chip ${state.status?'active':''}" data-filter="status">${statusLabel} <span class="arrow">▾</span></button>
+    <button class="filter-chip ${state.matchSource?'active':''}" data-filter="matchSource">${msLabel} <span class="arrow">▾</span></button>`;
+
+  document.getElementById('compare-toggle').addEventListener('click',()=>{
+    state.compare=!state.compare;syncHash();renderFilters();renderAll();
+  });
+
+  bar.querySelectorAll('.filter-chip').forEach(chip=>{
+    chip.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      showDropdown(chip,chip.dataset.filter);
+    });
+  });
+}
+
+function showDropdown(anchor,filterType){
+  const dd=document.getElementById('dropdown');
+  const rect=anchor.getBoundingClientRect();
+  dd.style.top=(rect.bottom+4)+'px';dd.style.left=rect.left+'px';
+  dd.className='dropdown show';
+
+  let items;
+  switch(filterType){
+    case'period':items=PERIODS.map(p=>({key:p.key,label:p.label,selected:state.period===p.key}));break;
+    case'source':items=SOURCES.map(s=>({key:s.key,label:s.label,selected:state.source===s.key}));break;
+    case'status':items=STATUSES.map(s=>({key:s.key,label:s.label,selected:state.status===s.key}));break;
+    case'matchSource':items=MATCH_SOURCES.map(s=>({key:s.key,label:s.label,selected:state.matchSource===s.key}));break;
+    case'dealer':
+      items=[{key:null,label:'All dealers',selected:!state.dealer},...DATA.dealers.map(d=>({key:d.id,label:d.name,selected:state.dealer===d.id}))];
+      break;
+  }
+
+  let html='';
+  if(filterType==='dealer')html+='<input class="dd-search" placeholder="Search dealers…" autofocus>';
+  items.forEach(item=>{
+    html+=`<div class="dd-item ${item.selected?'selected':''}" data-key="${item.key||''}">`+
+      `<span class="check">${item.selected?'✓':''}</span>${esc(item.label)}</div>`;
+  });
+  dd.innerHTML=html;
+
+  if(filterType==='dealer'){
+    const search=dd.querySelector('.dd-search');
+    search.addEventListener('input',()=>{
+      const q=search.value.toLowerCase();
+      dd.querySelectorAll('.dd-item').forEach(el=>{
+        const label=el.textContent.toLowerCase();
+        el.style.display=label.includes(q)?'':'none';
+      });
+    });
+    requestAnimationFrame(()=>search.focus());
+  }
+
+  dd.querySelectorAll('.dd-item').forEach(el=>{
+    el.addEventListener('click',()=>{
+      const key=el.dataset.key||null;
+      switch(filterType){
+        case'period':state.period=key||'this-month';break;
+        case'source':state.source=key;break;
+        case'status':state.status=key;break;
+        case'matchSource':state.matchSource=key;break;
+        case'dealer':state.dealer=key;break;
+      }
+      dd.className='dropdown';syncHash();renderFilters();renderAll();
+    });
+  });
+}
+
+document.addEventListener('click',(e)=>{
+  const dd=document.getElementById('dropdown');
+  if(!dd.contains(e.target)&&!e.target.closest('.filter-chip'))dd.className='dropdown';
+});
+
+// ─── URL HASH ───
+function syncHash(){
+  const parts=[];
+  if(state.period!=='this-month')parts.push('period='+state.period);
+  if(state.dealer)parts.push('dealer='+state.dealer);
+  if(state.source)parts.push('source='+state.source);
+  if(state.status)parts.push('status='+state.status);
+  if(state.matchSource)parts.push('matchSource='+state.matchSource);
+  if(!state.compare)parts.push('compare=off');
+  location.hash=parts.join('&');
+}
+function readHash(){
+  const h=location.hash.slice(1);if(!h)return;
+  h.split('&').forEach(p=>{
+    const[k,v]=p.split('=');
+    if(k==='period')state.period=v;
+    if(k==='dealer')state.dealer=v;
+    if(k==='source')state.source=v;
+    if(k==='status')state.status=v;
+    if(k==='matchSource')state.matchSource=v;
+    if(k==='compare')state.compare=v!=='off';
+  });
+}
+
+// ─── CSV EXPORT ───
+function exportCSV(type){
+  let csv='';
+  if(type==='dealers'){
+    const range=getPeriodRange(state.period);
+    csv='Dealer,Quotes,Units,Match Rate,Correction Rate,Rules %,Revenue,Cost,Margin,Conversion\n';
+    DATA.dealers.forEach(d=>{
+      const a=aggDealer(d,range.start,range.end);
+      csv+=`"${d.name}",${a.quotes},${a.units},${(a.matchRate*100).toFixed(1)}%,${(a.correctionRate*100).toFixed(1)}%,${(a.rulesRate*100).toFixed(1)}%,$${a.revenueUsd.toFixed(2)},$${a.totalCostUsd.toFixed(2)},${(a.margin*100).toFixed(1)}%,${(a.conversionRate*100).toFixed(1)}%\n`;
+    });
+  } else {
+    const range=getPeriodRange(state.period);
+    csv='Date,Dealer,Subject,Source,Status,Items,Match Rate,Units,Billed,Converted\n';
+    DATA.quotes.filter(q=>{
+      const d=new Date(q.createdAt);d.setHours(0,0,0,0);
+      return d>=range.start&&d<=range.end&&(!state.dealer||q.dealerId===state.dealer);
+    }).forEach(q=>{
+      const dealer=DATA.dealers.find(d=>d.id===q.dealerId);
+      const mr=q.lineItemCount?(q.matchedItemCount/q.lineItemCount*100).toFixed(1)+'%':'0%';
+      csv+=`${q.createdAt.slice(0,10)},"${dealer?.name||''}","${q.subject}",${q.source},${q.processingStatus},${q.lineItemCount},${mr},${q.units},$${(q.billedCents/100).toFixed(2)},${q.convertedQuoteId?'Yes':'No'}\n`;
+    });
+  }
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`aioe-${type}-${fmtDate(TODAY)}.csv`;a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ─── RESIZE ───
+let resizeTimer;
+window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(renderAll,200)});
+
+// ─── INIT ───
+readHash();renderFilters();renderAll();
+</script>
