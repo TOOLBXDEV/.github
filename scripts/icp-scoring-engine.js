@@ -118,13 +118,32 @@ async function fetchAllCompanies() {
   let after = undefined;
 
   while (true) {
-    const response = await client.crm.companies.searchApi.doSearch({
-      filterGroups: [],
-      properties: config.HUBSPOT_INPUT_PROPERTIES,
-      limit: BATCH_SIZE,
-      after: after,
-      sorts: [{ propertyName: 'hs_object_id', direction: 'ASCENDING' }],
-    });
+    let response;
+    let retries = 0;
+
+    while (retries < 4) {
+      try {
+        response = await client.crm.companies.searchApi.doSearch({
+          filterGroups: [],
+          properties: config.HUBSPOT_INPUT_PROPERTIES,
+          limit: BATCH_SIZE,
+          after: after,
+          sorts: [{ propertyName: 'hs_object_id', direction: 'ASCENDING' }],
+        });
+        break;
+      } catch (err) {
+        if (err.code === 429 || (err.response && err.response.status === 429)) {
+          retries++;
+          const wait = Math.pow(2, retries) * 1000;
+          console.log(`  Rate limited on fetch, retrying in ${wait / 1000}s (attempt ${retries}/4)...`);
+          await new Promise(r => setTimeout(r, wait));
+        } else {
+          throw err;
+        }
+      }
+    }
+
+    if (!response) throw new Error('Search API rate limit exceeded after 4 retries');
 
     companies.push(...response.results);
 
