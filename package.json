@@ -1,0 +1,12 @@
+{
+  "name": "toolbx-icp-scoring",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TOOLBX ICP scoring engine for HubSpot company records",
+  "scripts": {
+    "score": "node scripts/icp-scoring-engine.js"
+  },
+  "dependencies": {
+    "@hubspot/api-client": "^12.0.1"
+  }
+}
