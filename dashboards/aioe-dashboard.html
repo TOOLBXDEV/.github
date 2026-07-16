@@ -648,6 +648,49 @@ function initCanvas(canvas){
 
 function getStyle(prop){return getComputedStyle(document.documentElement).getPropertyValue(prop).trim()}
 
+const chartTip=document.getElementById('tooltip');
+function showChartTip(e,html){
+  chartTip.innerHTML=html;chartTip.classList.add('show');
+  const r=chartTip.getBoundingClientRect();
+  let x=e.clientX+12,y=e.clientY-8;
+  if(x+r.width>window.innerWidth-8)x=e.clientX-r.width-12;
+  if(y+r.height>window.innerHeight-8)y=e.clientY-r.height-8;
+  if(y<4)y=4;
+  chartTip.style.left=x+'px';chartTip.style.top=y+'px';
+}
+function hideChartTip(){chartTip.classList.remove('show')}
+
+function attachChartHover(canvas){
+  if(canvas._hoverBound)return;
+  canvas._hoverBound=true;
+  canvas.style.cursor='default';
+  canvas.addEventListener('mousemove',e=>{
+    const hits=canvas._hitRegions;if(!hits||!hits.length){hideChartTip();return}
+    const rect=canvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left,my=e.clientY-rect.top;
+    let found=null;
+    for(const h of hits){
+      if(h.type==='rect'){
+        if(mx>=h.x&&mx<=h.x+h.w&&my>=h.y&&my<=h.y+h.h)found=h;
+      }else if(h.type==='point'){
+        const dx=mx-h.x,dy=my-h.y;
+        if(dx*dx+dy*dy<=h.r*h.r)found=h;
+      }else if(h.type==='arc'){
+        const dx=mx-h.cx,dy=my-h.cy,dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist>=h.inner&&dist<=h.outer){
+          let a=Math.atan2(dy,dx);
+          const norm=a2=>{let v=a2%(Math.PI*2);if(v<-Math.PI/2)v+=Math.PI*2;return v};
+          const na=norm(a),ns=norm(h.startAngle),ne=norm(h.endAngle);
+          if(ne>ns?na>=ns&&na<=ne:na>=ns||na<=ne)found=h;
+        }
+      }
+    }
+    if(found){canvas.style.cursor='pointer';showChartTip(e,found.html)}
+    else{canvas.style.cursor='default';hideChartTip()}
+  });
+  canvas.addEventListener('mouseleave',()=>{hideChartTip();canvas.style.cursor='default'});
+}
+
 function drawSparkline(canvas,values,color){
   if(!values.length)return;
   const{ctx,w,h}=initCanvas(canvas);
@@ -686,6 +729,7 @@ function drawBarChart(canvas,data,prevData,opts={}){
   }
   const barW=Math.max(4,pw/data.length*0.6);
   const gap=pw/data.length;
+  const hits=[];
   data.forEach((d,i)=>{
     const x=pad.left+i*gap+gap/2;
     const bh=ph*d.value/maxV;
@@ -700,7 +744,12 @@ function drawBarChart(canvas,data,prevData,opts={}){
       ctx.fillStyle=getStyle('--fg3');ctx.font='9px system-ui';ctx.textAlign='center';
       ctx.fillText(d.label,x,pad.top+ph+14);
     }
+    const fv=opts.fmtY?opts.fmtY(d.value):Math.round(d.value).toLocaleString();
+    let tipHtml='<div class="tt-label">'+d.label+'</div><div class="tt-value">'+fv+'</div>';
+    if(prevVals&&prevVals[i]!=null){const pv=opts.fmtY?opts.fmtY(prevVals[i]):Math.round(prevVals[i]).toLocaleString();tipHtml+='<div class="tt-delta" style="color:var(--fg3)">Prev: '+pv+'</div>'}
+    hits.push({type:'rect',x:x-gap/2,y:pad.top,w:gap,h:ph,html:tipHtml});
   });
+  canvas._hitRegions=hits;attachChartHover(canvas);
   if(data.length>1){
     const total=vals.reduce((a,b)=>a+b,0);
     const lbl=opts.fmtY?opts.fmtY(total):'Total: '+Math.round(total).toLocaleString();
@@ -775,6 +824,30 @@ function drawLineChart(canvas,series,prevSeries,opts={}){
       ctx.fillText(d.label,x,pad.top+ph+14);
     }});
   }
+  const lineHits=[];
+  if(series[0]&&series[0].data.length){
+    const len=series[0].data.length;
+    const colW=len>1?pw/(len-1):pw;
+    for(let i=0;i<len;i++){
+      const cx=pad.left+i/(Math.max(len-1,1))*pw;
+      let html='<div class="tt-label">'+(series[0].data[i].label||'')+'</div>';
+      series.forEach((s,si)=>{
+        if(!s.data[i])return;
+        const fv=opts.fmtY?opts.fmtY(s.data[i].value):Math.round(s.data[i].value).toLocaleString();
+        const c=s.color||colors[si%3];
+        html+='<div style="color:'+c+'" class="tt-value">'+(s.name?s.name+': ':'')+fv+'</div>';
+      });
+      if(prevSeries){
+        prevSeries.forEach((s,si)=>{
+          if(!s.data[i])return;
+          const fv=opts.fmtY?opts.fmtY(s.data[i].value):Math.round(s.data[i].value).toLocaleString();
+          html+='<div class="tt-delta" style="color:var(--fg3)">Prev'+(s.name?' '+s.name:'')+': '+fv+'</div>';
+        });
+      }
+      lineHits.push({type:'rect',x:cx-colW/2,y:pad.top,w:colW,h:ph,html});
+    }
+  }
+  canvas._hitRegions=lineHits;attachChartHover(canvas);
   if(opts.title){ctx.fillStyle=getStyle('--fg2');ctx.font='600 11px system-ui';ctx.textAlign='left';ctx.fillText(opts.title,pad.left,12)}
 }
 
@@ -831,6 +904,21 @@ function drawStackedArea(canvas,seriesArr,opts={}){
     ctx.font='9px system-ui';ctx.textAlign='center';ctx.fillStyle=getStyle('--fg3');
     labels.forEach((d,i)=>{if(i%step===0){const x=pad.left+i/(labels.length-1)*pw;ctx.fillText(d.label,x,pad.top+ph+14)}});
   }
+  const areaHits=[];
+  if(len>0){
+    const colW=len>1?pw/(len-1):pw;
+    for(let i=0;i<len;i++){
+      const cx=pad.left+i/(Math.max(len-1,1))*pw;
+      let html='<div class="tt-label">'+(seriesArr[0].data[i]?.label||'')+'</div>';
+      seriesArr.forEach((s,si)=>{
+        const v=s.data[i]?.value||0;const c=colors[si%3];
+        html+='<div style="color:'+c+'" class="tt-value">'+(s.name?s.name+': ':'')+Math.round(v).toLocaleString()+'</div>';
+      });
+      html+='<div class="tt-delta" style="color:var(--fg3)">Total: '+Math.round(totals[i]).toLocaleString()+'</div>';
+      areaHits.push({type:'rect',x:cx-colW/2,y:pad.top,w:colW,h:ph,html});
+    }
+  }
+  canvas._hitRegions=areaHits;attachChartHover(canvas);
   if(opts.title){ctx.fillStyle=getStyle('--fg2');ctx.font='600 11px system-ui';ctx.textAlign='left';ctx.fillText(opts.title,pad.left,12)}
 }
 
@@ -861,6 +949,15 @@ function drawDonut(canvas,segments,opts={}){
     ctx.fillText(opts.centerText,cx,cy-6);
     if(opts.centerSub){ctx.fillStyle=getStyle('--fg3');ctx.font='10px system-ui';ctx.fillText(opts.centerSub,cx,cy+10)}
   }
+  const donutHits=[];let a2=-Math.PI/2;
+  segments.forEach((seg,i)=>{
+    const sweep=seg.value/total*Math.PI*2;
+    const pct=(seg.value/total*100).toFixed(1);
+    const html='<div class="tt-label">'+(seg.label||'')+'</div><div class="tt-value">'+Math.round(seg.value).toLocaleString()+' ('+pct+'%)</div>';
+    donutHits.push({type:'arc',cx,cy,inner,outer:r,startAngle:a2,endAngle:a2+sweep,html});
+    a2+=sweep;
+  });
+  canvas._hitRegions=donutHits;attachChartHover(canvas);
 }
 
 function drawHBar(canvas,items,opts={}){
@@ -870,6 +967,7 @@ function drawHBar(canvas,items,opts={}){
   const maxV=Math.max(...items.map(d=>d.value),0.01);
   const barH=Math.min(20,ph/items.length*0.7);
   const gap=ph/items.length;
+  const hbarHits=[];
   items.forEach((d,i)=>{
     const y=pad.top+i*gap+gap/2;
     const bw=pw*d.value/maxV;
@@ -879,7 +977,9 @@ function drawHBar(canvas,items,opts={}){
     ctx.fillText(d.label,pad.left-8,y);
     ctx.fillStyle=getStyle('--fg');ctx.textAlign='left';ctx.font='600 11px system-ui';
     ctx.fillText((d.value*100).toFixed(0)+'%',pad.left+bw+6,y);
+    hbarHits.push({type:'rect',x:pad.left,y:y-gap/2,w:pw,h:gap,html:'<div class="tt-label">'+d.label+'</div><div class="tt-value">'+(d.value*100).toFixed(1)+'%</div>'});
   });
+  canvas._hitRegions=hbarHits;attachChartHover(canvas);
 }
 
 // ─── RENDER FUNCTIONS ───
