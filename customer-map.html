@@ -1,0 +1,1052 @@
+<title>Customer Locations</title>
+<style>
+  :root {
+    --water: #e6ece7;
+    --land: #cdd8ce;
+    --land-stroke: #b3c1b5;
+    --border-country: #9aab9d;
+    --border-state: #bfccc0;
+    --graticule: rgba(155, 170, 157, 0.25);
+    --dot-fill: #2b5f5b;
+    --dot-stroke: #1a3f3c;
+    --dot-glow: rgba(43, 95, 91, 0.22);
+    --dot-hover-fill: #1a3f3c;
+    --dot-hover-glow: rgba(43, 95, 91, 0.45);
+    --text-primary: #1b2e22;
+    --text-secondary: #5c7260;
+    --text-tertiary: #8a9e8d;
+    --tooltip-bg: #fbfcfb;
+    --tooltip-border: #cdd8ce;
+    --tooltip-shadow: rgba(27, 46, 34, 0.1);
+    --card-bg: rgba(230, 236, 231, 0.5);
+    --stat-accent: #2b5f5b;
+  }
+  :root[data-theme="dark"] {
+    --water: #141e18;
+    --land: #1f2e24;
+    --land-stroke: #2d3f32;
+    --border-country: #3b4f3f;
+    --border-state: #293a2e;
+    --graticule: rgba(59, 79, 63, 0.2);
+    --dot-fill: #58b0a8;
+    --dot-stroke: #72ccc4;
+    --dot-glow: rgba(88, 176, 168, 0.18);
+    --dot-hover-fill: #72ccc4;
+    --dot-hover-glow: rgba(88, 176, 168, 0.4);
+    --text-primary: #c4d6c8;
+    --text-secondary: #7e9682;
+    --text-tertiary: #546e58;
+    --tooltip-bg: #1a2a1f;
+    --tooltip-border: #2d3f32;
+    --tooltip-shadow: rgba(0, 0, 0, 0.35);
+    --card-bg: rgba(31, 46, 36, 0.5);
+    --stat-accent: #58b0a8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --water: #141e18;
+      --land: #1f2e24;
+      --land-stroke: #2d3f32;
+      --border-country: #3b4f3f;
+      --border-state: #293a2e;
+      --graticule: rgba(59, 79, 63, 0.2);
+      --dot-fill: #58b0a8;
+      --dot-stroke: #72ccc4;
+      --dot-glow: rgba(88, 176, 168, 0.18);
+      --dot-hover-fill: #72ccc4;
+      --dot-hover-glow: rgba(88, 176, 168, 0.4);
+      --text-primary: #c4d6c8;
+      --text-secondary: #7e9682;
+      --text-tertiary: #546e58;
+      --tooltip-bg: #1a2a1f;
+      --tooltip-border: #2d3f32;
+      --tooltip-shadow: rgba(0, 0, 0, 0.35);
+      --card-bg: rgba(31, 46, 36, 0.5);
+      --stat-accent: #58b0a8;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 16px 32px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  }
+
+  .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 4px 14px;
+    border-bottom: 1px solid var(--border-state);
+    margin-bottom: 16px;
+  }
+  .header-left h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .header-left p {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .header-stats {
+    display: flex;
+    gap: 20px;
+    align-items: baseline;
+  }
+  .stat {
+    text-align: right;
+  }
+  .stat-val {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--stat-accent);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-label {
+    font-size: 0.625rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .map-frame {
+    position: relative;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--water);
+    border: 1px solid var(--land-stroke);
+  }
+  .canvas-stack {
+    position: relative;
+    width: 100%;
+  }
+  .canvas-stack canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  #overlayCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+
+  .tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: var(--tooltip-bg);
+    border: 1px solid var(--tooltip-border);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: var(--text-primary);
+    box-shadow: 0 3px 10px var(--tooltip-shadow);
+    opacity: 0;
+    transition: opacity 0.12s ease;
+    z-index: 10;
+    white-space: nowrap;
+    line-height: 1.35;
+    max-width: 260px;
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip .t-name {
+    font-weight: 600;
+    font-size: 0.8125rem;
+  }
+  .tooltip .t-count {
+    color: var(--text-secondary);
+    font-size: 0.6875rem;
+    margin-top: 1px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 560px) {
+    .header { flex-direction: column; gap: 8px; }
+    .header-stats { align-self: flex-start; }
+    .page { padding: 12px 8px 24px; }
+  }
+</style>
+
+<div class="page">
+  <div class="header">
+    <div class="header-left">
+      <h1>Customer Locations</h1>
+      <p>North America</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat">
+        <div class="stat-val" id="statCustomers">129</div>
+        <div class="stat-label">Companies</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val" id="statLocations">450</div>
+        <div class="stat-label">Active Stores</div>
+      </div>
+    </div>
+  </div>
+  <div class="map-frame">
+    <div class="canvas-stack" id="canvasStack">
+      <canvas id="baseCanvas"></canvas>
+      <canvas id="overlayCanvas"></canvas>
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var customers = [
+    [-95.368,29.759,'ASO ROOFING SUPPLY','Houston'],
+    [-95.397,29.945,'ASO ROOFING SUPPLY','Houston North'],
+    [-92.133745,31.683227,'Ace Family Hardware (Family Hardware Inc.)','Jena'],
+    [-82.3235,42.9368,'Advanced Building Materials','Sarnia'],
+    [-96.997785,32.745965,'All Roofing Supply','Grand Prairie'],
+    [-118.3965,34.0211,'Anawalt Lumber','Culver City'],
+    [-118.2437,34.0522,'Anawalt Lumber','Los Angeles'],
+    [-118.439,34.2819,'Anawalt Lumber','San Fernando'],
+    [-118.2702,34.0869,'Anawalt Lumber','Silver Lake'],
+    [-118.3617,34.09,'Anawalt Lumber','West Hollywood'],
+    [-71.2662,41.6771,'Arnold Lumber','Bristol'],
+    [-72.0995,41.3557,'Arnold Lumber','New London'],
+    [-71.5017,41.4412,'Arnold Lumber','Wakefield'],
+    [-71.5695,41.4968,'Arnold Lumber','West Kingston'],
+    [-71.8273,41.3776,'Arnold Lumber','Westerly'],
+    [-122.2727,37.8716,'Ashby Lumber','Berkeley'],
+    [-122.0311,37.978,'Ashby Lumber','Concord'],
+    [-91.582,41.6763,'Beisser Lumber','Coralville'],
+    [-94.168,42.4975,'Beisser Lumber','Fort Dodge'],
+    [-93.7908,41.6867,'Beisser Lumber','Grimes'],
+    [-71.822,43.4368,'Belletetes','Andover'],
+    [-71.6302,43.6945,'Belletetes','Ashland'],
+    [-71.6579,42.737,'Belletetes','Brookline'],
+    [-72.0235,42.815,'Belletetes','Jaffrey'],
+    [-71.3968,43.7559,'Belletetes','Moultonborough'],
+    [-71.4676,42.7654,'Belletetes','Nashua'],
+    [-71.4579,43.1545,'Belletetes','Pembroke'],
+    [-71.9518,42.8709,'Belletetes','Peterborough'],
+    [-72.0873,43.3876,'Belletetes','Sunapee'],
+    [-72.044,42.6862,'Belletetes','Winchendon'],
+    [-81.9773,36.7101,'Berry Home Centers','Abingdon'],
+    [-81.6699,36.794,'Berry Home Centers','Chilhowie'],
+    [-96.625268,32.329311,'Blackland Building Supply','Ennis'],
+    [-83.2113,42.5467,'Bolyard Lumber','Birmingham'],
+    [-83.1432,42.6548,'Bolyard Lumber','Rochester Hills'],
+    [-87.657584,44.088606,'Braun Building Center','Manitowoc'],
+    [-79.5614,43.7697,'Bromon Lumber','Woodbridge'],
+    [-86.615223,33.204552,'Brown Lumber & Building Supply','Columbiana'],
+    [-80.5795,35.4088,'Builders FirstSource','Concord'],
+    [-96.9489,32.814,'Builders FirstSource','Irving'],
+    [-80.8101,35.5849,'Builders FirstSource','Mooresville'],
+    [-80.8873,35.7826,'Builders FirstSource','Statesville'],
+    [-74.4121,40.5187,'Builders\' General','Edison'],
+    [-74.2743,40.2604,'Builders\' General','Freehold'],
+    [-74.0454,40.3454,'Builders\' General','Little Silver'],
+    [-74.1979,39.9537,'Builders\' General','Toms River'],
+    [-74.9902,40.7598,'Builders\' General','Washington'],
+    [-70.7998,42.6224,'Building Center Inc','Essex'],
+    [-70.662,42.6159,'Building Center Inc','Gloucester'],
+    [-74.857735,40.095418,'CBM Construction Building Materials','Bristol'],
+    [-94.7993,32.1532,'Cassity Jones Building Materials','Henderson'],
+    [-94.8758,32.3862,'Cassity Jones Building Materials','Kilgore'],
+    [-94.7405,32.5007,'Cassity Jones Building Materials','Longview'],
+    [-94.3674,32.5449,'Cassity Jones Building Materials','Marshall'],
+    [-78.8275,43.8922,'Central Ontario Trim Supply','Oshawa'],
+    [-122.9158,39.0432,'Central Valley','Lakeport'],
+    [-122.2869,38.2975,'Central Valley','Napa'],
+    [-122.7141,38.4404,'Central Valley','Santa Rosa'],
+    [-122.458,38.2919,'Central Valley','Sonoma'],
+    [-122.4702,38.5055,'Central Valley','St. Helena'],
+    [-123.2078,39.1502,'Central Valley','Ukiah'],
+    [-71.246132,42.062661,'Chace Building Supply','Foxborough'],
+    [-64.240499,44.54359,'Chester Building Supplies Ltd','Chester'],
+    [-78.6909,43.8978,'Clarington Home Hardware Building Centre','Bowmanville'],
+    [-71.4453,42.4851,'Concord Building & Design Center','Acton'],
+    [-71.3489,42.4604,'Concord Building & Design Center','Concord'],
+    [-71.4912,42.5382,'Concord Building & Design Center','Littleton'],
+    [-72.519876,42.373195,'Cowls Building Supply','Amherst'],
+    [-70.812,42.1126,'DB&S Lumber','Hanover'],
+    [-70.7937,42.1617,'DB&S Lumber','Norwell'],
+    [-70.9395,42.2209,'DB&S Lumber','Weymouth'],
+    [-93.2777,44.7677,'Dakota County Lumber','Burnsville'],
+    [-93.14355,44.640244,'Dakota County Lumber','Farmington'],
+    [-92.64544,44.032592,'Destination Building Center, Inc','Byron'],
+    [-122.411343,37.772983,'Discount Builders Supply & Hardware','San Francisco'],
+    [-91.1871,30.4515,'Doug Ashy Building Materials','Baton Rouge'],
+    [-91.8993,30.2735,'Doug Ashy Building Materials','Breaux Bridge'],
+    [-90.1009,30.4854,'Doug Ashy Building Materials','Covington'],
+    [-92.4177,30.4941,'Doug Ashy Building Materials','Eunice'],
+    [-90.9201,30.2388,'Doug Ashy Building Materials','Gonzales'],
+    [-92.0198,30.2241,'Doug Ashy Building Materials','Lafayette'],
+    [-92.0815,30.5335,'Doug Ashy Building Materials','Opelousas'],
+    [-92.2685,30.2349,'Doug Ashy Building Materials','Rayne'],
+    [-91.1565,30.6485,'Doug Ashy Building Materials','Zachary'],
+    [-79.438423,43.640227,'Downtown Bath & Tile','Toronto'],
+    [-79.38084,43.660576,'Downtown Lumber','Toronto'],
+    [-118.678211,49.093934,'Downtown Rental','Greenwood'],
+    [-122.3045,49.0504,'Dryco Building Supplies','Abbotsford'],
+    [-122.9805,49.2488,'Dryco Building Supplies','Burnaby'],
+    [-121.9514,49.1579,'Dryco Building Supplies','Chilliwack'],
+    [-120.3273,50.6745,'Dryco Building Supplies','Kamloops'],
+    [-122.6604,49.1042,'Dryco Building Supplies','Langley'],
+    [-122.849,49.1913,'Dryco Building Supplies','Surrey'],
+    [-119.272,50.2671,'Dryco Building Supplies','Vernon'],
+    [-90.0004,29.9577,'Dufrene Building Materials','Arabi'],
+    [-89.9906,29.8558,'Dufrene Building Materials','Belle Chasse'],
+    [-90.3381,29.5427,'Dufrene Building Materials','Cut Off'],
+    [-89.9873,29.2363,'Dufrene Building Materials','Grand Isle'],
+    [-89.0928,30.3674,'Dufrene Building Materials','Gulfport'],
+    [-90.4612,30.5044,'Dufrene Building Materials','Hammond'],
+    [-90.3685,29.9302,'Dufrene Building Materials','Luling'],
+    [-87.2169,30.4213,'Dufrene Building Materials','Pensacola'],
+    [-89.7812,30.2752,'Dufrene Building Materials','Slidell'],
+    [-90.8229,29.7958,'Dufrene Building Materials','Thibodaux'],
+    [-73.9442,40.6782,'Dykes Lumber Company','Brooklyn'],
+    [-73.8371,40.9126,'Dykes Lumber Company','Mount Vernon'],
+    [-74.006,40.7128,'Dykes Lumber Company','New York'],
+    [-74.0121,40.8043,'Dykes Lumber Company','North Bergen'],
+    [-73.9471,41.0526,'Dykes Lumber Company','Orangeburg'],
+    [-73.8987,40.9313,'Dykes Lumber Company','Yonkers'],
+    [-79.9745,43.2256,'Fairway','Hamilton'],
+    [-75.387862,40.044015,'Frogale Lumber Supply','Wayne'],
+    [-76.3055,40.0379,'GR Mitchell, Inc','Lancaster'],
+    [-76.2763,39.9793,'GR Mitchell, Inc','Willow Street'],
+    [-90.1009,30.4854,'Gabriel Building Supply','Covington'],
+    [-90.4414,30.4388,'Gabriel Building Supply','Ponchatoula'],
+    [-69.8332,44.4475,'Gagne & Son LLC','Belgrade'],
+    [-69.5948,44.5884,'Gagne & Son LLC','Fairfield'],
+    [-70.1515,44.672,'Gagne & Son LLC','Farmington'],
+    [-69.7907,44.2868,'Gagne & Son LLC','Hallowell'],
+    [-69.719,44.7651,'Gagne & Son LLC','Skowhegan'],
+    [-69.6317,44.552,'Gagne & Son LLC','Waterville'],
+    [-69.979,44.329,'Gagne & Son LLC','Winthrop'],
+    [-90.7043,35.8423,'Gazaway Lumber Co','Jonesboro'],
+    [-90.4973,36.0584,'Gazaway Lumber Co','Paragould'],
+    [-79.4625,43.9966,'Gibsons Building Supplies','Aurora'],
+    [-79.6903,44.3894,'Gibsons Building Supplies','Barrie'],
+    [-79.7328,43.8765,'Gibsons Building Supplies','Bolton'],
+    [-79.7624,43.7315,'Gibsons Building Supplies','Brampton'],
+    [-79.4613,44.0592,'Gibsons Building Supplies','Newmarket'],
+    [-79.4197,44.6082,'Gibsons Building Supplies','Orillia'],
+    [-79.2434,43.971,'Gibsons Building Supplies','Stouffville'],
+    [-79.1236,44.1084,'Gibsons Building Supplies','Uxbridge'],
+    [-93.09,44.9537,'Glenbrook Building Supply','Saint Paul'],
+    [-93.1471,45.0791,'Glenbrook Building Supply','Shoreview'],
+    [-77.9928,35.3849,'Goldsboro Builders Supply','Goldsboro'],
+    [-77.3664,35.6127,'Goldsboro Builders Supply','Greenville'],
+    [-77.5816,35.2627,'Goldsboro Builders Supply','Kinston'],
+    [-77.7905,35.9382,'Goldsboro Builders Supply','Rocky Mount'],
+    [-78.3394,35.5085,'Goldsboro Builders Supply','Smithfield'],
+    [-77.9156,35.7213,'Goldsboro Builders Supply','Wilson'],
+    [-98.495141,29.4246,'Guido Materials (Guido Companies)','San Antonio'],
+    [-155.09,19.7297,'HPM Building Supply','Hilo'],
+    [-157.8583,21.3069,'HPM Building Supply','Honolulu'],
+    [-156.4729,20.8893,'HPM Building Supply','Kahului'],
+    [-159.338,22.0881,'HPM Building Supply','Kapaa'],
+    [-155.0372,19.6225,'HPM Building Supply','Keaau'],
+    [-155.9969,19.64,'HPM Building Supply','Kona'],
+    [-159.3711,21.9811,'HPM Building Supply','Lihue'],
+    [-157.9731,21.3972,'HPM Building Supply','Pearl City'],
+    [-155.672,20.0231,'HPM Building Supply','Waimea'],
+    [-74.696693,40.241393,'Hamilton Building Supply','Hamilton'],
+    [-70.2312,44.0979,'Hammond Lumber','Auburn'],
+    [-68.7778,44.8012,'Hammond Lumber','Bangor'],
+    [-68.2039,44.3876,'Hammond Lumber','Bar Harbor'],
+    [-69.0064,44.4259,'Hammond Lumber','Belfast'],
+    [-69.8332,44.4475,'Hammond Lumber','Belgrade'],
+    [-68.5877,44.4006,'Hammond Lumber','Blue Hill'],
+    [-69.6282,43.8507,'Hammond Lumber','Boothbay Harbor'],
+    [-69.9653,43.9145,'Hammond Lumber','Brunswick'],
+    [-68.7953,44.5737,'Hammond Lumber','Bucksport'],
+    [-67.2764,45.1839,'Hammond Lumber','Calais'],
+    [-69.0647,44.2097,'Hammond Lumber','Camden'],
+    [-68.0117,46.8606,'Hammond Lumber','Caribou'],
+    [-69.5187,44.0326,'Hammond Lumber','Damariscotta'],
+    [-68.4195,44.5434,'Hammond Lumber','Ellsworth'],
+    [-69.5948,44.5884,'Hammond Lumber','Fairfield'],
+    [-70.1515,44.672,'Hammond Lumber','Farmington'],
+    [-69.5907,45.4598,'Hammond Lumber','Greenville'],
+    [-69.7907,44.2868,'Hammond Lumber','Hallowell'],
+    [-68.8367,44.7448,'Hammond Lumber','Hampden'],
+    [-67.8403,46.1261,'Hammond Lumber','Houlton'],
+    [-70.2595,45.6312,'Hammond Lumber','Jackman'],
+    [-68.505,45.362,'Hammond Lumber','Lincoln'],
+    [-67.4612,44.7151,'Hammond Lumber','Machias'],
+    [-68.7095,45.6573,'Hammond Lumber','Millinocket'],
+    [-70.5445,44.2138,'Hammond Lumber','Norway'],
+    [-69.3816,44.7814,'Hammond Lumber','Pittsfield'],
+    [-70.2568,43.6591,'Hammond Lumber','Portland'],
+    [-68.0159,46.6812,'Hammond Lumber','Presque Isle'],
+    [-69.1089,44.1037,'Hammond Lumber','Rockland'],
+    [-70.3217,43.5784,'Hammond Lumber','Scarborough'],
+    [-69.719,44.7651,'Hammond Lumber','Skowhegan'],
+    [-70.2284,44.5931,'Hammond Lumber','Wilton'],
+    [-69.979,44.329,'Hammond Lumber','Winthrop'],
+    [-70.1868,43.8001,'Hammond Lumber','Yarmouth'],
+    [-82.0601,32.396,'Handy Andy / SMD, Inc.','Metter'],
+    [-82.5921,32.3771,'Handy Andy / SMD, Inc.','Soperton'],
+    [-81.7832,32.4488,'Handy Andy / SMD, Inc.','Statesboro'],
+    [-82.334,32.5946,'Handy Andy / SMD, Inc.','Swainsboro'],
+    [-82.4132,32.2176,'Handy Andy / SMD, Inc.','Vidalia'],
+    [-83.2351,34.3701,'Harbin Lumber','Carnesville'],
+    [-83.4571,34.2037,'Harbin Lumber','Commerce'],
+    [-83.2218,34.1237,'Harbin Lumber','Danielsville'],
+    [-82.8688,34.1112,'Harbin Lumber','Elberton'],
+    [-82.9321,34.3526,'Harbin Lumber','Hartwell'],
+    [-83.4994,34.3326,'Harbin Lumber','Homer'],
+    [-83.1068,34.4351,'Harbin Lumber','Lavonia'],
+    [-83.1101,34.2868,'Harbin Lumber','Royston'],
+    [-83.3318,34.5774,'Harbin Lumber','Toccoa'],
+    [-82.7393,33.7368,'Harbin Lumber','Washington'],
+    [-121.95,37.2872,'Hayward Lumber','Campbell'],
+    [-119.8276,34.4358,'Hayward Lumber','Goleta'],
+    [-121.9166,36.6177,'Hayward Lumber','Pacific Grove'],
+    [-122.2364,37.4852,'Hayward Lumber','Redwood City'],
+    [-121.6555,36.6777,'Hayward Lumber','Salinas'],
+    [-120.6596,35.2828,'Hayward Lumber','San Luis Obispo'],
+    [-119.6982,34.4208,'Hayward Lumber','Santa Barbara'],
+    [-120.4357,34.953,'Hayward Lumber','Santa Maria'],
+    [-123.5334,38.7663,'Healdsburg Lumber Company','Gualala'],
+    [-122.8695,38.6108,'Healdsburg Lumber Company','Healdsburg'],
+    [-83.9016,33.8384,'Hill\'s Supply Company','Loganville'],
+    [-83.7201,33.9932,'Hill\'s Supply Company','Winder'],
+    [-95.3775,45.8852,'Hilltop Lumber','Alexandria'],
+    [-95.3903,45.6497,'Hilltop Lumber','Glenwood'],
+    [-95.5578,46.4402,'Hilltop Lumber','Ottertail'],
+    [-95.0589,46.9224,'Hilltop Lumber','Park Rapids'],
+    [-70.803557,42.241016,'Hingham Lumber','Cohasset'],
+    [-84.593012,35.442886,'Hiwassee Builders Supply','Athens'],
+    [-81.2509,43.7385,'Hodgins Building Centre','Brussels'],
+    [-80.8829,43.9026,'Hodgins Building Centre','Harriston'],
+    [-81.3127,43.8862,'Hodgins Building Centre','Wingham'],
+    [-91.1237,30.4508,'Holmes Building Materials','Baton Rouge'],
+    [-90.9598,30.4891,'Holmes Building Materials','Denham Springs'],
+    [-71.175587,41.608798,'Humphrey\'s Building supply','Tiverton'],
+    [-74.1638,40.8584,'Jaeger Lumber','Clifton'],
+    [-74.051,40.296,'Jaeger Lumber','Eatontown'],
+    [-74.071,40.9445,'Jaeger Lumber','Paramus'],
+    [-74.426,40.8579,'Jaeger Lumber','Parsippany'],
+    [-74.3818,40.6737,'Jaeger Lumber','Stirling'],
+    [-74.2232,40.9051,'Jaeger Lumber','Totowa'],
+    [-74.2632,40.6976,'Jaeger Lumber','Union'],
+    [-74.2765,40.9253,'Jaeger Lumber','Wayne'],
+    [-120.3273,50.6745,'Kamloops Home Hardware','Kamloops'],
+    [-119.496,49.888,'Kamloops Home Hardware','Kelowna'],
+    [-119.272,50.2671,'Kamloops Home Hardware','Vernon'],
+    [-122.839438,38.977953,'Kelseyville Lumber & Supply Co Inc','Kelseyville'],
+    [-93.200082,43.153899,'Key Wholesale','Mason City'],
+    [-81.6927,43.7325,'Leis Lumber Company','Goderich'],
+    [-97.342957,31.098375,'Lengefeld Lumber Company','Temple'],
+    [-71.958801,43.269407,'Lumber Barn','Bradford'],
+    [-97.037595,49.60447,'Lumbercart','Niverville'],
+    [-84.656,34.075,'Lummus Supply','Acworth'],
+    [-84.274,34.099,'Lummus Supply','Alpharetta'],
+    [-84.485,33.79,'Lummus Supply','Atlanta'],
+    [-84.155,34.195,'Lummus Supply','Cumming'],
+    [-83.876,34.228,'Lummus Supply','Oakwood'],
+    [-84.296,34.073,'Lummus Supply','Roswell'],
+    [-84.4839,42.737,'MPC Cash-way Lumber','East Lansing'],
+    [-84.5555,42.7325,'MPC Cash-way Lumber','Lansing'],
+    [-63.458553,45.437728,'Masstown Hardware LTD','Debert'],
+    [-97.6961,26.1906,'Matt\'s Building Materials','Harlingen'],
+    [-98.3628,26.2115,'Matt\'s Building Materials','Palmview'],
+    [-98.1836,26.1948,'Matt\'s Building Materials','Pharr'],
+    [-97.6303,26.1298,'Matt\'s Building Materials','San Benito'],
+    [-99.8626,42.55,'Mead Lumber','Ainsworth'],
+    [-98.0037,41.6908,'Mead Lumber','Albion'],
+    [-102.8721,42.1014,'Mead Lumber','Alliance'],
+    [-99.3615,40.0975,'Mead Lumber','Alma'],
+    [-95.8388,40.3928,'Mead Lumber','Auburn'],
+    [-96.7431,40.2681,'Mead Lumber','Beatrice'],
+    [-98.1062,39.4564,'Mead Lumber','Beloit'],
+    [-96.125,41.5444,'Mead Lumber','Blair'],
+    [-99.6393,41.4017,'Mead Lumber','Broken Bow'],
+    [-98.0015,41.1161,'Mead Lumber','Central City'],
+    [-102.9999,42.8294,'Mead Lumber','Chadron'],
+    [-97.1248,39.3767,'Mead Lumber','Clay Center'],
+    [-97.3684,41.4297,'Mead Lumber','Columbus'],
+    [-97.6625,39.5708,'Mead Lumber','Concordia'],
+    [-99.9879,40.8597,'Mead Lumber','Cozad'],
+    [-97.1301,41.2528,'Mead Lumber','David City'],
+    [-97.1801,40.1372,'Mead Lumber','Fairbury'],
+    [-95.6019,40.0606,'Mead Lumber','Falls City'],
+    [-96.4981,41.4333,'Mead Lumber','Fremont'],
+    [-97.5959,40.5269,'Mead Lumber','Geneva'],
+    [-100.1604,40.9297,'Mead Lumber','Gothenburg'],
+    [-98.342,40.9264,'Mead Lumber','Grand Island'],
+    [-98.3901,40.5862,'Mead Lumber','Hastings'],
+    [-95.5333,39.8525,'Mead Lumber','Hiawatha'],
+    [-99.3698,40.4403,'Mead Lumber','Holdrege'],
+    [-101.6432,40.5167,'Mead Lumber','Imperial'],
+    [-99.0832,40.6993,'Mead Lumber','Kearney'],
+    [-99.7418,40.7808,'Mead Lumber','Lexington'],
+    [-96.7026,40.8136,'Mead Lumber','Lincoln'],
+    [-96.5717,39.1836,'Mead Lumber','Manhattan'],
+    [-96.6475,39.8414,'Mead Lumber','Marysville'],
+    [-100.6254,40.2017,'Mead Lumber','McCook'],
+    [-98.9479,40.4989,'Mead Lumber','Minden'],
+    [-97.417,42.0285,'Mead Lumber','Norfolk'],
+    [-100.7654,41.124,'Mead Lumber','North Platte'],
+    [-98.6476,42.4578,'Mead Lumber','O\'Neill'],
+    [-101.7196,41.128,'Mead Lumber','Ogallala'],
+    [-95.9345,41.2565,'Mead Lumber','Omaha'],
+    [-98.9262,41.6033,'Mead Lumber','Ord'],
+    [-98.5193,40.0878,'Mead Lumber','Red Cloud'],
+    [-97.0593,41.4472,'Mead Lumber','Schuyler'],
+    [-103.6672,41.8667,'Mead Lumber','Scottsbluff'],
+    [-96.0642,39.8342,'Mead Lumber','Seneca'],
+    [-97.0987,40.9069,'Mead Lumber','Seward'],
+    [-102.9779,41.1428,'Mead Lumber','Sidney'],
+    [-98.0701,40.0203,'Mead Lumber','Superior'],
+    [-96.1961,40.3664,'Mead Lumber','Tecumseh'],
+    [-100.551,42.8728,'Mead Lumber','Valentine'],
+    [-96.6206,41.2114,'Mead Lumber','Wahoo'],
+    [-96.7084,41.8417,'Mead Lumber','West Point'],
+    [-97.592,40.8686,'Mead Lumber','York'],
+    [-73.862037,41.161317,'Melrose Lumber Co.','Ossining'],
+    [-85.834449,41.58504,'Miller\'s Building Supply','Goshen'],
+    [-81.397051,40.874213,'Mohler Lumber','North Canton'],
+    [-78.31995,44.304801,'Monaghan Lumber','Peterborough'],
+    [-79.4951,43.7891,'Monarch Custom Plywood','Concord'],
+    [-71.588256,42.559581,'Moore Lumber and Hardware Co','Ayer'],
+    [-80.632423,35.394475,'Morrison Brothers Building Supply','Concord'],
+    [-85.1713,40.7387,'Morsches Builders Mart','Bluffton'],
+    [-85.4884,41.1573,'Morsches Builders Mart','Columbia City'],
+    [-85.4975,40.883,'Morsches Builders Mart','Huntington'],
+    [-85.8205,40.7978,'Morsches Builders Mart','Wabash'],
+    [-85.853,41.2381,'Morsches Builders Mart','Warsaw'],
+    [-117.216608,46.727971,'Moscow & Pullman Building Supply','Pullman'],
+    [-96.801282,32.94572,'Nation\'s Best Holdings','Dallas'],
+    [-89.0694,42.8336,'Nelson-Young Lumber','Edgerton'],
+    [-89.0187,42.6828,'Nelson-Young Lumber','Janesville'],
+    [-88.9434,42.7755,'Nelson-Young Lumber','Milton'],
+    [-79.3537,43.6325,'New Canadians Lumber','Toronto'],
+    [-74.897493,40.372903,'Niece Lumber','Lambertville'],
+    [-97.464453,31.056013,'Norman Building Materials','Belton'],
+    [-97.517054,35.472989,'Northwest Building Supply','Oklahoma City'],
+    [-97.0304,49.8496,'Olympic Building Centre','Winnipeg'],
+    [-80.724257,43.138687,'Ontario Concrete Accessories','Woodstock'],
+    [-93.836,30.026,'Orange County Building Materials','Bridge City'],
+    [-94.103,30.446,'Orange County Building Materials','Buna'],
+    [-93.994,30.919,'Orange County Building Materials','Jasper'],
+    [-93.902,30.659,'Orange County Building Materials','Kirbyville'],
+    [-94.194,30.269,'Orange County Building Materials','Lumberton'],
+    [-93.99,30.126,'Orange County Building Materials','Vidor'],
+    [-89.511957,43.096292,'Paradigm Technology','Middleton'],
+    [-78.8369,43.9067,'Peacock Lumber','Oshawa'],
+    [-92.638661,32.52975,'Pearce Lumber Company','Ruston'],
+    [-90.920099,30.238529,'Picou Builders Supply','Gonzales'],
+    [-84.6716,45.0242,'Preston Feather','Gaylord'],
+    [-84.9958,45.4295,'Preston Feather','Harbor Springs'],
+    [-84.9553,45.3736,'Preston Feather','Petoskey'],
+    [-85.6206,44.7631,'Preston Feather','Traverse City'],
+    [-97.147463,31.54919,'Redwoods, Inc','Waco'],
+    [-75.387862,40.044015,'Requarth Co','Wayne'],
+    [-85.9538,32.9441,'Russell Do it Centers','Alexander City'],
+    [-85.4808,32.6099,'Russell Do it Centers','Auburn'],
+    [-86.6294,32.8388,'Russell Do it Centers','Clanton'],
+    [-85.7635,32.8318,'Russell Do it Centers','Dadeville'],
+    [-86.0341,32.6349,'Russell Do it Centers','Eclectic'],
+    [-86.4189,33.3412,'Russell Do it Centers','Harpersville'],
+    [-86.4597,32.4638,'Russell Do it Centers','Prattville'],
+    [-85.3724,33.151,'Russell Do it Centers','Roanoke'],
+    [-86.2119,32.5449,'Russell Do it Centers','Wetumpka'],
+    [-74.258404,41.529576,'Russin','Montgomery'],
+    [-82.9988,39.9612,'S & L Lumber','Columbus'],
+    [-83.1141,40.0992,'S & L Lumber','Dublin'],
+    [-83.093,39.8812,'S & L Lumber','Grove City'],
+    [-82.8088,40.0812,'S & L Lumber','New Albany'],
+    [-82.9291,40.1262,'S & L Lumber','Westerville'],
+    [-68.0117,46.8606,'S.W. Collins Co.','Caribou'],
+    [-67.8403,46.1261,'S.W. Collins Co.','Houlton'],
+    [-68.3347,47.3176,'S.W. Collins Co.','Madawaska'],
+    [-68.0159,46.6812,'S.W. Collins Co.','Presque Isle'],
+    [-67.9362,47.1551,'S.W. Collins Co.','Van Buren'],
+    [-117.162772,32.71742,'SINAK Corporation','San Diego'],
+    [-79.357,43.9468,'Schell Lumber - Stouffville','Stouffville'],
+    [-79.464445,44.228024,'Schell Lumber - Sutton','Georgina'],
+    [-87.3653,41.417,'Schillings','Crown Point'],
+    [-87.47,41.45,'Schillings','Saint John'],
+    [-87.0611,41.4731,'Schillings','Valparaiso'],
+    [-79.477599,43.684991,'Slack Lumber','York'],
+    [-118.242766,34.053691,'State Lumber','State Lumber'],
+    [-75.387862,40.044015,'Steinkamp Home Center','Wayne'],
+    [-92.1343,29.9746,'Stine','Abbeville'],
+    [-91.8993,30.2735,'Stine','Breaux Bridge'],
+    [-92.049,30.3169,'Stine','Carencro'],
+    [-92.4446,30.2141,'Stine','Crowley'],
+    [-93.2891,30.8463,'Stine','DeRidder'],
+    [-92.6571,30.2224,'Stine','Jennings'],
+    [-92.0198,30.2241,'Stine','Lafayette'],
+    [-93.2174,30.2266,'Stine','Lake Charles'],
+    [-93.2199,30.3024,'Stine','Moss Bluff'],
+    [-91.8187,30.0035,'Stine','New Iberia'],
+    [-92.0815,30.5335,'Stine','Opelousas'],
+    [-92.0943,30.2357,'Stine','Scott'],
+    [-93.3774,30.2366,'Stine','Sulphur'],
+    [-78.8689,38.4496,'Stoneburner Inc','Harrisonburg'],
+    [-79.0717,38.1496,'Stoneburner Inc','Staunton'],
+    [-87.9036,30.6035,'Swift Supply','Daphne'],
+    [-87.9033,30.523,'Swift Supply','Fairhope'],
+    [-87.6836,30.4066,'Swift Supply','Foley'],
+    [-87.7119,30.5538,'Swift Supply','Robertsdale'],
+    [-87.9153,30.6749,'Swift Supply','Spanish Fort'],
+    [-123.8157,46.9754,'TAL Building Centers','Aberdeen'],
+    [-123.1059,44.6365,'TAL Building Centers','Albany'],
+    [-122.5337,45.7807,'TAL Building Centers','Battle Ground'],
+    [-121.3153,44.0582,'TAL Building Centers','Bend'],
+    [-122.9543,46.7162,'TAL Building Centers','Centralia'],
+    [-122.964,46.6621,'TAL Building Centers','Chehalis'],
+    [-124.2179,43.3665,'TAL Building Centers','Coos Bay'],
+    [-123.262,44.5646,'TAL Building Centers','Corvallis'],
+    [-120.5478,46.9965,'TAL Building Centers','Ellensburg'],
+    [-123.0868,44.0521,'TAL Building Centers','Eugene'],
+    [-123.3284,42.439,'TAL Building Centers','Grants Pass'],
+    [-119.2895,45.8404,'TAL Building Centers','Hermiston'],
+    [-121.7817,42.2249,'TAL Building Centers','Klamath Falls'],
+    [-118.0877,45.3246,'TAL Building Centers','La Grande'],
+    [-122.9382,46.1382,'TAL Building Centers','Longview'],
+    [-123.1987,45.2104,'TAL Building Centers','McMinnville'],
+    [-122.8756,42.3265,'TAL Building Centers','Medford'],
+    [-122.9007,47.0379,'TAL Building Centers','Olympia'],
+    [-118.7886,45.6721,'TAL Building Centers','Pendleton'],
+    [-122.6784,45.5152,'TAL Building Centers','Portland'],
+    [-121.1739,44.2726,'TAL Building Centers','Redmond'],
+    [-123.3417,43.2165,'TAL Building Centers','Roseburg'],
+    [-123.0351,44.9429,'TAL Building Centers','Salem'],
+    [-123.1007,47.2151,'TAL Building Centers','Shelton'],
+    [-121.1787,45.5946,'TAL Building Centers','The Dalles'],
+    [-122.6615,45.6387,'TAL Building Centers','Vancouver'],
+    [-120.3103,47.4235,'TAL Building Centers','Wenatchee'],
+    [-120.5059,46.6021,'TAL Building Centers','Yakima'],
+    [-95.3169,36.3081,'Tahlequah Lumber','Pryor'],
+    [-94.7969,35.4595,'Tahlequah Lumber','Sallisaw'],
+    [-94.9702,35.9151,'Tahlequah Lumber','Tahlequah'],
+    [-95.3708,35.964,'Tahlequah Lumber','Wagoner'],
+    [-66.6431,45.9636,'Targetts','Fredericton'],
+    [-66.4791,45.8363,'Targetts','Oromocto'],
+    [-77.403335,39.001746,'Tart Lumber Company, Inc','Sterling'],
+    [-114.1035,51.0181,'The Cedar Shop','Calgary'],
+    [-92.215697,32.401449,'The Home Improvement Outlet','West Monroe'],
+    [-79.5231,37.3343,'The Lester Group','Bedford'],
+    [-79.3981,36.8257,'The Lester Group','Chatham'],
+    [-79.912,36.7213,'The Lester Group','Collinsville'],
+    [-79.395,36.586,'The Lester Group','Danville'],
+    [-79.1422,37.4138,'The Lester Group','Lynchburg'],
+    [-79.8726,36.6913,'The Lester Group','Martinsville'],
+    [-79.9414,37.271,'The Lester Group','Roanoke'],
+    [-79.892,36.9976,'The Lester Group','Rocky Mount'],
+    [-78.9014,36.6988,'The Lester Group','South Boston'],
+    [-71.091856,42.275907,'The Norfolk Companies','Mattapan'],
+    [-79.453,43.982,'The Royal Wood Shop','Aurora'],
+    [-83.9101,36.0765,'Tindell\'s Building Materials','Knoxville'],
+    [-83.9705,35.7565,'Tindell\'s Building Materials','Maryville'],
+    [-83.2949,36.2137,'Tindell\'s Building Materials','Morristown'],
+    [-83.5619,35.8687,'Tindell\'s Building Materials','Sevierville'],
+    [-113.4112,53.5438,'Trail Building Supplies','Edmonton'],
+    [-90.338136,29.542717,'Triple Son Wholesale Timbers Inc','Cut Off'],
+    [-79.653896,44.404887,'United Lumber - Bolton','Barrie'],
+    [-123.057938,49.084626,'Vancouver eFasteners Tools & Supply Ltd','Delta']
+  ];
+
+  // Compute stats
+  var companies = {};
+  customers.forEach(function(c) { companies[c[2]] = true; });
+  document.getElementById('statCustomers').textContent = Object.keys(companies).length;
+  document.getElementById('statLocations').textContent = customers.length.toLocaleString();
+
+  // Simplified continental outlines
+  var continent = [
+    [-140,60],[-138,59.5],[-136,58],[-134,56.5],[-132,55],[-130,53.5],
+    [-128,51.5],[-126.5,49.5],[-124.5,48.5],[-124.2,47],[-124,45],[-124.2,43],
+    [-123,41],[-121,38.5],[-119.5,36],[-118,34],[-117.2,32.7],
+    [-115.5,30.5],[-113,29],[-111,27.5],[-108,26],[-106,24.5],[-104,22.5],
+    [-101,20],[-98.5,18.5],[-96.5,17],[-94.5,16.5],[-92.5,15.5],[-90,16],
+    [-88.5,16.5],[-87,17.5],[-87,19],[-87.5,20.5],[-88.5,21.5],
+    [-90,22],[-90,24],[-89.5,27],[-88.5,28.5],[-87.5,29.5],[-86,30],
+    [-85,29.8],[-84.5,29.5],[-83,29],[-82,28],[-81.5,26.5],[-80.5,25.2],
+    [-80,25.8],[-80.2,27],[-81,28.5],[-80.5,30],[-79.5,32],[-78,34],
+    [-76,36],[-75,37.5],[-74.5,38.5],[-74,39.5],[-73.8,40.7],
+    [-72.5,41],[-71.5,41.3],[-70.5,41.6],[-70,42],[-69.8,43],
+    [-68.5,44],[-67,44.7],[-66,45],[-65,44.3],[-64.5,44.5],
+    [-63.5,44.7],[-62.5,45.5],[-61,46.5],[-60,47],[-59,47.5],
+    [-57.5,48],[-56,48.5],[-55.5,49.5],[-56,50.5],[-57,51.5],
+    [-58.5,52.5],[-60,53],[-61.5,54],[-63,55],[-65,56],
+    [-67,57.5],[-69,59],[-72,60],[-76,62],[-80,63],
+    [-85,64.5],[-90,65.5],[-95,66.5],[-100,67.5],[-105,68],
+    [-110,69],[-115,69.5],[-120,70],[-125,70],[-130,69.5],
+    [-135,68],[-138,66.5],[-140,64],[-140,60]
+  ];
+
+  var alaska = [
+    [-170,52],[-168,54],[-166,55.5],[-163,57],[-161,58.5],[-159,58],
+    [-157,57.5],[-155,57],[-153,57.5],[-151,58.5],[-149,59.5],
+    [-147,60.5],[-145,60.5],[-143,59.5],[-141,59.5],[-140,60],
+    [-140,69],[-145,70],[-150,71],[-155,71.3],[-160,71],
+    [-165,70],[-168,68.5],[-170,66],[-172,63.5],[-174,61],
+    [-176,58],[-175,55.5],[-173,53.5],[-170,52]
+  ];
+
+  var lakeSuperior = [
+    [-92.2,46.7],[-91,47],[-89.5,47.4],[-88.2,47.7],[-87,47.4],
+    [-86,47],[-85.2,46.8],[-84.6,46.5],[-84.8,46.2],[-86,46.4],
+    [-88,46.4],[-90,46.5],[-92.2,46.7]
+  ];
+  var lakeMichigan = [
+    [-87.7,45.8],[-87.2,45],[-86.8,44],[-86.3,43],[-86.5,42.2],
+    [-87,41.8],[-87.5,42.3],[-87.6,43.5],[-87.6,44.5],[-87.7,45.8]
+  ];
+  var lakeHuron = [
+    [-84.3,46],[-83.5,45.5],[-82.7,44.5],[-82.2,43.6],[-82.5,43.2],
+    [-83,43.8],[-83.5,44.3],[-84,45.2],[-84.3,46]
+  ];
+  var lakeErie = [
+    [-83.4,41.9],[-82.5,41.5],[-81,41.5],[-80,42],[-79.1,42.7],
+    [-79.8,42.4],[-81.5,42.1],[-83,42.1],[-83.4,41.9]
+  ];
+  var lakeOntario = [
+    [-79.4,43.2],[-78.5,43.3],[-77.2,43.5],[-76.3,43.7],[-76.5,43.4],
+    [-77.5,43.1],[-79,43.1],[-79.4,43.2]
+  ];
+
+  var baseCanvas = document.getElementById('baseCanvas');
+  var overlay = document.getElementById('overlayCanvas');
+  var baseCtx = baseCanvas.getContext('2d');
+  var overCtx = overlay.getContext('2d');
+  var tooltipEl = document.getElementById('tooltip');
+  var stack = document.getElementById('canvasStack');
+
+  var DPR = window.devicePixelRatio || 1;
+  var W, H, sc, ox, oy;
+  var dots = [];
+
+  // Albers Equal Area Conic
+  var phi0 = 23 * Math.PI / 180;
+  var phi1 = 29.5 * Math.PI / 180;
+  var phi2 = 45.5 * Math.PI / 180;
+  var lam0 = -96 * Math.PI / 180;
+  var n = 0.5 * (Math.sin(phi1) + Math.sin(phi2));
+  var C = Math.cos(phi1) * Math.cos(phi1) + 2 * n * Math.sin(phi1);
+  var rho0 = Math.sqrt(C - 2 * n * Math.sin(phi0)) / n;
+
+  function proj(lng, lat) {
+    var pr = lat * Math.PI / 180;
+    var lr = lng * Math.PI / 180;
+    var th = n * (lr - lam0);
+    var rho = Math.sqrt(C - 2 * n * Math.sin(pr)) / n;
+    return [rho * Math.sin(th), rho0 - rho * Math.cos(th)];
+  }
+
+  function toXY(lng, lat) {
+    var p = proj(lng, lat);
+    return [p[0] * sc + ox, p[1] * sc + oy];
+  }
+
+  function css(v) {
+    return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  }
+
+  function drawPoly(ctx, coords, fill, stroke, lw) {
+    if (coords.length < 3) return;
+    ctx.beginPath();
+    var s = toXY(coords[0][0], coords[0][1]);
+    ctx.moveTo(s[0], s[1]);
+    for (var i = 1; i < coords.length; i++) {
+      var p = toXY(coords[i][0], coords[i][1]);
+      ctx.lineTo(p[0], p[1]);
+    }
+    ctx.closePath();
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw || 1; ctx.stroke(); }
+  }
+
+  function drawLine(ctx, coords, stroke, lw) {
+    if (coords.length < 2) return;
+    ctx.beginPath();
+    var s = toXY(coords[0][0], coords[0][1]);
+    ctx.moveTo(s[0], s[1]);
+    for (var i = 1; i < coords.length; i++) {
+      var p = toXY(coords[i][0], coords[i][1]);
+      ctx.lineTo(p[0], p[1]);
+    }
+    ctx.strokeStyle = stroke;
+    ctx.lineWidth = lw || 1;
+    ctx.stroke();
+  }
+
+  function renderBase() {
+    var rect = stack.getBoundingClientRect();
+    W = rect.width;
+    H = W * 0.68;
+    baseCanvas.width = W * DPR;
+    baseCanvas.height = H * DPR;
+    baseCanvas.style.height = H + 'px';
+    overlay.width = W * DPR;
+    overlay.height = H * DPR;
+    overlay.style.height = H + 'px';
+    baseCtx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    overCtx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+    // Fit projection: focus on continental US/Canada, not full extent
+    var p1 = proj(-130, 52);
+    var p2 = proj(-62, 24);
+    var pw = p2[0] - p1[0];
+    var ph = p2[1] - p1[1];
+    var ssx = (W * 0.88) / pw;
+    var ssy = (H * 0.88) / ph;
+    sc = Math.min(ssx, ssy);
+    var cx = (p1[0] + p2[0]) / 2;
+    var cy = (p1[1] + p2[1]) / 2;
+    ox = W / 2 - cx * sc;
+    oy = H / 2 - cy * sc;
+
+    var water = css('--water');
+    var land = css('--land');
+    var landStroke = css('--land-stroke');
+    var borderCountry = css('--border-country');
+    var borderState = css('--border-state');
+    var grat = css('--graticule');
+    var dotFill = css('--dot-fill');
+    var dotStroke = css('--dot-stroke');
+    var dotGlow = css('--dot-glow');
+
+    // Background
+    baseCtx.fillStyle = water;
+    baseCtx.fillRect(0, 0, W, H);
+
+    // Graticule
+    baseCtx.setLineDash([2, 4]);
+    for (var lat = 20; lat <= 70; lat += 10) {
+      var pts = [];
+      for (var lng = -175; lng <= -50; lng += 2) pts.push([lng, lat]);
+      drawLine(baseCtx, pts, grat, 0.5);
+    }
+    for (var lng2 = -160; lng2 <= -60; lng2 += 10) {
+      var pts2 = [];
+      for (var lat2 = 15; lat2 <= 75; lat2 += 2) pts2.push([lng2, lat2]);
+      drawLine(baseCtx, pts2, grat, 0.5);
+    }
+    baseCtx.setLineDash([]);
+
+    // Land masses
+    drawPoly(baseCtx, continent, land, landStroke, 1.2);
+    drawPoly(baseCtx, alaska, land, landStroke, 1.2);
+
+    // Great Lakes
+    var lakes = [lakeSuperior, lakeMichigan, lakeHuron, lakeErie, lakeOntario];
+    lakes.forEach(function(lk) { drawPoly(baseCtx, lk, water, landStroke, 0.6); });
+
+    // US-Canada border
+    var border49 = [];
+    for (var bl = -124; bl <= -95; bl += 0.5) border49.push([bl, 49]);
+    var borderE = [
+      [-95,49],[-94.5,48.8],[-94,48.5],[-92.5,48.2],[-91,48],
+      [-89.5,48],[-88,47.5],[-85.5,47],[-84.5,46.5],[-82.5,43.2],
+      [-79.5,43.5],[-76,44],[-75,44.5],[-74.5,45],[-72.5,45],
+      [-71.5,45.2],[-70,46],[-68,47],[-67,47.2]
+    ];
+    var bAll = border49.concat(borderE.slice(1));
+    drawLine(baseCtx, bAll, borderCountry, 0.8);
+
+    // US-Mexico border
+    var mxBorder = [
+      [-117.2,32.7],[-114,32.5],[-111,31.3],[-108.5,31.5],
+      [-106.5,31.8],[-104.5,29.5],[-101,28],[-99,27],[-97.5,26],[-97,25.8]
+    ];
+    drawLine(baseCtx, mxBorder, borderCountry, 0.8);
+
+    // Some simplified internal lines for geographic context
+    // These follow major geographic/political boundaries very roughly
+    var internalLines = [
+      // Mississippi River corridor
+      [[-90,47.5],[-91,46],[-91.2,44.5],[-91,43],[-90.5,41.5],[-90.5,40],
+       [-89.5,38.5],[-89.5,37],[-89,35.5],[-89.5,33.5],[-90,32],[-91,30.5]],
+      // Rockies front range
+      [[-105,49],[-105,47],[-105,45],[-105,43],[-105,41],[-104.5,39],
+       [-104.5,37],[-104,35],[-103.5,33],[-103,31]],
+      // 100th meridian (Great Plains divide)
+      [[-100,49],[-100,46],[-100,43],[-100,40],[-100,37],[-100,34],[-100,31]],
+      // Appalachian line
+      [[-80,43],[-80,41],[-80,39],[-79.5,37],[-80,35.5],[-81.5,34],
+       [-83,33],[-85,31.5],[-87,30.5]],
+      // East coast state boundaries approximate
+      [[-75.5,42],[-75.5,40],[-76,38.5],[-77,36.5]],
+      // Ohio River
+      [[-80.5,40],[-82,39],[-84,38.5],[-86,38],[-88,37]],
+    ];
+    internalLines.forEach(function(line) {
+      drawLine(baseCtx, line, borderState, 0.4);
+    });
+
+    // Customer dots
+    dots = [];
+    var dotR = Math.max(2.5, Math.min(3.5, W / 320));
+
+    customers.forEach(function(c) {
+      var p = toXY(c[0], c[1]);
+      var x = p[0], y = p[1];
+      if (x < -30 || x > W + 30 || y < -30 || y > H + 30) return;
+      dots.push({ x: x, y: y, company: c[2], store: c[3], r: dotR });
+    });
+
+    // Sort so smaller-count dots render on top (more visible)
+    
+
+    dots.forEach(function(d) {
+      // Outer glow
+      baseCtx.beginPath();
+      baseCtx.arc(d.x, d.y, d.r + 2, 0, Math.PI * 2);
+      baseCtx.fillStyle = dotGlow;
+      baseCtx.fill();
+
+      // Main dot
+      baseCtx.beginPath();
+      baseCtx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+      baseCtx.fillStyle = dotFill;
+      baseCtx.fill();
+      baseCtx.strokeStyle = dotStroke;
+      baseCtx.lineWidth = 0.8;
+      baseCtx.stroke();
+    });
+
+    // Clear overlay
+    overCtx.clearRect(0, 0, W, H);
+  }
+
+  // Hover
+  var activeIdx = -1;
+
+  function handleMove(mx, my) {
+    var found = -1;
+    var minD = Infinity;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var dist = Math.sqrt((mx - d.x) * (mx - d.x) + (my - d.y) * (my - d.y));
+      if (dist < d.r + 10 && dist < minD) {
+        minD = dist;
+        found = i;
+      }
+    }
+
+    if (found === activeIdx) return;
+    activeIdx = found;
+
+    overCtx.clearRect(0, 0, W, H);
+
+    if (found === -1) {
+      tooltipEl.classList.remove('visible');
+      stack.style.cursor = 'default';
+      return;
+    }
+
+    stack.style.cursor = 'pointer';
+    var d = dots[found];
+
+    // Highlight ring
+    var hoverGlow = css('--dot-hover-glow');
+    var hoverFill = css('--dot-hover-fill');
+
+    overCtx.beginPath();
+    overCtx.arc(d.x, d.y, d.r + 6, 0, Math.PI * 2);
+    overCtx.fillStyle = hoverGlow;
+    overCtx.fill();
+
+    overCtx.beginPath();
+    overCtx.arc(d.x, d.y, d.r + 1.5, 0, Math.PI * 2);
+    overCtx.fillStyle = hoverFill;
+    overCtx.fill();
+
+    // Tooltip
+    var html = '<div class="t-name">' + d.company + '</div>';
+    html += '<div class="t-count">' + d.store + '</div>';
+    tooltipEl.innerHTML = html;
+    tooltipEl.classList.add('visible');
+
+    var tx = d.x + 16;
+    var ty = d.y - 36;
+    // Measure after content set
+    var tw = tooltipEl.offsetWidth;
+    var th = tooltipEl.offsetHeight;
+    if (tx + tw > W - 8) tx = d.x - tw - 16;
+    if (ty < 4) ty = d.y + 16;
+    if (ty + th > H - 4) ty = H - th - 4;
+    tooltipEl.style.left = tx + 'px';
+    tooltipEl.style.top = ty + 'px';
+  }
+
+  stack.addEventListener('mousemove', function(e) {
+    var rect = baseCanvas.getBoundingClientRect();
+    handleMove(e.clientX - rect.left, e.clientY - rect.top);
+  });
+
+  stack.addEventListener('mouseleave', function() {
+    activeIdx = -1;
+    overCtx.clearRect(0, 0, W, H);
+    tooltipEl.classList.remove('visible');
+    stack.style.cursor = 'default';
+  });
+
+  stack.addEventListener('touchstart', function(e) {
+    var t = e.touches[0];
+    var rect = baseCanvas.getBoundingClientRect();
+    var mx = t.clientX - rect.left;
+    var my = t.clientY - rect.top;
+    var found = -1;
+    var minD = Infinity;
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      var dist = Math.sqrt((mx - d.x) * (mx - d.x) + (my - d.y) * (my - d.y));
+      if (dist < d.r + 18 && dist < minD) { minD = dist; found = i; }
+    }
+    if (found !== -1) {
+      e.preventDefault();
+      activeIdx = found;
+      var d = dots[found];
+      overCtx.clearRect(0, 0, W, H);
+      overCtx.beginPath();
+      overCtx.arc(d.x, d.y, d.r + 6, 0, Math.PI * 2);
+      overCtx.fillStyle = css('--dot-hover-glow');
+      overCtx.fill();
+      overCtx.beginPath();
+      overCtx.arc(d.x, d.y, d.r + 1.5, 0, Math.PI * 2);
+      overCtx.fillStyle = css('--dot-hover-fill');
+      overCtx.fill();
+      var html = '<div class="t-name">' + d.company + '</div>';
+      html += '<div class="t-count">' + d.store + '</div>';
+      tooltipEl.innerHTML = html;
+      tooltipEl.classList.add('visible');
+      tooltipEl.style.left = (d.x + 16) + 'px';
+      tooltipEl.style.top = (d.y - 36) + 'px';
+      setTimeout(function() {
+        tooltipEl.classList.remove('visible');
+        overCtx.clearRect(0, 0, W, H);
+        activeIdx = -1;
+      }, 2200);
+    }
+  }, { passive: false });
+
+  renderBase();
+
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() { renderBase(); }, 80);
+  });
+
+  new MutationObserver(function() { renderBase(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+    renderBase();
+  });
+})();
+</script>
