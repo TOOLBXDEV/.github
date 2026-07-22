@@ -250,7 +250,7 @@ async function fetchClosedLostDeals() {
 async function fetchBattlecards() {
   if (ENV === 'claude') {
     try {
-      const data = await callSalesHub('search_deals', { closedLostSinceDays: 30 });
+      const data = await callSalesHub('search_deals', { closedLostSinceDays: 7 });
       const deals = data.deals || [];
       const topDeals = [...deals]
         .sort((a, b) => (parseFloat(b.amount) || 0) - (parseFloat(a.amount) || 0))
@@ -378,8 +378,8 @@ function renderBattlecards(data) {
           '<div class="bc-chip-change">' + lines.map(esc).join('; ') + '</div></div>';
       });
     }
-    if (!html) html = '<div class="bc-chip"><div class="bc-chip-change">No competitive losses in the last 30 days</div></div>';
-    if (allDeals.length > 0) html += '<div class="summary-bar">' + allDeals.length + ' losses (30d) · ' + analyses.length + ' analyzed via Sales Hub</div>';
+    if (!html) html = '<div class="bc-chip"><div class="bc-chip-change">No competitive losses this week</div></div>';
+    if (allDeals.length > 0) html += '<div class="summary-bar">' + allDeals.length + ' losses (7d) · ' + analyses.length + ' analyzed via Sales Hub</div>';
     el.innerHTML = html;
     return compEntries.length || analyses.length;
   }
