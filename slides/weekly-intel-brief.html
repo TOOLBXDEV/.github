@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Weekly Intelligence Brief</title>
+<style>
+  :root {
+    color-scheme: light;
+    --slate-black: #1C1C1E; --dark-grey: #494949; --silver-grey: #CCCCCC;
+    --light-grey: #F2F2F2; --white: #FFFFFF;
+    --sunrise-yellow: #FFCA05; --won-bg: #FFF8E1;
+    --metallic-seaweed: #457F86; --lost-red: #B91C1C;
+    --teal: #1C8DA1; --teal-lt: #93C1C8;
+  }
+  * { box-sizing: border-box; }
+  body { font-family: "DM Sans", Calibri, Arial, sans-serif; background: #e6e7eb; color: var(--slate-black); margin: 0; padding: 24px 16px; font-size: 14px; line-height: 1.45; }
+  .deck-header { max-width: 1080px; margin: 0 auto 18px; display: flex; justify-content: space-between; align-items: center; color: var(--dark-grey); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 0 4px; }
+  .deck-header strong { color: var(--slate-black); }
+  .slide { max-width: 1080px; margin: 0 auto 20px; background: var(--white); border-radius: 4px; box-shadow: 0 4px 16px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .slide-header { padding: 22px 36px 8px; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
+  .slide-eyebrow { color: var(--silver-grey); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; margin-bottom: 4px; }
+  .slide-title-row { display: flex; align-items: center; gap: 12px; }
+  .yellow-bar { display: inline-block; width: 6px; height: 30px; background: var(--sunrise-yellow); flex-shrink: 0; }
+  .slide-title { font-family: Georgia, "Bitter", serif; font-size: 22px; font-weight: 700; color: var(--slate-black); letter-spacing: -0.01em; margin: 0; line-height: 1.15; }
+  .slide-stamp { font-family: Georgia, "Bitter", serif; font-weight: 700; color: var(--silver-grey); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .slide-body { padding: 14px 28px 18px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .slide-footer { padding: 10px 36px 14px; display: flex; justify-content: space-between; align-items: center; color: var(--dark-grey); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; border-top: 1px solid var(--light-grey); flex-shrink: 0; }
+  .slide-footer .brand { font-family: Georgia, "Bitter", serif; color: var(--slate-black); font-weight: 700; }
+
+  /* Key metrics strip */
+  .key-metrics-strip { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--slate-black); padding: 12px 4px; border-radius: 2px; column-gap: 1px; margin-bottom: 14px; }
+  .key-metric-cell { padding: 0 12px; border-right: 1px solid #2A2A2C; }
+  .key-metric-cell:last-child { border-right: none; }
+  .key-metric-cell .lbl { color: var(--sunrise-yellow); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .key-metric-cell .val { font-family: Georgia, "Bitter", serif; color: var(--white); font-size: 18px; font-weight: 700; line-height: 1; }
+  .key-metric-cell .sub { color: var(--silver-grey); font-size: 9px; margin-top: 3px; }
+
+  /* Intel two-column grid */
+  .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1; min-height: 0; }
+  @media (max-width: 820px) { .intel-grid { grid-template-columns: 1fr; } }
+  .intel-section { display: flex; flex-direction: column; min-height: 0; }
+  .intel-section-head { margin: 0 0 8px; font-size: 11px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding-left: 10px; border-left: 3px solid var(--sunrise-yellow); }
+  .intel-sub { font-size: 9.5px; font-weight: 700; color: var(--dark-grey); text-transform: uppercase; letter-spacing: 0.05em; margin: 10px 0 5px; }
+  .intel-sub:first-child { margin-top: 0; }
+
+  /* Battlecard chips */
+  .bc-chip { background: var(--light-grey); padding: 6px 10px; border-radius: 2px; font-size: 11px; border-left: 3px solid var(--silver-grey); color: var(--slate-black); line-height: 1.3; margin-bottom: 4px; }
+  .bc-chip.threat-high { border-left-color: var(--lost-red); }
+  .bc-chip.threat-medium { border-left-color: var(--sunrise-yellow); }
+  .bc-chip.threat-low { border-left-color: var(--metallic-seaweed); }
+  .bc-chip-name { font-weight: 700; font-size: 11.5px; }
+  .bc-chip-change { color: var(--dark-grey); font-size: 10px; margin-top: 2px; line-height: 1.35; }
+  .bc-chip-threat { display: inline-block; font-size: 8px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 3px; }
+  .bc-chip-threat.high { background: var(--lost-red); color: var(--white); }
+  .bc-chip-threat.medium { background: var(--sunrise-yellow); color: var(--slate-black); }
+  .bc-chip-threat.low { background: var(--metallic-seaweed); color: var(--white); }
+
+  /* Closed-lost deal chips */
+  .deal-chip { background: var(--light-grey); padding: 5px 9px; border-radius: 2px; font-size: 11px; border-left: 3px solid var(--slate-black); color: var(--slate-black); line-height: 1.25; margin-bottom: 4px; }
+  .deal-chip-name { font-weight: 700; }
+  .deal-chip-meta { color: var(--dark-grey); font-size: 10px; margin-top: 1px; }
+  .deal-chip-arr { font-weight: 700; color: var(--slate-black); font-variant-numeric: tabular-nums; font-family: Georgia, "Bitter", serif; font-size: 11px; }
+  .lost-reason { color: var(--lost-red); font-size: 10px; font-weight: 600; margin-top: 1px; }
+  .lost-detail { color: var(--dark-grey); font-size: 10px; margin-top: 1px; font-style: italic; line-height: 1.35; }
+  .competitor-tag { display: inline-block; margin-top: 3px; padding: 0px 5px; background: var(--white); color: var(--dark-grey); border: 1px solid var(--silver-grey); border-radius: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+  .stage-tag { display: inline-block; margin-top: 3px; margin-left: 4px; padding: 0px 5px; background: var(--slate-black); color: var(--sunrise-yellow); border-radius: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+
+  /* Market Pulse theme cards */
+  .theme-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 6px; }
+  .theme-card h4 { margin: 0 0 4px; font-size: 10.5px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; }
+  .theme-card ul { margin: 0; padding-left: 14px; }
+  .theme-card li { font-size: 11px; color: var(--slate-black); line-height: 1.4; margin-bottom: 2px; }
+  .theme-card .call-count { font-size: 9px; color: var(--dark-grey); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 4px; }
+
+  /* Call type pills */
+  .call-type-pills { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+  .call-type-pill { display: inline-block; font-size: 8.5px; padding: 2px 8px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--teal); color: var(--white); }
+
+  /* Coming Soon */
+  .coming-soon-section { background: var(--light-grey); border-radius: 3px; padding: 14px 20px; margin-top: 14px; text-align: center; border: 1px dashed var(--silver-grey); }
+  .coming-soon-section h3 { margin: 0; font-size: 11px; color: var(--silver-grey); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
+  .coming-soon-section p { margin: 4px 0 0; font-size: 10px; color: var(--silver-grey); }
+
+  /* Loading & error */
+  .loading { color: var(--dark-grey); font-style: italic; padding: 6px 0; font-size: 12px; }
+  .error-state { color: var(--white); padding: 8px 12px; background: var(--slate-black); border-left: 4px solid var(--sunrise-yellow); border-radius: 2px; font-size: 11px; margin-bottom: 6px; line-height: 1.4; }
+  .error-state .err-label { color: var(--sunrise-yellow); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
+
+  .summary-bar { background: var(--light-grey); border-left: 3px solid var(--sunrise-yellow); padding: 6px 10px; border-radius: 2px; font-size: 10px; color: var(--dark-grey); line-height: 1.4; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="deck-header">
+  <span><strong>TOOLBX</strong> &middot; WEEKLY INTELLIGENCE BRIEF</span>
+  <span id="deck-date">Loading&hellip;</span>
+</div>
+
+<div class="slide">
+  <div class="slide-header">
+    <div>
+      <div class="slide-eyebrow">Weekly Overview</div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Weekly Intelligence Brief</h2></div>
+    </div>
+    <div class="slide-stamp" id="week-stamp">&mdash;</div>
+  </div>
+  <div class="slide-body">
+    <!-- Key Metrics -->
+    <div class="key-metrics-strip" id="key-metrics">
+      <div class="key-metric-cell"><div class="lbl">Closed-Lost This Week</div><div class="val" id="km-lost-count">&mdash;</div><div class="sub" id="km-lost-top"></div></div>
+      <div class="key-metric-cell"><div class="lbl">Lost ARR</div><div class="val" id="km-lost-arr">&mdash;</div></div>
+      <div class="key-metric-cell"><div class="lbl">Competitors Tracked</div><div class="val" id="km-competitors">&mdash;</div></div>
+      <div class="key-metric-cell"><div class="lbl">Calls Analyzed</div><div class="val" id="km-calls">&mdash;</div></div>
+    </div>
+
+    <!-- Two-column grid -->
+    <div class="intel-grid">
+      <!-- LEFT: Competitive Intelligence -->
+      <div class="intel-section">
+        <h3 class="intel-section-head">Competitive Intelligence</h3>
+        <div class="intel-sub">Battlecard Updates</div>
+        <div id="battlecard-updates"><div class="loading">Loading battlecard data&hellip;</div></div>
+        <div class="intel-sub" style="margin-top:12px">Competitive Losses (7d)</div>
+        <div id="competitive-losses"><div class="loading">Loading closed-lost deals&hellip;</div></div>
+      </div>
+
+      <!-- RIGHT: Market Pulse -->
+      <div class="intel-section">
+        <h3 class="intel-section-head">Market Pulse</h3>
+        <div class="call-type-pills">
+          <span class="call-type-pill">AE Calls</span>
+          <span class="call-type-pill">Account Management</span>
+          <span class="call-type-pill">Onboarding</span>
+        </div>
+        <div id="market-pulse"><div class="loading">Loading call intelligence&hellip;</div></div>
+      </div>
+    </div>
+
+    <!-- Website Traffic — Coming Soon -->
+    <div class="coming-soon-section">
+      <h3>Website Traffic &mdash; Coming Soon</h3>
+      <p>Analytics integration launching in ~1 month</p>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Sales Hub &middot; HubSpot &middot; Gong</span></div>
+</div>
+
+<script>
+/* === Date Windowing === */
+function nextMonday(d) {
+  const dow = d.getDay();
+  const dm = dow === 1 ? 0 : ((1 - dow + 7) % 7);
+  const r = new Date(d.getFullYear(), d.getMonth(), d.getDate() + dm);
+  r.setHours(0, 0, 0, 0);
+  return r;
+}
+
+const RUN_NOW = new Date();
+const NOW = new Date(RUN_NOW.getTime() - 24 * 60 * 60 * 1000);
+const STANDUP_DATE = nextMonday(NOW);
+const WEEK_START = new Date(STANDUP_DATE.getTime() - 7 * 86400000);
+const WEEK_END = new Date(STANDUP_DATE.getTime() - 1000);
+const WEEK_START_ISO = WEEK_START.toISOString().split('T')[0];
+const WEEK_END_ISO = WEEK_END.toISOString().split('T')[0];
+
+const fmtDate = d => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+document.getElementById('deck-date').textContent = fmtDate(WEEK_START) + ' — ' + fmtDate(WEEK_END);
+
+const startOfYear = new Date(STANDUP_DATE.getFullYear(), 0, 1);
+const weekNum = Math.ceil(((STANDUP_DATE - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
+document.getElementById('week-stamp').textContent = 'W' + weekNum;
+
+/* === Utilities === */
+const SALES_HUB = 'https://toolbx-sales-hub.vercel.app';
+
+function esc(s) { if (s == null) return ''; return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function companyOf(n) { return n ? n.split(' - ')[0].trim() : '—'; }
+function fmtK(v) { if (v == null || v === '') return '—'; const n = parseFloat(v); if (isNaN(n) || n === 0) return '—'; return n >= 1000 ? '$' + Math.round(n / 1000) + 'k' : '$' + Math.round(n); }
+function fmtFull(v) { const n = parseFloat(v) || 0; return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 }); }
+
+function parseRes(res) {
+  if (!res) return {};
+  if (res.isError) throw new Error(res.error || 'Tool call failed');
+  if (res.structuredContent) return res.structuredContent;
+  if (res.content && res.content[0] && res.content[0].text) {
+    try { return JSON.parse(res.content[0].text); } catch (e) { return {}; }
+  }
+  return res;
+}
+
+async function hubspot(args) {
+  const res = await window.cowork.callMcpTool(
+    'mcp__1219abee-eabf-4c16-a8e7-039615ccb567__search_crm_objects', args
+  );
+  return parseRes(res);
+}
+
+function lostReasonsOf(p) {
+  const raw = p?.closed_lost_reasons || p?.closed_lost_reason__c || p?.closed_lost_reason;
+  if (!raw) return [];
+  return String(raw).split(';').map(s => s.trim()).filter(Boolean);
+}
+
+/* === Data Fetchers === */
+
+async function fetchBattlecards() {
+  try {
+    const [summaryRes, bcRes] = await Promise.all([
+      fetch(SALES_HUB + '/battlecard-data/weekly-summary.json').catch(() => null),
+      fetch(SALES_HUB + '/api/battlecards').catch(() => null)
+    ]);
+    let summary = null;
+    if (summaryRes && summaryRes.ok) {
+      try { summary = await summaryRes.json(); } catch (e) { /* ignore */ }
+    }
+    let battlecards = [];
+    if (bcRes && bcRes.ok) {
+      try {
+        const d = await bcRes.json();
+        battlecards = Array.isArray(d) ? d : (d.battlecards || d.data || []);
+      } catch (e) { /* ignore */ }
+    }
+    return { summary, battlecards };
+  } catch (e) {
+    console.warn('[Battlecards] Fetch failed:', e);
+    return { summary: null, battlecards: [], error: e.message };
+  }
+}
+
+async function fetchCallIntelligence() {
+  try {
+    const res = await fetch(SALES_HUB + '/api/gong/call-intelligence/reports');
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const reports = Array.isArray(data) ? data : (data.reports || data.data || []);
+    const weekReport = reports.find(r => {
+      const ps = new Date(r.period_start);
+      const pe = new Date(r.period_end);
+      return ps <= WEEK_END && pe >= WEEK_START;
+    }) || reports[0] || null;
+    return { report: weekReport, allReports: reports };
+  } catch (e) {
+    console.warn('[Call Intelligence] Fetch failed:', e);
+    return { report: null, allReports: [], error: e.message };
+  }
+}
+
+async function fetchClosedLostDeals() {
+  try {
+    const res = await hubspot({
+      object_type: 'deals',
+      search_request: {
+        filterGroups: [{
+          filters: [
+            { propertyName: 'dealstage', operator: 'EQ', value: 'closedlost' },
+            { propertyName: 'closedate', operator: 'GTE', value: String(WEEK_START.getTime()) },
+            { propertyName: 'closedate', operator: 'LTE', value: String(WEEK_END.getTime()) }
+          ]
+        }],
+        properties: [
+          'dealname', 'closedate', 'annual_recurring_revenue_w_est',
+          'closed_lost_reason', 'closed_lost_reason__c', 'closed_lost_reasons',
+          'closed_lost_detail__c', 'competitors', 'stage_before_closed_lost__c',
+          'dealstage', 'hubspot_owner_id'
+        ],
+        sorts: [{ propertyName: 'closedate', direction: 'DESCENDING' }],
+        limit: 50
+      }
+    });
+    return res.results || [];
+  } catch (e) {
+    console.warn('[HubSpot Closed-Lost] Failed:', e);
+    return [];
+  }
+}
+
+/* === Renderers === */
+
+function renderBattlecards(data) {
+  const el = document.getElementById('battlecard-updates');
+  if (data.error && !data.summary && data.battlecards.length === 0) {
+    el.innerHTML = '<div class="error-state"><div class="err-label">Connection Required</div>' +
+      'Unable to fetch battlecard data from Sales Hub. Ensure you are authenticated at ' +
+      '<strong>toolbx-sales-hub.vercel.app</strong>.</div>';
+    return 0;
+  }
+
+  let html = '';
+  let competitorCount = 0;
+
+  if (data.summary) {
+    const highlights = data.summary.weeklyHighlights || [];
+    const threats = data.summary.threatLevelChanges || [];
+    competitorCount = data.summary.totalBattlecards || data.battlecards.length || 0;
+
+    if (highlights.length > 0) {
+      highlights.forEach(h => {
+        const threat = (threats.find(t => t.competitor === h.competitor) || {}).threatLevel || 'medium';
+        html += '<div class="bc-chip threat-' + esc(threat) + '">' +
+          '<div class="bc-chip-name">' + esc(h.competitor) + '</div>' +
+          '<div class="bc-chip-change">' + esc(h.change) + '</div>' +
+          '</div>';
+      });
+    }
+    if (data.summary.note) {
+      html += '<div class="summary-bar">' + esc(data.summary.note) + '</div>';
+    }
+  }
+
+  if (data.battlecards.length > 0 && !html) {
+    competitorCount = data.battlecards.length;
+    const cards = data.battlecards.slice(0, 6);
+    cards.forEach(bc => {
+      const d = bc.data || bc;
+      const name = d.name || d.competitor || bc.id || '—';
+      const threat = d.threatLevel || d.threat_level || 'medium';
+      const overview = d.overview || d.description || d.summary || '';
+      html += '<div class="bc-chip threat-' + esc(threat) + '">' +
+        '<div class="bc-chip-name">' + esc(name) + '</div>' +
+        (overview ? '<div class="bc-chip-change">' + esc(overview.substring(0, 120)) + (overview.length > 120 ? '…' : '') + '</div>' : '') +
+        '<span class="bc-chip-threat ' + esc(threat) + '">' + esc(threat) + '</span>' +
+        '</div>';
+    });
+    if (data.battlecards.length > 6) {
+      html += '<div style="font-size:10px;color:var(--dark-grey);margin-top:4px">+ ' +
+        (data.battlecards.length - 6) + ' more competitors tracked</div>';
+    }
+  } else if (data.battlecards.length > 0) {
+    competitorCount = data.battlecards.length;
+  }
+
+  if (!html) {
+    html = '<div class="bc-chip"><div class="bc-chip-change">No battlecard updates this week</div></div>';
+  }
+  el.innerHTML = html;
+  return competitorCount;
+}
+
+function renderClosedLostDeals(deals) {
+  const el = document.getElementById('competitive-losses');
+  if (deals.length === 0) {
+    el.innerHTML = '<div class="deal-chip"><div class="deal-chip-meta">No closed-lost deals this week</div></div>';
+    document.getElementById('km-lost-count').textContent = '0';
+    document.getElementById('km-lost-arr').textContent = '$0';
+    return;
+  }
+
+  const lostArr = deals.reduce((s, d) => s + (parseFloat(d.properties?.annual_recurring_revenue_w_est) || 0), 0);
+  document.getElementById('km-lost-count').textContent = deals.length;
+  document.getElementById('km-lost-arr').textContent = fmtFull(lostArr);
+
+  let html = '';
+  deals.forEach(d => {
+    const p = d.properties || {};
+    const name = companyOf(p.dealname);
+    const arr = parseFloat(p.annual_recurring_revenue_w_est) || 0;
+    const reasons = lostReasonsOf(p);
+    const detail = p.closed_lost_detail__c || '';
+    const competitors = p.competitors || '';
+    const stageBefore = p.stage_before_closed_lost__c || '';
+
+    html += '<div class="deal-chip">' +
+      '<div class="deal-chip-name">' + esc(name) + '</div>' +
+      (arr > 0 ? '<div class="deal-chip-meta"><span class="deal-chip-arr">' + fmtK(arr) + '</span> ARR</div>' : '') +
+      (reasons.length ? '<div class="lost-reason">' + reasons.map(esc).join(' · ') + '</div>' : '') +
+      (detail ? '<div class="lost-detail">' + esc(detail.substring(0, 150)) + (detail.length > 150 ? '…' : '') + '</div>' : '') +
+      (competitors ? '<span class="competitor-tag">vs ' + esc(competitors) + '</span>' : '') +
+      (stageBefore ? '<span class="stage-tag">was: ' + esc(stageBefore) + '</span>' : '') +
+      '</div>';
+  });
+  el.innerHTML = html;
+
+  const allReasons = {};
+  deals.forEach(d => {
+    lostReasonsOf(d.properties).forEach(r => { allReasons[r] = (allReasons[r] || 0) + 1; });
+  });
+  const topReason = Object.entries(allReasons).sort((a, b) => b[1] - a[1])[0];
+  if (topReason) {
+    document.getElementById('km-lost-top').textContent = 'Top: ' + topReason[0];
+  }
+}
+
+function renderCallIntelligence(data) {
+  const el = document.getElementById('market-pulse');
+  if (data.error || !data.report) {
+    el.innerHTML = '<div class="error-state"><div class="err-label">Connection Required</div>' +
+      'Unable to fetch call intelligence from Sales Hub. Ensure you are authenticated at ' +
+      '<strong>toolbx-sales-hub.vercel.app</strong>.</div>';
+    document.getElementById('km-calls').textContent = '—';
+    return;
+  }
+
+  const report = data.report;
+  const payload = report.payload || {};
+  const callCount = report.calls_analysed || report.call_count || 0;
+  document.getElementById('km-calls').textContent = callCount;
+
+  const synthesis = payload.synthesis || payload;
+  let html = '';
+
+  const sections = [
+    { key: 'productQuestions', alt: ['product_questions','questions','recurringQuestions','recurring_questions'], title: 'Recurring Product Questions' },
+    { key: 'painPoints', alt: ['pain_points','challenges','customerPainPoints','customer_pain_points'], title: 'Pain Points & Challenges' },
+    { key: 'customerAsks', alt: ['customer_asks','featureRequests','feature_requests','asks'], title: 'Customer Asks & Feature Requests' },
+    { key: 'objections', alt: ['objection_patterns','objectionPatterns','commonObjections','common_objections'], title: 'Objection Patterns' },
+    { key: 'themes', alt: ['market_trends','marketTrends','trends','keyThemes','key_themes'], title: 'Market Themes & Trends' },
+    { key: 'trainingThemes', alt: ['training_themes','coachingOpportunities','coaching_opportunities'], title: 'Training Opportunities' },
+  ];
+
+  sections.forEach(sec => {
+    let items = synthesis[sec.key];
+    if (!items) {
+      for (const alt of sec.alt) {
+        if (synthesis[alt]) { items = synthesis[alt]; break; }
+      }
+    }
+    if (!items || (Array.isArray(items) && items.length === 0)) return;
+    const list = Array.isArray(items) ? items : [items];
+    html += '<div class="theme-card"><h4>' + esc(sec.title) + '</h4><ul>' +
+      list.slice(0, 5).map(item => {
+        const text = typeof item === 'string' ? item :
+          (item.theme || item.text || item.description || item.title || item.question || item.objection || JSON.stringify(item));
+        const count = item.count || item.frequency || item.mentions || null;
+        return '<li>' + esc(text) + (count ? ' <span style="color:var(--dark-grey);font-size:9px">(' + count + ')</span>' : '') + '</li>';
+      }).join('') + '</ul></div>';
+  });
+
+  if (!html && typeof synthesis === 'object') {
+    const keys = Object.keys(synthesis).filter(k => !['metadata','generatedAt','generated_at','callCount','call_count'].includes(k));
+    keys.forEach(key => {
+      const val = synthesis[key];
+      if (Array.isArray(val) && val.length > 0) {
+        const title = key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim();
+        html += '<div class="theme-card"><h4>' + esc(title) + '</h4><ul>' +
+          val.slice(0, 5).map(item => {
+            const text = typeof item === 'string' ? item :
+              (item.theme || item.text || item.description || item.title || JSON.stringify(item));
+            return '<li>' + esc(text) + '</li>';
+          }).join('') + '</ul></div>';
+      } else if (typeof val === 'string' && val.length > 0) {
+        html += '<div class="theme-card"><h4>' + esc(key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()) + '</h4>' +
+          '<ul><li>' + esc(val) + '</li></ul></div>';
+      }
+    });
+  }
+
+  if (!html) {
+    html = '<div class="theme-card"><h4>Report Summary</h4><ul>' +
+      '<li>Period: ' + esc(report.period_start || '—') + ' to ' + esc(report.period_end || '—') + '</li>' +
+      '<li>' + callCount + ' calls analyzed</li></ul></div>';
+  }
+
+  html += '<div style="font-size:9px;color:var(--dark-grey);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:6px">' +
+    callCount + ' calls analyzed · ' +
+    (report.period_start ? new Date(report.period_start).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—') +
+    ' – ' +
+    (report.period_end ? new Date(report.period_end).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—') +
+    '</div>';
+
+  el.innerHTML = html;
+}
+
+/* === Init === */
+async function init() {
+  console.log('[Intel Brief] Week window:', WEEK_START_ISO, 'to', WEEK_END_ISO);
+
+  const [bcData, callData, lostDeals] = await Promise.all([
+    fetchBattlecards(),
+    fetchCallIntelligence(),
+    fetchClosedLostDeals()
+  ]);
+
+  const competitorCount = renderBattlecards(bcData);
+  renderClosedLostDeals(lostDeals);
+  renderCallIntelligence(callData);
+  document.getElementById('km-competitors').textContent = competitorCount || '—';
+}
+
+init().catch(e => console.error('[Intel Brief] Init failed:', e));
+</script>
+
+</body>
+</html>
