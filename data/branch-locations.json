@@ -1,0 +1,2396 @@
+{
+  "branches": [
+    {
+      "branch_id": "ff0ac7e9-4453-4140-9bec-c3c0ecbd0367",
+      "branch_name": "ASO Roofing Supply - Houston",
+      "company_name": "ASO Roofing Supply",
+      "google_places_id": "ChIJsxPEnwbpQIYR-yKfo9X3ogE",
+      "lat": 29.7589382,
+      "lng": -95.3676974
+    },
+    {
+      "branch_id": "15bb1255-9947-4f0f-92f8-3289830993d7",
+      "branch_name": "ASO Roofing Supply - Tomball",
+      "company_name": "ASO Roofing Supply",
+      "google_places_id": "ChIJuXRda8srR4YReq73vYSntNo",
+      "lat": 30.0971621,
+      "lng": -95.6160549
+    },
+    {
+      "branch_id": "16b30bcc-ea54-4f62-8f6e-d01e86cd37f1",
+      "branch_name": "Bristol",
+      "company_name": "Arnold Lumber",
+      "google_places_id": "",
+      "lat": 30.4976894,
+      "lng": -91.117328
+    },
+    {
+      "branch_id": "16b30bcc-ea54-4f62-8f6e-d01e86cd37f1",
+      "branch_name": "Bristol",
+      "company_name": "Arnold Lumber",
+      "google_places_id": "",
+      "lat": 41.6757147,
+      "lng": -71.2885554
+    },
+    {
+      "branch_id": "df0b14d8-4fa7-4b71-90a3-771a83bd0730",
+      "branch_name": "West Kingston",
+      "company_name": "Arnold Lumber",
+      "google_places_id": "",
+      "lat": 30.320854,
+      "lng": -93.1931825
+    },
+    {
+      "branch_id": "df0b14d8-4fa7-4b71-90a3-771a83bd0730",
+      "branch_name": "West Kingston",
+      "company_name": "Arnold Lumber",
+      "google_places_id": "",
+      "lat": 41.4783237,
+      "lng": -71.5504613
+    },
+    {
+      "branch_id": "b0cc44f0-34e2-4793-aea2-db0be2d932a0",
+      "branch_name": "Westerly",
+      "company_name": "Arnold Lumber",
+      "google_places_id": "",
+      "lat": 30.4855428,
+      "lng": -91.0772822
+    },
+    {
+      "branch_id": "b0cc44f0-34e2-4793-aea2-db0be2d932a0",
+      "branch_name": "Westerly",
+      "company_name": "Arnold Lumber",
+      "google_places_id": "",
+      "lat": 41.3488154,
+      "lng": -71.8032133
+    },
+    {
+      "branch_id": "7be9badb-dbed-4e42-a81f-620051e3080e",
+      "branch_name": "Berkeley",
+      "company_name": "Ashby Lumber",
+      "google_places_id": "ChIJkQwDvvV-hYARjy724NghFVg",
+      "lat": 37.8708393,
+      "lng": -122.272863
+    },
+    {
+      "branch_id": "094bba69-4c27-4e99-add6-e969a1de0702",
+      "branch_name": "Concord",
+      "company_name": "Ashby Lumber",
+      "google_places_id": "",
+      "lat": 37.9768525,
+      "lng": -122.0335624
+    },
+    {
+      "branch_id": "b615c5cc-5cbc-472e-ad89-576d05764543",
+      "branch_name": "Coralville",
+      "company_name": "Beisser Lumber Company",
+      "google_places_id": "ChIJ28sO1FJE5IcREgXncxqyCHM",
+      "lat": 41.6759977,
+      "lng": -91.580705
+    },
+    {
+      "branch_id": "3500ee09-f048-48b4-be9c-a2bc57a1fda8",
+      "branch_name": "Fort Dodge",
+      "company_name": "Beisser Lumber Company",
+      "google_places_id": "ChIJK3oYhmd28ocRSgzycYmQySA",
+      "lat": 42.5044017,
+      "lng": -94.1910044
+    },
+    {
+      "branch_id": "c8e31380-5c6a-43e4-bf6a-981cb203f3f1",
+      "branch_name": "Grimes",
+      "company_name": "Beisser Lumber Company",
+      "google_places_id": "ChIJOyQATwAn7IcRJ_v4MR9ZlQ8",
+      "lat": 41.6883214,
+      "lng": -93.7910575
+    },
+    {
+      "branch_id": "cb1d0e7c-63e6-410b-8ef6-653f52c3755d",
+      "branch_name": "Abingdon",
+      "company_name": "Berry Home Centers",
+      "google_places_id": "ChIJj481DtASUIgRgXf36hRgons",
+      "lat": 39.7827364,
+      "lng": -75.9896881
+    },
+    {
+      "branch_id": "870914fe-6820-4660-8f00-7c4641217ee2",
+      "branch_name": "Edison",
+      "company_name": "Builders' General",
+      "google_places_id": "ChIJCxk3qiS3w4kRL3fB0Z97Eo8",
+      "lat": 40.518157,
+      "lng": -74.4113926
+    },
+    {
+      "branch_id": "f36cce34-4f10-4478-977a-f220be59b214",
+      "branch_name": "Freehold",
+      "company_name": "Builders' General",
+      "google_places_id": "ChIJa3zpCGvUw4kR9xp52bQQ2D4",
+      "lat": 40.2601096,
+      "lng": -74.2737573
+    },
+    {
+      "branch_id": "bb68f958-e854-420d-a824-5b279cc65daa",
+      "branch_name": "Little Silver",
+      "company_name": "Builders' General",
+      "google_places_id": "ChIJOcTGVP0vwokR2GMCIpSCLAA",
+      "lat": 40.3367769,
+      "lng": -74.0470837
+    },
+    {
+      "branch_id": "547c1e2b-23b5-480a-8eeb-9948c16125fa",
+      "branch_name": "Toms River",
+      "company_name": "Builders' General",
+      "google_places_id": "ChIJ3x-jq8idwYkR9DXHfzfbpFU",
+      "lat": 39.9526791,
+      "lng": -74.1968257
+    },
+    {
+      "branch_id": "ea93f962-2c99-47cb-a1f7-02ee2e9dc01b",
+      "branch_name": "Essex",
+      "company_name": "Building Center Inc",
+      "google_places_id": "ChIJuwD90roi44kRtKEe1RMxth4",
+      "lat": 42.6326501,
+      "lng": -70.7803543
+    },
+    {
+      "branch_id": "04a3451f-a67c-479f-86ec-aaea24a64bed",
+      "branch_name": "Gloucester",
+      "company_name": "Building Center Inc",
+      "google_places_id": "ChIJc1FJuhsl44kR4NU0f91uhh0",
+      "lat": 42.6153595,
+      "lng": -70.6624608
+    },
+    {
+      "branch_id": "01081f81-611c-4741-a720-4a6297f80162",
+      "branch_name": "Delaware Valley",
+      "company_name": "CBM Construction Building Materials",
+      "google_places_id": "ChIJ8YzNaW1OwYkRqq7jRo8zsFQ",
+      "lat": 40.1224372,
+      "lng": -74.8494814
+    },
+    {
+      "branch_id": "aba72497-b635-4ae2-9337-87d0cae13daa",
+      "branch_name": "Neshaminy Valley",
+      "company_name": "CBM Construction Building Materials",
+      "google_places_id": "ChIJLeafO7FSwYkRerpxQZTpvB8",
+      "lat": 40.1365094,
+      "lng": -74.9232662
+    },
+    {
+      "branch_id": "8593677d-7389-4b88-996c-97499a2249fb",
+      "branch_name": "Ft. Worth",
+      "company_name": "Cassity Jones",
+      "google_places_id": "ChIJtfjJnZIFToYRic0IhTbqjQw",
+      "lat": 32.753177,
+      "lng": -97.3327459
+    },
+    {
+      "branch_id": "223a75ed-486f-4e9c-a6f9-62b0524eea8c",
+      "branch_name": "Henderson",
+      "company_name": "Cassity Jones",
+      "google_places_id": "ChIJRz23smfJN4YRApo1KSWbw_E",
+      "lat": 32.182598,
+      "lng": -95.7893178
+    },
+    {
+      "branch_id": "f1bd093c-af70-410b-9351-3f0bb10882fc",
+      "branch_name": "Longview",
+      "company_name": "Cassity Jones",
+      "google_places_id": "ChIJhY4z_Ws5NoYRoIBlpXfDaV4",
+      "lat": 32.5007031,
+      "lng": -94.74049
+    },
+    {
+      "branch_id": "40902a27-28fc-4af7-90b4-eaff9dd147bb",
+      "branch_name": "Marshall",
+      "company_name": "Cassity Jones",
+      "google_places_id": "ChIJETuBcftNSYYRHWNpAAkGz54",
+      "lat": 32.5447756,
+      "lng": -94.3661004
+    },
+    {
+      "branch_id": "30ae7eac-e2d2-4e27-b749-2fb6204be1f9",
+      "branch_name": "Terrell",
+      "company_name": "Cassity Jones",
+      "google_places_id": "ChIJETuBcftNSYYRHWNpAAkGz54",
+      "lat": 30.1990738,
+      "lng": -102.0974881
+    },
+    {
+      "branch_id": "5e68ea15-37e8-49d8-9e12-98e58f59c872",
+      "branch_name": "Tyler",
+      "company_name": "Cassity Jones",
+      "google_places_id": "EiUxMzE4OCBId3kgMTU1IFMsIFR5bGVyLCBUWCA3NTcwMywgVVNBIjESLwoUChIJ7VVLzOzKSYYR1QVklz9PQ2wQhGcqFAoSCZswIL2kykmGEaydUN5xigAY",
+      "lat": 32.3512601,
+      "lng": -95.3010624
+    },
+    {
+      "branch_id": "a2d9d1c3-c481-4fd4-9427-a35124b6e2c6",
+      "branch_name": "Fairfield",
+      "company_name": "Central Valley",
+      "google_places_id": "ChIJtaRcoz4UhYARmpAMyIP-Va8",
+      "lat": 38.2493581,
+      "lng": -122.039966
+    },
+    {
+      "branch_id": "5dbca106-40a0-4ad6-a368-e9c12dd873dd",
+      "branch_name": "Healdsburg",
+      "company_name": "Central Valley",
+      "google_places_id": "ChIJra6zIuIWhIAR_VjrTlHovyo",
+      "lat": 38.6106812,
+      "lng": -122.870138
+    },
+    {
+      "branch_id": "d9c9b2b0-32c1-4739-a4c2-94c3e4a3735a",
+      "branch_name": "Napa",
+      "company_name": "Central Valley",
+      "google_places_id": "ChIJWR520mEGhYARGCM0_kb6j-M",
+      "lat": 38.4898675,
+      "lng": -122.3218414
+    },
+    {
+      "branch_id": "8e864b90-ec33-41d9-b81e-c0bdf9631628",
+      "branch_name": "St Helena",
+      "company_name": "Central Valley",
+      "google_places_id": "ChIJ58vzg8hQhIARHRLv7KGymGU",
+      "lat": 38.5052288,
+      "lng": -122.470042
+    },
+    {
+      "branch_id": "eb794ccc-c57a-438b-acc6-d2fe626fcd69",
+      "branch_name": "Vallejo",
+      "company_name": "Central Valley",
+      "google_places_id": "ChIJL-gAj_cGhYAR6NbV3b0R1Zw",
+      "lat": 38.1040864,
+      "lng": -122.2566367
+    },
+    {
+      "branch_id": "9650b59f-da53-4167-814d-0adb9c998dfd",
+      "branch_name": "Woodland",
+      "company_name": "Central Valley",
+      "google_places_id": "ChIJA_TZ4QvRhIARV1BFetLibeA",
+      "lat": 38.6786109,
+      "lng": -121.7733285
+    },
+    {
+      "branch_id": "35916ad2-9947-45c7-a052-40e6c0bc9054",
+      "branch_name": "Concord",
+      "company_name": "Concord Building & Design Center",
+      "google_places_id": "ChIJfdLi-zua44kRkryBrhEWrL8",
+      "lat": 42.4605189,
+      "lng": -71.3488963
+    },
+    {
+      "branch_id": "a08bfeeb-4cee-4783-a11d-c7f3de4446a5",
+      "branch_name": "Littleton",
+      "company_name": "Concord Building & Design Center",
+      "google_places_id": "ChIJjR0T4neW44kR7lsPJrjAtAQ",
+      "lat": 42.5375917,
+      "lng": -71.5120096
+    },
+    {
+      "branch_id": "9e965da7-f709-4ad5-bd6a-deacf091b5d4",
+      "branch_name": "Boston",
+      "company_name": "DB&S Lumber and Home Improvement",
+      "google_places_id": "ChIJa73MwEB644kRgkghpFNGYDA",
+      "lat": 42.3588336,
+      "lng": -71.0578303
+    },
+    {
+      "branch_id": "89010954-1942-492e-a116-49ff6b5622bf",
+      "branch_name": "Norwell",
+      "company_name": "DB&S Lumber and Home Improvement",
+      "google_places_id": "ChIJ9SkNpB6e5IkR6faLiEl3Fys",
+      "lat": 42.1617681,
+      "lng": -70.7939307
+    },
+    {
+      "branch_id": "e710e1a9-3af2-41dc-a25c-6aacb6e54911",
+      "branch_name": "Roslindale",
+      "company_name": "DB&S Lumber and Home Improvement",
+      "google_places_id": "ChIJzZksKUZ544kRjKluCI7En64",
+      "lat": 42.2912093,
+      "lng": -71.1244966
+    },
+    {
+      "branch_id": "ee18c48f-b391-4faa-bddb-d7df16767be5",
+      "branch_name": "Breaux Bridge",
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "google_places_id": "ChIJAbF74nKdJIYRuqSc9m2Yb44",
+      "lat": 30.2735323,
+      "lng": -91.8992837
+    },
+    {
+      "branch_id": "3f0cecb6-550f-45a4-9894-11512459c2b8",
+      "branch_name": "Covington",
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "google_places_id": "ChIJa84hXqZdJ4YRMlONDngYHJY",
+      "lat": 30.4753525,
+      "lng": -90.1010474
+    },
+    {
+      "branch_id": "f75ac788-388b-43f1-9ea3-0c4ac6cf784e",
+      "branch_name": "Lafayette - Johnston",
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "google_places_id": "ChIJWVmXFX-eJIYRPkymA6Fh3YY",
+      "lat": 30.4116745,
+      "lng": -91.1816022
+    },
+    {
+      "branch_id": "34b2dc99-1052-4ecb-9364-5fc60a0aca21",
+      "branch_name": "Lafayette - Verot",
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "google_places_id": "ChIJUQZtifidJIYRpfm7i-CNNM0",
+      "lat": 30.1716187,
+      "lng": -92.0182642
+    },
+    {
+      "branch_id": "f4a8a480-5372-42cd-bb95-e6288fe40f84",
+      "branch_name": "Lake Charles",
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "google_places_id": "ChIJA3Ws4E6HO4YR5pECQTcZf28",
+      "lat": 30.2305095,
+      "lng": -93.2169807
+    },
+    {
+      "branch_id": "88839317-9016-4342-af92-43cd0f978a94",
+      "branch_name": "New Iberia",
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "google_places_id": "ChIJOcPJ7D-DI4YRUT_e4D6duTU",
+      "lat": 30.0035365,
+      "lng": -91.8187285
+    },
+    {
+      "branch_id": "8e1e539b-8ae2-4d14-a4ea-e73e29917312",
+      "branch_name": "Rayne",
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "google_places_id": "ChIJAUNuStSlJIYRuiZEudb76I4",
+      "lat": 30.234925,
+      "lng": -92.2684617
+    },
+    {
+      "branch_id": "99b26e6f-ec24-45be-b5fa-e37136b31c7b",
+      "branch_name": "Ville Platte",
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "google_places_id": "ChIJe60bNsnaJIYReVGcXk22bSQ",
+      "lat": 30.6901838,
+      "lng": -92.2774771
+    },
+    {
+      "branch_id": "314e3af1-8bd0-4248-98d4-498e4ad80fe7",
+      "branch_name": "Arabi",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJVT2bKkwdnogRIEsaRJdDnAE",
+      "lat": 29.9543702,
+      "lng": -90.0053477
+    },
+    {
+      "branch_id": "133826ec-2116-4e6b-8a6f-653aff43bb4d",
+      "branch_name": "Belle Chasse",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJo33CxRehIIYRFcO25ymjmqc",
+      "lat": 29.8549287,
+      "lng": -89.9906253
+    },
+    {
+      "branch_id": "3265503a-55e1-4696-a89f-42184cd59eb6",
+      "branch_name": "Cut Off",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJKVQ8V6fzIIYRcfrXtvhJv4I",
+      "lat": 29.513768,
+      "lng": -90.3239092
+    },
+    {
+      "branch_id": "65470f55-fa5b-44c5-95b7-50e99da457ae",
+      "branch_name": "Grand Isle",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJ5eRmMnl3IIYRxqwGYHdVPYE",
+      "lat": 29.2366172,
+      "lng": -89.9872942
+    },
+    {
+      "branch_id": "1127d730-b717-4a7f-8b7e-e935f26a8b52",
+      "branch_name": "Hammond",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJ1RlHAxYiJ4YR8OQnK5UX1nE",
+      "lat": 30.5045759,
+      "lng": -90.4759399
+    },
+    {
+      "branch_id": "b4039ba2-d4da-4484-b721-e07dee3955fb",
+      "branch_name": "Luling",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJtz3XUUDHIIYRt5fD0JIwUVk",
+      "lat": 29.9321498,
+      "lng": -90.3664695
+    },
+    {
+      "branch_id": "88eb3f99-9298-412c-accb-164e3449fb20",
+      "branch_name": "Pensacola",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJ_40BGnPrkIgR4khYkz12dOE",
+      "lat": 30.4870583,
+      "lng": -91.0555385
+    },
+    {
+      "branch_id": "92fa9e47-95b9-49d7-8892-f21a602ac480",
+      "branch_name": "Slidell",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJTat59gDlnYgRqtSmgL_JHjw",
+      "lat": 30.2751945,
+      "lng": -89.7811745
+    },
+    {
+      "branch_id": "1116b851-802e-4bec-ba52-5b7fbba7f772",
+      "branch_name": "Thibodaux",
+      "company_name": "Dufrene Building Materials",
+      "google_places_id": "ChIJ1eU5d38XIYYR0eArGXjsIyQ",
+      "lat": 29.7957633,
+      "lng": -90.822871
+    },
+    {
+      "branch_id": "2cc4593d-7ff2-4c02-a24e-5645069bd9e8",
+      "branch_name": "Ironstone",
+      "company_name": "GR Mitchell, Inc",
+      "google_places_id": "ChIJMcYv93qYyIkRQA67jc1gHcg",
+      "lat": 40.6615106,
+      "lng": -75.4873143
+    },
+    {
+      "branch_id": "58cf204c-4e08-436c-b364-fca0d5c9066f",
+      "branch_name": "Amite",
+      "company_name": "Gabriel Building Supply",
+      "google_places_id": "ChIJUSoUF6cEJ4YReIu4JBydIfg",
+      "lat": 30.7265747,
+      "lng": -90.5089815
+    },
+    {
+      "branch_id": "776d2051-c2f9-4dfa-b6d7-7be19c5624f1",
+      "branch_name": "Ponchatoula",
+      "company_name": "Gabriel Building Supply",
+      "google_places_id": "ChIJv_WO2ao8J4YROsnfCzYq2Yk",
+      "lat": 30.4388041,
+      "lng": -90.4414762
+    },
+    {
+      "branch_id": "ce2e5da6-1aa5-4f57-a455-c099063e3a2d",
+      "branch_name": "Auburn",
+      "company_name": "Gagne & Son LLC",
+      "google_places_id": "ChIJO2ZMB1ppskwRf3rVixwR99M",
+      "lat": 44.0965374,
+      "lng": -70.2249487
+    },
+    {
+      "branch_id": "5ee80728-3ca4-4c8d-a1d0-86b84eaad67c",
+      "branch_name": "Belgrade",
+      "company_name": "Gagne & Son LLC",
+      "google_places_id": "ChIJ_____z_xsUwR_tLyUvpMYqA",
+      "lat": 44.447507,
+      "lng": -69.833221
+    },
+    {
+      "branch_id": "9860cbd6-8860-4c88-a88e-7710c491f2df",
+      "branch_name": "Holden",
+      "company_name": "Gagne & Son LLC",
+      "google_places_id": "ChIJkfTKEQZNrkwRlshn_I2HUrE",
+      "lat": 44.7528499,
+      "lng": -68.6789218
+    },
+    {
+      "branch_id": "019202d5-bea2-44bb-bde6-07c61575da98",
+      "branch_name": "Kittery",
+      "company_name": "Gagne & Son LLC",
+      "google_places_id": "ChIJoSzOBN--4okR1xcnaZkT0Uk",
+      "lat": 43.0856724,
+      "lng": -70.743658
+    },
+    {
+      "branch_id": "8a527b46-b8d7-4b37-a4b5-04cabea2edaa",
+      "branch_name": "Saco",
+      "company_name": "Gagne & Son LLC",
+      "google_places_id": "ChIJn7-Ot4ukskwRfVyNkwqB_8w",
+      "lat": 43.500739,
+      "lng": -70.4429855
+    },
+    {
+      "branch_id": "41919504-cca9-4eae-bd78-875672ec717e",
+      "branch_name": "Topsham",
+      "company_name": "Gagne & Son LLC",
+      "google_places_id": "ChIJi-_pHEB4skwRUZV3J9NaBu4",
+      "lat": 43.9247398,
+      "lng": -69.9635448
+    },
+    {
+      "branch_id": "74de1fd0-1f0d-4ade-a4e7-cb716d63be31",
+      "branch_name": "Westbrook",
+      "company_name": "Gagne & Son LLC",
+      "google_places_id": "ChIJPWKz9FuaskwR_SuqP-8565M",
+      "lat": 43.6763036,
+      "lng": -70.3663874
+    },
+    {
+      "branch_id": "4ae25d75-9b69-44b8-8ddc-6e37c082ff9c",
+      "branch_name": "Acton",
+      "company_name": "Gibsons Building Supplies Ltd",
+      "google_places_id": "ChIJl2sfXCxuK4gRDrni527hj1U",
+      "lat": 43.6340679,
+      "lng": -80.0351117
+    },
+    {
+      "branch_id": "4a5db83b-ed80-4a11-be10-7b7620df526b",
+      "branch_name": "Aurora",
+      "company_name": "Gibsons Building Supplies Ltd",
+      "google_places_id": "ChIJF12_yoDT1IkRJjOoqxHaqOw",
+      "lat": 43.99973,
+      "lng": -79.467545
+    },
+    {
+      "branch_id": "f788803a-541e-4620-a453-a2ef2e9690d1",
+      "branch_name": "Brantford",
+      "company_name": "Gibsons Building Supplies Ltd",
+      "google_places_id": "ChIJazdjQz5lLIgR0KeZ_zDFyso",
+      "lat": 43.1408157,
+      "lng": -80.2631733
+    },
+    {
+      "branch_id": "edd41aea-4e96-4bb9-abff-87ce427ae42c",
+      "branch_name": "Mississauga",
+      "company_name": "Gibsons Building Supplies Ltd",
+      "google_places_id": "ChIJ92rUPHU_K4gRjc1AfJE-KbU",
+      "lat": 43.5896231,
+      "lng": -79.6443879
+    },
+    {
+      "branch_id": "f8f0e4df-aaf2-440b-952d-1938f0be9134",
+      "branch_name": "Orillia",
+      "company_name": "Gibsons Building Supplies Ltd",
+      "google_places_id": "ChIJ386hM36rKk0RqgpuMoSoHtg",
+      "lat": 44.6066135,
+      "lng": -79.4169256
+    },
+    {
+      "branch_id": "3348ee81-9bb7-48a0-bc0e-ec77f7c56df6",
+      "branch_name": "Orono",
+      "company_name": "Gibsons Building Supplies Ltd",
+      "google_places_id": "ChIJf9HKfYeo1YkRPcQEbOq2z4s",
+      "lat": 43.975028,
+      "lng": -78.616447
+    },
+    {
+      "branch_id": "c35152dc-a201-4884-a101-75f51dd173f9",
+      "branch_name": "Peterborough",
+      "company_name": "Gibsons Building Supplies Ltd",
+      "google_places_id": "ChIJOVdzPuON1YkRmznNOxWJpqY",
+      "lat": 44.3048009,
+      "lng": -78.3199496
+    },
+    {
+      "branch_id": "5d6f4b95-6903-4b8f-9095-ad2fc9609ef8",
+      "branch_name": "Aurora",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJY_rHCfPXQYgRFxmMnn-RNL8",
+      "lat": 39.0570022,
+      "lng": -84.9013402
+    },
+    {
+      "branch_id": "adb022ad-69fb-42dc-97f0-08d834bf807a",
+      "branch_name": "Batesville",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJHUaoR8KLaogR-6Fn2gISNbg",
+      "lat": 39.3000065,
+      "lng": -85.222184
+    },
+    {
+      "branch_id": "86bb0b1e-5e46-4891-8d08-cce0aeea4448",
+      "branch_name": "Brookville",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJVXKvmUacaogRwIsJsQflZ8Y",
+      "lat": 39.4231065,
+      "lng": -85.0127376
+    },
+    {
+      "branch_id": "6a36535d-8890-4e27-8ad0-af8fd2459197",
+      "branch_name": "Centerville",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJP6leEJKraogR9aGTSUs10-A",
+      "lat": 39.8178246,
+      "lng": -84.9963518
+    },
+    {
+      "branch_id": "332a94ea-7129-438a-9b48-83cbc205776a",
+      "branch_name": "Connersville",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJdbGLm2a7aogRGKSblXOPKSo",
+      "lat": 39.6411589,
+      "lng": -85.1410748
+    },
+    {
+      "branch_id": "a93f143b-185f-4d4c-b469-30a6a7750ba8",
+      "branch_name": "Eaton",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJzUHKi40MQIgRU7srDFkSSY0",
+      "lat": 40.3403206,
+      "lng": -85.3508046
+    },
+    {
+      "branch_id": "085a58d1-4a08-4cdc-ae53-e4a2d5e15391",
+      "branch_name": "Edinburgh",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJfys_qZxza4gRQCEHrm9IWdU",
+      "lat": 39.3542176,
+      "lng": -85.9666577
+    },
+    {
+      "branch_id": "a9af2313-5369-4e88-9285-f616415127dc",
+      "branch_name": "Frankfort",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJq8IVLz9qE4gR2gGLMqYjRqk",
+      "lat": 40.2797657,
+      "lng": -86.5108244
+    },
+    {
+      "branch_id": "293a948b-695f-4dd5-929c-1f311d34e7e7",
+      "branch_name": "Gas City",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJvXBMfiUBFYgRCyZCzrN3w_I",
+      "lat": 40.4880229,
+      "lng": -85.6125667
+    },
+    {
+      "branch_id": "5d90d440-48cd-4231-8e9c-afdeac7afc94",
+      "branch_name": "Hartford City",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJuaIZVlsJFYgRrRYd7qAUinI",
+      "lat": 40.4511541,
+      "lng": -85.369972
+    },
+    {
+      "branch_id": "f0d90b17-68dd-4a08-bdd5-651a14a0188e",
+      "branch_name": "Lebanon",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJvYI3auNOE4gRuHIsQBYYv4U",
+      "lat": 40.0483744,
+      "lng": -86.4691677
+    },
+    {
+      "branch_id": "254f39fb-03b7-4e4f-8f73-b688f0dda502",
+      "branch_name": "Muncie",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJm7AIsmk9FYgRicJxNT-KMn0",
+      "lat": 40.1936892,
+      "lng": -85.3865271
+    },
+    {
+      "branch_id": "dbe93029-cdc2-4f05-aa62-0337fd188079",
+      "branch_name": "New Castle",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJiRQeoM_MaogRxhA584Aon10",
+      "lat": 39.9289351,
+      "lng": -85.3702477
+    },
+    {
+      "branch_id": "6384808d-4776-40af-a44f-9e39c0066c8c",
+      "branch_name": "North Vernon",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJ-99BOCm1a4gRLoz6P-wJrRo",
+      "lat": 39.006165,
+      "lng": -85.6235796
+    },
+    {
+      "branch_id": "620785b7-ec1f-42e1-be82-26d11376f9f1",
+      "branch_name": "Seymour",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJO9onxJ-_a4gRQWP_6lJDKXg",
+      "lat": 38.9592201,
+      "lng": -85.8902547
+    },
+    {
+      "branch_id": "7f289b6e-0b8a-4a6a-8211-7c70005862c5",
+      "branch_name": "Shelbyville",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJe4g2AAMZa4gRYl0j7s1-bJE",
+      "lat": 39.5214373,
+      "lng": -85.7769238
+    },
+    {
+      "branch_id": "7ec5ab53-67ec-43a0-9402-9fa3e2c1b7ae",
+      "branch_name": "Winchester",
+      "company_name": "Gillman Home Center",
+      "google_places_id": "ChIJ75Y1FJ9fFYgRk6n-SsoibbY",
+      "lat": 40.1719892,
+      "lng": -84.9813549
+    },
+    {
+      "branch_id": "bd203d86-c1f5-49da-8128-678ac26f2ecf",
+      "branch_name": "Auburn",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJX0rsC3RpskwRDh83dbl05G4",
+      "lat": 44.0965374,
+      "lng": -70.2249487
+    },
+    {
+      "branch_id": "cdcdbb7e-c727-4f30-9e27-c9931aea8b8c",
+      "branch_name": "Bangor",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "EiYxMDg3IEhhbW1vbmQgU3QsIEJhbmdvciwgTUUgMDQ0MDEsIFVTQSIxEi8KFAoSCZfD_aEGS65MEakTHF7GiQ4UEL8IKhQKEgn5t7hyGkuuTBGN-dYK2OL5rQ",
+      "lat": 44.8016255,
+      "lng": -68.7713289
+    },
+    {
+      "branch_id": "002ded4b-fbff-4930-849c-e71cc63186d4",
+      "branch_name": "Bar Harbor",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJJwjzXseUrkwRWe-gRz2MGBE",
+      "lat": 44.3876378,
+      "lng": -68.2043361
+    },
+    {
+      "branch_id": "94c8953b-7a2a-4a67-90c5-5339f8ccac5f",
+      "branch_name": "Belfast",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJTVdsiGturkwRyDBnatYt95s",
+      "lat": 44.4261759,
+      "lng": -69.0065207
+    },
+    {
+      "branch_id": "4454eff6-03c3-4abf-9281-ae1c18d1a07f",
+      "branch_name": "Belgrade",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJRyf5lG_3sUwRjjB6Zo5zCk0",
+      "lat": 44.447507,
+      "lng": -69.833221
+    },
+    {
+      "branch_id": "a4f0b970-0fd2-4806-b878-8c0a2414da41",
+      "branch_name": "Blue Hill",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJm9vC-HGMrkwRvqv7aHvCK1g",
+      "lat": 44.413027,
+      "lng": -68.5880555
+    },
+    {
+      "branch_id": "63482281-e871-4235-8e27-48615a2bbd73",
+      "branch_name": "Boothbay Harbor",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJJ6Lb2VWYrUwR3xud3va4PUk",
+      "lat": 43.8512524,
+      "lng": -69.6278039
+    },
+    {
+      "branch_id": "b2421fd2-d75c-41e7-9d2e-92d14d24a201",
+      "branch_name": "Brunswick",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJ9RTHYGiHrUwR6tp4xRmRdoI",
+      "lat": 43.9166529,
+      "lng": -69.9659438
+    },
+    {
+      "branch_id": "8e849d4e-ab61-4e50-877d-59cb89522226",
+      "branch_name": "Bucksport",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJ2bTiD4hcrkwRHICbE7a5mVw",
+      "lat": 44.5718672,
+      "lng": -68.7942156
+    },
+    {
+      "branch_id": "cf3ea24d-04d7-46cd-a005-35df0ad4117c",
+      "branch_name": "Calais",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJ8dsW4dX-pUwRsRtb5fkz-x0",
+      "lat": 45.1890175,
+      "lng": -67.2781391
+    },
+    {
+      "branch_id": "9da84c1e-698c-4dba-b826-7c9c316d514b",
+      "branch_name": "Camden",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJtxpGrhbXrUwRAnKB6KQP_As",
+      "lat": 44.210265,
+      "lng": -69.065552
+    },
+    {
+      "branch_id": "a9b2bf18-f970-4939-9eb7-bd018f0a5a72",
+      "branch_name": "Cherryfield",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJvS_LQKTZrkwRpibI29QRGs0",
+      "lat": 44.6072991,
+      "lng": -67.9258366
+    },
+    {
+      "branch_id": "1266b747-7359-43c6-aa9f-66a353153da8",
+      "branch_name": "Corinth",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 45.0037427,
+      "lng": -69.0234445
+    },
+    {
+      "branch_id": "882f1275-e5da-41bd-b7bd-1fa45664a570",
+      "branch_name": "Damariscotta",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJNZv5pCnrrUwRHzFzwE4qfYA",
+      "lat": 44.0327531,
+      "lng": -69.5315214
+    },
+    {
+      "branch_id": "ba032d67-363f-4d18-a5bd-66d4fabe41f3",
+      "branch_name": "Dixfield",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 44.5312668,
+      "lng": -70.4569591
+    },
+    {
+      "branch_id": "c1ddad1e-c38c-470d-a58e-b94828edb7de",
+      "branch_name": "Dover-Foxcroft",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 45.183489,
+      "lng": -69.2276
+    },
+    {
+      "branch_id": "7f12d497-cc31-4d24-9074-82d3e2ba19cc",
+      "branch_name": "Ellsworth",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJ54-UNavxrkwRF7NUIfHXj4w",
+      "lat": 44.5414596,
+      "lng": -68.4243599
+    },
+    {
+      "branch_id": "9faa5550-6125-4cde-ba03-8f2f86c3357d",
+      "branch_name": "Fairfield",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJn0Nvy1XhsUwRwd0cWWyJtMs",
+      "lat": 44.588511,
+      "lng": -69.599075
+    },
+    {
+      "branch_id": "5cc7f82d-5621-4cb9-b659-90c478898ec6",
+      "branch_name": "Farmington",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "EjIzODkgRmFybWluZ3RvbiBGYWxscyBSZCwgRmFybWluZ3RvbiwgTUUgMDQ5MzgsIFVTQSIxEi8KFAoSCRMJNGNwmrFMEfLTkgg02WBMEIUDKhQKEgnnCJSE-pCxTBFwBSyJ7P3Rlw",
+      "lat": 44.670628,
+      "lng": -70.1514536
+    },
+    {
+      "branch_id": "d25a6bd6-0c92-4ccf-bd3f-3446d1740952",
+      "branch_name": "Gorham",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 43.6797334,
+      "lng": -70.4429592
+    },
+    {
+      "branch_id": "1f01f410-eb32-4a8b-8941-2b3b4cb3d782",
+      "branch_name": "Greenville",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJ5QoEgxh7sEwRBvNfc5uJ70k",
+      "lat": 45.458955,
+      "lng": -69.5916835
+    },
+    {
+      "branch_id": "2a3be5f5-d8b0-4296-b8dd-9ad0be533d1b",
+      "branch_name": "Greenville Lily Bay",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 45.4605801,
+      "lng": -69.5902886
+    },
+    {
+      "branch_id": "dba88a62-b6c1-4d08-a30c-65b1e8870c7d",
+      "branch_name": "Kingfield",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 44.959454,
+      "lng": -70.154572
+    },
+    {
+      "branch_id": "591dc026-972e-4ad8-8415-db3ea1073912",
+      "branch_name": "Livermore Falls",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 44.4724293,
+      "lng": -70.1895554
+    },
+    {
+      "branch_id": "56d02189-622e-41fa-a1f8-34821acffb5d",
+      "branch_name": "Machias",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJbxJGoOzNqEwRxbMkYQVWCK0",
+      "lat": 44.7143592,
+      "lng": -67.4582679
+    },
+    {
+      "branch_id": "7b52bdce-5f39-4f32-9ad5-bf77e26ad800",
+      "branch_name": "Mexico",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 44.5572104,
+      "lng": -70.5431687
+    },
+    {
+      "branch_id": "00f7d93e-eeef-468f-b291-9a4a4fa60c08",
+      "branch_name": "Old Town",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 44.9353983,
+      "lng": -68.6458909
+    },
+    {
+      "branch_id": "fd1eed15-9128-4f58-b950-d27a52b87441",
+      "branch_name": "Palmyra",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 44.84662,
+      "lng": -69.358749
+    },
+    {
+      "branch_id": "8b5e9d44-bd91-4cf1-b881-33ed4703a185",
+      "branch_name": "Portland",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJ131-uVmaskwR9BLJU5ByhRk",
+      "lat": 43.6573605,
+      "lng": -70.2586618
+    },
+    {
+      "branch_id": "740e669e-95ad-42f7-aee6-9f697e5aef6f",
+      "branch_name": "Rochester",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJeaikGE6b4okRnpXqImvR0cE",
+      "lat": 43.2749457,
+      "lng": -70.8773719
+    },
+    {
+      "branch_id": "e37dbb56-5736-4c97-bff3-afb4375076b7",
+      "branch_name": "Rockland",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJN4HSgdLRrUwRAGI-dzlpjo4",
+      "lat": 44.1048327,
+      "lng": -69.1091823
+    },
+    {
+      "branch_id": "7bb764a3-eb54-4336-a4f1-6be25217ff2f",
+      "branch_name": "Skowhegan",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "ChIJFXows0rBsUwRVjwlMDiAZ8I",
+      "lat": 44.7650773,
+      "lng": -69.7193802
+    },
+    {
+      "branch_id": "7e04b5fc-4d93-4d2f-8fd3-340f25603a80",
+      "branch_name": "Waterville",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 44.5505773,
+      "lng": -69.6303174
+    },
+    {
+      "branch_id": "9a1436a6-c923-4408-b822-6e8e1b19414b",
+      "branch_name": "West Enfield",
+      "company_name": "Hammond Lumber Company",
+      "google_places_id": "",
+      "lat": 45.2433889,
+      "lng": -68.6497496
+    },
+    {
+      "branch_id": "060006cd-a26d-477b-84e5-8740ce459137",
+      "branch_name": "Campbell",
+      "company_name": "Hayward Lumber",
+      "google_places_id": "ChIJr1GsxB01joARCkcCeZ5MaxE",
+      "lat": 37.2870626,
+      "lng": -121.944881
+    },
+    {
+      "branch_id": "d708bc17-1a09-4f41-b7e4-39a7b122eecb",
+      "branch_name": "Goleta",
+      "company_name": "Hayward Lumber",
+      "google_places_id": "ChIJ4bSwpYdA6YAR_SqnTjCOyp0",
+      "lat": 34.4358295,
+      "lng": -119.8276389
+    },
+    {
+      "branch_id": "8e13b7d7-c5a2-4f43-a07d-6dd47b5387ad",
+      "branch_name": "Pacific Grove",
+      "company_name": "Hayward Lumber",
+      "google_places_id": "ChIJQ-YYKzLhjYARC_tpEvcwyak",
+      "lat": 36.6211149,
+      "lng": -121.917794
+    },
+    {
+      "branch_id": "d5496150-8b4a-4b22-a369-a10b526d3f2c",
+      "branch_name": "Redwood City",
+      "company_name": "Hayward Lumber",
+      "google_places_id": "ChIJ2dfL9f6ij4AR3x6whwZ-r78",
+      "lat": 37.4863239,
+      "lng": -122.232523
+    },
+    {
+      "branch_id": "081118a9-b3f0-49e6-a489-4dfdacd36e68",
+      "branch_name": "Salinas",
+      "company_name": "Hayward Lumber",
+      "google_places_id": "ChIJBQqXh5T4jYAR2MGiD9LBMd8",
+      "lat": 36.6744117,
+      "lng": -121.655037
+    },
+    {
+      "branch_id": "679aeef1-1c3c-41d9-b3bf-15467e0f15fd",
+      "branch_name": "San Luis Obispo",
+      "company_name": "Hayward Lumber",
+      "google_places_id": "ChIJ08ezw-Pw7IARdr_xSbHJmGE",
+      "lat": 35.3540209,
+      "lng": -120.375716
+    },
+    {
+      "branch_id": "dba5f9b9-ec44-48c5-87dd-fda7211d234f",
+      "branch_name": "Santa Barbara",
+      "company_name": "Hayward Lumber",
+      "google_places_id": "ChIJvQP81YUT6YARXcYKL28Q7Ho",
+      "lat": 34.4221319,
+      "lng": -119.702667
+    },
+    {
+      "branch_id": "8d540622-30d1-428e-bb44-e5d910cea326",
+      "branch_name": "Santa Maria",
+      "company_name": "Hayward Lumber",
+      "google_places_id": "ChIJYakw4Fpr7IAR7aVs2yPOqBU",
+      "lat": 34.9531295,
+      "lng": -120.435857
+    },
+    {
+      "branch_id": "922de36c-81dd-47ea-94a7-5103f60d5e3e",
+      "branch_name": "Loganville",
+      "company_name": "Hill's Ace Hardware & Lumber",
+      "google_places_id": "ChIJc7MNaMTH9YgRXu9nfNQCnaw",
+      "lat": 33.8389977,
+      "lng": -83.9007382
+    },
+    {
+      "branch_id": "e78f035d-0d7d-421e-92e8-8957ea232ef5",
+      "branch_name": "Winder",
+      "company_name": "Hill's Ace Hardware & Lumber",
+      "google_places_id": "ChIJ8ZvFuInn9YgRSjG7THLtb28",
+      "lat": 33.9919085,
+      "lng": -83.7184368
+    },
+    {
+      "branch_id": "598aa7be-6aa3-4ce6-8ffd-a12863dd7256",
+      "branch_name": "Alexandria",
+      "company_name": "Hilltop Lumber",
+      "google_places_id": "ChIJGU1Mnw4PylIRHsv336U5lX8",
+      "lat": 45.8835101,
+      "lng": -95.3745015
+    },
+    {
+      "branch_id": "59138c80-ec5a-4e9e-9341-876238f6c829",
+      "branch_name": "Glenwood",
+      "company_name": "Hilltop Lumber",
+      "google_places_id": "ChIJC0fiRAdvylIRMNQ8P0xQIe4",
+      "lat": 45.6502394,
+      "lng": -95.3897582
+    },
+    {
+      "branch_id": "eb09a751-8b86-4705-96ae-ac8d07208128",
+      "branch_name": "Ottertail",
+      "company_name": "Hilltop Lumber",
+      "google_places_id": "ChIJwwCVdp64t1IRF7pRCRFjaVs",
+      "lat": 46.425516,
+      "lng": -95.5572643
+    },
+    {
+      "branch_id": "5ab0f676-b0ba-497a-ae63-c77b4afad2fe",
+      "branch_name": "Park Rapids",
+      "company_name": "Hilltop Lumber",
+      "google_places_id": "ChIJwwCVdp64t1IRF7pRCRFjaVs",
+      "lat": 46.9221813,
+      "lng": -95.0586322
+    },
+    {
+      "branch_id": "57d53fc7-41a8-4aaf-977a-2ac6d1e92e7d",
+      "branch_name": "Lucknow",
+      "company_name": "Hodgins Building Centre",
+      "google_places_id": "ChIJF1vrt48DKYgR8MQ12y-Ohyc",
+      "lat": 43.961848,
+      "lng": -81.5172512
+    },
+    {
+      "branch_id": "32f838fe-652c-4250-bdc6-54834b7d88cc",
+      "branch_name": "Port Elgin",
+      "company_name": "Hodgins Building Centre",
+      "google_places_id": "ChIJJW824iPJKYgR9dJ4E0GJvow",
+      "lat": 44.4358826,
+      "lng": -81.3889458
+    },
+    {
+      "branch_id": "fd3b9fc3-af10-4946-88b9-ebc0ef364f45",
+      "branch_name": "Wingham",
+      "company_name": "Hodgins Building Centre",
+      "google_places_id": "ChIJyY3OdK8JK4gRQ0K9aHNtzRY",
+      "lat": 43.886245,
+      "lng": -81.31275
+    },
+    {
+      "branch_id": "87efe029-e14a-401b-abc0-d887e18f485f",
+      "branch_name": "Belmar",
+      "company_name": "Jaeger Lumber",
+      "google_places_id": "ChIJzQq9iuInwokRk2nOFwzxch4",
+      "lat": 40.1784471,
+      "lng": -74.0218037
+    },
+    {
+      "branch_id": "75b2897d-3f82-43b3-aca9-bb37a9628abc",
+      "branch_name": "Lakewood",
+      "company_name": "Jaeger Lumber",
+      "google_places_id": "ChIJ5WGIrE2CwYkROXyqJESghL0",
+      "lat": 40.0978929,
+      "lng": -74.2176435
+    },
+    {
+      "branch_id": "8ecba013-2c9c-47ff-bdee-f8a60ab2b5b5",
+      "branch_name": "Madison",
+      "company_name": "Jaeger Lumber",
+      "google_places_id": "ChIJm0GyQvOlw4kRnWmomr0Mor0",
+      "lat": 40.7598227,
+      "lng": -74.417097
+    },
+    {
+      "branch_id": "eb671c62-79db-424d-a5c3-b35ef09fb501",
+      "branch_name": "Middlesex",
+      "company_name": "Jaeger Lumber",
+      "google_places_id": "ChIJA9iRntm4w4kRQT-ctHdfUf0",
+      "lat": 40.4279708,
+      "lng": -74.3963102
+    },
+    {
+      "branch_id": "84f8a755-36ed-492a-8e9f-5b555fc77de2",
+      "branch_name": "Pt. Pleasant Beach",
+      "company_name": "Jaeger Lumber",
+      "google_places_id": "ChIJ4SXYQQmGwYkRUbpLmMK60X4",
+      "lat": 40.0919203,
+      "lng": -74.0482024
+    },
+    {
+      "branch_id": "fcdf0122-b19d-450f-a8d8-570f86c61a2b",
+      "branch_name": "Stirling",
+      "company_name": "Jaeger Lumber",
+      "google_places_id": "ChIJXx9SnHi7w4kRwg8i7FH06Do",
+      "lat": 40.6747257,
+      "lng": -74.4933902
+    },
+    {
+      "branch_id": "fbcbb837-d313-43a9-ac80-92ad6a9a810d",
+      "branch_name": "Union",
+      "company_name": "Jaeger Lumber",
+      "google_places_id": "ChIJNUqVeZWtw4kRdb6RlYorQdk",
+      "lat": 40.6652251,
+      "lng": -74.3045277
+    },
+    {
+      "branch_id": "2b8fddc9-5cd2-4cfc-b739-0bdf71d33d14",
+      "branch_name": "Verona",
+      "company_name": "Jaeger Lumber",
+      "google_places_id": "ChIJf6H4YXcAw4kRLBJTSYy9i-c",
+      "lat": 40.829822,
+      "lng": -74.2401466
+    },
+    {
+      "branch_id": "9aae8d59-f4aa-4e5d-99f3-b670f466d962",
+      "branch_name": "Clearwater",
+      "company_name": "Kamloops Home Hardware Building Centre",
+      "google_places_id": "ChIJqT3caRbagVMRjxhfM_iW5pA",
+      "lat": 51.6503514,
+      "lng": -120.0654595
+    },
+    {
+      "branch_id": "d80d99eb-9c81-4bf5-b94c-fee9026b66c4",
+      "branch_name": "Kamloops",
+      "company_name": "Kamloops Home Hardware Building Centre",
+      "google_places_id": "ChIJsZiOzUAtflMR7PXvNCTF33c",
+      "lat": 50.6758269,
+      "lng": -120.339415
+    },
+    {
+      "branch_id": "1163001c-951c-456f-a7e8-aee550b4bf31",
+      "branch_name": "Prince Rupert",
+      "company_name": "Kamloops Home Hardware Building Centre",
+      "google_places_id": "ChIJyeqlQxPVclQRo8bpneVLOfQ",
+      "lat": 54.3126572,
+      "lng": -130.32549
+    },
+    {
+      "branch_id": "0e878a1c-46b5-4431-b865-366332c9426b",
+      "branch_name": "Bristol NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJbamMruNRs0wRuMzQLn41FSc",
+      "lat": 43.5912709,
+      "lng": -71.7361557
+    },
+    {
+      "branch_id": "b1556a11-0645-4444-b637-8a9531c355e3",
+      "branch_name": "Claremont NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJDRHcC9vB4YkRo3XY8ZEK3M8",
+      "lat": 43.3501514,
+      "lng": -72.3602038
+    },
+    {
+      "branch_id": "61755729-7ab6-4c42-8360-3934f31fc46c",
+      "branch_name": "Dover NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJsVorD_2Z4okRhfxaqKK8niM",
+      "lat": 43.2135223,
+      "lng": -70.9018191
+    },
+    {
+      "branch_id": "c4497f13-8786-4431-802d-96eb1824e7c4",
+      "branch_name": "Gilford NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJZ3o5oM42s0wR29aJcnJOr3E",
+      "lat": 43.54805,
+      "lng": -71.407013
+    },
+    {
+      "branch_id": "e20e72bb-5cfd-4b27-9071-248238b6fa46",
+      "branch_name": "Hampton NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJ2fcVHDXo4okR_c4T4iqYJ5k",
+      "lat": 42.9352065,
+      "lng": -70.8400858
+    },
+    {
+      "branch_id": "fc96f07a-293f-4792-8477-d907e71f31f5",
+      "branch_name": "Meredith NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJnbeZJ7lHs0wR49pgmMOd46I",
+      "lat": 43.6567546,
+      "lng": -71.5011718
+    },
+    {
+      "branch_id": "4340415d-3516-422a-98a0-fe5a79e08b81",
+      "branch_name": "Middleton NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJWWE3uQnUskwRKdn3Hcm-9uI",
+      "lat": 43.4782944,
+      "lng": -71.0708656
+    },
+    {
+      "branch_id": "414567f4-eb16-4090-ac25-98233f142fb7",
+      "branch_name": "Newport NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJ3TI0Eh_u4YkRhIe0FFiiq6w",
+      "lat": 43.3658758,
+      "lng": -72.1735811
+    },
+    {
+      "branch_id": "9eaaa126-11a8-428b-8449-9bcd50bbd711",
+      "branch_name": "Walpole NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJ_RrpsF-k4YkRvaOTvut4u8k",
+      "lat": 43.0788724,
+      "lng": -72.4263604
+    },
+    {
+      "branch_id": "a9484fe0-9317-4f04-9442-33cd48ed0e86",
+      "branch_name": "West Chesterfield NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJsxj3QPgb4YkRTvzCNqERPLs",
+      "lat": 42.9042482,
+      "lng": -72.5156447
+    },
+    {
+      "branch_id": "2ee3d23d-9ce5-4931-a0d3-de9c3de8e205",
+      "branch_name": "West Lebanon NH",
+      "company_name": "LaValley Building Supply",
+      "google_places_id": "ChIJ14oZGF-1tEwRbxrKShjnq8s",
+      "lat": 43.6323646,
+      "lng": -72.3144717
+    },
+    {
+      "branch_id": "1c9a9c70-de64-4e69-bf5a-133b36f25a5a",
+      "branch_name": "Acworth",
+      "company_name": "Lummus Supply Co.",
+      "google_places_id": "ChIJxarLlnpq9YgRSuVVqD1PUwc",
+      "lat": 34.0659329,
+      "lng": -84.6768796
+    },
+    {
+      "branch_id": "1bc96204-b3d2-4f66-9840-24db1c27b967",
+      "branch_name": "Alpharetta",
+      "company_name": "Lummus Supply Co.",
+      "google_places_id": "ChIJjd3wG4Oe9YgRKlaJ7Lgjyxs",
+      "lat": 34.0755962,
+      "lng": -84.2945964
+    },
+    {
+      "branch_id": "1a64a919-1327-4145-b249-a6f7b29142ec",
+      "branch_name": "Bolton Road",
+      "company_name": "Lummus Supply Co.",
+      "google_places_id": "ChIJicexra8b9YgRcXP1NEPzdpU",
+      "lat": 33.8048091,
+      "lng": -84.4828155
+    },
+    {
+      "branch_id": "8bdc519f-2d51-43ee-9b16-41a893daa8dd",
+      "branch_name": "Oakwood",
+      "company_name": "Lummus Supply Co.",
+      "google_places_id": "ChIJN9Xx_K7z9YgRh3o6W5FEi20",
+      "lat": 34.227602,
+      "lng": -83.8843455
+    },
+    {
+      "branch_id": "8d479519-d0b1-4991-80a0-ab3205dcb5bb",
+      "branch_name": "Roswell",
+      "company_name": "Lummus Supply Co.",
+      "google_places_id": "ChIJ5VYdXfh09YgR_Kr0_kBhxfI",
+      "lat": 34.02332,
+      "lng": -84.360022
+    },
+    {
+      "branch_id": "fd9502a4-4354-4082-be70-2dbd4a5dcaec",
+      "branch_name": "Lansing",
+      "company_name": "MPC Cash-way Lumber",
+      "google_places_id": "ChIJL_C91-GUIogRj3vQ0PDuPuM",
+      "lat": 42.7338254,
+      "lng": -84.5546295
+    },
+    {
+      "branch_id": "b6683f3a-0db3-404c-b074-7c5f27c9c058",
+      "branch_name": "Williamston",
+      "company_name": "MPC Cash-way Lumber",
+      "google_places_id": "ChIJCWufcVLeIogRNdjFayTg4rQ",
+      "lat": 42.689151,
+      "lng": -84.2832798
+    },
+    {
+      "branch_id": "2e789b94-4809-4a3c-8941-2f012bcde56d",
+      "branch_name": "Harlingen",
+      "company_name": "Matt’s Building Materials",
+      "google_places_id": "ChIJ-xwfJCKBb4YRFC795HxHzOU",
+      "lat": 26.1907543,
+      "lng": -97.6960599
+    },
+    {
+      "branch_id": "e876e671-6729-4090-a74b-bce0185f9bf6",
+      "branch_name": "Palmview",
+      "company_name": "Matt’s Building Materials",
+      "google_places_id": "ChIJDXDypcSrZYYRk9yiCXsoxeU",
+      "lat": 26.233406,
+      "lng": -98.3708503
+    },
+    {
+      "branch_id": "adde7b3f-c89e-425f-a866-e69e883ad4ea",
+      "branch_name": "Pharr",
+      "company_name": "Matt’s Building Materials",
+      "google_places_id": "ChIJ62vQCoqgZYYR3OztPGz0iv4",
+      "lat": 26.1947962,
+      "lng": -98.1836216
+    },
+    {
+      "branch_id": "225732c1-2c36-4ba1-b09f-b2e1c95543a9",
+      "branch_name": "San Benito",
+      "company_name": "Matt’s Building Materials",
+      "google_places_id": "ChIJ7UJspLyDb4YRNZvcvQCVucU",
+      "lat": 26.1326237,
+      "lng": -97.630791
+    },
+    {
+      "branch_id": "6c18569d-896c-4c9d-a989-fa8c9f88ae60",
+      "branch_name": "Ace Hardware - East",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJ6wyksr1CfYcRrnu8ROd2vtc",
+      "lat": 41.1401911,
+      "lng": -96.0654839
+    },
+    {
+      "branch_id": "7faa3064-9435-4ae6-8806-51b8266f1811",
+      "branch_name": "Ace Hardware - West",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJ37mDDbRcfYcROmCLxQniLvU",
+      "lat": 41.1374424,
+      "lng": -96.0695768
+    },
+    {
+      "branch_id": "b0b3d8ea-8f10-461e-8ac2-9cd4620835d0",
+      "branch_name": "Great Plains Countertops - Grand Island",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJb9EX7VuGmYcRZH5NwWAK2l4",
+      "lat": 40.924271,
+      "lng": -98.338685
+    },
+    {
+      "branch_id": "98dbe0f4-6f9b-4338-849c-3f2ccf1a3219",
+      "branch_name": "Great Plains Distribution - Grand Island",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJTQgSdZKJmYcRf9ZV0f3I7IA",
+      "lat": 40.924271,
+      "lng": -98.338685
+    },
+    {
+      "branch_id": "cf0f8ad9-ec08-4b44-9e23-07c8be176de2",
+      "branch_name": "Heartland Building Center - Hays",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJnZtclXN5oYcRyckMT85f0k4",
+      "lat": 40.828766,
+      "lng": -96.6197721
+    },
+    {
+      "branch_id": "8e906454-2924-418f-92de-27a137b5036a",
+      "branch_name": "Heartland Building Center - Russel",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJ-6K4cevJo4cRQAXGc401fMo",
+      "lat": 41.2337954,
+      "lng": -96.089181
+    },
+    {
+      "branch_id": "4575b307-59d4-40ba-8f3f-36583fed0593",
+      "branch_name": "Heartland Building Center - Stockton",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJLdOPUUr3oYcR5CB_Xnm-_fI",
+      "lat": 40.7513355,
+      "lng": -96.5158357
+    },
+    {
+      "branch_id": "59f963e1-0793-4c40-9a72-91f69c421eae",
+      "branch_name": "Mead Lumber - Ada",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJUT7D_j9ss4cRKUh7gDcX1b4",
+      "lat": 40.904032,
+      "lng": -98.369797
+    },
+    {
+      "branch_id": "f1bdd840-6535-42a1-a134-f18f65848dc6",
+      "branch_name": "Mead Lumber - Beatrice",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJ9Z8J6_lnlocRbDREYPEjqrg",
+      "lat": 40.266429,
+      "lng": -96.747369
+    },
+    {
+      "branch_id": "c39fd382-d9bc-4ca8-a29a-80c4ab0a607b",
+      "branch_name": "Mead Lumber - Billings",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJM69qADljSFMRH0vjm29yRpk",
+      "lat": 40.7367991,
+      "lng": -96.6396234
+    },
+    {
+      "branch_id": "9aa7f15b-5934-4b4d-9c41-a5d3c727a4fe",
+      "branch_name": "Mead Lumber - Broken Bow",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJMUUiT4dbnIcRTQf0oV15Wfg",
+      "lat": 41.4018116,
+      "lng": -99.6393288
+    },
+    {
+      "branch_id": "143efbed-fa96-4fbb-adf8-2eb98f0da4f9",
+      "branch_name": "Mead Lumber - Butte",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJJ7Pu9TgIW1MROhNp8YHNcIY",
+      "lat": 42.9132756,
+      "lng": -98.8490513
+    },
+    {
+      "branch_id": "9a7f6729-93b9-43f0-bb53-787670416fe2",
+      "branch_name": "Mead Lumber - Cheyenne",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJpZpMoZU6b4cRJ5SIPkcdz8I",
+      "lat": 41.2053619,
+      "lng": -102.9796713
+    },
+    {
+      "branch_id": "5a302772-64f1-468b-bc2f-abad5a4c12d8",
+      "branch_name": "Mead Lumber - Columbus",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJQbVljyy8Z0ARTTdIqat8BMk",
+      "lat": 41.4292988,
+      "lng": -97.3581439
+    },
+    {
+      "branch_id": "fd642798-2e05-4759-afa0-047242106afb",
+      "branch_name": "Mead Lumber - Cozad",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJa2CrPePVnYcRkDF5gFV50KM",
+      "lat": 40.8595822,
+      "lng": -99.9858546
+    },
+    {
+      "branch_id": "b07645ea-2974-477b-bc7f-c87376288c20",
+      "branch_name": "Mead Lumber - Dodge City",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJEZeutrUbp4cRj82XuxGH6CE",
+      "lat": 41.4219365,
+      "lng": -100.1944187
+    },
+    {
+      "branch_id": "57a4ce36-bb09-4f55-8a29-1a2c6fa4397e",
+      "branch_name": "Mead Lumber - Grand Island",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJb9EX7VuGmYcRVmE9WXSQ9B8",
+      "lat": 40.924271,
+      "lng": -98.338685
+    },
+    {
+      "branch_id": "334f94e8-d5ff-4dd1-af4e-fecebabc24a0",
+      "branch_name": "Mead Lumber - Grand View",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJ4WKR2mDdwIcRtlXIIX696Xg",
+      "lat": 40.9476403,
+      "lng": -100.0911927
+    },
+    {
+      "branch_id": "cbf2b9db-3df6-4bb3-a698-c4896d1385f8",
+      "branch_name": "Mead Lumber - Kearney",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJoTeyHHH7ZUARoni12zszb9c",
+      "lat": 40.699478,
+      "lng": -99.081858
+    },
+    {
+      "branch_id": "75342db4-a33e-448f-a1e8-71ee051eb055",
+      "branch_name": "Mead Lumber - Laurel",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJ_RjBGGiOSFMR1TSlLm5TJK8",
+      "lat": 42.4294449,
+      "lng": -97.0897704
+    },
+    {
+      "branch_id": "973f4cf1-5f78-409d-8a0a-10f979ab7973",
+      "branch_name": "Mead Lumber - Lexington",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJR0k-ULmEnocRzAkx0qS0Ssg",
+      "lat": 40.7788486,
+      "lng": -99.7414869
+    },
+    {
+      "branch_id": "71e08928-527a-4271-913f-903823c33ee9",
+      "branch_name": "Mead Lumber - Liberty",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJu2Ug-l5VwIcRLeeyMswURqo",
+      "lat": 40.08465,
+      "lng": -96.4826481
+    },
+    {
+      "branch_id": "98da4171-bba5-4097-9b88-1118681d0243",
+      "branch_name": "Mead Lumber - Lincoln",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJE6maX76_locRVXs9lHRWhNI",
+      "lat": 40.8088861,
+      "lng": -96.7077751
+    },
+    {
+      "branch_id": "7c8ecfcb-cafb-48ea-b4f6-ea2c0067e01a",
+      "branch_name": "Mead Lumber - Manhattan",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJP7vFhZHNvYcROwTyUl4JR-M",
+      "lat": 41.7136698,
+      "lng": -96.6837062
+    },
+    {
+      "branch_id": "1bf85354-413b-4e91-9ebc-3121d7dd7b2a",
+      "branch_name": "Mead Lumber - McCook",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJV4AQjpyAdYcRHu_gFmU-ujY",
+      "lat": 40.2006859,
+      "lng": -100.6257666
+    },
+    {
+      "branch_id": "47ce9c5c-312b-4c8a-aba8-e1cc52da6e07",
+      "branch_name": "Mead Lumber - Nebraska City",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJoePOdFlalIcR5nGaOxK5nJk",
+      "lat": 40.676526,
+      "lng": -95.858694
+    },
+    {
+      "branch_id": "9755921a-876c-43ce-b83c-d2ace38ff5c6",
+      "branch_name": "Mead Lumber - Norfolk",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJ00g3hsE_kIcRpe24-ul_M2w",
+      "lat": 42.0283379,
+      "lng": -97.4169964
+    },
+    {
+      "branch_id": "5ea36659-56f9-4065-b6a0-7b0a8c96e390",
+      "branch_name": "Mead Lumber - North Platte",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJZQn9tqojdocRD9T2eqFQ6ug",
+      "lat": 41.1368333,
+      "lng": -100.7612819
+    },
+    {
+      "branch_id": "424218f9-6684-45c0-8535-694f218b702c",
+      "branch_name": "Mead Lumber - Ogallala",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJmdOaUSrodocR64dhoiLKhVU",
+      "lat": 41.1248328,
+      "lng": -101.7189583
+    },
+    {
+      "branch_id": "8cd91198-b6ad-427a-b872-8791140d75fb",
+      "branch_name": "Mead Lumber - Pratt",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJg4wLUjezpYcRhEQDFURUSAc",
+      "lat": 41.336078,
+      "lng": -96.1876051
+    },
+    {
+      "branch_id": "fe623afa-c7c9-4140-889b-8288b96c5417",
+      "branch_name": "Mead Lumber - Salina",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJ6_CvsGTPvIcRbI2jZH3WmsM",
+      "lat": 40.3091378,
+      "lng": -99.2871921
+    },
+    {
+      "branch_id": "dd0448bc-68ed-4472-8292-024830b3a3b0",
+      "branch_name": "Mead Lumber - Sterling",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJDwvSBxXzcYcRbnbcAQs6T8s",
+      "lat": 40.459166,
+      "lng": -96.377514
+    },
+    {
+      "branch_id": "d66f2e11-9ff2-4b46-b85e-2df4799e8ad5",
+      "branch_name": "Mead Lumber - Winner",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJOy87LDN-gYcRWFbrelft_-8",
+      "lat": 40.826281,
+      "lng": -100.9918969
+    },
+    {
+      "branch_id": "cc8001b2-d94c-4bf8-a356-f8e2c57fa9c8",
+      "branch_name": "Mead Lumber - Yankton",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJaU3H0FSgj4cRGOwLS4r9yY4",
+      "lat": 42.8494423,
+      "lng": -97.3983925
+    },
+    {
+      "branch_id": "0dbee325-bb85-4d6e-b2ad-1ff7cfe69cbc",
+      "branch_name": "Mead Lumber - York",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJUYLvg_NPl4cRMJHRO_lLjV8",
+      "lat": 40.871617,
+      "lng": -97.6001401
+    },
+    {
+      "branch_id": "8a28d6bb-d0b4-463f-961f-75f017c98f8a",
+      "branch_name": "Munn Lumber - Ames",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJKSc3a2B67ocR52HED7TMBIE",
+      "lat": 41.4523961,
+      "lng": -96.6260468
+    },
+    {
+      "branch_id": "7d697c71-b372-4b2b-ac00-32971a2e7c2f",
+      "branch_name": "Truss Craft - Kansas",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJj9gGYX15oYcR7Mw30k6JjsQ",
+      "lat": 40.0156767,
+      "lng": -95.5147961
+    },
+    {
+      "branch_id": "7e2d35b3-d5d2-4617-a7e7-2eff912dc13e",
+      "branch_name": "Truss Craft - Nebraska",
+      "company_name": "Mead Lumber",
+      "google_places_id": "ChIJzbaQMYSImYcR2SS7p77ZDwU",
+      "lat": 41.1024987,
+      "lng": -96.4390089
+    },
+    {
+      "branch_id": "42db9f5f-a1c2-485a-8c0a-9014a5782843",
+      "branch_name": "Ayer",
+      "company_name": "Moore Lumber and Hardware Co",
+      "google_places_id": "ChIJqR31ut7q44kRjrlcGw6bduk",
+      "lat": 42.5595807,
+      "lng": -71.5882561
+    },
+    {
+      "branch_id": "d52a0ffb-3fff-4858-bf70-d02576c30b76",
+      "branch_name": "Shirley",
+      "company_name": "Moore Lumber and Hardware Co",
+      "google_places_id": "ChIJ8a2A-ujr44kROVXMGvP6oJc",
+      "lat": 42.5438051,
+      "lng": -71.6497972
+    },
+    {
+      "branch_id": "5f7e3415-a838-41fe-8223-389d664d63d5",
+      "branch_name": "Bridge City",
+      "company_name": "Orange County Building Materials",
+      "google_places_id": "ChIJ-T3YShZLOYYR6KZijM6IlbY",
+      "lat": 30.0294356,
+      "lng": -93.8399077
+    },
+    {
+      "branch_id": "61ca444b-e175-4830-98bc-c71161578bf5",
+      "branch_name": "Buna",
+      "company_name": "Orange County Building Materials",
+      "google_places_id": "ChIJWfdmTjpCOYYRURVAg_OM21E",
+      "lat": 30.4368977,
+      "lng": -93.964566
+    },
+    {
+      "branch_id": "a61253ca-ac08-494d-a355-191e7a79cbf8",
+      "branch_name": "Jasper",
+      "company_name": "Orange County Building Materials",
+      "google_places_id": "ChIJG9uTutefOYYRhFdlB7urY0s",
+      "lat": 30.7485258,
+      "lng": -94.000884
+    },
+    {
+      "branch_id": "30061a01-c214-4cf8-8882-93ac9d335852",
+      "branch_name": "Kirbyville",
+      "company_name": "Orange County Building Materials",
+      "google_places_id": "ChIJpYnVlVFlOYYROjAYkX48igY",
+      "lat": 30.6604815,
+      "lng": -93.8926809
+    },
+    {
+      "branch_id": "ca89db15-09f6-4e0c-b232-2d0f690bb5b8",
+      "branch_name": "Lumberton",
+      "company_name": "Orange County Building Materials",
+      "google_places_id": "ChIJi6kDL1cwOYYRwt6oCIAIh0k",
+      "lat": 30.2655322,
+      "lng": -94.1991444
+    },
+    {
+      "branch_id": "77529b2a-183a-48e5-a874-2c3bb78bb2e6",
+      "branch_name": "Damascus",
+      "company_name": "Parr Lumber",
+      "google_places_id": "ChIJn-RNQGmdlVQRigIsAmXqdEo",
+      "lat": 45.4220856,
+      "lng": -122.4283111
+    },
+    {
+      "branch_id": "51b9fe15-dbe9-4a58-a721-70d20963688f",
+      "branch_name": "Forest Grove",
+      "company_name": "Parr Lumber",
+      "google_places_id": "ChIJS-zG9nwZlVQRsH-sTMPkABg",
+      "lat": 45.5190404,
+      "lng": -123.1110551
+    },
+    {
+      "branch_id": "4bbbe0a8-057e-45e6-8198-b552726d81b6",
+      "branch_name": "Hillsboro",
+      "company_name": "Parr Lumber",
+      "google_places_id": "ChIJRSETAZUFlVQRgqUUcD8Rp48",
+      "lat": 45.5228939,
+      "lng": -122.989827
+    },
+    {
+      "branch_id": "98013c29-9248-4b04-97f9-52412953ff86",
+      "branch_name": "Newberg",
+      "company_name": "Parr Lumber",
+      "google_places_id": "ChIJ0flHnXBqlVQRavKC8FbNXN8",
+      "lat": 45.300347,
+      "lng": -122.972751
+    },
+    {
+      "branch_id": "2aa6e566-11e0-4abd-840e-87d6d68282e6",
+      "branch_name": "Raleigh Hills",
+      "company_name": "Parr Lumber",
+      "google_places_id": "ChIJfxqjme0LlVQRyiwAmuoCF68",
+      "lat": 45.4863253,
+      "lng": -122.74852
+    },
+    {
+      "branch_id": "e9246be3-df00-4d59-a6f5-f186cf9dbe14",
+      "branch_name": "Rockwood",
+      "company_name": "Parr Lumber",
+      "google_places_id": "ChIJE6Ni3HGilVQRwY5EoZv_2cM",
+      "lat": 45.5191696,
+      "lng": -122.4828056
+    },
+    {
+      "branch_id": "1ad43d0d-66bd-422d-b232-09e437238b79",
+      "branch_name": "West Linn",
+      "company_name": "Parr Lumber",
+      "google_places_id": "ChIJl2Z3ZEpylVQRjaCGF1pq4h4",
+      "lat": 45.3656761,
+      "lng": -122.612314
+    },
+    {
+      "branch_id": "9ee53caf-4063-448d-b411-ed1dcbdd0c1c",
+      "branch_name": "Gaylord",
+      "company_name": "Preston Feather",
+      "google_places_id": "ChIJgRjtva1MNU0R2dBW-jTNs3A",
+      "lat": 45.027513,
+      "lng": -84.674752
+    },
+    {
+      "branch_id": "8ea951af-dd24-4952-ae69-4e70f193e761",
+      "branch_name": "Harbor Springs",
+      "company_name": "Preston Feather",
+      "google_places_id": "ChIJDcFE-XWBSk0RlqP_dQTvoMA",
+      "lat": 45.431676,
+      "lng": -84.991999
+    },
+    {
+      "branch_id": "c1c8d2e2-45c4-4bae-8549-40d4bf5ac770",
+      "branch_name": "Petoskey",
+      "company_name": "Preston Feather",
+      "google_places_id": "ChIJraWIBPCESk0R5yyxcVoaHmA",
+      "lat": 45.373343,
+      "lng": -84.95533
+    },
+    {
+      "branch_id": "eebe833f-7198-4074-901f-54a70dc4422f",
+      "branch_name": "Traverse City",
+      "company_name": "Preston Feather",
+      "google_places_id": "ChIJHUvMMebRH4gR0SJnzK3SOd0",
+      "lat": 44.7606481,
+      "lng": -85.6165976
+    },
+    {
+      "branch_id": "0b153cc9-800f-4866-96e6-aa40b2e1d61e",
+      "branch_name": "Caribou",
+      "company_name": "S.W. Collins Co.",
+      "google_places_id": "ChIJd7EnkVe4vEwRlwT06npX5Q0",
+      "lat": 46.8606301,
+      "lng": -68.0116807
+    },
+    {
+      "branch_id": "5e19c835-55a7-4013-814b-aa5ac6078d10",
+      "branch_name": "Fort Kent",
+      "company_name": "S.W. Collins Co.",
+      "google_places_id": "ChIJwb1dUvVRvEwRSIzU-BRYeU8",
+      "lat": 47.2559046,
+      "lng": -68.5904597
+    },
+    {
+      "branch_id": "64199af9-918d-4ed3-bdc2-cbe99eb70c20",
+      "branch_name": "Houlton",
+      "company_name": "S.W. Collins Co.",
+      "google_places_id": "ChIJw8MPNBnCpEwRT3al4b0WRWI",
+      "lat": 46.1251286,
+      "lng": -67.8407944
+    },
+    {
+      "branch_id": "d092099b-b3a1-4fc1-868a-730796cbedd9",
+      "branch_name": "Lincoln",
+      "company_name": "S.W. Collins Co.",
+      "google_places_id": "ChIJLb9h48r1r0wRGtBvZxmFnxU",
+      "lat": 44.1137571,
+      "lng": -69.5351337
+    },
+    {
+      "branch_id": "c1628540-cc08-4a81-aab3-187e2a598028",
+      "branch_name": "Presque Isle",
+      "company_name": "S.W. Collins Co.",
+      "google_places_id": "ChIJ51t4n1quvEwRJxolXgVgZUc",
+      "lat": 46.6812216,
+      "lng": -68.0154578
+    },
+    {
+      "branch_id": "10b2c366-ee1d-4e24-8f72-66dbddd4db73",
+      "branch_name": "St. John, IN",
+      "company_name": "Schillings",
+      "google_places_id": "ChIJSYiWrRjjEYgRvp0NsQtJ6Do",
+      "lat": 41.4500356,
+      "lng": -87.4700381
+    },
+    {
+      "branch_id": "44fd5057-224d-4b4a-bd97-af201047b4e3",
+      "branch_name": "Valparaiso, IN",
+      "company_name": "Schillings",
+      "google_places_id": "ChIJtxF-EB-REYgRUmC5o084m0I",
+      "lat": 41.4672552,
+      "lng": -87.0604487
+    },
+    {
+      "branch_id": "9ed682d7-d7ab-4248-8b2b-8210f2845f72",
+      "branch_name": "Bossier City",
+      "company_name": "Stine",
+      "google_places_id": "ChIJOxXbHd0zMYYRb_TsVcED-Qk",
+      "lat": 32.515887,
+      "lng": -93.7336536
+    },
+    {
+      "branch_id": "9c337a91-d2d3-48f1-a8ca-59a9d087e867",
+      "branch_name": "Broussard",
+      "company_name": "Stine",
+      "google_places_id": "ChIJ4zV6IIedJIYROYbn0oBiVwI",
+      "lat": 30.1471506,
+      "lng": -91.9612413
+    },
+    {
+      "branch_id": "b4569c0c-de5b-4f96-ad7f-1cf3d509bc2e",
+      "branch_name": "Crowley",
+      "company_name": "Stine",
+      "google_places_id": "ChIJpSjM16quJIYRhBSJOHCzHrs",
+      "lat": 33.5756042,
+      "lng": -89.0387853
+    },
+    {
+      "branch_id": "b4569c0c-de5b-4f96-ad7f-1cf3d509bc2e",
+      "branch_name": "Crowley",
+      "company_name": "Stine",
+      "google_places_id": "ChIJpSjM16quJIYRhBSJOHCzHrs",
+      "lat": 30.2140928,
+      "lng": -92.3745761
+    },
+    {
+      "branch_id": "6efddefd-bd68-4148-bd27-104386c2237a",
+      "branch_name": "DeRidder",
+      "company_name": "Stine",
+      "google_places_id": "ChIJrd96oDtNOoYRpt02W3mSkwI",
+      "lat": 30.846201,
+      "lng": -93.289281
+    },
+    {
+      "branch_id": "dae9d4d6-c0ef-4146-9e36-e3865932c1e1",
+      "branch_name": "Eunice",
+      "company_name": "Stine",
+      "google_places_id": "ChIJg3AOsEW1JIYRFJguE1mJzd4",
+      "lat": 31.2893391,
+      "lng": -90.9745472
+    },
+    {
+      "branch_id": "dae9d4d6-c0ef-4146-9e36-e3865932c1e1",
+      "branch_name": "Eunice",
+      "company_name": "Stine",
+      "google_places_id": "ChIJg3AOsEW1JIYRFJguE1mJzd4",
+      "lat": 30.4943669,
+      "lng": -92.4176324
+    },
+    {
+      "branch_id": "0c84dd99-5818-4471-bf2f-ede06d75e18b",
+      "branch_name": "Iowa",
+      "company_name": "Stine",
+      "google_places_id": "ChIJ50yoCuN7O4YR-SerRUwbhVY",
+      "lat": 32.3127305,
+      "lng": -90.8918864
+    },
+    {
+      "branch_id": "0c84dd99-5818-4471-bf2f-ede06d75e18b",
+      "branch_name": "Iowa",
+      "company_name": "Stine",
+      "google_places_id": "ChIJ50yoCuN7O4YR-SerRUwbhVY",
+      "lat": 30.2368772,
+      "lng": -93.0137569
+    },
+    {
+      "branch_id": "e1a5362c-57f6-490c-b9cb-330b545dc804",
+      "branch_name": "Jennings",
+      "company_name": "Stine",
+      "google_places_id": "ChIJmxevVstbO4YROHqOdM2atPA",
+      "lat": 31.1940657,
+      "lng": -90.3778732
+    },
+    {
+      "branch_id": "e1a5362c-57f6-490c-b9cb-330b545dc804",
+      "branch_name": "Jennings",
+      "company_name": "Stine",
+      "google_places_id": "ChIJmxevVstbO4YROHqOdM2atPA",
+      "lat": 30.2224284,
+      "lng": -92.657085
+    },
+    {
+      "branch_id": "8b39341b-2923-49b8-82ed-18c02af6b5fb",
+      "branch_name": "Lake Charles",
+      "company_name": "Stine",
+      "google_places_id": "ChIJaQbFPDCGO4YRwW4g_44Zp08",
+      "lat": 34.1259397,
+      "lng": -90.8767729
+    },
+    {
+      "branch_id": "8b39341b-2923-49b8-82ed-18c02af6b5fb",
+      "branch_name": "Lake Charles",
+      "company_name": "Stine",
+      "google_places_id": "ChIJaQbFPDCGO4YRwW4g_44Zp08",
+      "lat": 30.2305095,
+      "lng": -93.2169807
+    },
+    {
+      "branch_id": "325ac03f-fab1-4f72-bf7d-9718a34bc204",
+      "branch_name": "Natchez",
+      "company_name": "Stine",
+      "google_places_id": "ChIJY81HIMbwJYYRHM_IQ48QF7k",
+      "lat": 31.5604076,
+      "lng": -91.403171
+    },
+    {
+      "branch_id": "325ac03f-fab1-4f72-bf7d-9718a34bc204",
+      "branch_name": "Natchez",
+      "company_name": "Stine",
+      "google_places_id": "ChIJY81HIMbwJYYRHM_IQ48QF7k",
+      "lat": 31.6754441,
+      "lng": -93.0446069
+    },
+    {
+      "branch_id": "d25d0234-d73d-4660-aae2-ec89fd1dbd18",
+      "branch_name": "Natchitoches",
+      "company_name": "Stine",
+      "google_places_id": "ChIJbV_S5_GHMIYRh5s56tSs8Gk",
+      "lat": 31.7606732,
+      "lng": -93.0860209
+    },
+    {
+      "branch_id": "658444b8-c605-4430-a18e-769af3808f9c",
+      "branch_name": "Pineville",
+      "company_name": "Stine",
+      "google_places_id": "ChIJi78pb0lLJYYRFCyWGKiSCpw",
+      "lat": 32.1351505,
+      "lng": -89.4028437
+    },
+    {
+      "branch_id": "658444b8-c605-4430-a18e-769af3808f9c",
+      "branch_name": "Pineville",
+      "company_name": "Stine",
+      "google_places_id": "ChIJi78pb0lLJYYRFCyWGKiSCpw",
+      "lat": 31.3224044,
+      "lng": -92.4343035
+    },
+    {
+      "branch_id": "fa45ad0c-0abb-49ab-95c7-366f73639fbc",
+      "branch_name": "Sulphur",
+      "company_name": "Stine",
+      "google_places_id": "ChIJY1NEqn-MO4YRQgYHUmpja8g",
+      "lat": 32.7201338,
+      "lng": -89.7995806
+    },
+    {
+      "branch_id": "fa45ad0c-0abb-49ab-95c7-366f73639fbc",
+      "branch_name": "Sulphur",
+      "company_name": "Stine",
+      "google_places_id": "ChIJY1NEqn-MO4YRQgYHUmpja8g",
+      "lat": 30.2365943,
+      "lng": -93.3773783
+    },
+    {
+      "branch_id": "a0c304b6-bbfa-4046-9385-3a68d7e44f34",
+      "branch_name": "Walker",
+      "company_name": "Stine",
+      "google_places_id": "ChIJESSW3avBJoYR44ksl1f6OzY",
+      "lat": 31.6367617,
+      "lng": -89.1268815
+    },
+    {
+      "branch_id": "a0c304b6-bbfa-4046-9385-3a68d7e44f34",
+      "branch_name": "Walker",
+      "company_name": "Stine",
+      "google_places_id": "ChIJESSW3avBJoYR44ksl1f6OzY",
+      "lat": 30.4879678,
+      "lng": -90.8614878
+    },
+    {
+      "branch_id": "4fb4edb1-8ebc-472b-a370-d7f1460c635d",
+      "branch_name": "Harrisonburg",
+      "company_name": "Stoneburner Inc",
+      "google_places_id": "ChIJ4QWhbROTtIkR-XK7tHjZz9U",
+      "lat": 38.4493315,
+      "lng": -78.8688833
+    },
+    {
+      "branch_id": "4ba801ac-432b-41cc-90f3-c081ad6ba24f",
+      "branch_name": "Waynesboro",
+      "company_name": "Stoneburner Inc",
+      "google_places_id": "",
+      "lat": 38.0686668,
+      "lng": -78.8893999
+    },
+    {
+      "branch_id": "cfebaca8-ac90-4464-9a71-c4aff54c3f09",
+      "branch_name": "Atmore, AL",
+      "company_name": "Swift Supply",
+      "google_places_id": "ChIJl9jwfW55kIgRkUCGJJlB8xo",
+      "lat": 31.0237921,
+      "lng": -87.4938708
+    },
+    {
+      "branch_id": "48eebb57-6a42-4aab-b61b-c7503251583c",
+      "branch_name": "Brewton, AL",
+      "company_name": "Swift Supply",
+      "google_places_id": "ChIJaUAZk_1FkIgRIl7Ol_bcQtE",
+      "lat": 31.1039239,
+      "lng": -87.0722655
+    },
+    {
+      "branch_id": "2e6966e9-a35d-4322-9b62-653ba22ba36e",
+      "branch_name": "Daphne, AL",
+      "company_name": "Swift Supply",
+      "google_places_id": "ChIJNcEe1f1BmogRGVA0Vjyt0ek",
+      "lat": 30.6035255,
+      "lng": -87.9036047
+    },
+    {
+      "branch_id": "a09ec49e-08b9-4d07-85af-e03020c3aaf6",
+      "branch_name": "Monroeville, AL",
+      "company_name": "Swift Supply",
+      "google_places_id": "ChIJV0mfbgcbkIgR96Asu4WnXwc",
+      "lat": 31.5278224,
+      "lng": -87.3246325
+    },
+    {
+      "branch_id": "186f52d5-1ad7-4b5d-b65a-d5b95022d265",
+      "branch_name": "Pensacola, FL",
+      "company_name": "Swift Supply",
+      "google_places_id": "ChIJpVfSEX6VkIgRKbXfbg6vviI",
+      "lat": 30.6038586,
+      "lng": -87.4040672
+    },
+    {
+      "branch_id": "c98ce2a3-74f3-4455-954e-c6b23b94f374",
+      "branch_name": "‎Orange Beach, AL",
+      "company_name": "Swift Supply",
+      "google_places_id": "ChIJhT7z0XEGmogRdZIDYgc9IeY",
+      "lat": 30.2943681,
+      "lng": -87.5735935
+    },
+    {
+      "branch_id": "49e5a98f-1231-44b0-80fb-74420cd81169",
+      "branch_name": "Badger Building Center - Kalispell",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJGejQNsxaZlMRWHlnW9dx22E",
+      "lat": 48.6291526,
+      "lng": -117.1348206
+    },
+    {
+      "branch_id": "ec889d2c-990b-43c5-9d14-bd3271889d75",
+      "branch_name": "Badger Building Center - Post Falls",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJo8jfA6TDYVMRbcElDTEbaBI",
+      "lat": 43.2998973,
+      "lng": -73.58527
+    },
+    {
+      "branch_id": "50e045e8-6126-4555-8746-af155e9536ff",
+      "branch_name": "Best Built Builders Supply - Kamiah",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJc-x9P_qFoFQRY-m-pZMJIas",
+      "lat": 47.7518001,
+      "lng": -117.4961292
+    },
+    {
+      "branch_id": "b76f997e-a5e8-4dcf-8eca-aa7434707aea",
+      "branch_name": "Best Built Builders Supply - Lewiston",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJg4flWBQ1oFQRQwXVK0EVSdw",
+      "lat": 46.1502773,
+      "lng": -118.1585044
+    },
+    {
+      "branch_id": "21329394-4a7a-49ea-a95d-e5ef2e04782b",
+      "branch_name": "Lake Chelan Building Supply - Chelan",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJWyj19MKam1QRJhXxR-U0O4k",
+      "lat": 47.8012197,
+      "lng": -120.6276904
+    },
+    {
+      "branch_id": "d706da95-3d3d-4fa3-ba5e-e3045df66bef",
+      "branch_name": "Lake Chelan Building Supply - Manson",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJoeb1CtSdm1QRpB3hEEtP444",
+      "lat": 47.881333,
+      "lng": -120.1614923
+    },
+    {
+      "branch_id": "c03b3496-1193-443e-8e94-6e2668977fa9",
+      "branch_name": "Marson & Marson Lumber - Cle Elum",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJtax_hCIQmlQRI0MzuPrZzoE",
+      "lat": 47.1952417,
+      "lng": -120.940063
+    },
+    {
+      "branch_id": "e902b6a4-ac26-4c75-a05b-bde48472475b",
+      "branch_name": "Marson & Marson Lumber - Ephrata",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJz___t15dmVQRfJaV1D3lRsE",
+      "lat": 47.3176385,
+      "lng": -119.553649
+    },
+    {
+      "branch_id": "abedb6d9-b104-4dbe-be6d-b1e17e5d0ae7",
+      "branch_name": "Marson & Marson Lumber - Leavenworth",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJSaCWd4VNmlQRGymY3FlM8Oc",
+      "lat": 47.5969138,
+      "lng": -120.661081
+    },
+    {
+      "branch_id": "9efc7078-6484-49c2-bb1c-b8fc74fd7d62",
+      "branch_name": "Marson & Marson Lumber - Wenatchee",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJDytWD27Lm1QRtQfDNe6tv1o",
+      "lat": 47.4234599,
+      "lng": -120.310349
+    },
+    {
+      "branch_id": "e788d5ea-90b4-4470-bc4b-6f28c602cb37",
+      "branch_name": "Midway Building Supply - Oroville",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJY8YObwXOglQR8dy2CHNuQ9Y",
+      "lat": 48.9376147,
+      "lng": -119.436168
+    },
+    {
+      "branch_id": "0525860c-4250-43fc-a5cc-21a35309eaa2",
+      "branch_name": "Midway Building Supply - Republic",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJ4-Ol_4hpnVQRcZwk99RZBKs",
+      "lat": 48.6482183,
+      "lng": -118.737806
+    },
+    {
+      "branch_id": "1b4319e1-d439-4e0c-a2e5-8a4947c66c6f",
+      "branch_name": "Midway Building Supply - Tonasket",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJczsnas0pnVQR2gr7KhNb8IM",
+      "lat": 48.7052355,
+      "lng": -119.4373513
+    },
+    {
+      "branch_id": "08bfae6a-7df6-4dc1-827b-7ffc611da9cf",
+      "branch_name": "Miller's Home Center - Baker City",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJKaGngVfppFQR8FiG1QO0ZjE",
+      "lat": 48.7523053,
+      "lng": -122.4777251
+    },
+    {
+      "branch_id": "0939c297-3f78-49c9-91d9-4416270ed105",
+      "branch_name": "Miller's Home Center - La Grande",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJaaKC0A13o1QRd0VryaV2Mk0",
+      "lat": 46.823535,
+      "lng": -122.2923648
+    },
+    {
+      "branch_id": "f0c10c4d-0bac-4100-a3fa-0cddccdbe2fe",
+      "branch_name": "Mount Vernon Building Center",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJz8tmKSJshVQRIXx_hhOWrWE",
+      "lat": 48.4342261,
+      "lng": -122.3301228
+    },
+    {
+      "branch_id": "90a10d79-fed9-49ad-9b27-a53380796783",
+      "branch_name": "Tum A Lum Lumber - Hood River",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJ8f_P4jGalVQRGlEeiMhXNOs",
+      "lat": 45.717883,
+      "lng": -121.4952788
+    },
+    {
+      "branch_id": "bc894599-d15e-48c6-a359-ccb38343e701",
+      "branch_name": "Tum A Lum Lumber - Pendleton",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJszK2buLjolQRKTKxAdbWkag",
+      "lat": 47.609959,
+      "lng": -122.340156
+    },
+    {
+      "branch_id": "8a4b85d8-28a6-42d1-ace7-1ce2f4e9c9aa",
+      "branch_name": "Tum A Lum Lumber - The Dalles",
+      "company_name": "TAL Building Centers",
+      "google_places_id": "ChIJL3WWOnMellQRE19moE1WezM",
+      "lat": 47.052712,
+      "lng": -121.567546
+    },
+    {
+      "branch_id": "aa2d0d23-c58e-436f-8d99-00023c9c4fa1",
+      "branch_name": "Sallisaw Lumber",
+      "company_name": "Tahlequah Lumber",
+      "google_places_id": "ChIJxV66hkhryocRCnbJ7QhUkqg",
+      "lat": 35.4604403,
+      "lng": -94.7945389
+    },
+    {
+      "branch_id": "aa2d0d23-c58e-436f-8d99-00023c9c4fa1",
+      "branch_name": "Sallisaw Lumber",
+      "company_name": "Tahlequah Lumber",
+      "google_places_id": "ChIJxV66hkhryocRCnbJ7QhUkqg",
+      "lat": 35.4604403,
+      "lng": -94.7945389
+    },
+    {
+      "branch_id": "2fea60f2-b23c-4458-aa84-ff5fbc2789fb",
+      "branch_name": "Tahlequah",
+      "company_name": "Tahlequah Lumber",
+      "google_places_id": "ChIJX_qA9lD5yYcRaKiy0CBXScE",
+      "lat": 35.91537,
+      "lng": -94.969956
+    },
+    {
+      "branch_id": "2fea60f2-b23c-4458-aa84-ff5fbc2789fb",
+      "branch_name": "Tahlequah",
+      "company_name": "Tahlequah Lumber",
+      "google_places_id": "ChIJX_qA9lD5yYcRaKiy0CBXScE",
+      "lat": 35.91537,
+      "lng": -94.969956
+    },
+    {
+      "branch_id": "8e5c902b-283b-4cf6-954d-befe1a35ef32",
+      "branch_name": "Fredericton",
+      "company_name": "Targetts ",
+      "google_places_id": "ChIJ_-4KJeMYpEwRAa5qFTCK9fQ",
+      "lat": 45.9488278,
+      "lng": -66.6291827
+    },
+    {
+      "branch_id": "48428d40-5229-4fc6-8f67-a34ad95eaf9b",
+      "branch_name": "Nackawic",
+      "company_name": "Targetts ",
+      "google_places_id": "",
+      "lat": 45.9949521,
+      "lng": -67.2396329
+    },
+    {
+      "branch_id": "c66ca609-68d9-42df-9f5c-0089442d6add",
+      "branch_name": "Custom Builder Supply",
+      "company_name": "The Lester Group",
+      "google_places_id": "ChIJ6W_z7kGKsIkRRcWmN6Pfxd4",
+      "lat": 37.3181991,
+      "lng": -76.7294113
+    },
+    {
+      "branch_id": "3bca1bbc-363a-48cb-8503-c66927140a32",
+      "branch_name": "Fortress Door Company - Atlanta",
+      "company_name": "The Lester Group",
+      "google_places_id": "ChIJI_9kuR8f9YgRhgPWm8YmFzM",
+      "lat": 38.8672776,
+      "lng": -77.3028417
+    },
+    {
+      "branch_id": "2a8b4075-7723-4743-9f1d-1e8047ac94e0",
+      "branch_name": "Fortress Door Company - Fredericksburg",
+      "company_name": "The Lester Group",
+      "google_places_id": "ChIJc4xOnYnBtokR761IQ3wgvPU",
+      "lat": 38.3031837,
+      "lng": -77.4605399
+    },
+    {
+      "branch_id": "58f997ed-c21f-4720-b6aa-62c13ba156ce",
+      "branch_name": "Martinsville",
+      "company_name": "The Lester Group",
+      "google_places_id": "ChIJowt2coCaUogRVPy5ujqhF0Y",
+      "lat": 36.6915262,
+      "lng": -79.8725386
+    },
+    {
+      "branch_id": "44bf5b89-b77a-42ce-b437-7f1bec9bf6ce",
+      "branch_name": "Taylor Brothers",
+      "company_name": "The Lester Group",
+      "google_places_id": "ChIJmbZoS-vQsokRiNnStNLz8og",
+      "lat": 37.3757193,
+      "lng": -79.223049
+    },
+    {
+      "branch_id": "9a07f1c9-be62-4727-939b-ff15d504f7c5",
+      "branch_name": "Hillsboro",
+      "company_name": "Tucker Lumber",
+      "google_places_id": "ChIJcYFu2FmoT4YR2yIXPHWlOx4",
+      "lat": 32.0108506,
+      "lng": -97.1303744
+    },
+    {
+      "branch_id": "e0f5eead-07d5-4cbc-9c65-8558b67497fc",
+      "branch_name": "Whitney",
+      "company_name": "Tucker Lumber",
+      "google_places_id": "ChIJL7-8vKKwT4YRvaKOpSePKH8",
+      "lat": 31.951823,
+      "lng": -97.3214012
+    }
+  ]
+}

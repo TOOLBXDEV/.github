@@ -1,0 +1,160 @@
+/**
+ * Fetches big-box store locations from OpenStreetMap via Overpass API.
+ * Run: node scripts/fetch-big-box-stores.mjs
+ */
+import { writeFileSync, mkdirSync } from "fs";
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const OUT = join(__dirname, "..", "data", "big-box-stores.json");
+const OVERPASS = "https://overpass-api.de/api/interpreter";
+
+const CHAINS = [
+  { chain: "Lowe's", brand: "Lowe's" },
+  { chain: "Home Depot", brand: "The Home Depot" },
+  { chain: "True Value", brand: "True Value" },
+  { chain: "Menards", brand: "Menards" },
+  { chain: "RONA", brand: "RONA" },
+  { chain: "Home Hardware", brand: "Home Hardware" },
+];
+
+const BBOXES = [
+  [24, -125, 33, -110],
+  [33, -125, 42, -110],
+  [42, -125, 50, -110],
+  [24, -110, 33, -98],
+  [33, -110, 42, -98],
+  [42, -110, 50, -98],
+  [24, -98, 33, -86],
+  [33, -98, 42, -86],
+  [42, -98, 50, -86],
+  [24, -86, 33, -74],
+  [33, -86, 42, -74],
+  [42, -86, 50, -74],
+  [41, -141, 52, -110],
+  [41, -110, 52, -52],
+];
+
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+function escapeBrand(brand) {
+  return brand.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
+
+function parseElements(elements, displayChain) {
+  const stores = [];
+  for (const el of elements || []) {
+    let lat, lng;
+    if (el.type === "node") {
+      lat = el.lat;
+      lng = el.lon;
+    } else if (el.center) {
+      lat = el.center.lat;
+      lng = el.center.lon;
+    } else continue;
+    if (typeof lat !== "number" || typeof lng !== "number") continue;
+    const name = (el.tags && (el.tags.name || el.tags["addr:full"])) || displayChain;
+    stores.push({
+      chain: displayChain,
+      name: String(name).slice(0, 200),
+      lat: Math.round(lat * 1e6) / 1e6,
+      lng: Math.round(lng * 1e6) / 1e6,
+    });
+  }
+  return stores;
+}
+
+async function fetchBboxOnce(displayChain, brandTag, south, west, north, east) {
+  const b = escapeBrand(brandTag);
+  const query = `[out:json][timeout:180];
+nwr["brand"="${b}"](${south},${west},${north},${east});
+out center;`;
+
+  const res = await fetch(OVERPASS, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: "data=" + encodeURIComponent(query),
+  });
+  const status = res.status;
+  if (status === 429 || status === 504) {
+    const err = new Error(`HTTP ${status}`);
+    err.status = status;
+    throw err;
+  }
+  if (!res.ok) {
+    const err = new Error(`HTTP ${status}`);
+    err.status = status;
+    throw err;
+  }
+  const data = await res.json();
+  return parseElements(data.elements, displayChain);
+}
+
+async function fetchBbox(displayChain, brandTag, south, west, north, east) {
+  let wait = 15000;
+  for (let attempt = 0; attempt < 8; attempt++) {
+    try {
+      return await fetchBboxOnce(displayChain, brandTag, south, west, north, east);
+    } catch (e) {
+      if (e.status === 429 || e.status === 504) {
+        process.stderr.write(` [retry in ${wait / 1000}s] `);
+        await sleep(wait);
+        wait = Math.min(wait + 15000, 120000);
+        continue;
+      }
+      throw e;
+    }
+  }
+  throw new Error("too many retries");
+}
+
+async function fetchChain(displayChain, brandTag) {
+  const all = [];
+  for (const [south, west, north, east] of BBOXES) {
+    process.stderr.write(`  ${south},${west},${north},${east}… `);
+    const part = await fetchBbox(displayChain, brandTag, south, west, north, east);
+    process.stderr.write(`${part.length}\n`);
+    all.push(...part);
+    await sleep(12000);
+  }
+  return all;
+}
+
+function dedupe(stores) {
+  const seen = new Set();
+  const out = [];
+  for (const s of stores) {
+    const key = `${s.chain}|${s.lat.toFixed(5)}|${s.lng.toFixed(5)}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(s);
+  }
+  return out;
+}
+
+async function main() {
+  const all = [];
+  for (const { chain, brand } of CHAINS) {
+    process.stderr.write(`Fetching ${chain}…\n`);
+    const part = await fetchChain(chain, brand);
+    process.stderr.write(`  subtotal ${part.length}\n`);
+    all.push(...part);
+    await sleep(15000);
+  }
+  const stores = dedupe(all);
+  mkdirSync(dirname(OUT), { recursive: true });
+  writeFileSync(
+    OUT,
+    JSON.stringify({ stores, fetchedAt: new Date().toISOString(), count: stores.length }, null, 0),
+    "utf8"
+  );
+  console.log(`Wrote ${stores.length} stores to ${OUT}`);
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

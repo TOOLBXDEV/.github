@@ -1,0 +1,1985 @@
+{
+  "companies": [
+    {
+      "company_name": "ASO Roofing Supply",
+      "type": "Customer",
+      "lat": 29.6271943,
+      "lng": -95.5035308,
+      "address_query": "12402 Hodges Street, Houston, Texas 77085, United States"
+    },
+    {
+      "company_name": "Ace Family Hardware",
+      "type": "Customer",
+      "lat": 31.6813919,
+      "lng": -92.1277875,
+      "address_query": "849 Pine St., Jena, Louisiana 71342, United States"
+    },
+    {
+      "company_name": "Advanced Building Materials",
+      "type": "Customer",
+      "lat": 42.9504359,
+      "lng": -82.3463631,
+      "address_query": "591 Gladwish Dr, Sarnia, Ontario N7T 7H3, Canada"
+    },
+    {
+      "company_name": "Alamo Lumber Company",
+      "type": "Opportunity",
+      "lat": 29.4246002,
+      "lng": -98.4951405,
+      "address_query": "San Antonio, Texas, United States (fallback)"
+    },
+    {
+      "company_name": "All American Do It Center",
+      "type": "Opportunity",
+      "lat": 43.978576,
+      "lng": -90.5040214,
+      "address_query": "Tomah, Wisconsin, United States (fallback)"
+    },
+    {
+      "company_name": "All Roofing Supply",
+      "type": "Customer",
+      "lat": 32.7484156,
+      "lng": -96.9795805,
+      "address_query": "1830 East Main Street, Grand Prairie, Texas 75050, United States"
+    },
+    {
+      "company_name": "Allied Building Stores",
+      "type": "Customer",
+      "lat": 32.5094677,
+      "lng": -92.0555038,
+      "address_query": "850 Kansas Ln, Monroe, Louisiana 71203, United States"
+    },
+    {
+      "company_name": "Allied Building Stores",
+      "type": "Customer",
+      "lat": 32.5094677,
+      "lng": -92.0555038,
+      "address_query": "850 Kansas Ln, Monroe, Louisiana 71203, United States"
+    },
+    {
+      "company_name": "Alpha Building Supply",
+      "type": "Customer",
+      "lat": 44.3334673,
+      "lng": -79.6777226,
+      "address_query": "649 Bayview Drive, Barrie, ON L4N 6ZS"
+    },
+    {
+      "company_name": "American Cedar & Millwork",
+      "type": "Opportunity",
+      "lat": 35.8264132,
+      "lng": -78.6103387,
+      "address_query": "3401 Tarheel Dr., Raleigh, North Carolina 27606, United States"
+    },
+    {
+      "company_name": "Anawalt Lumber",
+      "type": "Customer",
+      "lat": 34.0370859,
+      "lng": -118.4346627,
+      "address_query": "11060 Pico Boulevard, Los Angeles, California 90064, United States"
+    },
+    {
+      "company_name": "Annapolis Home Hardware Building Centre",
+      "type": "Customer",
+      "lat": 44.7419775,
+      "lng": -65.5160971,
+      "address_query": "Annapolis Royal, NS, CA (fallback)"
+    },
+    {
+      "company_name": "Applify",
+      "type": "Opportunity",
+      "lat": 30.7041168,
+      "lng": 76.7176885,
+      "address_query": "Mohali, Punjab, India (fallback)"
+    },
+    {
+      "company_name": "Arista Custom Doors Inc",
+      "type": "Customer",
+      "lat": 43.7772754,
+      "lng": -79.4715659,
+      "address_query": "303 Supertest Road, Toronto, ON M3J 2M4"
+    },
+    {
+      "company_name": "Arnold Lumber",
+      "type": "Customer",
+      "lat": 30.7476305,
+      "lng": -93.5470178,
+      "address_query": "7019 Division Street, Merryville, Louisiana 70653, United States"
+    },
+    {
+      "company_name": "Ashby Lumber",
+      "type": "Customer",
+      "lat": 37.8504506,
+      "lng": -122.2920341,
+      "address_query": "824 Ashby Ave, Berkeley, California 94710, United States"
+    },
+    {
+      "company_name": "Aurora Home Hardware Building Centre",
+      "type": "Customer",
+      "lat": 44.0021045,
+      "lng": -79.4524139,
+      "address_query": "289 Wellington Street East, Aurora, ON L4G 6H6"
+    },
+    {
+      "company_name": "Bathe and McLellan Building Materials",
+      "type": "Customer",
+      "lat": 43.876006,
+      "lng": -78.8861644,
+      "address_query": "575 Thornton Rd. South., Oshawa, Ontario L1J 6W6, Canada"
+    },
+    {
+      "company_name": "Beisser Lumber Company",
+      "type": "Customer",
+      "lat": 41.657343,
+      "lng": -93.7823052,
+      "address_query": "3705 SE Beisser Dr, Grimes, Iowa 50111, United States"
+    },
+    {
+      "company_name": "Belletetes Building Products",
+      "type": "Customer",
+      "lat": 42.8167739,
+      "lng": -72.0197607,
+      "address_query": "51 Peterborough Street, Jaffrey, New Hampshire 03452, United States"
+    },
+    {
+      "company_name": "Ben's Contractor Center",
+      "type": "Opportunity",
+      "lat": 43.3440459,
+      "lng": -83.0846566,
+      "address_query": "2424 S Van Dyke Rd, Marlette, 48453, US"
+    },
+    {
+      "company_name": "Berry Home Centers",
+      "type": "Customer",
+      "lat": 41.6264414,
+      "lng": -75.3045103,
+      "address_query": "Wayne, Pennsylvania, United States (fallback)"
+    },
+    {
+      "company_name": "Bethel Mills Inc.",
+      "type": "Opportunity",
+      "lat": 43.8325292,
+      "lng": -72.6342101,
+      "address_query": "Bethel, Vermont, United States (fallback)"
+    },
+    {
+      "company_name": "Big C Lumber Company",
+      "type": "Opportunity",
+      "lat": 41.735251,
+      "lng": -86.1062763,
+      "address_query": "Granger, Indiana, United States (fallback)"
+    },
+    {
+      "company_name": "Blackland Building Supply",
+      "type": "Customer",
+      "lat": 32.3175756,
+      "lng": -96.6133339,
+      "address_query": "1701 South Kaufman Street, Ennis, Texas 75119, United States"
+    },
+    {
+      "company_name": "Bliffert Lumber",
+      "type": "Opportunity",
+      "lat": 43.0732711,
+      "lng": -87.8991698,
+      "address_query": "1014 E Chambers St, Milwaukee, Wisconsin 53212"
+    },
+    {
+      "company_name": "Bolyard Lumber",
+      "type": "Customer",
+      "lat": 42.6253107,
+      "lng": -83.1308717,
+      "address_query": "3770 South Rochester Road, Rochester, Michigan 48307, United States"
+    },
+    {
+      "company_name": "Braun Building Center",
+      "type": "Customer",
+      "lat": 44.119113,
+      "lng": -87.6894043,
+      "address_query": "3303 Menasha Avenue, Manitowoc, Wisconsin 54220, United States"
+    },
+    {
+      "company_name": "Brickyard Building Materials",
+      "type": "Opportunity",
+      "lat": 38.510634,
+      "lng": -121.368272,
+      "address_query": "8988 Elder Creek Road, Sacramento, California 95829, United States"
+    },
+    {
+      "company_name": "Brickyard Building Supplies ",
+      "type": "Opportunity",
+      "lat": 38.510634,
+      "lng": -121.368272,
+      "address_query": "8988 Elder Creek Road, Sacramento, California 95829, United States"
+    },
+    {
+      "company_name": "Britton Lumber Company, Inc.",
+      "type": "Opportunity",
+      "lat": 43.906303,
+      "lng": -72.147903,
+      "address_query": "Fairlee, VT, United States (fallback)"
+    },
+    {
+      "company_name": "Bromon Lumber",
+      "type": "Customer",
+      "lat": 43.7848982,
+      "lng": -79.5923855,
+      "address_query": "Woodbridge, Ontario, Canada (fallback)"
+    },
+    {
+      "company_name": "Brown Lumber & Bldg Supply",
+      "type": "Customer",
+      "lat": 33.4234225,
+      "lng": -86.4312563,
+      "address_query": "21891 Hwy 25, Alabama 35051, United States"
+    },
+    {
+      "company_name": "Builders Choice",
+      "type": "Customer",
+      "lat": 29.9322019,
+      "lng": -95.420752,
+      "address_query": "252 Fallbrook Dr, Houston, Texas 77038, United States"
+    },
+    {
+      "company_name": "Builders Choice",
+      "type": "Customer",
+      "lat": 52.982011,
+      "lng": 172.9128391,
+      "address_query": "Auburn, Alaska, United States (fallback)"
+    },
+    {
+      "company_name": "Builders Choice",
+      "type": "Customer",
+      "lat": 52.982011,
+      "lng": 172.9128391,
+      "address_query": "Auburn, Alaska, United States (fallback)"
+    },
+    {
+      "company_name": "Builders Supply & Home Center",
+      "type": "Opportunity",
+      "lat": 40.5402496,
+      "lng": -74.1501875,
+      "address_query": "123 King Street, Staten Island, New York 10308, United States"
+    },
+    {
+      "company_name": "Builders Supply Co.",
+      "type": "Opportunity",
+      "lat": 34.4442547,
+      "lng": -85.7196893,
+      "address_query": "Fort Payne, Alabama, United States (fallback)"
+    },
+    {
+      "company_name": "Builders Supply Co.",
+      "type": "Opportunity",
+      "lat": 34.4442547,
+      "lng": -85.7196893,
+      "address_query": "Fort Payne, Alabama, United States (fallback)"
+    },
+    {
+      "company_name": "Builders' General",
+      "type": "Customer",
+      "lat": 40.3268224,
+      "lng": -74.0412178,
+      "address_query": "15 Sycamore Ave, Little Silver, New Jersey 07739, United States"
+    },
+    {
+      "company_name": "Builders FirstSource",
+      "type": "Customer",
+      "lat": 40.6076222,
+      "lng": -111.9322183,
+      "address_query": "Builders FirstSource, West Jordan, Utah, United States (BFS Utah pilot)"
+    },
+    {
+      "company_name": "Building Center Inc",
+      "type": "Customer",
+      "lat": 42.6111896,
+      "lng": -70.6606871,
+      "address_query": "1 Harbor Loop, Gloucester, Massachusetts 01930, United States"
+    },
+    {
+      "company_name": "CBM Construction Building Materials",
+      "type": "Customer",
+      "lat": 40.0986745,
+      "lng": -74.8613629,
+      "address_query": "529 Bath Street, Bristol, Pennsylvania 19007, United States"
+    },
+    {
+      "company_name": "Cassity Jones",
+      "type": "Customer",
+      "lat": 32.5090899,
+      "lng": -94.7949707,
+      "address_query": "302 Pine Tree Road, Longview, Texas 75604, United States"
+    },
+    {
+      "company_name": "Central Ontario Trim Supply",
+      "type": "Customer",
+      "lat": 43.8788038,
+      "lng": -78.8445039,
+      "address_query": "804 Ritson Rd S, Oshawa, Ontario L1H 5L4, Canada"
+    },
+    {
+      "company_name": "Central Valley",
+      "type": "Customer",
+      "lat": 38.3070585,
+      "lng": -122.2849933,
+      "address_query": "1804 Soscol Avenue, Napa, California 94559, United States"
+    },
+    {
+      "company_name": "Central Valley",
+      "type": "Customer",
+      "lat": 38.3070585,
+      "lng": -122.2849933,
+      "address_query": "1804 Soscol Avenue, Napa, California 94559, United States"
+    },
+    {
+      "company_name": "Chace Building Supply",
+      "type": "Customer",
+      "lat": 42.0769426,
+      "lng": -71.2861744,
+      "address_query": "129 Washington Street, Foxborough, Massachusetts 02035, United States"
+    },
+    {
+      "company_name": "Chace Building Supply",
+      "type": "Customer",
+      "lat": 42.0769426,
+      "lng": -71.2861744,
+      "address_query": "129 Washington Street, Foxborough, Massachusetts 02035, United States"
+    },
+    {
+      "company_name": "Chester Building Supplies Ltd",
+      "type": "Customer",
+      "lat": 44.5469108,
+      "lng": -64.2339689,
+      "address_query": "3797 Hwy 3, Chester, Nova Scotia B0J 1J0, Canada"
+    },
+    {
+      "company_name": "Clarington Home Hardware Building Centre",
+      "type": "Customer",
+      "lat": 43.9122995,
+      "lng": -78.6891675,
+      "address_query": "Bowmanville, Ontario, Canada (fallback)"
+    },
+    {
+      "company_name": "Cleveland Lumber Company Inc.",
+      "type": "Opportunity",
+      "lat": 35.2923513,
+      "lng": -81.5356463,
+      "address_query": "Shelby, NC (fallback)"
+    },
+    {
+      "company_name": "Cleveland Lumber Company Inc.",
+      "type": "Opportunity",
+      "lat": 35.2923513,
+      "lng": -81.5356463,
+      "address_query": "Shelby, North Carolina, United States (fallback)"
+    },
+    {
+      "company_name": "Clyde Companies",
+      "type": "Opportunity",
+      "lat": 40.2981599,
+      "lng": -111.6944313,
+      "address_query": "Orem, Utah, United States (fallback)"
+    },
+    {
+      "company_name": "Clyde Companies, Inc.",
+      "type": "Opportunity",
+      "lat": 40.2981599,
+      "lng": -111.6944313,
+      "address_query": "Orem, Utah, United States (fallback)"
+    },
+    {
+      "company_name": "ColorWorks Paint & Decorating Stores",
+      "type": "Opportunity",
+      "lat": 42.4850931,
+      "lng": -71.43284,
+      "address_query": "Acton, Massachusetts, United States (fallback)"
+    },
+    {
+      "company_name": "Concord Building & Design Center",
+      "type": "Customer",
+      "lat": 42.548048,
+      "lng": -71.4785728,
+      "address_query": "55 White Street, Littleton, Massachusetts 01460, United States"
+    },
+    {
+      "company_name": "Concord Feed & Pet Supply",
+      "type": "Opportunity",
+      "lat": 37.9403936,
+      "lng": -122.0527039,
+      "address_query": "228 Hookston Road, Pleasant Hill, California 94523, United States"
+    },
+    {
+      "company_name": "Country Building Co. LLC",
+      "type": "Opportunity",
+      "lat": 39.812473,
+      "lng": -84.2248254,
+      "address_query": "Shiloh, Ohio, United States (fallback)"
+    },
+    {
+      "company_name": "Cowls Building Supply",
+      "type": "Customer",
+      "lat": 42.4146043,
+      "lng": -72.5313985,
+      "address_query": "125 Sunderland Road, Amherst, Massachusetts 01002, United States"
+    },
+    {
+      "company_name": "DB&S Lumber and Home Improvement",
+      "type": "Customer",
+      "lat": 42.1669328,
+      "lng": -70.8865908,
+      "address_query": "78 Accord Park Drive, Norwell, Massachusetts 02061, United States"
+    },
+    {
+      "company_name": "Dakota County Lumber",
+      "type": "Customer",
+      "lat": 44.6430981,
+      "lng": -93.1376198,
+      "address_query": "28 8th Street, Farmington, Minnesota 55024, United States"
+    },
+    {
+      "company_name": "Destination Building Center, Inc",
+      "type": "Customer",
+      "lat": 44.030719,
+      "lng": -92.6074061,
+      "address_query": "714 County Road 3 NW, Byron, Minnesota 55920, United States"
+    },
+    {
+      "company_name": "Discount Builders Supply & Hardware",
+      "type": "Customer",
+      "lat": 37.7704188,
+      "lng": -122.4190897,
+      "address_query": "1695 Mission Street, San Francisco, California 94103, United States"
+    },
+    {
+      "company_name": "Discount Lumber Outlet",
+      "type": "Opportunity",
+      "lat": 44.7779041,
+      "lng": -93.3356204,
+      "address_query": "Savage, Minnesota, United States (fallback)"
+    },
+    {
+      "company_name": "Do It Best",
+      "type": "Customer",
+      "lat": 41.0783736,
+      "lng": -85.1487654,
+      "address_query": "1626 Broadway, Fort Wayne, Indiana 46802, United States"
+    },
+    {
+      "company_name": "Do It Best",
+      "type": "Customer",
+      "lat": 41.0783736,
+      "lng": -85.1487654,
+      "address_query": "1626 Broadway, Fort Wayne, Indiana 46802, United States"
+    },
+    {
+      "company_name": "Doug Ashy Building Materials, Inc",
+      "type": "Customer",
+      "lat": 30.1850978,
+      "lng": -92.0682825,
+      "address_query": "4950 Johnston Street, Lafayette, Louisiana 70503, United States"
+    },
+    {
+      "company_name": "Downtown Bath & Tile",
+      "type": "Customer",
+      "lat": 43.6480895,
+      "lng": -79.4204579,
+      "address_query": "172 Ossington Avenue, Toronto, Ontario M6J 2Z7, Canada"
+    },
+    {
+      "company_name": "Downtown Lumber",
+      "type": "Customer",
+      "lat": 43.6521193,
+      "lng": -79.4467001,
+      "address_query": "9 Morrow Avenue, Toronto, Ontario M6R 2H9, Canada"
+    },
+    {
+      "company_name": "Downtown Rental",
+      "type": "Customer",
+      "lat": 49.089585,
+      "lng": -118.676876,
+      "address_query": "Greenwood, Canada (fallback)"
+    },
+    {
+      "company_name": "Dr. Ike's Home Center",
+      "type": "Opportunity",
+      "lat": 27.5079211,
+      "lng": -99.5069834,
+      "address_query": "Laredo, Texas, United States (fallback)"
+    },
+    {
+      "company_name": "Dryco Building Supplies",
+      "type": "Customer",
+      "lat": 49.0950226,
+      "lng": -122.6523033,
+      "address_query": "5955 205A St, Langley, British Columbia V3A 8C4, Canada"
+    },
+    {
+      "company_name": "Dufrene Building Materials",
+      "type": "Customer",
+      "lat": 29.5407416,
+      "lng": -90.3363021,
+      "address_query": "14502 West Main Street, Cut Off, Louisiana 70345, United States"
+    },
+    {
+      "company_name": "Dufrene Building Materials",
+      "type": "Customer",
+      "lat": 29.5407416,
+      "lng": -90.3363021,
+      "address_query": "14502 West Main Street, Cut Off, Louisiana 70345, United States"
+    },
+    {
+      "company_name": "Durabord",
+      "type": "Customer",
+      "lat": 49.1913033,
+      "lng": -122.849143,
+      "address_query": "Surrey, BC (fallback)"
+    },
+    {
+      "company_name": "Dykes Lumber",
+      "type": "Customer",
+      "lat": 40.793606,
+      "lng": -74.027255,
+      "address_query": "6001 Tonnelle Ave, North Bergen, New Jersey 07047, United States"
+    },
+    {
+      "company_name": "Ecogranito Smart Coatings",
+      "type": "Customer",
+      "lat": 43.6415607,
+      "lng": -79.3781262,
+      "address_query": "20 Bay Street, Toronto, ON M6J 2N8"
+    },
+    {
+      "company_name": "Eikenhout Inc.",
+      "type": "Opportunity",
+      "lat": 42.9632425,
+      "lng": -85.6678639,
+      "address_query": "Grand Rapids, Michigan, United States (fallback)"
+    },
+    {
+      "company_name": "Endo Canada",
+      "type": "Customer",
+      "lat": 49.163168,
+      "lng": -123.137414,
+      "address_query": "Richmond, BC (fallback)"
+    },
+    {
+      "company_name": "Energy Panel Structures",
+      "type": "Opportunity",
+      "lat": 43.2377381,
+      "lng": -94.751376,
+      "address_query": "Graettinger, IA (fallback)"
+    },
+    {
+      "company_name": "Fairway",
+      "type": "Customer",
+      "lat": 43.1873748,
+      "lng": -80.0397406,
+      "address_query": "1624 Claybar Rd, Hamilton, Ontario L9G 4X1, Canada"
+    },
+    {
+      "company_name": "Four Corners Building Supply",
+      "type": "Opportunity",
+      "lat": 32.8368188,
+      "lng": -80.0187188,
+      "address_query": "4349 Corporate Road, North Charleston, South Carolina 29405, United States"
+    },
+    {
+      "company_name": "Framing Square Lumber Company",
+      "type": "Customer",
+      "lat": 31.9571192,
+      "lng": -102.1504407,
+      "address_query": "5812 West Highway 80, Midland, TX 79706"
+    },
+    {
+      "company_name": "Fries Tallman Lumber",
+      "type": "Opportunity",
+      "lat": 50.4555365,
+      "lng": -104.7235071,
+      "address_query": "1737 Dewdney Avenue, Regina, Saskatchewan S4R 1G5, Canada"
+    },
+    {
+      "company_name": "Frogale Lumber Supply",
+      "type": "Customer",
+      "lat": 41.6264414,
+      "lng": -75.3045103,
+      "address_query": "Wayne, Pennsylvania, United States (fallback)"
+    },
+    {
+      "company_name": "Front Street Millwork & Lumber",
+      "type": "Opportunity",
+      "lat": 46.8381218,
+      "lng": -100.7401431,
+      "address_query": "3320 East Century Avenue, Bismarck, North Dakota 58503, United States"
+    },
+    {
+      "company_name": "GR Mitchell, Inc",
+      "type": "Customer",
+      "lat": 39.9865779,
+      "lng": -76.2804034,
+      "address_query": "14 Beaver Valley Pike, Willow Street, Pennsylvania 17584, United States"
+    },
+    {
+      "company_name": "Gabriel Building Supply",
+      "type": "Customer",
+      "lat": 30.4376007,
+      "lng": -90.450131,
+      "address_query": "510 W Pine St, Ponchatoula, Louisiana 70454, United States"
+    },
+    {
+      "company_name": "Gagne & Son LLC",
+      "type": "Customer",
+      "lat": 44.447507,
+      "lng": -69.833221,
+      "address_query": "Belgrade, Maine, United States (fallback)"
+    },
+    {
+      "company_name": "Ganahl Lumber",
+      "type": "Opportunity",
+      "lat": 33.818009,
+      "lng": -117.8956106,
+      "address_query": "1220 E Ball Rd, Anaheim, California 92815, United States"
+    },
+    {
+      "company_name": "George M. Hall",
+      "type": "Opportunity",
+      "lat": 40.3981503,
+      "lng": -79.912944,
+      "address_query": "1035 Forest Ave, West Homestead, Pennsylvania 15120-1118, United States"
+    },
+    {
+      "company_name": "Gibson Supplies",
+      "type": "Opportunity",
+      "lat": 44.0163642,
+      "lng": -79.4502193,
+      "address_query": "194 Earl Stewart Dr, Aurora, Ontario L4G 6V7"
+    },
+    {
+      "company_name": "Gibsons Building Supplies Ltd",
+      "type": "Customer",
+      "lat": 44.0163642,
+      "lng": -79.4502193,
+      "address_query": "194 Earl Stewart Drive, Aurora, Ontario L4G 7P4, Canada"
+    },
+    {
+      "company_name": "Gillman Home Center",
+      "type": "Customer",
+      "lat": 39.3000065,
+      "lng": -85.222184,
+      "address_query": "Batesville, Indiana, United States (fallback)"
+    },
+    {
+      "company_name": "Glenbrook Building Supply",
+      "type": "Customer",
+      "lat": 44.9497487,
+      "lng": -93.0931028,
+      "address_query": "Saint Paul, Minnesota, United States (fallback)"
+    },
+    {
+      "company_name": "Gobble-Fite Lumber Co.",
+      "type": "Opportunity",
+      "lat": 34.6060203,
+      "lng": -86.9838165,
+      "address_query": "Decatur, Alabama, United States (fallback)"
+    },
+    {
+      "company_name": "Gold Beach Lumber",
+      "type": "Opportunity",
+      "lat": 42.0521298,
+      "lng": -124.2832868,
+      "address_query": "Brookings, OR, United States (fallback)"
+    },
+    {
+      "company_name": "Goldsboro Builders",
+      "type": "Customer",
+      "lat": 35.415664,
+      "lng": -77.966892,
+      "address_query": "701 Patetown Road, Goldsboro, North Carolina 27530, United States"
+    },
+    {
+      "company_name": "Gong",
+      "type": "Opportunity",
+      "lat": 37.7879363,
+      "lng": -122.4075201,
+      "address_query": "San Francisco, California, United States (fallback)"
+    },
+    {
+      "company_name": "Great Railing",
+      "type": "Opportunity",
+      "lat": 39.706949,
+      "lng": -75.01067,
+      "address_query": "1401 Black Horse Pike, Williamstown, New Jersey 08094, United States"
+    },
+    {
+      "company_name": "Guido Materials",
+      "type": "Customer",
+      "lat": 29.5163082,
+      "lng": -98.4717995,
+      "address_query": "8526 Vidor Avenue, San Antonio, Texas 78216, United States"
+    },
+    {
+      "company_name": "HPM Building Supply",
+      "type": "Customer",
+      "lat": 19.7172843,
+      "lng": -155.065086,
+      "address_query": "380 Kanoelehua Avenue, Hilo, Hawaii 96720, United States"
+    },
+    {
+      "company_name": "Hackensack Lumber",
+      "type": "Opportunity",
+      "lat": 36.7348648,
+      "lng": -120.0544277,
+      "address_query": "14679 West Whitesbridge Avenue, Kerman, California 93630, United States"
+    },
+    {
+      "company_name": "Hamilton Building Supply",
+      "type": "Customer",
+      "lat": 40.2527987,
+      "lng": -74.7055296,
+      "address_query": "65 Klockner Road, Trenton, New Jersey 08619, United States"
+    },
+    {
+      "company_name": "Hamilton Building Supply",
+      "type": "Customer",
+      "lat": 40.2527987,
+      "lng": -74.7055296,
+      "address_query": "65 Klockner Road, Trenton, New Jersey 08619, United States"
+    },
+    {
+      "company_name": "Hammond Lumber Company",
+      "type": "Customer",
+      "lat": 44.447507,
+      "lng": -69.833221,
+      "address_query": "Belgrade, Maine, United States (fallback)"
+    },
+    {
+      "company_name": "Hancocks Woodwork Inc",
+      "type": "Customer",
+      "lat": 51.4722359,
+      "lng": -56.9580652,
+      "address_query": "Forteau, NL (fallback)"
+    },
+    {
+      "company_name": "Handy Andy / SMD, Inc.",
+      "type": "Customer",
+      "lat": 32.2176855,
+      "lng": -82.4134614,
+      "address_query": "Vidalia, Georgia, United States (fallback)"
+    },
+    {
+      "company_name": "Handy Andy / SMD, Inc.",
+      "type": "Customer",
+      "lat": 31.5911399,
+      "lng": -83.2443801,
+      "address_query": "1200 East 1st St., Georgia 30474"
+    },
+    {
+      "company_name": "Handy Andy/SMD",
+      "type": "Opportunity",
+      "lat": 32.2253438,
+      "lng": -82.4137498,
+      "address_query": "313 Ward St, Vidalia, Georgia 30474-3447, United States"
+    },
+    {
+      "company_name": "Harbin Lumber Company",
+      "type": "Customer",
+      "lat": 31.2279753,
+      "lng": -82.3860801,
+      "address_query": "North Augusta, Georgia, United States (fallback)"
+    },
+    {
+      "company_name": "Harrington & Company",
+      "type": "Opportunity",
+      "lat": 42.9982378,
+      "lng": -71.467646,
+      "address_query": "155 Dow St, Manchester, New Hampshire 03101, United States"
+    },
+    {
+      "company_name": "Harrington & Company",
+      "type": "Opportunity",
+      "lat": 42.9982378,
+      "lng": -71.467646,
+      "address_query": "155 Dow St, Manchester, New Hampshire 03101, United States"
+    },
+    {
+      "company_name": "Hayward Lumber",
+      "type": "Customer",
+      "lat": 36.2231079,
+      "lng": -121.387742,
+      "address_query": "Monterey, California, United States (fallback)"
+    },
+    {
+      "company_name": "Healdsburg Lumber Company ",
+      "type": "Customer",
+      "lat": 38.606473,
+      "lng": -122.8630266,
+      "address_query": "359 Hudson Street, Healdsburg, California 95448, United States"
+    },
+    {
+      "company_name": "Heartwood Brands",
+      "type": "Opportunity",
+      "lat": 36.8447516,
+      "lng": -75.9813852,
+      "address_query": "1703 Mediterranean Avenue, Virginia Beach, Virginia 23451, United States"
+    },
+    {
+      "company_name": "Heights Lumber",
+      "type": "Customer",
+      "lat": 31.0746347,
+      "lng": -97.6590473,
+      "address_query": "Harker Heights, TX (fallback)"
+    },
+    {
+      "company_name": "Henely Supply",
+      "type": "Opportunity",
+      "lat": 35.2099712,
+      "lng": -86.0778066,
+      "address_query": "112 Front St, Decherd, Tennessee 37324-3168, United States"
+    },
+    {
+      "company_name": "Henson Lumber",
+      "type": "Opportunity",
+      "lat": 32.5306635,
+      "lng": -97.6115914,
+      "address_query": "11900 County Road 917, Cresson, TX 76035"
+    },
+    {
+      "company_name": "Hill's Ace Hardware & Lumber",
+      "type": "Customer",
+      "lat": 33.9968043,
+      "lng": -83.7397836,
+      "address_query": "189 W Athens St, Winder, Georgia 30680, United States"
+    },
+    {
+      "company_name": "Hilltop Lumber",
+      "type": "Customer",
+      "lat": 45.9067462,
+      "lng": -95.3671437,
+      "address_query": "1405 N Nokomis NE, Alexandria, Minnesota 56308, United States"
+    },
+    {
+      "company_name": "Hingham Lumber",
+      "type": "Customer",
+      "lat": 42.2410555,
+      "lng": -70.8326563,
+      "address_query": "165 Chief Justice Cushing Highway, Cohasset, Massachusetts 02025, United States"
+    },
+    {
+      "company_name": "Hiwassee Builders Supply",
+      "type": "Customer",
+      "lat": 35.449014,
+      "lng": -84.59875,
+      "address_query": "100 Decatur Pike, Athens, Tennessee 37303, United States"
+    },
+    {
+      "company_name": "Hiwassee Builders Supply",
+      "type": "Customer",
+      "lat": 35.449014,
+      "lng": -84.59875,
+      "address_query": "100 Decatur Pike, Athens, Tennessee 37303, United States"
+    },
+    {
+      "company_name": "Hodgins Building Centre",
+      "type": "Customer",
+      "lat": 43.886245,
+      "lng": -81.31275,
+      "address_query": "Wingham, Ontario, Canada (fallback)"
+    },
+    {
+      "company_name": "Holmes Building Materials",
+      "type": "Customer",
+      "lat": 30.4689942,
+      "lng": -91.107158,
+      "address_query": "7835 Airline Hwy, Baton Rouge, 70815, US"
+    },
+    {
+      "company_name": "Holmes Building Materials",
+      "type": "Customer",
+      "lat": 30.4689942,
+      "lng": -91.107158,
+      "address_query": "7835 Airline Highway, Baton Rouge, Louisiana 70815, United States"
+    },
+    {
+      "company_name": "Holmes Building Materials",
+      "type": "Customer",
+      "lat": 30.4842333,
+      "lng": -90.9422195,
+      "address_query": "1102 Florida Avenue SE, Denham Springs, Louisiana 70726, United States"
+    },
+    {
+      "company_name": "Home Hardware Leitrim",
+      "type": "Customer",
+      "lat": 45.308735,
+      "lng": -75.5893093,
+      "address_query": "4836 Bank Street, Ottawa, ON K1X 1G6"
+    },
+    {
+      "company_name": "Homestar Building Supplies",
+      "type": "Customer",
+      "lat": 45.4194937,
+      "lng": -65.9102462,
+      "address_query": "11 Elliot Rd, Quispamsis, New Brunswick E2G 2B5, Canada"
+    },
+    {
+      "company_name": "Honor Hardware & Building Supply, Inc.",
+      "type": "Opportunity",
+      "lat": 44.6679054,
+      "lng": -86.0284655,
+      "address_query": "10635 Main St, Michigan 49640-9439, United States"
+    },
+    {
+      "company_name": "Humphrey's Building supply",
+      "type": "Customer",
+      "lat": 41.658205,
+      "lng": -71.1922241,
+      "address_query": "590 Main Road, Tiverton, Rhode Island 02878, United States"
+    },
+    {
+      "company_name": "Humphrey's Building supply",
+      "type": "Customer",
+      "lat": 41.658205,
+      "lng": -71.1922241,
+      "address_query": "590 Main Road, Tiverton, Rhode Island 02878, United States"
+    },
+    {
+      "company_name": "Ingram Siding",
+      "type": "Opportunity",
+      "lat": 42.487667,
+      "lng": -83.1376271,
+      "address_query": "621 East 4th Street, Royal Oak, Michigan 48067, United States"
+    },
+    {
+      "company_name": "Jaeger Lumber",
+      "type": "Customer",
+      "lat": 40.6998857,
+      "lng": -74.2839976,
+      "address_query": "2322 Morris Ave, Union, New Jersey 07083, United States"
+    },
+    {
+      "company_name": "Kamloops Home Hardware Building Centre",
+      "type": "Customer",
+      "lat": 50.7113262,
+      "lng": -120.3327959,
+      "address_query": "1325 Josep Way, Kamloops, British Columbia V2H 1N6, Canada"
+    },
+    {
+      "company_name": "Kansas Lumber Homestore Inc.",
+      "type": "Opportunity",
+      "lat": 39.173793,
+      "lng": -96.561911,
+      "address_query": "217 S 4th St, Manhattan, Kansas 66502-6111, United States"
+    },
+    {
+      "company_name": "Kellogg Supply Company",
+      "type": "Opportunity",
+      "lat": 36.1700137,
+      "lng": -75.7559261,
+      "address_query": "Duck, North Carolina, United States (fallback)"
+    },
+    {
+      "company_name": "Kelseyville Lumber & Supply Co Inc",
+      "type": "Customer",
+      "lat": 38.966921,
+      "lng": -122.8354355,
+      "address_query": "Kelseyville, California, United States (fallback)"
+    },
+    {
+      "company_name": "Kingston - Cosmaroma",
+      "type": "Customer",
+      "lat": 44.3054151,
+      "lng": -76.4283781,
+      "address_query": "Kingston, ON (fallback)"
+    },
+    {
+      "company_name": "Knoebel Lumber",
+      "type": "Opportunity",
+      "lat": 40.8784805,
+      "lng": -76.4993433,
+      "address_query": "391 Knoebels Boulevard, Elysburg, Pennsylvania 17824, United States"
+    },
+    {
+      "company_name": "Koopman Lumber",
+      "type": "Opportunity",
+      "lat": 42.1235774,
+      "lng": -71.6468065,
+      "address_query": "665 Church Street, Whitinsville, MA 1588"
+    },
+    {
+      "company_name": "Kube Kitchen",
+      "type": "Customer",
+      "lat": 43.7188058,
+      "lng": -79.4299868,
+      "address_query": "3040 Bathurst Street, Toronto, ON M6B 4K2"
+    },
+    {
+      "company_name": "LBM Advantage",
+      "type": "Customer",
+      "lat": 41.4851949,
+      "lng": -74.1017623,
+      "address_query": "555 Hudson Valley Avenue, New Windsor, New York 12553, United States"
+    },
+    {
+      "company_name": "LMC",
+      "type": "Customer",
+      "lat": 44.447507,
+      "lng": -69.833221,
+      "address_query": "Belgrade, Maine, United States (fallback)"
+    },
+    {
+      "company_name": "LaValley Building Supply",
+      "type": "Customer",
+      "lat": 43.3771314,
+      "lng": -72.1541784,
+      "address_query": "351 Sunapee St, Newport, New Hampshire 03773, United States"
+    },
+    {
+      "company_name": "Leis Lumber Company",
+      "type": "Customer",
+      "lat": 43.7430924,
+      "lng": -81.7110949,
+      "address_query": "Goderich, Ontario, Canada (fallback)"
+    },
+    {
+      "company_name": "Lengefeld Lumber Company",
+      "type": "Customer",
+      "lat": 31.1337739,
+      "lng": -97.352015,
+      "address_query": "2280 Lucius McCelvey Drive, Temple, Texas 76504, United States"
+    },
+    {
+      "company_name": "Lumber Barn",
+      "type": "Customer",
+      "lat": 43.2694074,
+      "lng": -71.9588007,
+      "address_query": "Bradford, New Hampshire, United States (fallback)"
+    },
+    {
+      "company_name": "Lumbercart",
+      "type": "Customer",
+      "lat": 49.6044699,
+      "lng": -97.0375954,
+      "address_query": "Niverville, Manitoba, Canada (fallback)"
+    },
+    {
+      "company_name": "Lummus Supply Co.",
+      "type": "Customer",
+      "lat": 34.0659329,
+      "lng": -84.6768796,
+      "address_query": "Acworth, Georgia, United States (fallback)"
+    },
+    {
+      "company_name": "MPC Cash-way Lumber",
+      "type": "Customer",
+      "lat": 42.7474332,
+      "lng": -84.5576018,
+      "address_query": "5401 West Grand River Avenue, Lansing, Michigan 48906, United States"
+    },
+    {
+      "company_name": "MSI Building Supplies",
+      "type": "Opportunity",
+      "lat": 18.3356533,
+      "lng": -64.956052,
+      "address_query": "USVI (fallback)"
+    },
+    {
+      "company_name": "MacCallum Building Supplies LTD",
+      "type": "Customer",
+      "lat": 47.0642775,
+      "lng": -65.4078409,
+      "address_query": "551 Water Street, Miramichi, NB E1V 3G7"
+    },
+    {
+      "company_name": "Manion's Wholesale Building Supplies",
+      "type": "Opportunity",
+      "lat": 46.722823,
+      "lng": -92.1170745,
+      "address_query": "1300 Garfield Ave, Superior, Wisconsin 54880-2345, United States"
+    },
+    {
+      "company_name": "Manufacturers Reserve Supply",
+      "type": "Opportunity",
+      "lat": 40.7145663,
+      "lng": -74.228191,
+      "address_query": "40 Woolsey St, Irvington, New Jersey 07111-4012, United States"
+    },
+    {
+      "company_name": "Margaree Castle",
+      "type": "Customer",
+      "lat": 46.3473854,
+      "lng": -60.9991112,
+      "address_query": "Margaree Centre, NS (fallback)"
+    },
+    {
+      "company_name": "Masstown Hardware LTD",
+      "type": "Customer",
+      "lat": 45.4377281,
+      "lng": -63.4585527,
+      "address_query": "Debert, Nova Scotia, Canada (fallback)"
+    },
+    {
+      "company_name": "Matt’s Building Materials",
+      "type": "Customer",
+      "lat": 26.2057666,
+      "lng": -98.1780214,
+      "address_query": "404 East Expressway 83, Pharr, Texas 78577, United States"
+    },
+    {
+      "company_name": "McCabe Lumber Company",
+      "type": "Opportunity",
+      "lat": 39.280419,
+      "lng": -84.2979196,
+      "address_query": "118 Northeast Drive, Loveland, OH 45140, United States"
+    },
+    {
+      "company_name": "Mcleod Home Building Centre",
+      "type": "Customer",
+      "lat": 53.5396391,
+      "lng": -113.9003169,
+      "address_query": "135 South Avenue, Spruce Grove, AB T7X 3A5"
+    },
+    {
+      "company_name": "Mead Lumber",
+      "type": "Customer",
+      "lat": 41.4292988,
+      "lng": -97.3581439,
+      "address_query": "Columbus, Nebraska, United States (fallback)"
+    },
+    {
+      "company_name": "Melrose Lumber Co.",
+      "type": "Customer",
+      "lat": 41.1666081,
+      "lng": -73.8483506,
+      "address_query": "178 Croton Avenue, Ossining, New York 10562, United States"
+    },
+    {
+      "company_name": "Miller's Building Supply",
+      "type": "Customer",
+      "lat": 41.5807976,
+      "lng": -85.809171,
+      "address_query": "1819 E. Monroe Street, Goshen, Indiana 46528, United States"
+    },
+    {
+      "company_name": "Miller's Building Supply, Inc.",
+      "type": "Opportunity",
+      "lat": 41.5807976,
+      "lng": -85.809171,
+      "address_query": "1819 E. Monroe Street, Goshen, IN 46528"
+    },
+    {
+      "company_name": "Milton Home Hardware Building Centre",
+      "type": "Customer",
+      "lat": 43.5253731,
+      "lng": -79.8899722,
+      "address_query": "385 Steeles Avenue East, Milton, ON L9T 3G6"
+    },
+    {
+      "company_name": "Mohler Lumber",
+      "type": "Customer",
+      "lat": 40.8816487,
+      "lng": -81.41511,
+      "address_query": "4214 Portage Street Northwest, North Canton, Ohio 44720, United States"
+    },
+    {
+      "company_name": "Monaghan Lumber",
+      "type": "Customer",
+      "lat": 44.2592954,
+      "lng": -78.4072568,
+      "address_query": "2129 Davis Road, Peterborough, Ontario K9J 0G5, Canada"
+    },
+    {
+      "company_name": "Monarch Custom Plywood",
+      "type": "Customer",
+      "lat": 43.8061652,
+      "lng": -79.5009154,
+      "address_query": "8301 Keele Street, Concord, Ontario L4K 1Z6, Canada"
+    },
+    {
+      "company_name": "Moore Lumber and Hardware Co",
+      "type": "Customer",
+      "lat": 42.5597332,
+      "lng": -71.5911085,
+      "address_query": "22 W Main St, Ayer, Massachusetts 01432, United States"
+    },
+    {
+      "company_name": "Morrison Brothers Building Supply",
+      "type": "Customer",
+      "lat": 35.403151,
+      "lng": -80.587864,
+      "address_query": "267 Corban Avenue SW, Concord, North Carolina 28025, United States"
+    },
+    {
+      "company_name": "Moscow & Pullman Building Supply",
+      "type": "Customer",
+      "lat": 46.7295818,
+      "lng": -117.1799363,
+      "address_query": "Pullman, Washington, United States (fallback)"
+    },
+    {
+      "company_name": "Mountain View Building Materials Calgary",
+      "type": "Customer",
+      "lat": 51.0456064,
+      "lng": -114.057541,
+      "address_query": "Calgary, Alberta, Canada (fallback)"
+    },
+    {
+      "company_name": "Mountain View Building Materials Kelowna",
+      "type": "Customer",
+      "lat": 49.9214903,
+      "lng": -119.389496,
+      "address_query": "214 Adams Road, Kelowna, BC V1X 7R2"
+    },
+    {
+      "company_name": "Mt Horeb Do it Best Lumber",
+      "type": "Opportunity",
+      "lat": 43.0072699,
+      "lng": -89.7461787,
+      "address_query": "501 W Main St, Mt Horeb, WI 53572, US"
+    },
+    {
+      "company_name": "Mt Horeb Do it Best Lumber",
+      "type": "Opportunity",
+      "lat": 43.0072699,
+      "lng": -89.7461787,
+      "address_query": "501 W Main St, Mt Horeb, 53572, US"
+    },
+    {
+      "company_name": "NEMEON Inc.",
+      "type": "Customer",
+      "lat": 44.9497487,
+      "lng": -93.0931028,
+      "address_query": "Saint Paul, Minnesota, United States (fallback)"
+    },
+    {
+      "company_name": "Nation Wide Building Material USA LLC",
+      "type": "Customer",
+      "lat": 33.2793334,
+      "lng": -96.5956854,
+      "address_query": "209 Lexington Ave, Melissa, Texas 75454, United States"
+    },
+    {
+      "company_name": "Nation's Best Holdings",
+      "type": "Customer",
+      "lat": 32.9545597,
+      "lng": -96.820114,
+      "address_query": "5151 Belt Line Road, Dallas, Texas 75254, United States"
+    },
+    {
+      "company_name": "Nation's Best Holdings",
+      "type": "Customer",
+      "lat": 32.9545597,
+      "lng": -96.820114,
+      "address_query": "5151 Belt Line Road, Dallas, Texas 75254, United States"
+    },
+    {
+      "company_name": "New Canadians Lumber",
+      "type": "Customer",
+      "lat": 43.6709263,
+      "lng": -79.4256243,
+      "address_query": "804 Dupont Street, Toronto, Ontario M6G 1Z6, Canada"
+    },
+    {
+      "company_name": "New Home Building Stores",
+      "type": "Opportunity",
+      "lat": 33.4977292,
+      "lng": -88.4110105,
+      "address_query": "1701 Main Street, Columbus, Mississippi 39701, United States"
+    },
+    {
+      "company_name": "Nicoma Park Lumber",
+      "type": "Opportunity",
+      "lat": 35.4931494,
+      "lng": -97.2877155,
+      "address_query": "11308 Northeast 23rd Street, Choctaw, Oklahoma 73020, United States"
+    },
+    {
+      "company_name": "Niece Lumber ",
+      "type": "Customer",
+      "lat": 40.373421,
+      "lng": -74.946392,
+      "address_query": "2 Elm Street, Lambertville, New Jersey 08530, United States"
+    },
+    {
+      "company_name": "Nisbet Brower Building Materials",
+      "type": "Opportunity",
+      "lat": 39.1892077,
+      "lng": -84.4634397,
+      "address_query": "11575 Reading Rd, Cincinnati, Ohio 45241, United States"
+    },
+    {
+      "company_name": "Norman Building Materials",
+      "type": "Customer",
+      "lat": 31.047697,
+      "lng": -97.4671531,
+      "address_query": "1010 South Main Street, Belton, Texas 76513, United States"
+    },
+    {
+      "company_name": "Norman Building Materials",
+      "type": "Customer",
+      "lat": 31.047697,
+      "lng": -97.4671531,
+      "address_query": "1010 South Main Street, Belton, Texas 76513, United States"
+    },
+    {
+      "company_name": "Northwest Building Supply",
+      "type": "Customer",
+      "lat": 35.4731299,
+      "lng": -97.6142892,
+      "address_query": "5535 Northwest 5th Street, Oklahoma City, Oklahoma 73127, United States"
+    },
+    {
+      "company_name": "Ontario Concrete Accessories",
+      "type": "Customer",
+      "lat": 43.1207494,
+      "lng": -80.7110597,
+      "address_query": "454 Innovation Way, Woodstock, Ontario N4V 0A2, Canada"
+    },
+    {
+      "company_name": "Orange County Building Materials",
+      "type": "Customer",
+      "lat": 30.1313283,
+      "lng": -94.0148021,
+      "address_query": "Vidor, Texas, United States (fallback)"
+    },
+    {
+      "company_name": "PC Home Stores",
+      "type": "Opportunity",
+      "lat": 38.2906481,
+      "lng": -85.8285442,
+      "address_query": "123 Cherry Street, New Albany, Indiana 47172, United States"
+    },
+    {
+      "company_name": "Paradigm Technology",
+      "type": "Customer",
+      "lat": 43.0956241,
+      "lng": -89.5236845,
+      "address_query": "1850 Deming Way, Middleton, Wisconsin 53562, United States"
+    },
+    {
+      "company_name": "Parr Lumber",
+      "type": "Customer",
+      "lat": 45.5593834,
+      "lng": -122.9114129,
+      "address_query": "5630 Northwest Century Boulevard, Hillsboro, Oregon 97124, United States"
+    },
+    {
+      "company_name": "Peacock Lumber",
+      "type": "Customer",
+      "lat": 43.9082348,
+      "lng": -78.8576371,
+      "address_query": "328 Ritson Rd N, Oshawa, Ontario L1G 5P8, Canada"
+    },
+    {
+      "company_name": "Pearce Lumber Company",
+      "type": "Customer",
+      "lat": 32.5517047,
+      "lng": -92.6068057,
+      "address_query": "1032 Burgessville Road, Ruston, Louisiana 71270, United States"
+    },
+    {
+      "company_name": "Peterman Lumber",
+      "type": "Opportunity",
+      "lat": 34.0651776,
+      "lng": -117.466952,
+      "address_query": "10330 Elm Avenue, Fontana, California 92337, United States"
+    },
+    {
+      "company_name": "Peterman Lumber",
+      "type": "Opportunity",
+      "lat": 34.0651776,
+      "lng": -117.466952,
+      "address_query": "10330 Elm Avenue, Fontana, California 92337, United States"
+    },
+    {
+      "company_name": "Picou Builders Supply",
+      "type": "Customer",
+      "lat": 30.2341622,
+      "lng": -90.9100996,
+      "address_query": "235 North Airline Highway, Gonzales, Louisiana 70737, United States"
+    },
+    {
+      "company_name": "Pierre Part Store, LLC",
+      "type": "Opportunity",
+      "lat": 29.9556415,
+      "lng": -91.2117148,
+      "address_query": "Pierre Part, Louisiana, United States (fallback)"
+    },
+    {
+      "company_name": "Pierre Part Store, LLC",
+      "type": "Opportunity",
+      "lat": 29.9556415,
+      "lng": -91.2117148,
+      "address_query": "Pierre Part, Louisiana, United States (fallback)"
+    },
+    {
+      "company_name": "Preston Feather",
+      "type": "Customer",
+      "lat": 45.3678,
+      "lng": -84.970937,
+      "address_query": "900 Spring St, Petoskey, Michigan 49770, United States"
+    },
+    {
+      "company_name": "RP Lumber",
+      "type": "Opportunity",
+      "lat": 38.9794923,
+      "lng": -90.9806954,
+      "address_query": "Troy, MO, United States (fallback)"
+    },
+    {
+      "company_name": "Redwoods, Inc",
+      "type": "Customer",
+      "lat": 31.5275699,
+      "lng": -97.1743622,
+      "address_query": "623 Esther Street, Waco, Texas 76710, United States"
+    },
+    {
+      "company_name": "Requarth Co",
+      "type": "Customer",
+      "lat": 41.6264414,
+      "lng": -75.3045103,
+      "address_query": "Wayne, Pennsylvania, United States (fallback)"
+    },
+    {
+      "company_name": "Rex Lumber",
+      "type": "Customer",
+      "lat": 42.5163928,
+      "lng": -71.4075158,
+      "address_query": "840 Main St, Acton, Massachusetts 01720, United States"
+    },
+    {
+      "company_name": "Rex Lumber",
+      "type": "Customer",
+      "lat": 43.6429854,
+      "lng": -79.6308531,
+      "address_query": "2444 Dixie Road, Mississauga, ON L4Y 1M5"
+    },
+    {
+      "company_name": "Rex Lumber",
+      "type": "Customer",
+      "lat": 42.5163928,
+      "lng": -71.4075158,
+      "address_query": "840 Main St, Acton, Massachusetts 01720, United States"
+    },
+    {
+      "company_name": "Rocco Building Supplies, LLC",
+      "type": "Opportunity",
+      "lat": 38.4025621,
+      "lng": -78.9010116,
+      "address_query": "560 Pleasant Valley Rd, Harrisonburg, Virginia 22801-9741, United States"
+    },
+    {
+      "company_name": "Roof Metals Supply LLC",
+      "type": "Opportunity",
+      "lat": 43.0886923,
+      "lng": -75.2402891,
+      "address_query": "1557 Steuben St, Utica, New York 13501-4922, United States"
+    },
+    {
+      "company_name": "Royal Door",
+      "type": "Customer",
+      "lat": 43.8211767,
+      "lng": -79.4994081,
+      "address_query": "87 Planchet Road, Vaughan, ON L4K 2C6"
+    },
+    {
+      "company_name": "Russell Do it Centers",
+      "type": "Customer",
+      "lat": 32.794725,
+      "lng": -85.9751195,
+      "address_query": "2544 Willow Point Road, Alexander City, Alabama 35010, United States"
+    },
+    {
+      "company_name": "Russin",
+      "type": "Customer",
+      "lat": 41.5197709,
+      "lng": -74.1957023,
+      "address_query": "21 Leonards Drive, Montgomery, New York 12549, United States"
+    },
+    {
+      "company_name": "Rycenga Building Center",
+      "type": "Opportunity",
+      "lat": 43.0668851,
+      "lng": -86.2171255,
+      "address_query": "1053 Jackson Street, Grand Haven, Michigan 49417, United States"
+    },
+    {
+      "company_name": "S & L Lumber",
+      "type": "Customer",
+      "lat": 40.1019635,
+      "lng": -82.9466353,
+      "address_query": "2500 Corporate Exchange Drive, Columbus, Ohio 43231, United States"
+    },
+    {
+      "company_name": "S. J. Neathawk Lumber Inc.",
+      "type": "Opportunity",
+      "lat": 37.8266308,
+      "lng": -80.4204673,
+      "address_query": "3235 Jefferson Street North, Lewisburg, WV 24901"
+    },
+    {
+      "company_name": "S.W. Collins Co.",
+      "type": "Customer",
+      "lat": 46.858805,
+      "lng": -68.0154582,
+      "address_query": "6 Washburn Street, Caribou, Maine 04736, United States"
+    },
+    {
+      "company_name": "SINAK Sustainable Building Solutions",
+      "type": "Customer",
+      "lat": 32.7174202,
+      "lng": -117.162772,
+      "address_query": "San Diego, California, United States (fallback)"
+    },
+    {
+      "company_name": "Sandbox ERP",
+      "type": "Customer",
+      "lat": 44.5413322,
+      "lng": -64.2411853,
+      "address_query": "Chester, NS (fallback)"
+    },
+    {
+      "company_name": "Sanford & Hawley Inc.",
+      "type": "Opportunity",
+      "lat": 41.756731,
+      "lng": -72.882482,
+      "address_query": "1790 Farmington Avenue, Unionville, CT 6085, United States"
+    },
+    {
+      "company_name": "Sara Bandehbahman",
+      "type": "Opportunity",
+      "lat": 44.4968027,
+      "lng": -64.4949038,
+      "address_query": "1718 Cornwall Rd, Nova Scotia B0J 2E0, Canada"
+    },
+    {
+      "company_name": "Schell Lumber - Stouffville",
+      "type": "Customer",
+      "lat": 43.9714408,
+      "lng": -79.2508764,
+      "address_query": "33 Edward Street, Stouffville, Ontario L4A 1A4, Canada"
+    },
+    {
+      "company_name": "Schell Lumber - Sutton",
+      "type": "Customer",
+      "lat": 44.3135642,
+      "lng": -79.3666055,
+      "address_query": "20971 Dalton Road, Georgina, Ontario L0E 1L0, Canada"
+    },
+    {
+      "company_name": "Scherer Bros Lumber Co",
+      "type": "Opportunity",
+      "lat": 45.0976769,
+      "lng": -93.1880847,
+      "address_query": "4797 Hwy 10, Arden Hills, 55112, US"
+    },
+    {
+      "company_name": "Scherer Bros Lumber Co",
+      "type": "Opportunity",
+      "lat": 45.1004807,
+      "lng": -93.3443585,
+      "address_query": "Brooklyn Park, Minnesota (fallback)"
+    },
+    {
+      "company_name": "Schillings",
+      "type": "Customer",
+      "lat": 38.0792104,
+      "lng": -87.4500133,
+      "address_query": "Saint John, Indiana, United States (fallback)"
+    },
+    {
+      "company_name": "Shell Lumber & Hardware",
+      "type": "Opportunity",
+      "lat": 25.7396699,
+      "lng": -80.2377371,
+      "address_query": "2733 SW 27th Ave, Miami, Florida 33133-3049, United States"
+    },
+    {
+      "company_name": "Silverthorn Construction Supply",
+      "type": "Customer",
+      "lat": 43.6534817,
+      "lng": -79.3839347,
+      "address_query": "Toronto, ON (fallback)"
+    },
+    {
+      "company_name": "Silverthorn Construction Supply",
+      "type": "Customer",
+      "lat": 43.6534817,
+      "lng": -79.3839347,
+      "address_query": "Toronto, ON (fallback)"
+    },
+    {
+      "company_name": "Simpson Strong-Tie",
+      "type": "Opportunity",
+      "lat": 37.6624312,
+      "lng": -121.8746789,
+      "address_query": "Pleasanton, California, United States (fallback)"
+    },
+    {
+      "company_name": "Six Points Hardware",
+      "type": "Opportunity",
+      "lat": 33.4651446,
+      "lng": -112.0996151,
+      "address_query": "1409 North 19th Avenue, Phoenix, Arizona 85009, United States"
+    },
+    {
+      "company_name": "Slack Lumber",
+      "type": "Customer",
+      "lat": 44.0007518,
+      "lng": -79.4372217,
+      "address_query": "York, Ontario, Canada (fallback)"
+    },
+    {
+      "company_name": "Soo Mill",
+      "type": "Opportunity",
+      "lat": 46.5427826,
+      "lng": -84.3192964,
+      "address_query": "539 Great Northern Road, Sault Ste. Marie, Ontario P6B 5A1, Canada"
+    },
+    {
+      "company_name": "Standard Building Supplies Ltd.",
+      "type": "Opportunity",
+      "lat": 49.2610283,
+      "lng": -122.9922052,
+      "address_query": "4925 Still Creek Avenue, Burnaby, British Columbia V5C 5V1, Canada"
+    },
+    {
+      "company_name": "Star Lumber & Supply",
+      "type": "Opportunity",
+      "lat": 37.6797694,
+      "lng": -97.3895121,
+      "address_query": "325 South West Street, Wichita, Kansas 67213, United States"
+    },
+    {
+      "company_name": "Star Lumber & Supply",
+      "type": "Opportunity",
+      "lat": 37.6797694,
+      "lng": -97.3895121,
+      "address_query": "325 South West Street, Wichita, Kansas 67213, United States"
+    },
+    {
+      "company_name": "Steel-Pro Metals Inc",
+      "type": "Customer",
+      "lat": 43.7222201,
+      "lng": -79.4584735,
+      "address_query": "33 McAdam Ave, North York, ON M6A 1S4"
+    },
+    {
+      "company_name": "Steinkamp Home Center",
+      "type": "Customer",
+      "lat": 41.6264414,
+      "lng": -75.3045103,
+      "address_query": "Wayne, Pennsylvania, United States (fallback)"
+    },
+    {
+      "company_name": "Steve Regan Company",
+      "type": "Opportunity",
+      "lat": 40.6794048,
+      "lng": -112.0425792,
+      "address_query": "4215 S 500 W, Salt Lake City, Utah 84123, United States"
+    },
+    {
+      "company_name": "Sticks & Stuff",
+      "type": "Opportunity",
+      "lat": 44.9962805,
+      "lng": -73.3662224,
+      "address_query": "44 Lake Street, Rouses Point, 12979, US"
+    },
+    {
+      "company_name": "Stine",
+      "type": "Customer",
+      "lat": 30.2099243,
+      "lng": -93.3783497,
+      "address_query": "2950 Ruth Street, Sulphur, Louisiana 70663, United States"
+    },
+    {
+      "company_name": "Stine",
+      "type": "Customer",
+      "lat": 31.5604076,
+      "lng": -91.403171,
+      "address_query": "Natchez, Mississippi, United States (fallback)"
+    },
+    {
+      "company_name": "Stittsville Home Hardware Building Centre",
+      "type": "Customer",
+      "lat": 45.275089,
+      "lng": -75.9261123,
+      "address_query": "6001 Hazeldean Road, Ottawa, ON K2S 1B9"
+    },
+    {
+      "company_name": "Stoneburner Inc",
+      "type": "Customer",
+      "lat": 38.432172,
+      "lng": -78.903682,
+      "address_query": "1821 S High St., Harrisonburg, Virginia 22801, United States"
+    },
+    {
+      "company_name": "Stonewood Products",
+      "type": "Opportunity",
+      "lat": 41.6862224,
+      "lng": -70.0758508,
+      "address_query": "Harwich, Massachusetts, United States (fallback)"
+    },
+    {
+      "company_name": "Stratus Business Advisors",
+      "type": "Opportunity",
+      "lat": 39.011696,
+      "lng": -77.073195,
+      "address_query": "9615 Kingston Road, Kensington, Maryland 20895, United States"
+    },
+    {
+      "company_name": "Superior Builders Supply",
+      "type": "Opportunity",
+      "lat": 40.3666875,
+      "lng": -77.3408512,
+      "address_query": "3439 Shermans Valley Rd, Loysville, Pennsylvania 17047, United States"
+    },
+    {
+      "company_name": "Swift Supply",
+      "type": "Customer",
+      "lat": 31.030979,
+      "lng": -87.5131942,
+      "address_query": "1450 Swift Mill Road, Atmore, Alabama 36502, United States"
+    },
+    {
+      "company_name": "TAL Building Centers",
+      "type": "Customer",
+      "lat": 45.6306954,
+      "lng": -122.6744557,
+      "address_query": "Vancouver, Washington, United States (fallback)"
+    },
+    {
+      "company_name": "TAL Building Centers",
+      "type": "Customer",
+      "lat": 45.6306954,
+      "lng": -122.6744557,
+      "address_query": "Vancouver, Washington, United States (fallback)"
+    },
+    {
+      "company_name": "Tague Lumber Inc.",
+      "type": "Opportunity",
+      "lat": 39.9527237,
+      "lng": -75.1635262,
+      "address_query": "Philadelphia, PA (fallback)"
+    },
+    {
+      "company_name": "Tahlequah Lumber",
+      "type": "Customer",
+      "lat": 35.894984,
+      "lng": -94.972523,
+      "address_query": "1701 Park Hill Road, Tahlequah, Oklahoma 74464, US"
+    },
+    {
+      "company_name": "Targetts ",
+      "type": "Customer",
+      "lat": 45.9488278,
+      "lng": -66.6291827,
+      "address_query": "Fredericton, New Brunswick/Nouveau-Brunswick, Canada (fallback)"
+    },
+    {
+      "company_name": "Tart Lumber Company, Inc",
+      "type": "Customer",
+      "lat": 39.0021347,
+      "lng": -77.4341196,
+      "address_query": "22183 Shaw Road, Sterling, Virginia 20166, United States"
+    },
+    {
+      "company_name": "Taylor Forest Products",
+      "type": "Opportunity",
+      "lat": 42.064682,
+      "lng": -70.7749581,
+      "address_query": "765 Washington Street, Pembroke, Massachusetts 02359, United States"
+    },
+    {
+      "company_name": "Texas Wood Supply",
+      "type": "Opportunity",
+      "lat": 26.1805183,
+      "lng": -98.0468102,
+      "address_query": "940 W Expressway 83, Donna, Texas 78537-4133, United States"
+    },
+    {
+      "company_name": "The Cedar Shop",
+      "type": "Customer",
+      "lat": 51.0456064,
+      "lng": -114.057541,
+      "address_query": "Calgary, Alberta, Canada (fallback)"
+    },
+    {
+      "company_name": "The Home Improvement Outlet",
+      "type": "Customer",
+      "lat": 29.6451024,
+      "lng": -95.2670767,
+      "address_query": "West Monroe, Texas, United States (fallback)"
+    },
+    {
+      "company_name": "The Lester Group",
+      "type": "Customer",
+      "lat": 36.6973849,
+      "lng": -79.8948744,
+      "address_query": "101 E. Commonwealth Blvd, Martinsville, Virginia 24112, United States"
+    },
+    {
+      "company_name": "The Norfolk Companies",
+      "type": "Customer",
+      "lat": 42.2785666,
+      "lng": -71.0805451,
+      "address_query": "981 Morton Street, Mattapan, Massachusetts 02126, United States"
+    },
+    {
+      "company_name": "The Royal Wood Shop",
+      "type": "Customer",
+      "lat": 44.0025851,
+      "lng": -79.4548413,
+      "address_query": "220 Wellington Street East, Aurora, Ontario L4G 1J5, Canada"
+    },
+    {
+      "company_name": "Tidd Tree LLC",
+      "type": "Opportunity",
+      "lat": 38.8109254,
+      "lng": -94.9272958,
+      "address_query": "Gardner, Kansas, United States (fallback)"
+    },
+    {
+      "company_name": "Timberpro Coatings",
+      "type": "Customer",
+      "lat": 49.1237672,
+      "lng": -123.1002968,
+      "address_query": "Horseshoe Way, Richmond, BC V7A 5G7"
+    },
+    {
+      "company_name": "Tindell's Inc.",
+      "type": "Customer",
+      "lat": 35.9603948,
+      "lng": -83.9210261,
+      "address_query": "Knoxville, Tennessee, United States (fallback)"
+    },
+    {
+      "company_name": "Toronto Vanity",
+      "type": "Customer",
+      "lat": 43.6766453,
+      "lng": -79.487336,
+      "address_query": "451 Alliance Avenue, Toronto, ON M6N 2J1"
+    },
+    {
+      "company_name": "Trail Building Supplies",
+      "type": "Customer",
+      "lat": 53.5462055,
+      "lng": -113.491241,
+      "address_query": "Edmonton, Alberta, Canada (fallback)"
+    },
+    {
+      "company_name": "Tri County Lumber Co",
+      "type": "Customer",
+      "lat": 42.9557132,
+      "lng": -91.8078596,
+      "address_query": "103 East Railroad Street, West Union, Iowa 52175, United States"
+    },
+    {
+      "company_name": "Trio Forest Products Inc",
+      "type": "Opportunity",
+      "lat": 33.3971779,
+      "lng": -111.8307195,
+      "address_query": "959 S. Center Street, Mesa, AZ 85210"
+    },
+    {
+      "company_name": "Triple R Brothers",
+      "type": "Opportunity",
+      "lat": 29.9645769,
+      "lng": -94.0200525,
+      "address_query": "7895 Viterbo Rd, Nederland, Texas 77627, United States"
+    },
+    {
+      "company_name": "Tucker Lumber",
+      "type": "Opportunity",
+      "lat": 32.0081396,
+      "lng": -97.132544,
+      "address_query": "216 S. Bois D’Arc Street, Hillsboro, Texas 76645, United States"
+    },
+    {
+      "company_name": "Tucker Lumber Company",
+      "type": "Customer",
+      "lat": 39.1609575,
+      "lng": -89.4933899,
+      "address_query": "Hillsboro, Illinois, United States (fallback)"
+    },
+    {
+      "company_name": "United Lumber - Bolton",
+      "type": "Customer",
+      "lat": 44.3893208,
+      "lng": -79.6901302,
+      "address_query": "Barrie, Ontario, Canada (fallback)"
+    },
+    {
+      "company_name": "Uresco Construction Materials",
+      "type": "Opportunity",
+      "lat": 47.4288583,
+      "lng": -122.229123,
+      "address_query": "8246 South 194th, Kent, WA 98032"
+    },
+    {
+      "company_name": "UserGems ",
+      "type": "Opportunity",
+      "lat": 37.7922061,
+      "lng": -122.4347573,
+      "address_query": "2443 Fillmore Street, San Francisco, California 94115, United States"
+    },
+    {
+      "company_name": "Vancouver eFasteners Tools & Supply Ltd",
+      "type": "Customer",
+      "lat": 49.1333786,
+      "lng": -123.0230587,
+      "address_query": "7158 Progress Way, Delta, British Columbia V4G 1M6, Canada"
+    },
+    {
+      "company_name": "Vena Stones",
+      "type": "Customer",
+      "lat": 45.6430667,
+      "lng": -73.4047149,
+      "address_query": "1041 Boulevard Lionel-Boulet, Varennes, QC J3X 1P7"
+    },
+    {
+      "company_name": "Wallace Building Center",
+      "type": "Opportunity",
+      "lat": 33.7234978,
+      "lng": -85.1411353,
+      "address_query": "103 Fern Street, Bremen, Georgia 30110, United States"
+    },
+    {
+      "company_name": "Wallace Building Center",
+      "type": "Opportunity",
+      "lat": 33.7234978,
+      "lng": -85.1411353,
+      "address_query": "103 Fern Street, Bremen, Georgia 30110, United States"
+    },
+    {
+      "company_name": "Wellesley Home Centre",
+      "type": "Customer",
+      "lat": 43.4699762,
+      "lng": -80.7648119,
+      "address_query": "2196 Gerber Road, Wellesley, ON N0B 2T0"
+    },
+    {
+      "company_name": "West Coast Sand and Gravel",
+      "type": "Opportunity",
+      "lat": 33.8585479,
+      "lng": -118.0057574,
+      "address_query": "7312 Orangethorpe Ave, Buena Park, California 90621, United States"
+    },
+    {
+      "company_name": "White's Lumber & Supply",
+      "type": "Opportunity",
+      "lat": 29.9199623,
+      "lng": -81.3262083,
+      "address_query": "32 Louise Street, Saint Augustine, Florida 32084, United States"
+    },
+    {
+      "company_name": "Wolf Creek Building Supplies - Sylvan Lake",
+      "type": "Customer",
+      "lat": 52.3059895,
+      "lng": -114.0761581,
+      "address_query": "110 Hewlett Park Landing, Sylvan Lake, Alberta T4S 2J3, Canada"
+    },
+    {
+      "company_name": "test",
+      "type": "Opportunity",
+      "lat": 43.6534817,
+      "lng": -79.3839347,
+      "address_query": "Toronto, Ontario, Canada (fallback)"
+    }
+  ]
+}
