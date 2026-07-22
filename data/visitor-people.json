@@ -1,0 +1,74 @@
+[
+  {
+    "name": "John Smith",
+    "email": "john.smith@neurooptics.com",
+    "title": "VP of Product",
+    "company_name": "NeurOptics",
+    "domain": "neurooptics.com",
+    "apollo_last_visit": "2026-07-14T12:53:00Z",
+    "bm_score": 8.5
+  },
+  {
+    "name": "Sarah Johnson",
+    "email": "s.johnson@udel.edu",
+    "title": "Director of Research",
+    "company_name": "University of Delaware",
+    "domain": "udel.edu",
+    "apollo_last_visit": "2026-07-13T20:21:00Z",
+    "bm_score": 6.2
+  },
+  {
+    "name": "Michael Chen",
+    "email": "m.chen@greenridgegrowth.com",
+    "title": "Senior Investment Manager",
+    "company_name": "Greenridge Growth Partners",
+    "domain": "greenridgegrowth.com",
+    "apollo_last_visit": "2026-07-13T19:59:00Z",
+    "bm_score": 9.1
+  },
+  {
+    "name": "Emily Rodriguez",
+    "email": "emily.rodriguez@worldwide.com",
+    "title": "Business Development Manager",
+    "company_name": "Worldwide",
+    "domain": "worldwide.com",
+    "apollo_last_visit": "2026-07-13T19:08:00Z",
+    "bm_score": 7.3
+  },
+  {
+    "name": "David Williams",
+    "email": "dwilliams@haywardlumber.com",
+    "title": "Sales Manager",
+    "company_name": "Hayward Lumber",
+    "domain": "haywardlumber.com",
+    "apollo_last_visit": "2026-07-13T18:43:00Z",
+    "bm_score": 5.8
+  },
+  {
+    "name": "Lisa Anderson",
+    "email": "lisa.anderson@knipperhealth.com",
+    "title": "Product Manager",
+    "company_name": "Knipper Health",
+    "domain": "knipperhealth.com",
+    "apollo_last_visit": "2026-07-13T20:14:00Z",
+    "bm_score": 7.9
+  },
+  {
+    "name": "Robert Martinez",
+    "email": "r.martinez@ownrealestate.com",
+    "title": "CEO",
+    "company_name": "Own Real Estate",
+    "domain": "ownrealestate.com",
+    "apollo_last_visit": "2026-07-13T20:11:00Z",
+    "bm_score": 6.5
+  },
+  {
+    "name": "Jennifer Lee",
+    "email": "jlee@greatquestion.com",
+    "title": "Chief Technology Officer",
+    "company_name": "Great Question",
+    "domain": "greatquestion.com",
+    "apollo_last_visit": "2026-07-13T19:10:00Z",
+    "bm_score": 8.2
+  }
+]

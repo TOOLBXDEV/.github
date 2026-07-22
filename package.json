@@ -1,12 +1,43 @@
 {
-  "name": "toolbx-icp-scoring",
-  "version": "1.0.0",
+  "name": "toolbx-sales-hub",
+  "version": "0.1.0",
   "private": true,
-  "description": "TOOLBX ICP scoring engine for HubSpot company records",
   "scripts": {
-    "score": "node scripts/icp-scoring-engine.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "fetch-big-box": "node scripts/fetch-all-big-box.mjs",
+    "fetch-big-box-osm": "node scripts/fetch-big-box-stores.mjs",
+    "refresh-map-data": "SKIP_TV=1 node scripts/fetch-all-big-box.mjs",
+    "export-deals-snapshot": "node scripts/export-deals-snapshot.mjs",
+    "generate-customer-map": "node scripts/generate-customer-map-image.mjs",
+    "package-handoff": "bash scripts/package-handoff.sh"
   },
   "dependencies": {
-    "@hubspot/api-client": "^12.0.1"
+    "google-auth-library": "^10.9.0",
+    "leaflet": "^1.9.4",
+    "leaflet.heat": "^0.2.0",
+    "leaflet.markercluster": "^1.5.3",
+    "next": "16.1.6",
+    "pg": "^8.20.0",
+    "playwright": "^1.58.2",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-grid-layout": "^2.2.2",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/leaflet": "^1.9.21",
+    "@types/node": "^20",
+    "@types/pg": "^8.18.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-grid-layout": "^2.1.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

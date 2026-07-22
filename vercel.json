@@ -1,0 +1,19 @@
+{
+  "functions": {
+    "app/api/deals/route.ts": {
+      "maxDuration": 60
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/big-box-stores",
+      "destination": "/api/bigbox"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/geocode",
+      "schedule": "0 6 * * 1"
+    }
+  ]
+}

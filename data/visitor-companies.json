@@ -1,0 +1,224 @@
+[
+  {
+    "company_name": "NeurOptics",
+    "domain": "neurooptics.com",
+    "industry": "Medical Devices",
+    "annual_revenue": "$10-50M",
+    "employees": "51-200",
+    "locations": "Santa Rosa, CA",
+    "country": "United States",
+    "state": "California",
+    "apollo_visits": 1,
+    "apollo_visitors": 1,
+    "apollo_last_visit": "2026-07-14T12:53:00Z",
+    "intent_score": 65,
+    "interest_level": "Medium",
+    "top_pages": [
+      "/products",
+      "/solutions",
+      "/pricing"
+    ],
+    "search_keywords": [
+      "medical devices",
+      "neuro imaging",
+      "ophthalmology"
+    ]
+  },
+  {
+    "company_name": "University of Delaware",
+    "domain": "udel.edu",
+    "industry": "Higher Education",
+    "annual_revenue": "$500M-1B",
+    "employees": "1000-5000",
+    "locations": "Newark, DE",
+    "country": "United States",
+    "state": "Delaware",
+    "apollo_visits": 9,
+    "apollo_visitors": 9,
+    "apollo_last_visit": "2026-07-13T20:21:00Z",
+    "intent_score": 42,
+    "interest_level": "Low",
+    "top_pages": [
+      "/academics",
+      "/research",
+      "/admissions"
+    ],
+    "search_keywords": [
+      "education",
+      "research",
+      "university"
+    ]
+  },
+  {
+    "company_name": "Knipper Health",
+    "domain": "knipperhealth.com",
+    "industry": "Healthcare Technology",
+    "annual_revenue": "$10-50M",
+    "employees": "51-200",
+    "locations": "Multiple",
+    "country": "United States",
+    "state": "California",
+    "apollo_visits": 4,
+    "apollo_visitors": 2,
+    "apollo_last_visit": "2026-07-13T20:14:00Z",
+    "intent_score": 58,
+    "interest_level": "Medium",
+    "top_pages": [
+      "/platform",
+      "/solutions",
+      "/customers"
+    ],
+    "search_keywords": [
+      "healthcare",
+      "technology",
+      "patient care"
+    ]
+  },
+  {
+    "company_name": "Own Real Estate",
+    "domain": "ownrealestate.com",
+    "industry": "Real Estate",
+    "annual_revenue": "$1-10M",
+    "employees": "1-50",
+    "locations": "Multiple",
+    "country": "United States",
+    "state": "Multiple",
+    "apollo_visits": 1,
+    "apollo_visitors": 1,
+    "apollo_last_visit": "2026-07-13T20:11:00Z",
+    "intent_score": 52,
+    "interest_level": "Low",
+    "top_pages": [
+      "/listings",
+      "/about",
+      "/contact"
+    ],
+    "search_keywords": [
+      "real estate",
+      "property",
+      "investment"
+    ]
+  },
+  {
+    "company_name": "Greenridge Growth Partners",
+    "domain": "greenridgegrowth.com",
+    "industry": "Investment Management",
+    "annual_revenue": "$50-100M",
+    "employees": "51-200",
+    "locations": "New York, NY",
+    "country": "United States",
+    "state": "New York",
+    "apollo_visits": 47,
+    "apollo_visitors": 5,
+    "apollo_last_visit": "2026-07-13T19:59:00Z",
+    "intent_score": 85,
+    "interest_level": "Very High",
+    "top_pages": [
+      "/portfolio",
+      "/services",
+      "/insights"
+    ],
+    "search_keywords": [
+      "investment",
+      "growth",
+      "venture capital"
+    ]
+  },
+  {
+    "company_name": "Great Question",
+    "domain": "greatquestion.com",
+    "industry": "Technology",
+    "annual_revenue": "$10-50M",
+    "employees": "51-200",
+    "locations": "San Francisco, CA",
+    "country": "United States",
+    "state": "California",
+    "apollo_visits": 1,
+    "apollo_visitors": 1,
+    "apollo_last_visit": "2026-07-13T19:10:00Z",
+    "intent_score": 48,
+    "interest_level": "Low",
+    "top_pages": [
+      "/features",
+      "/pricing"
+    ],
+    "search_keywords": [
+      "technology",
+      "software",
+      "platform"
+    ]
+  },
+  {
+    "company_name": "Worldwide",
+    "domain": "worldwide.com",
+    "industry": "Global Services",
+    "annual_revenue": "$100M-500M",
+    "employees": "200-1000",
+    "locations": "Multiple Locations",
+    "country": "United States",
+    "state": "Multiple",
+    "apollo_visits": 3,
+    "apollo_visitors": 2,
+    "apollo_last_visit": "2026-07-13T19:08:00Z",
+    "intent_score": 61,
+    "interest_level": "Medium",
+    "top_pages": [
+      "/services",
+      "/solutions",
+      "/industries"
+    ],
+    "search_keywords": [
+      "global",
+      "services",
+      "consulting"
+    ]
+  },
+  {
+    "company_name": "Cassity Jones Building Materials",
+    "domain": "cassityjones.com",
+    "industry": "Building Materials",
+    "annual_revenue": "$10-50M",
+    "employees": "51-200",
+    "locations": "Multiple",
+    "country": "United States",
+    "state": "California",
+    "apollo_visits": 1,
+    "apollo_visitors": 1,
+    "apollo_last_visit": "2026-07-13T18:48:00Z",
+    "intent_score": 55,
+    "interest_level": "Low",
+    "top_pages": [
+      "/products",
+      "/about"
+    ],
+    "search_keywords": [
+      "building materials",
+      "construction",
+      "lumber"
+    ]
+  },
+  {
+    "company_name": "Hayward Lumber",
+    "domain": "haywardlumber.com",
+    "industry": "Building Materials & Lumber",
+    "annual_revenue": "$10-50M",
+    "employees": "51-200",
+    "locations": "Hayward, CA",
+    "country": "United States",
+    "state": "California",
+    "apollo_visits": 2,
+    "apollo_visitors": 2,
+    "apollo_last_visit": "2026-07-13T18:43:00Z",
+    "intent_score": 50,
+    "interest_level": "Low",
+    "top_pages": [
+      "/products",
+      "/locations"
+    ],
+    "search_keywords": [
+      "lumber",
+      "building materials",
+      "construction supplies"
+    ]
+  }
+]

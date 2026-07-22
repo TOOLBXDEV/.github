@@ -1,0 +1,649 @@
+{
+  "_meta": {
+    "generated": "2026-07-07",
+    "source": "PostHog web analytics (12-month lookback)",
+    "note": "Per-page stats + global UTM/referrer/channel data"
+  },
+  "_global": {
+    "utm_keywords": [
+      {
+        "term": "building materials erp integration",
+        "source": "google",
+        "medium": "cpc",
+        "hits": 88
+      },
+      {
+        "term": "epicor ar automation",
+        "source": "google",
+        "medium": "cpc",
+        "hits": 15
+      },
+      {
+        "term": "construction supply digital transformation",
+        "source": "google",
+        "medium": "cpc",
+        "hits": 4
+      },
+      {
+        "term": "epicor e-commerce integration",
+        "source": "google",
+        "medium": "cpc",
+        "hits": 1
+      },
+      {
+        "term": "suppli software",
+        "source": "google",
+        "medium": "cpc",
+        "hits": 1
+      }
+    ],
+    "utm_campaigns": [
+      {
+        "source": "linkedin",
+        "medium": "social",
+        "campaign": "company page",
+        "hits": 548
+      },
+      {
+        "source": "graham.staley@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 170
+      },
+      {
+        "source": "joshua.kolenda@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 164
+      },
+      {
+        "source": "scott.hamilton@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 145
+      },
+      {
+        "source": "lmc",
+        "medium": "email",
+        "campaign": "lmc-platform-awareness-2026",
+        "hits": 122
+      },
+      {
+        "source": "pouyan.mirsaeidi@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 113
+      },
+      {
+        "source": "google",
+        "medium": "cpc",
+        "campaign": "22495412874",
+        "hits": 105
+      },
+      {
+        "source": "michelle.kubas@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 104
+      },
+      {
+        "source": "connor@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 71
+      },
+      {
+        "source": "christine@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 48
+      },
+      {
+        "source": "chatgpt",
+        "medium": "paid",
+        "campaign": "launch",
+        "hits": 34
+      },
+      {
+        "source": "omar.sheikh@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 28
+      },
+      {
+        "source": "linkedin",
+        "medium": "social",
+        "campaign": "20355466-Do it Best partnership announcement",
+        "hits": 28
+      },
+      {
+        "source": "events",
+        "medium": "presentation",
+        "campaign": "Customer First Using E-commerce to Drive Pro Loyalty",
+        "hits": 23
+      },
+      {
+        "source": "construction supply 150 report",
+        "medium": "print",
+        "campaign": "be the supplier pros choose first",
+        "hits": 21
+      },
+      {
+        "source": "michelle.belman@toolbx.com signature",
+        "medium": "email",
+        "campaign": "subscribe to our newsletter signature banner",
+        "hits": 18
+      }
+    ],
+    "referrers": [
+      {
+        "domain": "$direct",
+        "hits": 18141
+      },
+      {
+        "domain": "toolbxapp.com",
+        "hits": 9622
+      },
+      {
+        "domain": "www.google.com",
+        "hits": 7248
+      },
+      {
+        "domain": "www.bing.com",
+        "hits": 516
+      },
+      {
+        "domain": "www.toolbx.com",
+        "hits": 473
+      },
+      {
+        "domain": "toolbx.com",
+        "hits": 266
+      },
+      {
+        "domain": "duckduckgo.com",
+        "hits": 205
+      },
+      {
+        "domain": "www.linkedin.com",
+        "hits": 169
+      },
+      {
+        "domain": "www.applicocapital.com",
+        "hits": 111
+      },
+      {
+        "domain": "chatgpt.com",
+        "hits": 90
+      },
+      {
+        "domain": "www.superseed.ventures",
+        "hits": 71
+      },
+      {
+        "domain": "l.facebook.com",
+        "hits": 48
+      },
+      {
+        "domain": "www.hook-tech.com",
+        "hits": 44
+      },
+      {
+        "domain": "search.yahoo.com",
+        "hits": 42
+      },
+      {
+        "domain": "www.facebook.com",
+        "hits": 40
+      },
+      {
+        "domain": "statics.teams.cdn.office.net",
+        "hits": 36
+      },
+      {
+        "domain": "com.linkedin.android",
+        "hits": 36
+      },
+      {
+        "domain": "go.toolbx.com",
+        "hits": 33
+      },
+      {
+        "domain": "www.indexventures.com",
+        "hits": 30
+      },
+      {
+        "domain": "annapolishomehardware.ca",
+        "hits": 29
+      },
+      {
+        "domain": "www.google.ca",
+        "hits": 26
+      },
+      {
+        "domain": "l.instagram.com",
+        "hits": 26
+      },
+      {
+        "domain": "www.fjlabs.com",
+        "hits": 26
+      },
+      {
+        "domain": "www.upwork.com",
+        "hits": 25
+      },
+      {
+        "domain": "alpaca.vc",
+        "hits": 25
+      },
+      {
+        "domain": "t.co",
+        "hits": 25
+      },
+      {
+        "domain": "gemini.google.com",
+        "hits": 24
+      },
+      {
+        "domain": "groundbreakventures.com",
+        "hits": 24
+      },
+      {
+        "domain": "www.reddit.com",
+        "hits": 8
+      }
+    ],
+    "channels": {
+      "Direct": 16523,
+      "Referral": 11601,
+      "Organic Search": 8091,
+      "Email": 1193,
+      "Organic Social": 839,
+      "Paid Search": 121,
+      "Paid Unknown": 36,
+      "Paid Social": 2,
+      "Organic Video": 1
+    }
+  },
+  "/": {
+    "total_entries": 21037,
+    "total_pageviews": 33652,
+    "avg_session_seconds": 902.78,
+    "bounce_rate": 0.377
+  },
+  "/login-landing": {
+    "total_entries": 9741,
+    "total_pageviews": 17811,
+    "avg_session_seconds": 143.39,
+    "bounce_rate": 0.658
+  },
+  "/careers": {
+    "total_entries": 2507,
+    "total_pageviews": 4048,
+    "avg_session_seconds": 227.68,
+    "bounce_rate": 0.228
+  },
+  "/privacy-policy": {
+    "total_entries": 1953,
+    "total_pageviews": 1974,
+    "avg_session_seconds": 604.35,
+    "bounce_rate": 0.98
+  },
+  "/product/customer-portal/overview": {
+    "total_entries": 1736,
+    "total_pageviews": 2958,
+    "avg_session_seconds": 1372.63,
+    "bounce_rate": 0.382
+  },
+  "/product/ar-management/overview": {
+    "total_entries": 1349,
+    "total_pageviews": 2139,
+    "avg_session_seconds": 1029.5,
+    "bounce_rate": 0.549
+  },
+  "/subscribe-to-our-newsletter": {
+    "total_entries": 1071,
+    "total_pageviews": 1089,
+    "avg_session_seconds": 34.05,
+    "bounce_rate": 0.887
+  },
+  "/solutions/ecommerce/storefront": {
+    "total_entries": 558,
+    "total_pageviews": 729,
+    "avg_session_seconds": 2984.2,
+    "bounce_rate": 0.703
+  },
+  "/solutions/ecommerce/integrations": {
+    "total_entries": 544,
+    "total_pageviews": 770,
+    "avg_session_seconds": 3052.92,
+    "bounce_rate": 0.4
+  },
+  "/solutions/ecommerce": {
+    "total_entries": 525,
+    "total_pageviews": 680,
+    "avg_session_seconds": 6218.27,
+    "bounce_rate": 0.475
+  },
+  "/forge-ai": {
+    "total_entries": 468,
+    "total_pageviews": 717,
+    "avg_session_seconds": 250.52,
+    "bounce_rate": 0.68
+  },
+  "/customer-stories": {
+    "total_entries": 367,
+    "total_pageviews": 529,
+    "avg_session_seconds": 1395.54,
+    "bounce_rate": 0.763
+  },
+  "/resources-hub": {
+    "total_entries": 312,
+    "total_pageviews": 450,
+    "avg_session_seconds": 478.64,
+    "bounce_rate": 0.721
+  },
+  "/solutions/ecommerce/products": {
+    "total_entries": 294,
+    "total_pageviews": 356,
+    "avg_session_seconds": 512.14,
+    "bounce_rate": 0.492
+  },
+  "/delivery-policy": {
+    "total_entries": 275,
+    "total_pageviews": 336,
+    "avg_session_seconds": 219.58,
+    "bounce_rate": 0.217
+  },
+  "/pricing": {
+    "total_entries": 251,
+    "total_pageviews": 304,
+    "avg_session_seconds": 711.12,
+    "bounce_rate": 0.538
+  },
+  "/guides": {
+    "total_entries": 248,
+    "total_pageviews": 346,
+    "avg_session_seconds": 46.34,
+    "bounce_rate": 0.579
+  },
+  "/solutions/ecommerce/quotes": {
+    "total_entries": 220,
+    "total_pageviews": 297,
+    "avg_session_seconds": 1099.13,
+    "bounce_rate": 0.6
+  },
+  "/solutions/ecommerce/orders": {
+    "total_entries": 215,
+    "total_pageviews": 282,
+    "avg_session_seconds": 975.59,
+    "bounce_rate": 0.446
+  },
+  "/solutions/ecommerce/messages": {
+    "total_entries": 196,
+    "total_pageviews": 237,
+    "avg_session_seconds": 657.24,
+    "bounce_rate": 0.439
+  },
+  "/customer-stories/db-s-lumber-streamlines-operations-by-integrating-with-their-erp": {
+    "total_entries": 189,
+    "total_pageviews": 249,
+    "avg_session_seconds": 3092.29,
+    "bounce_rate": 0.671
+  },
+  "/article/toolbx-teams-up-with-do-it-best-to-power-pro-platform": {
+    "total_entries": 176,
+    "total_pageviews": 227,
+    "avg_session_seconds": 2553.88,
+    "bounce_rate": 0.448
+  },
+  "/terms-conditions": {
+    "total_entries": 129,
+    "total_pageviews": 141,
+    "avg_session_seconds": 25.67,
+    "bounce_rate": 0.869
+  },
+  "/videos": {
+    "total_entries": 117,
+    "total_pageviews": 141,
+    "avg_session_seconds": 34.87,
+    "bounce_rate": 0.667
+  },
+  "/customer-stories/downtown-lumber-eliminates-phone-based-payments-and-reduces-fraud-with-payments": {
+    "total_entries": 106,
+    "total_pageviews": 120,
+    "avg_session_seconds": 1016.34,
+    "bounce_rate": 0.778
+  },
+  "/customer-stories/new-canadians-lumbers-implements-a-winning-digital-strategy-with-e-commerce": {
+    "total_entries": 99,
+    "total_pageviews": 109,
+    "avg_session_seconds": 2707.58,
+    "bounce_rate": 0.547
+  },
+  "/legal": {
+    "total_entries": 98,
+    "total_pageviews": 110,
+    "avg_session_seconds": 78.71,
+    "bounce_rate": 0.913
+  },
+  "/customer-stories/how-peacock-lumber-leveraged-quotes-and-messages-to-improve-lead-generation-and-communication": {
+    "total_entries": 92,
+    "total_pageviews": 112,
+    "avg_session_seconds": 2012.54,
+    "bounce_rate": 0.381
+  },
+  "/about": {
+    "total_entries": 83,
+    "total_pageviews": 83,
+    "avg_session_seconds": 3.09,
+    "bounce_rate": 0.975
+  },
+  "/guide/how-to-promote-your-building-supply-e-commerce-store": {
+    "total_entries": 76,
+    "total_pageviews": 91,
+    "avg_session_seconds": 58559.81,
+    "bounce_rate": 0.714
+  },
+  "/article/toolbx-and-specialty-building-products-sbp-partner-to-drive-lbm-e-commerce-growth": {
+    "total_entries": 76,
+    "total_pageviews": 84,
+    "avg_session_seconds": 806.49,
+    "bounce_rate": 0.576
+  },
+  "/guides/getting-started": {
+    "total_entries": 70,
+    "total_pageviews": 83,
+    "avg_session_seconds": 60.9,
+    "bounce_rate": 0.611
+  },
+  "/guide/mastering-product-data-the-key-to-e-commerce-success-in-building-supply": {
+    "total_entries": 69,
+    "total_pageviews": 100,
+    "avg_session_seconds": 1810.46,
+    "bounce_rate": 0.558
+  },
+  "/confirmed": {
+    "total_entries": 66,
+    "total_pageviews": 85,
+    "avg_session_seconds": 17273.83,
+    "bounce_rate": 0.684
+  },
+  "/articles": {
+    "total_entries": 59,
+    "total_pageviews": 65,
+    "avg_session_seconds": 12.24,
+    "bounce_rate": 0.872
+  },
+  "/terms-of-service": {
+    "total_entries": 57,
+    "total_pageviews": 69,
+    "avg_session_seconds": 4757.49,
+    "bounce_rate": 0.722
+  },
+  "/offers/secure-online-payments-for-building-supply-offers-toolbx": {
+    "total_entries": 54,
+    "total_pageviews": 56,
+    "avg_session_seconds": 148.21,
+    "bounce_rate": 0.511
+  },
+  "/solutions/ecommerce/customers": {
+    "total_entries": 30,
+    "total_pageviews": 34,
+    "avg_session_seconds": 1104.27,
+    "bounce_rate": 0.586
+  },
+  "/customer-stories/nations-best-ar-team-hours-back": {
+    "total_entries": 22,
+    "total_pageviews": 33,
+    "avg_session_seconds": 6327.76,
+    "bounce_rate": 0.2
+  },
+  "/shop-direct": {
+    "total_entries": 15,
+    "total_pageviews": 16,
+    "avg_session_seconds": 1134.02,
+    "bounce_rate": 0.6
+  },
+  "/doitbest": {
+    "total_entries": 7,
+    "total_pageviews": 7,
+    "avg_session_seconds": 450.82,
+    "bounce_rate": 0.571
+  },
+  "_analysis": {
+    "funnel": {
+      "pageview_to_demo_click": {
+        "step1_pageview_visitors": 37368,
+        "step2_demo_contact_click": 97,
+        "conversion_rate_pct": 0.26,
+        "avg_time_to_convert_seconds": 49.15,
+        "median_time_to_convert_seconds": 4.57,
+        "window_days": 30,
+        "note": "Funnel: pageview -> autocapture on contact/demo/book/pricing pages. 0.26% conversion rate. Median 4.6s suggests most conversions are same-session."
+      }
+    },
+    "dark_funnel": {
+      "direct_traffic_pct": 43.0,
+      "top_direct_landing_pages": [
+        {
+          "page": "/",
+          "visitors": 13244,
+          "pct_of_direct": 71.5
+        },
+        {
+          "page": "/privacy-policy",
+          "visitors": 1802,
+          "pct_of_direct": 9.7
+        },
+        {
+          "page": "/subscribe-to-our-newsletter",
+          "visitors": 1055,
+          "pct_of_direct": 5.7
+        },
+        {
+          "page": "/careers",
+          "visitors": 388,
+          "pct_of_direct": 2.1
+        },
+        {
+          "page": "/product/ar-management/overview",
+          "visitors": 121,
+          "pct_of_direct": 0.7
+        },
+        {
+          "page": "/product/customer-portal/overview",
+          "visitors": 103,
+          "pct_of_direct": 0.6
+        },
+        {
+          "page": "/pricing",
+          "visitors": 99,
+          "pct_of_direct": 0.5
+        },
+        {
+          "page": "/solutions/ecommerce/storefront",
+          "visitors": 96,
+          "pct_of_direct": 0.5
+        }
+      ],
+      "interpretation": "71.5% of direct traffic lands on homepage \u2014 likely brand-aware visitors (word of mouth, events, offline mentions). 9.7% on privacy-policy suggests existing users checking terms. Deep product pages (AR management, customer portal, pricing) from direct = prospects who heard the product name offline and navigated directly."
+    },
+    "rageclicks": {
+      "total_rageclicks_12m": 130,
+      "top_pages": [
+        {
+          "url": "https://www.toolbx.com/",
+          "count": 53
+        },
+        {
+          "url": "https://www.toolbx.com/solutions/ecommerce",
+          "count": 10
+        },
+        {
+          "url": "https://www.toolbx.com/product/customer-portal/overview",
+          "count": 6
+        },
+        {
+          "url": "https://www.toolbx.com/customer-stories/db-s-lumber",
+          "count": 5
+        },
+        {
+          "url": "https://toolbx.webflow.io/",
+          "count": 4
+        },
+        {
+          "url": "https://www.toolbx.com/customer-stories",
+          "count": 4
+        },
+        {
+          "url": "https://www.toolbx.com/solutions/ecommerce/products",
+          "count": 4
+        },
+        {
+          "url": "https://www.toolbx.com/#platform-tour",
+          "count": 3
+        },
+        {
+          "url": "https://www.toolbx.com/forge-ai",
+          "count": 3
+        },
+        {
+          "url": "https://www.toolbx.com/product/ar-management/overview",
+          "count": 3
+        }
+      ],
+      "interpretation": "Homepage accounts for 41% of rageclicks (53/130). Platform tour anchor and ecommerce solutions page also show frustration. Likely causes: non-responsive CTA buttons, Webflow interactive elements not loading, or confusing navigation."
+    },
+    "channel_trends_6m": {
+      "note": "Weekly pageview trends by referring domain (Jan-Jul 2026)",
+      "channels": {
+        "direct": {
+          "total_6m": 17272,
+          "avg_weekly": 640,
+          "trend": "stable with spikes (1005 in Mar w1, 995 in Apr w2, 963 in Jun w3)"
+        },
+        "google": {
+          "total_6m": 8596,
+          "avg_weekly": 318,
+          "trend": "steady ~300-400/week, slight uptick Jun-Jul"
+        },
+        "bing": {
+          "total_6m": 812,
+          "avg_weekly": 30,
+          "trend": "volatile, range 4-56/week"
+        },
+        "linkedin": {
+          "total_6m": 161,
+          "avg_weekly": 6,
+          "trend": "spikey \u2014 32 in one week (Apr w4), otherwise 0-15"
+        },
+        "chatgpt": {
+          "total_6m": 62,
+          "avg_weekly": 2.3,
+          "trend": "emerging channel, 9 in May w3, 9 in Jun w2"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+TOOLBX Sales Hub — handoff package (complete)
+Generated: 2026-07-14 18:20 UTC
+
+INCLUDED
+--------
+- Next.js app: /, /campaigns, /website-traffic, /docs
+- API routes: deals, bigbox, campaign-dashboard, visitor-data, gsc-keywords, cron/geocode, cron/gsc-snapshot
+- Data: branch-locations, company-locations, deals-snapshot, big-box-stores, visitor-companies, visitor-people, page-intelligence, gsc-history
+- Scripts: export-deals-snapshot, generate-customer-map, geocode-*, package-handoff, and others
+- Docs: CLAUDE.md, README.md, DEPLOY.md, docs/HANDOFF.md, docs/START-HERE.md
+- GitHub Actions deploy workflow (.github/workflows/deploy-vercel.yml)
+
+EXCLUDED FROM THIS ZIP
+----------------------
+- .env.local and all secrets
+- node_modules, .next, .git
+
+PRODUCTION
+----------
+https://toolbx-sales-hub-teal.vercel.app
+GitHub: https://github.com/TOOLBXDEV/toolbx-sales-hub
+HubSpot portal: 49044619
