@@ -1,4 +1,4 @@
-<title>Weekly Intelligence Brief</title>
+<title>Market Pulse</title>
 <style>
   :root {
     color-scheme: light;
@@ -82,7 +82,7 @@
 </style>
 
 <div class="deck-header">
-  <span><strong>TOOLBX</strong> &middot; WEEKLY INTELLIGENCE BRIEF</span>
+  <span><strong>TOOLBX</strong> &middot; MARKET PULSE</span>
   <span id="deck-date">Loading&hellip;</span>
 </div>
 
@@ -90,7 +90,7 @@
   <div class="slide-header">
     <div>
       <div class="slide-eyebrow">Weekly Overview</div>
-      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Weekly Intelligence Brief</h2></div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Market Pulse</h2></div>
     </div>
     <div class="slide-stamp" id="week-stamp">&mdash;</div>
   </div>
@@ -111,7 +111,7 @@
         <div id="competitive-losses"><div class="loading">Loading closed-lost deals&hellip;</div></div>
       </div>
       <div class="intel-section">
-        <h3 class="intel-section-head">Market Pulse</h3>
+        <h3 class="intel-section-head">Voice of the Field</h3>
         <div class="call-type-pills">
           <span class="call-type-pill">Growth</span>
           <span class="call-type-pill">Onboarding</span>
@@ -201,14 +201,14 @@ async function callSalesHub(tool, input) {
 /* ── Unified HubSpot caller ── */
 async function searchDeals(filters, properties, limit) {
   if (ENV === 'claude') {
-    const result = await window.claude.mcp.callTool('HubSpot', 'search_crm_objects', {
+    const result = await withTimeout(window.claude.mcp.callTool('HubSpot', 'search_crm_objects', {
       objectType: 'deals',
       filterGroups: [{ filters }],
       properties,
       sorts: [{ propertyName: 'closedate', direction: 'DESCENDING' }],
       limit: limit || 50,
-      chatInsights: { userIntent: 'Weekly intelligence brief closed-lost deals', satisfaction: 'NEUTRAL' }
-    });
+      chatInsights: { userIntent: 'Market Pulse closed-lost deals', satisfaction: 'NEUTRAL' }
+    }), 20000);
     const data = result.payload || result.structuredContent || {};
     if (typeof data === 'string') { try { return JSON.parse(data); } catch(e) { return {}; } }
     return data;
@@ -549,9 +549,9 @@ function renderCallIntelligence(data) {
 /* ── Init ── */
 async function init() {
   const [bcData, callData, lostDeals] = await Promise.all([
-    fetchBattlecards(),
-    fetchCallIntelligence(),
-    fetchClosedLostDeals()
+    fetchBattlecards().catch(function(e) { return { error: e, source: 'mcp' }; }),
+    fetchCallIntelligence().catch(function(e) { return { error: e, source: 'mcp' }; }),
+    fetchClosedLostDeals().catch(function(e) { return { error: e }; })
   ]);
   const competitorCount = renderBattlecards(bcData);
   renderClosedLostDeals(lostDeals);
