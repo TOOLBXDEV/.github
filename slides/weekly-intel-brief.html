@@ -55,15 +55,13 @@
   .lost-reason { color: var(--lost-red); font-size: 10px; font-weight: 600; margin-top: 1px; }
   .lost-detail { color: var(--dark-grey); font-size: 10px; margin-top: 1px; font-style: italic; line-height: 1.35; }
   .competitor-tag { display: inline-block; margin-top: 3px; padding: 0px 5px; background: var(--white); color: var(--dark-grey); border: 1px solid var(--silver-grey); border-radius: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
-  .stage-tag { display: inline-block; margin-top: 3px; margin-left: 4px; padding: 0px 5px; background: var(--slate-black); color: var(--sunrise-yellow); border-radius: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
 
   .theme-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 6px; }
   .theme-card h4 { margin: 0 0 4px; font-size: 10.5px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; }
   .theme-card ul { margin: 0; padding-left: 14px; }
   .theme-card li { font-size: 11px; color: var(--slate-black); line-height: 1.4; margin-bottom: 2px; }
-
-  .call-type-pills { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
-  .call-type-pill { display: inline-block; font-size: 8.5px; padding: 2px 8px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--teal); color: var(--white); }
+  .theme-card.empty-card { border-left-color: var(--silver-grey); }
+  .theme-card.empty-card h4 { color: var(--silver-grey); }
 
   .coming-soon-section { background: var(--light-grey); border-radius: 3px; padding: 14px 20px; margin-top: 14px; text-align: center; border: 1px dashed var(--silver-grey); }
   .coming-soon-section h3 { margin: 0; font-size: 11px; color: var(--silver-grey); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
@@ -96,10 +94,10 @@
   </div>
   <div class="slide-body">
     <div class="key-metrics-strip" id="key-metrics">
-      <div class="key-metric-cell"><div class="lbl">Closed-Lost This Week</div><div class="val" id="km-lost-count">&mdash;</div><div class="sub" id="km-lost-top"></div></div>
-      <div class="key-metric-cell"><div class="lbl">Lost ARR</div><div class="val" id="km-lost-arr">&mdash;</div></div>
-      <div class="key-metric-cell"><div class="lbl">Competitors Tracked</div><div class="val" id="km-competitors">&mdash;</div></div>
-      <div class="key-metric-cell"><div class="lbl">Calls Analyzed</div><div class="val" id="km-calls">&mdash;</div></div>
+      <div class="key-metric-cell"><div class="lbl">Competitors Tracked</div><div class="val" id="km-competitors">&mdash;</div><div class="sub" id="km-comp-sub"></div></div>
+      <div class="key-metric-cell"><div class="lbl">Competitive Deals</div><div class="val" id="km-comp-deals">&mdash;</div></div>
+      <div class="key-metric-cell"><div class="lbl">Closed-Lost (7d)</div><div class="val" id="km-lost-count">&mdash;</div></div>
+      <div class="key-metric-cell"><div class="lbl">Sources Analyzed</div><div class="val" id="km-sources">&mdash;</div></div>
     </div>
 
     <div class="intel-grid">
@@ -112,25 +110,19 @@
       </div>
       <div class="intel-section">
         <h3 class="intel-section-head">What We're Hearing</h3>
-        <div class="call-type-pills">
-          <span class="call-type-pill">Growth</span>
-          <span class="call-type-pill">Onboarding</span>
-          <span class="call-type-pill">Account Management</span>
-        </div>
-        <div id="market-pulse"><div class="loading">Loading call intelligence&hellip;</div></div>
+        <div id="market-pulse"><div class="loading">Loading market signals&hellip;</div></div>
       </div>
     </div>
 
     <div class="coming-soon-section">
       <h3>Website Traffic &mdash; Coming Soon</h3>
-      <p>Analytics integration launching in ~1 month</p>
+      <p>Analytics integration launching after new website</p>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span id="slide-source">Source: Sales Hub &middot; HubSpot &middot; Gong</span></div>
 </div>
 
 <script>
-/* ── Date Windowing (isolated block — renders even if data script fails) ── */
 try {
   var _nextMonday = function(d) {
     var dow = d.getDay();
@@ -156,20 +148,12 @@ try {
 }
 </script>
 <script>
-/* ── Utilities ── */
-var SALES_HUB = 'https://toolbx-sales-hub.vercel.app';
 var ESC_MAP = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { if (s == null) return ''; return String(s).replace(/[&<>"']/g, function(c) { return ESC_MAP[c]; }); }
 function companyOf(n) { return n ? n.split(' - ')[0].trim() : '—'; }
 function fmtK(v) { if (v == null || v === '') return '—'; var n = parseFloat(v); if (isNaN(n) || n === 0) return '—'; return n >= 1000 ? '$' + Math.round(n / 1000) + 'k' : '$' + Math.round(n); }
 function fmtFull(v) { var n = parseFloat(v) || 0; return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 }); }
-function lostReasonsOf(p) {
-  var raw = (p && p.closed_lost_reasons) || (p && p.closed_lost_reason__c) || (p && p.closed_lost_reason);
-  if (!raw) return [];
-  return String(raw).split(';').map(function(s) { return s.trim(); }).filter(function(s) { return !!s; });
-}
 
-/* ── Environment Detection ── */
 var ENV = (function() {
   try {
     if (typeof window !== 'undefined' && window.claude && window.claude.mcp) return 'claude';
@@ -179,7 +163,7 @@ var ENV = (function() {
 })();
 try { console.log('[Market Pulse] Environment:', ENV, '| Week:', WEEK_START_ISO, 'to', WEEK_END_ISO); } catch(e) {}
 
-/* ── Cowork helpers (existing growth standup pattern) ── */
+/* ── Cowork helpers ── */
 var COWORK_HS_TOOL = 'mcp__1219abee-eabf-4c16-a8e7-039615ccb567__search_crm_objects';
 function parseCoworkRes(res) {
   if (!res) return {};
@@ -208,13 +192,12 @@ function parseCallResult(result) {
 }
 async function callSalesHub(tool, input) {
   var result = await withTimeout(
-    window.claude.mcp.callTool('Sales Hub', tool, input || {}, mcpSignal(20000)),
-    25000
+    window.claude.mcp.callTool('Sales Hub', tool, input || {}, mcpSignal(25000)),
+    30000
   );
   return parseCallResult(result);
 }
-/* ── Unified HubSpot caller ── */
-async function searchDeals(filters, properties, limit) {
+async function searchHubSpotDeals(filters, properties, limit) {
   if (ENV === 'claude') {
     var result = await withTimeout(
       window.claude.mcp.callTool('HubSpot', 'search_crm_objects', {
@@ -248,76 +231,88 @@ async function searchDeals(filters, properties, limit) {
 
 /* ── Data Fetchers ── */
 
-async function fetchClosedLostDeals() {
+async function fetchBattlecards() {
   try {
-    var data = await searchDeals(
-      [
-        { propertyName: 'dealstage', operator: 'EQ', value: 'closedlost' },
-        { propertyName: 'closedate', operator: 'GTE', value: String(WEEK_START.getTime()) },
-        { propertyName: 'closedate', operator: 'LTE', value: String(WEEK_END.getTime()) }
-      ],
-      ['dealname','closedate','annual_recurring_revenue_w_est','closed_lost_reason','closed_lost_reason__c',
-       'closed_lost_reasons','closed_lost_detail__c','competitors','stage_before_closed_lost__c'],
-      50
+    var data = await searchHubSpotDeals(
+      [{ propertyName: 'competitors', operator: 'HAS_PROPERTY' }],
+      ['dealname','competitors','dealstage','annual_recurring_revenue_w_est'],
+      100
     );
-    return data.results || [];
+    var deals = data.results || [];
+    var competitors = {};
+    deals.forEach(function(d) {
+      var comp = (d.properties || {}).competitors;
+      if (comp) {
+        comp.split(/[;,]/).map(function(c) { return c.trim(); }).filter(Boolean).forEach(function(name) {
+          if (!competitors[name]) competitors[name] = { count: 0, arr: 0, deals: [], lost: 0 };
+          competitors[name].count++;
+          competitors[name].arr += parseFloat((d.properties || {}).annual_recurring_revenue_w_est) || 0;
+          competitors[name].deals.push(companyOf((d.properties || {}).dealname));
+          if ((d.properties || {}).dealstage === 'closedlost') competitors[name].lost++;
+        });
+      }
+    });
+    return { competitors: competitors, dealCount: deals.length, source: 'mcp' };
   } catch (e) {
-    console.warn('[HubSpot Closed-Lost]', e);
-    return { error: e };
+    console.warn('[Battlecards]', e);
+    return { error: e, source: 'mcp' };
   }
 }
 
-async function fetchBattlecards() {
+async function fetchClosedLostDeals() {
   if (ENV === 'claude') {
     try {
-      var data = await searchDeals(
-        [{ propertyName: 'competitors', operator: 'HAS_PROPERTY' }],
-        ['dealname','competitors','dealstage','annual_recurring_revenue_w_est'],
-        100
-      );
-      var deals = data.results || [];
-      var competitors = {};
-      deals.forEach(function(d) {
-        var comp = (d.properties || {}).competitors;
-        if (comp) {
-          comp.split(/[;,]/).map(function(c) { return c.trim(); }).filter(Boolean).forEach(function(name) {
-            if (!competitors[name]) competitors[name] = { count: 0, arr: 0, deals: [], lost: 0 };
-            competitors[name].count++;
-            competitors[name].arr += parseFloat((d.properties || {}).annual_recurring_revenue_w_est) || 0;
-            competitors[name].deals.push(companyOf((d.properties || {}).dealname));
-            if ((d.properties || {}).dealstage === 'closedlost') competitors[name].lost++;
-          });
-        }
+      var data = await callSalesHub('search_deals', { closedLostSinceDays: 7 });
+      var deals = data.deals || data.results || [];
+      if (!Array.isArray(deals) && Array.isArray(data)) deals = data;
+      return deals.map(function(d) {
+        if (d.properties) return d;
+        return {
+          properties: {
+            dealname: d.name || d.dealname || '—',
+            closedate: d.closeDate || d.close_date || d.closedate || '',
+            annual_recurring_revenue_w_est: d.amount || d.arr || d.annual_recurring_revenue || '',
+            closed_lost_reason: d.closed_lost_reason || d.closedLostReason || '',
+            competitors: d.competitor || d.competitors || '',
+            company: d.company || ''
+          }
+        };
       });
-      return { competitors: competitors, dealCount: deals.length, source: 'mcp' };
     } catch (e) {
-      console.warn('[Battlecards claude]', e);
-      return { error: e, source: 'mcp' };
+      console.warn('[Sales Hub Closed-Lost]', e);
+      return { error: e };
     }
   }
-  if (ENV === 'static') return { unavailable: true };
-  try {
-    var fetchResults = await Promise.all([
-      fetch(SALES_HUB + '/battlecard-data/weekly-summary.json').catch(function() { return null; }),
-      fetch(SALES_HUB + '/api/battlecards').catch(function() { return null; })
-    ]);
-    var summaryRes = fetchResults[0], bcRes = fetchResults[1];
-    var summary = null;
-    if (summaryRes && summaryRes.ok) try { summary = await summaryRes.json(); } catch(e) {}
-    var battlecards = [];
-    if (bcRes && bcRes.ok) try { var d = await bcRes.json(); battlecards = Array.isArray(d) ? d : (d.battlecards || d.data || []); } catch(e) {}
-    return { summary: summary, battlecards: battlecards };
-  } catch (e) {
-    console.warn('[Battlecards]', e);
-    return { summary: null, battlecards: [], error: e.message };
+  if (ENV === 'cowork') {
+    try {
+      var data = await searchHubSpotDeals(
+        [
+          { propertyName: 'dealstage', operator: 'EQ', value: 'closedlost' },
+          { propertyName: 'closedate', operator: 'GTE', value: String(WEEK_START.getTime()) },
+          { propertyName: 'closedate', operator: 'LTE', value: String(WEEK_END.getTime()) }
+        ],
+        ['dealname','closedate','annual_recurring_revenue_w_est','closed_lost_reason','closed_lost_reasons','closed_lost_detail__c','competitors'],
+        50
+      );
+      return data.results || [];
+    } catch (e) {
+      console.warn('[HubSpot Closed-Lost]', e);
+      return { error: e };
+    }
   }
+  return { error: { code: 'static' } };
 }
 
 async function fetchCallIntelligence() {
   if (ENV === 'claude') {
     try {
       var data = await callSalesHub('ask_deal_question', {
-        question: 'Across all active deals, what are the top recurring objections, risk factors, and common themes? Group into: objections, pricing concerns, feature gaps, and competitive mentions. Bullet points only.'
+        question: 'From all recent Gong calls across the active pipeline, provide a concise weekly digest in exactly these four categories:\n\n' +
+          '**Competitive Mentions:**\nWhich competitors were named on calls? In what context (evaluating, switching from, compared to)? Max 3-4 bullets.\n\n' +
+          '**Feature Gaps:**\nWhat product features or capabilities did prospects/customers ask about that TOOLBX doesn\'t currently offer? Max 3-4 bullets.\n\n' +
+          '**Pain Points:**\nWhat recurring frustrations or challenges are prospects/customers expressing? Max 3-4 bullets.\n\n' +
+          '**Market Signals:**\nAny broader industry trends, market shifts, or patterns worth noting from call conversations? Max 3-4 bullets.\n\n' +
+          'Be specific — name the competitor, the feature, the pain point. If a category has nothing noteworthy, say "Nothing new this period."'
       });
       return { answer: data.answer || '', sources: data.sources || [], source: 'mcp' };
     } catch (e) {
@@ -326,22 +321,7 @@ async function fetchCallIntelligence() {
     }
   }
   if (ENV === 'static') return { unavailable: true };
-  try {
-    var res = await fetch(SALES_HUB + '/api/gong/call-intelligence/reports');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    var data = await res.json();
-    var reports = Array.isArray(data) ? data : (data.reports || data.data || []);
-    var weekReport = null;
-    for (var ri = 0; ri < reports.length; ri++) {
-      var ps = new Date(reports[ri].period_start), pe = new Date(reports[ri].period_end);
-      if (ps <= WEEK_END && pe >= WEEK_START) { weekReport = reports[ri]; break; }
-    }
-    if (!weekReport) weekReport = reports[0] || null;
-    return { report: weekReport, allReports: reports };
-  } catch (e) {
-    console.warn('[Call Intelligence]', e);
-    return { report: null, allReports: [], error: e.message };
-  }
+  return { unavailable: true };
 }
 
 /* ── Renderers ── */
@@ -349,224 +329,130 @@ async function fetchCallIntelligence() {
 function renderBattlecards(data) {
   var el = document.getElementById('battlecard-updates');
   if (data.unavailable) {
-    el.innerHTML = '<div class="unavailable"><strong>No runtime available.</strong> ' +
-      'Open in claude.ai with Sales Hub connected, or in Cowork.</div>';
-    return 0;
+    el.innerHTML = '<div class="unavailable"><strong>No runtime available.</strong> Open in claude.ai with HubSpot connected, or in Cowork.</div>';
+    return { competitors: 0, deals: 0 };
   }
-  if (data.source === 'mcp') {
-    if (data.error) {
-      var code = data.error.code || '';
-      var msg = 'Unable to load competitive intelligence.';
-      if (code === 'server_not_connected') msg = 'Connect HubSpot in claude.ai Settings → Connectors.';
-      else if (code === 'needs_reauth') msg = 'Reconnect HubSpot in claude.ai Settings → Connectors.';
-      el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
-      return 0;
-    }
-    var html = '';
-    var competitors = data.competitors || {};
-    var compEntries = Object.entries(competitors).sort(function(a, b) { return b[1].count - a[1].count || b[1].arr - a[1].arr; });
-    if (compEntries.length > 0) {
-      compEntries.slice(0, 6).forEach(function(entry) {
-        var name = entry[0], info = entry[1];
-        var threat = info.count >= 3 ? 'high' : info.count >= 2 ? 'medium' : 'low';
-        html += '<div class="bc-chip threat-' + threat + '"><div class="bc-chip-name">' + esc(name) + '</div>' +
-          '<div class="bc-chip-change">' + info.count + ' deal' + (info.count > 1 ? 's' : '') +
-          (info.lost ? ' (' + info.lost + ' lost)' : '') +
-          (info.arr > 0 ? ' · ' + fmtFull(info.arr) + ' ARR' : '') + '</div>' +
-          '<span class="bc-chip-threat ' + threat + '">' + esc(threat) + '</span></div>';
-      });
-    }
-    if (!html) html = '<div class="bc-chip"><div class="bc-chip-change">No competitors tagged in active deals</div></div>';
-    if (data.dealCount > 0) html += '<div class="summary-bar">' + data.dealCount + ' deals with competitors analyzed</div>';
-    el.innerHTML = html;
-    return compEntries.length;
+  if (data.error) {
+    var code = (data.error && data.error.code) || '';
+    var msg = 'Unable to load competitive intelligence.';
+    if (code === 'server_not_connected') msg = 'Connect HubSpot in claude.ai Settings → Connectors.';
+    else if (code === 'needs_reauth') msg = 'Reconnect HubSpot in claude.ai Settings → Connectors.';
+    el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
+    return { competitors: 0, deals: 0 };
   }
-  if (data.error && !data.summary && data.battlecards.length === 0) {
-    el.innerHTML = '<div class="error-state"><div class="err-label">Connection Issue</div>' +
-      'Unable to fetch battlecard data. Ensure Sales Hub is accessible.</div>';
-    return 0;
-  }
-  var html = '', competitorCount = 0;
-  if (data.summary) {
-    var highlights = data.summary.weeklyHighlights || [];
-    var threats = data.summary.threatLevelChanges || [];
-    competitorCount = data.summary.totalBattlecards || data.battlecards.length || 0;
-    highlights.forEach(function(h) {
-      var found = null;
-      for (var i = 0; i < threats.length; i++) { if (threats[i].competitor === h.competitor) { found = threats[i]; break; } }
-      var threat = (found || {}).threatLevel || 'medium';
-      html += '<div class="bc-chip threat-' + esc(threat) + '"><div class="bc-chip-name">' + esc(h.competitor) +
-        '</div><div class="bc-chip-change">' + esc(h.change) + '</div></div>';
+  var html = '';
+  var competitors = data.competitors || {};
+  var compEntries = Object.entries(competitors).sort(function(a, b) { return b[1].count - a[1].count || b[1].arr - a[1].arr; });
+  if (compEntries.length > 0) {
+    compEntries.slice(0, 6).forEach(function(entry) {
+      var name = entry[0], info = entry[1];
+      var threat = info.count >= 3 ? 'high' : info.count >= 2 ? 'medium' : 'low';
+      html += '<div class="bc-chip threat-' + threat + '"><div class="bc-chip-name">' + esc(name) + '</div>' +
+        '<div class="bc-chip-change">' + info.count + ' deal' + (info.count > 1 ? 's' : '') +
+        (info.lost ? ' (' + info.lost + ' lost)' : '') +
+        (info.arr > 0 ? ' · ' + fmtFull(info.arr) + ' ARR' : '') + '</div>' +
+        '<span class="bc-chip-threat ' + threat + '">' + esc(threat) + '</span></div>';
     });
-    if (data.summary.note) html += '<div class="summary-bar">' + esc(data.summary.note) + '</div>';
   }
-  if (data.battlecards.length > 0 && !html) {
-    competitorCount = data.battlecards.length;
-    data.battlecards.slice(0, 6).forEach(function(bc) {
-      var d = bc.data || bc;
-      var name = d.name || d.competitor || bc.id || '—';
-      var threat = d.threatLevel || d.threat_level || 'medium';
-      var overview = d.overview || d.description || d.summary || '';
-      html += '<div class="bc-chip threat-' + esc(threat) + '"><div class="bc-chip-name">' + esc(name) + '</div>' +
-        (overview ? '<div class="bc-chip-change">' + esc(overview.substring(0, 120)) + (overview.length > 120 ? '…' : '') + '</div>' : '') +
-        '<span class="bc-chip-threat ' + esc(threat) + '">' + esc(threat) + '</span></div>';
-    });
-    if (data.battlecards.length > 6) html += '<div style="font-size:10px;color:var(--dark-grey);margin-top:4px">+ ' + (data.battlecards.length - 6) + ' more tracked</div>';
-  } else if (data.battlecards.length > 0) competitorCount = data.battlecards.length;
-  if (!html) html = '<div class="bc-chip"><div class="bc-chip-change">No battlecard updates this week</div></div>';
+  if (!html) html = '<div class="bc-chip"><div class="bc-chip-change">No competitors tagged in active deals</div></div>';
+  if (data.dealCount > 0) html += '<div class="summary-bar">' + data.dealCount + ' deals with competitors analyzed</div>';
   el.innerHTML = html;
-  return competitorCount;
+  return { competitors: compEntries.length, deals: data.dealCount || 0 };
 }
 
 function renderClosedLostDeals(deals) {
   var el = document.getElementById('competitive-losses');
   if (deals && deals.error) {
-    var code = deals.error.code || '';
+    var code = (deals.error && deals.error.code) || '';
     var msg = 'Unable to load closed-lost deals.';
-    if (code === 'server_not_connected') msg = 'Connect HubSpot in claude.ai Settings → Connectors.';
-    else if (code === 'needs_reauth') msg = 'Reconnect HubSpot in claude.ai Settings → Connectors.';
-    else if (code === 'selection_required') msg = 'Multiple HubSpot connectors found — select one in Settings.';
+    if (code === 'server_not_connected') msg = 'Connect Sales Hub in claude.ai Settings → Connectors.';
+    else if (code === 'needs_reauth') msg = 'Reconnect Sales Hub in claude.ai Settings → Connectors.';
+    else if (code === 'selection_required') msg = 'Multiple connectors found — select one in Settings.';
     else if (deals.error.retryable) msg += ' Retrying may help.';
     el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
     document.getElementById('km-lost-count').textContent = '—';
-    document.getElementById('km-lost-arr').textContent = '—';
     return;
   }
   if (!Array.isArray(deals) || deals.length === 0) {
     el.innerHTML = '<div class="deal-chip"><div class="deal-chip-meta">No closed-lost deals this week</div></div>';
     document.getElementById('km-lost-count').textContent = '0';
-    document.getElementById('km-lost-arr').textContent = '$0';
     return;
   }
-  var lostArr = deals.reduce(function(s, d) { var props = d.properties || {}; return s + (parseFloat(props.annual_recurring_revenue_w_est) || 0); }, 0);
   document.getElementById('km-lost-count').textContent = deals.length;
-  document.getElementById('km-lost-arr').textContent = fmtFull(lostArr);
-
   var html = '';
   deals.forEach(function(d) {
-    var p = d.properties || {};
-    var name = companyOf(p.dealname);
-    var arr = parseFloat(p.annual_recurring_revenue_w_est) || 0;
-    var reasons = lostReasonsOf(p);
-    var detail = p.closed_lost_detail__c || '';
-    var competitors = p.competitors || '';
-    var stageBefore = p.stage_before_closed_lost__c || '';
+    var p = d.properties || d;
+    var name = companyOf(p.dealname || p.name || '');
+    var arr = parseFloat(p.annual_recurring_revenue_w_est || p.amount || p.arr || 0) || 0;
+    var reason = p.closed_lost_reason || p.closedLostReason || '';
+    var reasons = reason ? String(reason).split(';').map(function(s) { return s.trim(); }).filter(Boolean) : [];
+    var competitors = p.competitors || p.competitor || '';
     html += '<div class="deal-chip"><div class="deal-chip-name">' + esc(name) + '</div>' +
       (arr > 0 ? '<div class="deal-chip-meta"><span class="deal-chip-arr">' + fmtK(arr) + '</span> ARR</div>' : '') +
       (reasons.length ? '<div class="lost-reason">' + reasons.map(esc).join(' · ') + '</div>' : '') +
-      (detail ? '<div class="lost-detail">' + esc(detail.substring(0, 150)) + (detail.length > 150 ? '…' : '') + '</div>' : '') +
       (competitors ? '<span class="competitor-tag">vs ' + esc(competitors) + '</span>' : '') +
-      (stageBefore ? '<span class="stage-tag">was: ' + esc(stageBefore) + '</span>' : '') +
       '</div>';
   });
   el.innerHTML = html;
-  var allReasons = {};
-  deals.forEach(function(d) { lostReasonsOf(d.properties).forEach(function(r) { allReasons[r] = (allReasons[r] || 0) + 1; }); });
-  var reasonEntries = Object.entries(allReasons).sort(function(a, b) { return b[1] - a[1]; });
-  if (reasonEntries.length > 0) document.getElementById('km-lost-top').textContent = 'Top: ' + reasonEntries[0][0];
 }
 
 function renderCallIntelligence(data) {
   var el = document.getElementById('market-pulse');
   if (data.unavailable) {
-    el.innerHTML = '<div class="unavailable"><strong>No runtime available.</strong> ' +
-      'Open in claude.ai with Sales Hub connected, or in Cowork.</div>';
-    document.getElementById('km-calls').textContent = '—';
+    el.innerHTML = '<div class="unavailable"><strong>No runtime available.</strong> Open in claude.ai with Sales Hub connected.</div>';
+    document.getElementById('km-sources').textContent = '—';
     return;
   }
-  if (data.source === 'mcp') {
-    if (data.error) {
-      var code = data.error.code || '';
-      var msg = 'Unable to load market pulse.';
-      if (code === 'server_not_connected') msg = 'Connect Sales Hub in claude.ai Settings → Connectors.';
-      else if (code === 'needs_reauth') msg = 'Reconnect Sales Hub in claude.ai Settings → Connectors.';
-      else if (data.error.message === 'Timeout') msg = 'Sales Hub took too long to respond. Try refreshing.';
-      el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
-      document.getElementById('km-calls').textContent = '—';
-      return;
-    }
-    var answer = data.answer || '';
-    var html = '';
-    var sections = answer.split(/\n\n+/);
-    sections.forEach(function(sec) {
-      var headerMatch = sec.match(/^\*\*(.+?):?\*\*\s*([\s\S]*)/);
-      if (headerMatch) {
-        var title = headerMatch[1].replace(/:$/, '');
-        var body = headerMatch[2].trim();
-        var items = body.split(/\n/).filter(function(l) { return l.trim().match(/^[-•\d]/); })
-          .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
-        if (items.length > 0) {
-          html += '<div class="theme-card"><h4>' + esc(title) + '</h4><ul>' +
-            items.slice(0, 5).map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>';
-        }
-      }
-    });
-    if (!html && answer) {
-      var lines = answer.split('\n').filter(function(l) { return l.trim() && l.trim().match(/^[-•\d]/); })
-        .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
-      if (lines.length > 0) {
-        html += '<div class="theme-card"><h4>Pipeline Themes</h4><ul>' +
-          lines.slice(0, 6).map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></div>';
-      }
-    }
-    if (!html) html = '<div class="theme-card"><h4>Pipeline Intelligence</h4><ul><li>No structured themes returned from current pipeline data</li></ul></div>';
-    var srcCount = (data.sources || []).length;
-    if (srcCount > 0) html += '<div style="font-size:9px;color:var(--dark-grey);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:6px">' + srcCount + ' sources analyzed via Sales Hub</div>';
-    document.getElementById('km-calls').textContent = srcCount || '—';
-    el.innerHTML = html;
+  if (data.error) {
+    var code = (data.error && data.error.code) || '';
+    var msg = 'Unable to load market signals.';
+    if (code === 'server_not_connected') msg = 'Connect Sales Hub in claude.ai Settings → Connectors.';
+    else if (code === 'needs_reauth') msg = 'Reconnect Sales Hub in claude.ai Settings → Connectors.';
+    else if ((data.error && data.error.message) === 'Timeout') msg = 'Sales Hub took too long to respond. Try refreshing.';
+    el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
+    document.getElementById('km-sources').textContent = '—';
     return;
   }
-  if (data.error || !data.report) {
-    el.innerHTML = '<div class="error-state"><div class="err-label">Connection Issue</div>' +
-      'Unable to fetch call intelligence. Ensure Sales Hub is accessible.</div>';
-    document.getElementById('km-calls').textContent = '—';
-    return;
-  }
-  var report = data.report;
-  var payload = report.payload || {};
-  var callCount = report.calls_analysed || report.call_count || 0;
-  document.getElementById('km-calls').textContent = callCount;
-  var synthesis = payload.synthesis || payload;
+  var answer = data.answer || '';
   var html = '';
-  var themeSections = [
-    { key: 'productQuestions', alt: ['product_questions','questions','recurringQuestions','recurring_questions'], title: 'Recurring Product Questions' },
-    { key: 'painPoints', alt: ['pain_points','challenges','customerPainPoints','customer_pain_points'], title: 'Pain Points & Challenges' },
-    { key: 'customerAsks', alt: ['customer_asks','featureRequests','feature_requests','asks'], title: 'Customer Asks & Feature Requests' },
-    { key: 'objections', alt: ['objection_patterns','objectionPatterns','commonObjections','common_objections'], title: 'Objection Patterns' },
-    { key: 'themes', alt: ['market_trends','marketTrends','trends','keyThemes','key_themes'], title: 'Market Themes & Trends' },
-    { key: 'trainingThemes', alt: ['training_themes','coachingOpportunities','coaching_opportunities'], title: 'Training Opportunities' }
+  var CATEGORIES = [
+    { match: /competitive\s*mentions/i, title: 'Competitive Mentions' },
+    { match: /feature\s*gaps/i, title: 'Feature Gaps' },
+    { match: /pain\s*points/i, title: 'Pain Points' },
+    { match: /market\s*signals/i, title: 'Market Signals' }
   ];
-  themeSections.forEach(function(sec) {
-    var items = synthesis[sec.key];
-    if (!items) { for (var i = 0; i < sec.alt.length; i++) { if (synthesis[sec.alt[i]]) { items = synthesis[sec.alt[i]]; break; } } }
-    if (!items || (Array.isArray(items) && items.length === 0)) return;
-    var list = Array.isArray(items) ? items : [items];
-    html += '<div class="theme-card"><h4>' + esc(sec.title) + '</h4><ul>' +
-      list.slice(0, 5).map(function(item) {
-        var text = typeof item === 'string' ? item : (item.theme || item.text || item.description || item.title || item.question || item.objection || JSON.stringify(item));
-        var count = item.count || item.frequency || item.mentions || null;
-        return '<li>' + esc(text) + (count ? ' <span style="color:var(--dark-grey);font-size:9px">(' + count + ')</span>' : '') + '</li>';
-      }).join('') + '</ul></div>';
+  var sections = answer.split(/\n\n+/);
+  var matched = {};
+  sections.forEach(function(sec) {
+    var headerMatch = sec.match(/^\*\*(.+?):?\*\*\s*([\s\S]*)/);
+    if (!headerMatch) return;
+    var rawTitle = headerMatch[1].replace(/:$/, '').trim();
+    var body = headerMatch[2].trim();
+    var items = body.split(/\n/).filter(function(l) { return l.trim().match(/^[-•\d]/); })
+      .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
+    var catTitle = rawTitle;
+    for (var ci = 0; ci < CATEGORIES.length; ci++) {
+      if (CATEGORIES[ci].match.test(rawTitle)) { catTitle = CATEGORIES[ci].title; break; }
+    }
+    if (items.length > 0) {
+      var isEmpty = items.length === 1 && /nothing new/i.test(items[0]);
+      html += '<div class="theme-card' + (isEmpty ? ' empty-card' : '') + '"><h4>' + esc(catTitle) + '</h4><ul>' +
+        items.slice(0, 4).map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>';
+      matched[catTitle] = true;
+    }
   });
-  if (!html && typeof synthesis === 'object') {
-    var skipKeys = ['metadata','generatedAt','generated_at','callCount','call_count'];
-    Object.keys(synthesis).filter(function(k) { return skipKeys.indexOf(k) === -1; }).forEach(function(key) {
-      var val = synthesis[key];
-      if (Array.isArray(val) && val.length > 0) {
-        html += '<div class="theme-card"><h4>' + esc(key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()) + '</h4><ul>' +
-          val.slice(0, 5).map(function(item) { return '<li>' + esc(typeof item === 'string' ? item : (item.theme || item.text || item.description || JSON.stringify(item))) + '</li>'; }).join('') + '</ul></div>';
-      } else if (typeof val === 'string' && val.length > 0) {
-        html += '<div class="theme-card"><h4>' + esc(key.replace(/([A-Z])/g, ' $1').replace(/_/g, ' ').trim()) + '</h4><ul><li>' + esc(val) + '</li></ul></div>';
-      }
-    });
+  if (!html && answer) {
+    var lines = answer.split('\n').filter(function(l) { return l.trim() && l.trim().match(/^[-•\d]/); })
+      .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
+    if (lines.length > 0) {
+      html += '<div class="theme-card"><h4>Call Intelligence</h4><ul>' +
+        lines.slice(0, 6).map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></div>';
+    }
   }
-  if (!html) {
-    html = '<div class="theme-card"><h4>Report Summary</h4><ul><li>Period: ' + esc(report.period_start || '—') + ' to ' + esc(report.period_end || '—') + '</li><li>' + callCount + ' calls analyzed</li></ul></div>';
-  }
-  html += '<div style="font-size:9px;color:var(--dark-grey);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:6px">' +
-    callCount + ' calls · ' +
-    (report.period_start ? new Date(report.period_start).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—') + ' – ' +
-    (report.period_end ? new Date(report.period_end).toLocaleDateString('en-US',{month:'short',day:'numeric'}) : '—') + '</div>';
+  if (!html) html = '<div class="theme-card empty-card"><h4>Market Signals</h4><ul><li>No structured themes returned from current pipeline data</li></ul></div>';
+  var srcCount = (data.sources || []).length;
+  if (srcCount > 0) html += '<div style="font-size:9px;color:var(--dark-grey);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:6px">' + srcCount + ' sources analyzed via Sales Hub + Gong</div>';
+  document.getElementById('km-sources').textContent = srcCount || '—';
   el.innerHTML = html;
 }
 
@@ -604,13 +490,13 @@ async function init() {
           if (!hubspotOk) {
             var hsErr = sv.authStatus === 'needs_reauth' ? 'needs_reauth' : 'server_not_connected';
             renderBattlecards({ error: { code: hsErr }, source: 'mcp' });
-            renderClosedLostDeals({ error: { code: hsErr } });
           }
         }
         if (sv.server === 'Sales Hub') {
           salesHubOk = sv.authStatus === 'connected' && sv.tools && sv.tools.length > 0;
           if (!salesHubOk) {
             var shErr = sv.authStatus === 'needs_reauth' ? 'needs_reauth' : 'server_not_connected';
+            renderClosedLostDeals({ error: { code: shErr } });
             renderCallIntelligence({ error: { code: shErr }, source: 'mcp' });
           }
         }
@@ -643,18 +529,19 @@ async function init() {
     var bcPromise = hubspotOk
       ? fetchBattlecards().catch(function(e) { return { error: e, source: 'mcp' }; })
       : Promise.resolve({ error: { code: 'server_not_connected' }, source: 'mcp' });
-    var lostPromise = hubspotOk
+    var lostPromise = salesHubOk
       ? fetchClosedLostDeals().catch(function(e) { return { error: e }; })
       : Promise.resolve({ error: { code: 'server_not_connected' } });
     var callPromise = salesHubOk
       ? fetchCallIntelligence().catch(function(e) { return { error: e, source: 'mcp' }; })
       : Promise.resolve({ error: { code: 'server_not_connected' }, source: 'mcp' });
 
-    var results = await Promise.all([bcPromise, callPromise, lostPromise]);
-    var competitorCount = renderBattlecards(results[0]);
-    renderClosedLostDeals(results[2]);
-    renderCallIntelligence(results[1]);
-    document.getElementById('km-competitors').textContent = competitorCount || '—';
+    var results = await Promise.all([bcPromise, lostPromise, callPromise]);
+    var bcStats = renderBattlecards(results[0]);
+    renderClosedLostDeals(results[1]);
+    renderCallIntelligence(results[2]);
+    document.getElementById('km-competitors').textContent = bcStats.competitors || '—';
+    document.getElementById('km-comp-deals').textContent = bcStats.deals || '—';
     _initDone = true;
     return;
   }
@@ -662,17 +549,17 @@ async function init() {
   /* Cowork path */
   var results = await Promise.all([
     fetchBattlecards().catch(function(e) { return { error: e, source: 'mcp' }; }),
-    fetchCallIntelligence().catch(function(e) { return { error: e, source: 'mcp' }; }),
-    fetchClosedLostDeals().catch(function(e) { return { error: e }; })
+    fetchClosedLostDeals().catch(function(e) { return { error: e }; }),
+    fetchCallIntelligence().catch(function(e) { return { error: e, source: 'mcp' }; })
   ]);
-  var competitorCount = renderBattlecards(results[0]);
-  renderClosedLostDeals(results[2]);
-  renderCallIntelligence(results[1]);
-  document.getElementById('km-competitors').textContent = competitorCount || '—';
+  var bcStats = renderBattlecards(results[0]);
+  renderClosedLostDeals(results[1]);
+  renderCallIntelligence(results[2]);
+  document.getElementById('km-competitors').textContent = bcStats.competitors || '—';
+  document.getElementById('km-comp-deals').textContent = bcStats.deals || '—';
   _initDone = true;
 }
 
-/* Brute-force fallback: if still loading after 30s, show timeout error */
 setTimeout(function() {
   if (_initDone) return;
   var loadEls = document.querySelectorAll('.loading');
