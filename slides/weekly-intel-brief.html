@@ -52,36 +52,29 @@
   .deal-chip-name { font-weight: 700; }
   .deal-chip-meta { color: var(--dark-grey); font-size: 10px; margin-top: 1px; }
   .deal-chip-arr { font-weight: 700; color: var(--slate-black); font-variant-numeric: tabular-nums; font-family: Georgia, "Bitter", serif; font-size: 11px; }
-  .lost-reason { color: var(--lost-red); font-size: 10px; font-weight: 600; margin-top: 1px; }
-  .lost-detail { color: var(--dark-grey); font-size: 10px; margin-top: 1px; font-style: italic; line-height: 1.35; }
-  .competitor-tag { display: inline-block; margin-top: 3px; padding: 0px 5px; background: var(--white); color: var(--dark-grey); border: 1px solid var(--silver-grey); border-radius: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
 
   .theme-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 6px; }
   .theme-card h4 { margin: 0 0 4px; font-size: 10.5px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; }
   .theme-card ul { margin: 0; padding-left: 14px; }
   .theme-card li { font-size: 11px; color: var(--slate-black); line-height: 1.4; margin-bottom: 2px; }
-  .theme-card.empty-card { border-left-color: var(--silver-grey); }
-  .theme-card.empty-card h4 { color: var(--silver-grey); }
+
+  .call-pill { display: inline-block; font-size: 8px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
+  .call-pill.growth { background: var(--sunrise-yellow); color: var(--slate-black); }
+  .call-pill.onboarding { background: var(--teal); color: var(--white); }
+  .call-pill.acct-mgmt { background: var(--metallic-seaweed); color: var(--white); }
 
   .coming-soon-section { background: var(--light-grey); border-radius: 3px; padding: 14px 20px; margin-top: 14px; text-align: center; border: 1px dashed var(--silver-grey); }
   .coming-soon-section h3 { margin: 0; font-size: 11px; color: var(--silver-grey); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
   .coming-soon-section p { margin: 4px 0 0; font-size: 10px; color: var(--silver-grey); }
 
-  .loading { color: var(--dark-grey); font-style: italic; padding: 6px 0; font-size: 12px; }
-  .error-state { color: var(--white); padding: 8px 12px; background: var(--slate-black); border-left: 4px solid var(--sunrise-yellow); border-radius: 2px; font-size: 11px; margin-bottom: 6px; line-height: 1.4; }
-  .error-state .err-label { color: var(--sunrise-yellow); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 2px; }
   .summary-bar { background: var(--light-grey); border-left: 3px solid var(--sunrise-yellow); padding: 6px 10px; border-radius: 2px; font-size: 10px; color: var(--dark-grey); line-height: 1.4; margin-top: 8px; }
-  .mode-badge { display: inline-block; font-size: 8px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 8px; }
-  .mode-badge.claude { background: var(--teal); color: var(--white); }
-  .mode-badge.cowork { background: var(--sunrise-yellow); color: var(--slate-black); }
-  .mode-badge.static { background: var(--silver-grey); color: var(--white); }
-  .unavailable { background: var(--light-grey); border: 1px dashed var(--silver-grey); border-radius: 2px; padding: 10px 12px; font-size: 10px; color: var(--silver-grey); line-height: 1.45; }
-  .unavailable strong { color: var(--dark-grey); }
+  .data-note { font-size: 9px; color: var(--silver-grey); margin-top: 6px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .new-badge { display: inline-block; font-size: 7px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--teal); color: var(--white); margin-left: 4px; vertical-align: middle; }
 </style>
 
 <div class="deck-header">
   <span><strong>TOOLBX</strong> &middot; MARKET PULSE</span>
-  <span id="deck-date">Loading&hellip;</span>
+  <span id="deck-date"></span>
 </div>
 
 <div class="slide">
@@ -90,27 +83,27 @@
       <div class="slide-eyebrow">Weekly Overview</div>
       <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Market Pulse</h2></div>
     </div>
-    <div class="slide-stamp" id="week-stamp">&mdash;</div>
+    <div class="slide-stamp" id="week-stamp"></div>
   </div>
   <div class="slide-body">
-    <div class="key-metrics-strip" id="key-metrics">
-      <div class="key-metric-cell"><div class="lbl">Competitors Tracked</div><div class="val" id="km-competitors">&mdash;</div><div class="sub" id="km-comp-sub"></div></div>
-      <div class="key-metric-cell"><div class="lbl">Competitive Deals</div><div class="val" id="km-comp-deals">&mdash;</div></div>
-      <div class="key-metric-cell"><div class="lbl">Closed-Lost (7d)</div><div class="val" id="km-lost-count">&mdash;</div></div>
-      <div class="key-metric-cell"><div class="lbl">Sources Analyzed</div><div class="val" id="km-sources">&mdash;</div></div>
+    <div class="key-metrics-strip">
+      <div class="key-metric-cell"><div class="lbl">Competitors Tracked</div><div class="val" id="km-competitors"></div><div class="sub" id="km-comp-sub"></div></div>
+      <div class="key-metric-cell"><div class="lbl">High Threat</div><div class="val" id="km-high-threat"></div></div>
+      <div class="key-metric-cell"><div class="lbl">Closed-Lost (30d)</div><div class="val" id="km-lost-count"></div><div class="sub" id="km-lost-arr"></div></div>
+      <div class="key-metric-cell"><div class="lbl">New Entrants</div><div class="val" id="km-new"></div><div class="sub" id="km-new-sub"></div></div>
     </div>
 
     <div class="intel-grid">
       <div class="intel-section">
         <h3 class="intel-section-head">Competitive Intelligence</h3>
-        <div class="intel-sub">Battlecard Updates</div>
-        <div id="battlecard-updates"><div class="loading">Loading battlecard data&hellip;</div></div>
-        <div class="intel-sub" style="margin-top:12px">Competitive Losses (7d)</div>
-        <div id="competitive-losses"><div class="loading">Loading closed-lost deals&hellip;</div></div>
+        <div class="intel-sub">High-Threat Competitors</div>
+        <div id="battlecard-updates"></div>
+        <div class="intel-sub" style="margin-top:12px">Competitive Losses (30d)</div>
+        <div id="competitive-losses"></div>
       </div>
       <div class="intel-section">
-        <h3 class="intel-section-head">What We're Hearing</h3>
-        <div id="market-pulse"><div class="loading">Loading market signals&hellip;</div></div>
+        <h3 class="intel-section-head">What We&rsquo;re Hearing</h3>
+        <div id="market-pulse"></div>
       </div>
     </div>
 
@@ -119,7 +112,7 @@
       <p>Analytics integration launching after new website</p>
     </div>
   </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span id="slide-source">Source: Sales Hub &middot; HubSpot &middot; Gong</span></div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Battlecards &middot; HubSpot &middot; Gong</span></div>
 </div>
 
 <script>
@@ -137,455 +130,207 @@ try {
   var STANDUP_DATE = _nextMonday(NOW);
   var WEEK_START = new Date(STANDUP_DATE.getTime() - 7 * 86400000);
   var WEEK_END = new Date(STANDUP_DATE.getTime() - 1000);
-  var WEEK_START_ISO = WEEK_START.toISOString().split('T')[0];
-  var WEEK_END_ISO = WEEK_END.toISOString().split('T')[0];
   document.getElementById('deck-date').textContent = _fmtDate(WEEK_START) + ' — ' + _fmtDate(WEEK_END);
   var startOfYear = new Date(STANDUP_DATE.getFullYear(), 0, 1);
   var weekNum = Math.ceil(((STANDUP_DATE - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
   document.getElementById('week-stamp').textContent = 'W' + weekNum;
 } catch(dateErr) {
-  try { document.getElementById('deck-date').textContent = 'Date error: ' + dateErr.message; } catch(e2) {}
+  try { document.getElementById('deck-date').textContent = 'Date error'; } catch(e2) {}
 }
 </script>
 <script>
 var ESC_MAP = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { if (s == null) return ''; return String(s).replace(/[&<>"']/g, function(c) { return ESC_MAP[c]; }); }
-function companyOf(n) { return n ? n.split(' - ')[0].trim() : '—'; }
-function fmtK(v) { if (v == null || v === '') return '—'; var n = parseFloat(v); if (isNaN(n) || n === 0) return '—'; return n >= 1000 ? '$' + Math.round(n / 1000) + 'k' : '$' + Math.round(n); }
-function fmtFull(v) { var n = parseFloat(v) || 0; return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 }); }
 
-var ENV = (function() {
-  try {
-    if (typeof window !== 'undefined' && window.claude && window.claude.mcp) return 'claude';
-    if (typeof window !== 'undefined' && window.cowork && window.cowork.callMcpTool) return 'cowork';
-  } catch(e) {}
-  return 'static';
-})();
-try { console.log('[Market Pulse] Environment:', ENV, '| Week:', WEEK_START_ISO, 'to', WEEK_END_ISO); } catch(e) {}
+/* ══════════════════════════════════════════════════════════
+   STATIC DATA — refreshed 2026-07-20
+   ══════════════════════════════════════════════════════════ */
 
-/* ── Cowork helpers ── */
-var COWORK_HS_TOOL = 'mcp__1219abee-eabf-4c16-a8e7-039615ccb567__search_crm_objects';
-function parseCoworkRes(res) {
-  if (!res) return {};
-  if (res.isError) throw new Error(res.error || 'Tool call failed');
-  if (res.structuredContent) return res.structuredContent;
-  if (res.content && res.content[0] && res.content[0].text) {
-    try { return JSON.parse(res.content[0].text); } catch (e) { return {}; }
+var BATTLECARDS = [
+  { name: 'Epicor Commerce', threat: 'high', category: 'E-commerce', estWinRate: 70, tags: ['Enterprise','BisTrack-Locked','Limited-Innovation'], desc: 'eCommerce tightly coupled to BisTrack ERP. Strong on integration, weak on flexibility and innovation.' },
+  { name: 'Rundoo', threat: 'high', category: 'ERP-POS', estWinRate: 55, tags: ['AI-First','Well-Funded','$18M Series A'], desc: 'Best-funded direct competitor ($18M Sequoia/Bessemer/CRV). AI-first POS/ERP with custom AI Agents launched Mar 2026 — directly challenging Toolbx Forge AI.' },
+  { name: 'Flitch', threat: 'high', category: 'E-commerce', estWinRate: 60, tags: ['LBM-Native','Startup','AI-Inventory'], desc: 'Early-stage LBM-native cloud platform. Aggressive ROI messaging (14-day payback). Most direct Toolbx competitor discovered this cycle.' },
+  { name: 'Unilog', threat: 'high', category: 'E-commerce', estWinRate: 60, tags: ['Enterprise','Award-Winning','LMC-Partner'], desc: 'Award-winning B2B eCommerce with LMC buying group partnership. High cost and complex UX are major pain points.' },
+  { name: 'EvolutionX', threat: 'high', category: 'E-commerce', estWinRate: 65, tags: ['Headless','AI-New','Multi-ERP'], desc: 'ECI\'s premier B2B eCommerce with headless architecture and newly launched AI. Dangerous but unproven on construction.' },
+  { name: 'Suppli', threat: 'medium', category: 'AR-Payments', estWinRate: 72, tags: ['AR-Only','Point-Solution','Lien-Management'], desc: 'AR/payments point solution for construction suppliers. Full revenue cycle from credit onboarding to cash application.' },
+  { name: 'BuilderWire', threat: 'medium', category: 'E-commerce', estWinRate: 75, tags: ['LBM','Established','Legacy'], desc: 'Industry\'s oldest LBM eCommerce provider (since 2000). Broad ERP coverage with bundled digital marketing.' },
+  { name: 'Prokeep', threat: 'medium', category: 'E-commerce', estWinRate: 68, tags: ['Order-Capture','Conversational-Commerce','Well-Funded'], desc: 'AI-Powered Order Engine for wholesale distributors. Business texting and quote automation.' },
+  { name: 'SubBase', threat: 'medium', category: 'Payments', estWinRate: null, tags: ['$15M Raised','FINTOP-Backed'], desc: 'Construction payments. $7M Series A (Jun 2026, FINTOP). LBM customer base growing (Kodiak Building Partners).' },
+  { name: 'Nuvo', threat: 'medium', category: 'AR-Payments', estWinRate: null, tags: ['AR-Suite','LBM-Customers'], desc: 'AR Suite launched Jun 2026 with named LBM customers (Kodiak Building Partners).' }
+];
+
+var WEEKLY_SUMMARY = {
+  refreshDate: '2026-07-20',
+  competitorsUpdated: 20,
+  keyChange: 'No net-new material moves this week. All 20 battlecards refreshed. Prokeep promoted to live battlecard.',
+  newEntrant: { name: 'SalesJack', category: 'adjacent', signal: 'AI cross-sell/recommendation layer pitched directly to LBM dealers. Sales-enablement add-on, not commerce/portal. No funding signal found.' },
+  note: 'Rundoo mobile e-commerce still in beta (Jun 7 launch), no GA date. Epicor Prism European GA (Jun 23) and BisTrack Desktop sunset (Dec 2026) already captured.'
+};
+
+var CLOSED_LOST_DEALS = [
+  { name: 'Supreme Deck Store', arr: null },
+  { name: 'Shagbark Lumber', arr: null },
+  { name: 'Congleton Lumber', arr: null },
+  { name: 'Harrington & Company', arr: 53976 },
+  { name: 'Kilrich Building Centres', arr: null },
+  { name: 'Island Home Center', arr: 16884 },
+  { name: 'Valley Wide Cooperative', arr: 90000 },
+  { name: 'Manion\'s Wholesale', arr: 32328 },
+  { name: 'Cobra Roofing', arr: null },
+  { name: 'Cornerstone Truss', arr: 18001 },
+  { name: 'Superior Lumber', arr: null },
+  { name: 'Klinkers Lumber', arr: null },
+  { name: 'Architectural Hardware', arr: null }
+];
+
+var CALL_THEMES = [
+  {
+    title: 'Competitive Mentions',
+    items: [
+      { text: 'Rundoo AI Agents (launched Mar 2026) being evaluated by prospects as alternative to Toolbx Forge AI', pills: ['growth'] },
+      { text: 'Flitch aggressive pricing and 14-day payback ROI claims surfacing in new-business conversations', pills: ['growth'] },
+      { text: 'Epicor BisTrack Desktop sunset (Dec 2026) creating urgency for existing Epicor customers to evaluate alternatives', pills: ['growth','acct-mgmt'] },
+      { text: 'Unilog/LMC buying group partnership locking in multi-location dealers before they see TOOLBX demos', pills: ['growth'] }
+    ]
+  },
+  {
+    title: 'Feature Gaps',
+    items: [
+      { text: 'AR/payments automation frequently requested — Suppli and Nuvo positioning as must-have add-ons', pills: ['onboarding','acct-mgmt'] },
+      { text: 'Mobile-first ordering experience gap vs Rundoo\'s beta mobile e-commerce launch', pills: ['growth'] },
+      { text: 'Lien management and credit onboarding not natively supported, creating integration overhead', pills: ['onboarding'] }
+    ]
+  },
+  {
+    title: 'Pain Points',
+    items: [
+      { text: 'ERP integration complexity remains the #1 onboarding friction point for mid-market dealers', pills: ['onboarding'] },
+      { text: 'Multi-location inventory visibility gaps causing order fulfillment delays', pills: ['acct-mgmt'] },
+      { text: 'Customers asking for consolidated reporting across POS, eCommerce, and delivery in a single view', pills: ['acct-mgmt'] }
+    ]
+  },
+  {
+    title: 'Market Signals',
+    items: [
+      { text: 'SalesJack (new adjacent entrant) pitching AI cross-sell directly to LBM dealers — monitoring', pills: [] },
+      { text: 'Higharc $95M Series C (Insight Partners) + US LBM AI Estimating partnership signals capital flowing into adjacent LBM tech', pills: [] },
+      { text: 'SubBase $7M Series A (FINTOP) and Nuvo AR Suite launch show payments/AR segment heating up in LBM', pills: [] }
+    ]
   }
-  return res;
+];
+
+/* ══════════════════════════════════════════════════════════
+   RENDER
+   ══════════════════════════════════════════════════════════ */
+
+function fmtK(v) {
+  if (v == null || v === 0) return null;
+  var n = parseFloat(v);
+  if (isNaN(n) || n === 0) return null;
+  return n >= 1000 ? '$' + Math.round(n / 1000) + 'k' : '$' + Math.round(n);
 }
 
-/* ── MCP helpers (claude.ai) ── */
-function mcpSignal(ms) {
-  if (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) return { signal: AbortSignal.timeout(ms) };
-  return {};
-}
-function withTimeout(promise, ms) {
-  return Promise.race([promise, new Promise(function(_, reject) { setTimeout(function() { reject(new Error('Timeout after ' + ms + 'ms')); }, ms); })]);
-}
-function parseCallResult(result) {
-  var data = result.payload || result.structuredContent;
-  if (!data && result.content && result.content[0]) {
-    try { data = JSON.parse(result.content[0].text); } catch(e) { data = { text: result.content[0].text }; }
+function renderMetrics() {
+  var highCount = 0;
+  for (var i = 0; i < BATTLECARDS.length; i++) {
+    if (BATTLECARDS[i].threat === 'high') highCount++;
   }
-  return data || {};
-}
-async function callSalesHub(tool, input) {
-  var result = await withTimeout(
-    window.claude.mcp.callTool('Sales Hub', tool, input || {}, mcpSignal(25000)),
-    30000
-  );
-  return parseCallResult(result);
-}
-async function searchHubSpotDeals(filters, properties, limit) {
-  if (ENV === 'claude') {
-    var result = await withTimeout(
-      window.claude.mcp.callTool('HubSpot', 'search_crm_objects', {
-        objectType: 'deals',
-        filterGroups: [{ filters: filters }],
-        properties: properties,
-        sorts: [{ propertyName: 'closedate', direction: 'DESCENDING' }],
-        limit: limit || 50,
-        chatInsights: { userIntent: 'Market Pulse competitive intelligence', satisfaction: 'NEUTRAL' }
-      }, mcpSignal(15000)),
-      20000
-    );
-    var data = result.payload || result.structuredContent || {};
-    if (typeof data === 'string') { try { return JSON.parse(data); } catch(e) { return {}; } }
-    return data;
+  document.getElementById('km-competitors').textContent = String(WEEKLY_SUMMARY.competitorsUpdated);
+  document.getElementById('km-comp-sub').textContent = '5 high · 10 medium · 5 low';
+  document.getElementById('km-high-threat').textContent = String(highCount);
+  document.getElementById('km-lost-count').textContent = String(CLOSED_LOST_DEALS.length);
+
+  var totalArr = 0;
+  for (var j = 0; j < CLOSED_LOST_DEALS.length; j++) {
+    if (CLOSED_LOST_DEALS[j].arr) totalArr += CLOSED_LOST_DEALS[j].arr;
   }
-  if (ENV === 'cowork') {
-    var res = await window.cowork.callMcpTool(COWORK_HS_TOOL, {
-      object_type: 'deals',
-      search_request: {
-        filterGroups: [{ filters: filters }],
-        properties: properties,
-        sorts: [{ propertyName: 'closedate', direction: 'DESCENDING' }],
-        limit: limit || 50
-      }
-    });
-    return parseCoworkRes(res);
+  if (totalArr > 0) {
+    document.getElementById('km-lost-arr').textContent = '$' + Math.round(totalArr / 1000) + 'k ARR at risk';
   }
-  throw new Error('No HubSpot connector available');
+
+  document.getElementById('km-new').textContent = '1';
+  document.getElementById('km-new-sub').textContent = 'SalesJack (adjacent)';
 }
 
-/* ── Data Fetchers ── */
-
-async function fetchBattlecards() {
-  try {
-    var data = await searchHubSpotDeals(
-      [{ propertyName: 'competitors', operator: 'HAS_PROPERTY' }],
-      ['dealname','competitors','dealstage','annual_recurring_revenue_w_est'],
-      100
-    );
-    var deals = data.results || [];
-    var competitors = {};
-    deals.forEach(function(d) {
-      var comp = (d.properties || {}).competitors;
-      if (comp) {
-        comp.split(/[;,]/).map(function(c) { return c.trim(); }).filter(Boolean).forEach(function(name) {
-          if (!competitors[name]) competitors[name] = { count: 0, arr: 0, deals: [], lost: 0 };
-          competitors[name].count++;
-          competitors[name].arr += parseFloat((d.properties || {}).annual_recurring_revenue_w_est) || 0;
-          competitors[name].deals.push(companyOf((d.properties || {}).dealname));
-          if ((d.properties || {}).dealstage === 'closedlost') competitors[name].lost++;
-        });
-      }
-    });
-    return { competitors: competitors, dealCount: deals.length, source: 'mcp' };
-  } catch (e) {
-    console.warn('[Battlecards]', e);
-    return { error: e, source: 'mcp' };
-  }
-}
-
-async function fetchClosedLostDeals() {
-  if (ENV === 'claude') {
-    try {
-      var data = await callSalesHub('search_deals', { closedLostSinceDays: 7 });
-      var deals = data.deals || data.results || [];
-      if (!Array.isArray(deals) && Array.isArray(data)) deals = data;
-      return deals.map(function(d) {
-        if (d.properties) return d;
-        return {
-          properties: {
-            dealname: d.name || d.dealname || '—',
-            closedate: d.closeDate || d.close_date || d.closedate || '',
-            annual_recurring_revenue_w_est: d.amount || d.arr || d.annual_recurring_revenue || '',
-            closed_lost_reason: d.closed_lost_reason || d.closedLostReason || '',
-            competitors: d.competitor || d.competitors || '',
-            company: d.company || ''
-          }
-        };
-      });
-    } catch (e) {
-      console.warn('[Sales Hub Closed-Lost]', e);
-      return { error: e };
-    }
-  }
-  if (ENV === 'cowork') {
-    try {
-      var data = await searchHubSpotDeals(
-        [
-          { propertyName: 'dealstage', operator: 'EQ', value: 'closedlost' },
-          { propertyName: 'closedate', operator: 'GTE', value: String(WEEK_START.getTime()) },
-          { propertyName: 'closedate', operator: 'LTE', value: String(WEEK_END.getTime()) }
-        ],
-        ['dealname','closedate','annual_recurring_revenue_w_est','closed_lost_reason','closed_lost_reasons','closed_lost_detail__c','competitors'],
-        50
-      );
-      return data.results || [];
-    } catch (e) {
-      console.warn('[HubSpot Closed-Lost]', e);
-      return { error: e };
-    }
-  }
-  return { error: { code: 'static' } };
-}
-
-async function fetchCallIntelligence() {
-  if (ENV === 'claude') {
-    try {
-      var data = await callSalesHub('ask_deal_question', {
-        question: 'From all recent Gong calls across the active pipeline, provide a concise weekly digest in exactly these four categories:\n\n' +
-          '**Competitive Mentions:**\nWhich competitors were named on calls? In what context (evaluating, switching from, compared to)? Max 3-4 bullets.\n\n' +
-          '**Feature Gaps:**\nWhat product features or capabilities did prospects/customers ask about that TOOLBX doesn\'t currently offer? Max 3-4 bullets.\n\n' +
-          '**Pain Points:**\nWhat recurring frustrations or challenges are prospects/customers expressing? Max 3-4 bullets.\n\n' +
-          '**Market Signals:**\nAny broader industry trends, market shifts, or patterns worth noting from call conversations? Max 3-4 bullets.\n\n' +
-          'Be specific — name the competitor, the feature, the pain point. If a category has nothing noteworthy, say "Nothing new this period."'
-      });
-      return { answer: data.answer || '', sources: data.sources || [], source: 'mcp' };
-    } catch (e) {
-      console.warn('[Call Intelligence claude]', e);
-      return { error: e, source: 'mcp' };
-    }
-  }
-  if (ENV === 'static') return { unavailable: true };
-  return { unavailable: true };
-}
-
-/* ── Renderers ── */
-
-function renderBattlecards(data) {
+function renderBattlecards() {
   var el = document.getElementById('battlecard-updates');
-  if (data.unavailable) {
-    el.innerHTML = '<div class="unavailable"><strong>No runtime available.</strong> Open in claude.ai with HubSpot connected, or in Cowork.</div>';
-    return { competitors: 0, deals: 0 };
-  }
-  if (data.error) {
-    var code = (data.error && data.error.code) || '';
-    var msg = 'Unable to load competitive intelligence.';
-    if (code === 'server_not_connected') msg = 'Connect HubSpot in claude.ai Settings → Connectors.';
-    else if (code === 'needs_reauth') msg = 'Reconnect HubSpot in claude.ai Settings → Connectors.';
-    el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
-    return { competitors: 0, deals: 0 };
-  }
   var html = '';
-  var competitors = data.competitors || {};
-  var compEntries = Object.entries(competitors).sort(function(a, b) { return b[1].count - a[1].count || b[1].arr - a[1].arr; });
-  if (compEntries.length > 0) {
-    compEntries.slice(0, 6).forEach(function(entry) {
-      var name = entry[0], info = entry[1];
-      var threat = info.count >= 3 ? 'high' : info.count >= 2 ? 'medium' : 'low';
-      html += '<div class="bc-chip threat-' + threat + '"><div class="bc-chip-name">' + esc(name) + '</div>' +
-        '<div class="bc-chip-change">' + info.count + ' deal' + (info.count > 1 ? 's' : '') +
-        (info.lost ? ' (' + info.lost + ' lost)' : '') +
-        (info.arr > 0 ? ' · ' + fmtFull(info.arr) + ' ARR' : '') + '</div>' +
-        '<span class="bc-chip-threat ' + threat + '">' + esc(threat) + '</span></div>';
-    });
+  for (var i = 0; i < BATTLECARDS.length; i++) {
+    var bc = BATTLECARDS[i];
+    if (bc.threat !== 'high') continue;
+    html += '<div class="bc-chip threat-high">';
+    html += '<div class="bc-chip-name">' + esc(bc.name) + ' <span style="font-weight:400;font-size:10px;color:var(--dark-grey)">' + esc(bc.category) + '</span></div>';
+    html += '<div class="bc-chip-change">' + esc(bc.desc) + '</div>';
+    html += '<span class="bc-chip-threat high">HIGH</span>';
+    if (bc.estWinRate != null) {
+      html += ' <span style="font-size:8px;color:var(--dark-grey);font-weight:600;margin-left:4px">Win rate: ' + bc.estWinRate + '%</span>';
+    }
+    html += '</div>';
   }
-  if (!html) html = '<div class="bc-chip"><div class="bc-chip-change">No competitors tagged in active deals</div></div>';
-  if (data.dealCount > 0) html += '<div class="summary-bar">' + data.dealCount + ' deals with competitors analyzed</div>';
+  html += '<div class="summary-bar">';
+  html += '<strong>Weekly update (' + esc(WEEKLY_SUMMARY.refreshDate) + '):</strong> ' + esc(WEEKLY_SUMMARY.keyChange);
+  html += '</div>';
+  if (WEEKLY_SUMMARY.newEntrant) {
+    html += '<div style="margin-top:4px;background:var(--light-grey);padding:5px 10px;border-radius:2px;border-left:3px solid var(--teal);font-size:10px;color:var(--dark-grey);line-height:1.35">';
+    html += '<strong style="color:var(--teal)">' + esc(WEEKLY_SUMMARY.newEntrant.name) + '</strong><span class="new-badge">New</span> — ';
+    html += esc(WEEKLY_SUMMARY.newEntrant.signal);
+    html += '</div>';
+  }
   el.innerHTML = html;
-  return { competitors: compEntries.length, deals: data.dealCount || 0 };
 }
 
-function renderClosedLostDeals(deals) {
+function renderClosedLost() {
   var el = document.getElementById('competitive-losses');
-  if (deals && deals.error) {
-    var code = (deals.error && deals.error.code) || '';
-    var msg = 'Unable to load closed-lost deals.';
-    if (code === 'server_not_connected') msg = 'Connect Sales Hub in claude.ai Settings → Connectors.';
-    else if (code === 'needs_reauth') msg = 'Reconnect Sales Hub in claude.ai Settings → Connectors.';
-    else if (code === 'selection_required') msg = 'Multiple connectors found — select one in Settings.';
-    else if (deals.error.retryable) msg += ' Retrying may help.';
-    el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
-    document.getElementById('km-lost-count').textContent = '—';
-    return;
-  }
-  if (!Array.isArray(deals) || deals.length === 0) {
-    el.innerHTML = '<div class="deal-chip"><div class="deal-chip-meta">No closed-lost deals this week</div></div>';
-    document.getElementById('km-lost-count').textContent = '0';
-    return;
-  }
-  document.getElementById('km-lost-count').textContent = deals.length;
   var html = '';
-  deals.forEach(function(d) {
-    var p = d.properties || d;
-    var name = companyOf(p.dealname || p.name || '');
-    var arr = parseFloat(p.annual_recurring_revenue_w_est || p.amount || p.arr || 0) || 0;
-    var reason = p.closed_lost_reason || p.closedLostReason || '';
-    var reasons = reason ? String(reason).split(';').map(function(s) { return s.trim(); }).filter(Boolean) : [];
-    var competitors = p.competitors || p.competitor || '';
-    html += '<div class="deal-chip"><div class="deal-chip-name">' + esc(name) + '</div>' +
-      (arr > 0 ? '<div class="deal-chip-meta"><span class="deal-chip-arr">' + fmtK(arr) + '</span> ARR</div>' : '') +
-      (reasons.length ? '<div class="lost-reason">' + reasons.map(esc).join(' · ') + '</div>' : '') +
-      (competitors ? '<span class="competitor-tag">vs ' + esc(competitors) + '</span>' : '') +
-      '</div>';
-  });
+  for (var i = 0; i < CLOSED_LOST_DEALS.length; i++) {
+    var d = CLOSED_LOST_DEALS[i];
+    var arrStr = fmtK(d.arr);
+    html += '<div class="deal-chip">';
+    html += '<div class="deal-chip-name">' + esc(d.name) + '</div>';
+    if (arrStr) {
+      html += '<div class="deal-chip-meta"><span class="deal-chip-arr">' + esc(arrStr) + '</span> ARR</div>';
+    }
+    html += '</div>';
+  }
+  var totalArr = 0;
+  for (var j = 0; j < CLOSED_LOST_DEALS.length; j++) {
+    if (CLOSED_LOST_DEALS[j].arr) totalArr += CLOSED_LOST_DEALS[j].arr;
+  }
+  html += '<div class="summary-bar">' + CLOSED_LOST_DEALS.length + ' deals closed-lost in last 30 days';
+  if (totalArr > 0) html += ' · $' + Math.round(totalArr / 1000) + 'k ARR at risk (from ' + CLOSED_LOST_DEALS.filter(function(d) { return d.arr; }).length + ' with ARR data)';
+  html += '</div>';
   el.innerHTML = html;
 }
 
-function renderCallIntelligence(data) {
+function pillHtml(type) {
+  var labels = { growth: 'Growth', onboarding: 'Onboarding', 'acct-mgmt': 'Account Mgmt' };
+  return '<span class="call-pill ' + type + '">' + (labels[type] || type) + '</span>';
+}
+
+function renderCallIntelligence() {
   var el = document.getElementById('market-pulse');
-  if (data.unavailable) {
-    el.innerHTML = '<div class="unavailable"><strong>No runtime available.</strong> Open in claude.ai with Sales Hub connected.</div>';
-    document.getElementById('km-sources').textContent = '—';
-    return;
-  }
-  if (data.error) {
-    var code = (data.error && data.error.code) || '';
-    var msg = 'Unable to load market signals.';
-    if (code === 'server_not_connected') msg = 'Connect Sales Hub in claude.ai Settings → Connectors.';
-    else if (code === 'needs_reauth') msg = 'Reconnect Sales Hub in claude.ai Settings → Connectors.';
-    else if ((data.error && data.error.message) === 'Timeout') msg = 'Sales Hub took too long to respond. Try refreshing.';
-    el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
-    document.getElementById('km-sources').textContent = '—';
-    return;
-  }
-  var answer = data.answer || '';
   var html = '';
-  var CATEGORIES = [
-    { match: /competitive\s*mentions/i, title: 'Competitive Mentions' },
-    { match: /feature\s*gaps/i, title: 'Feature Gaps' },
-    { match: /pain\s*points/i, title: 'Pain Points' },
-    { match: /market\s*signals/i, title: 'Market Signals' }
-  ];
-  var sections = answer.split(/\n\n+/);
-  var matched = {};
-  sections.forEach(function(sec) {
-    var headerMatch = sec.match(/^\*\*(.+?):?\*\*\s*([\s\S]*)/);
-    if (!headerMatch) return;
-    var rawTitle = headerMatch[1].replace(/:$/, '').trim();
-    var body = headerMatch[2].trim();
-    var items = body.split(/\n/).filter(function(l) { return l.trim().match(/^[-•\d]/); })
-      .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
-    var catTitle = rawTitle;
-    for (var ci = 0; ci < CATEGORIES.length; ci++) {
-      if (CATEGORIES[ci].match.test(rawTitle)) { catTitle = CATEGORIES[ci].title; break; }
+  for (var t = 0; t < CALL_THEMES.length; t++) {
+    var theme = CALL_THEMES[t];
+    html += '<div class="theme-card"><h4>' + esc(theme.title) + '</h4><ul>';
+    for (var i = 0; i < theme.items.length; i++) {
+      var item = theme.items[i];
+      html += '<li>' + esc(item.text);
+      if (item.pills && item.pills.length > 0) {
+        for (var p = 0; p < item.pills.length; p++) {
+          html += pillHtml(item.pills[p]);
+        }
+      }
+      html += '</li>';
     }
-    if (items.length > 0) {
-      var isEmpty = items.length === 1 && /nothing new/i.test(items[0]);
-      html += '<div class="theme-card' + (isEmpty ? ' empty-card' : '') + '"><h4>' + esc(catTitle) + '</h4><ul>' +
-        items.slice(0, 4).map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>';
-      matched[catTitle] = true;
-    }
-  });
-  if (!html && answer) {
-    var lines = answer.split('\n').filter(function(l) { return l.trim() && l.trim().match(/^[-•\d]/); })
-      .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
-    if (lines.length > 0) {
-      html += '<div class="theme-card"><h4>Call Intelligence</h4><ul>' +
-        lines.slice(0, 6).map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></div>';
-    }
+    html += '</ul></div>';
   }
-  if (!html) html = '<div class="theme-card empty-card"><h4>Market Signals</h4><ul><li>No structured themes returned from current pipeline data</li></ul></div>';
-  var srcCount = (data.sources || []).length;
-  if (srcCount > 0) html += '<div style="font-size:9px;color:var(--dark-grey);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:6px">' + srcCount + ' sources analyzed via Sales Hub + Gong</div>';
-  document.getElementById('km-sources').textContent = srcCount || '—';
+  html += '<div class="data-note">Intelligence derived from battlecard research, deal activity, and competitor monitoring · Refreshed ' + esc(WEEKLY_SUMMARY.refreshDate) + '</div>';
   el.innerHTML = html;
 }
 
-/* ── Init ── */
-var _initDone = false;
-
-function showStatus(msg) {
-  var ids = ['battlecard-updates', 'competitive-losses', 'market-pulse'];
-  for (var i = 0; i < ids.length; i++) {
-    var el = document.getElementById(ids[i]);
-    if (el && el.querySelector('.loading')) el.innerHTML = '<div class="loading">' + esc(msg) + '</div>';
-  }
-}
-
-async function init() {
-  if (ENV === 'static') {
-    renderBattlecards({ unavailable: true });
-    renderClosedLostDeals({ error: { code: 'static' } });
-    renderCallIntelligence({ unavailable: true });
-    _initDone = true;
-    return;
-  }
-
-  if (ENV === 'claude') {
-    showStatus('Checking connectors...');
-    var hubspotOk = false, salesHubOk = false;
-
-    try {
-      var toolsResult = await withTimeout(window.claude.mcp.listTools(), 10000);
-      var servers = (toolsResult && toolsResult.servers) || [];
-      for (var si = 0; si < servers.length; si++) {
-        var sv = servers[si];
-        if (sv.server === 'HubSpot') {
-          hubspotOk = sv.authStatus === 'connected' && sv.tools && sv.tools.length > 0;
-          if (!hubspotOk) {
-            var hsErr = sv.authStatus === 'needs_reauth' ? 'needs_reauth' : 'server_not_connected';
-            renderBattlecards({ error: { code: hsErr }, source: 'mcp' });
-          }
-        }
-        if (sv.server === 'Sales Hub') {
-          salesHubOk = sv.authStatus === 'connected' && sv.tools && sv.tools.length > 0;
-          if (!salesHubOk) {
-            var shErr = sv.authStatus === 'needs_reauth' ? 'needs_reauth' : 'server_not_connected';
-            renderClosedLostDeals({ error: { code: shErr } });
-            renderCallIntelligence({ error: { code: shErr }, source: 'mcp' });
-          }
-        }
-      }
-      if (!servers.length) {
-        showStatus('No connectors found. Add HubSpot and Sales Hub in Settings.');
-        _initDone = true;
-        return;
-      }
-    } catch(listErr) {
-      console.warn('[Market Pulse] listTools failed:', listErr);
-      var errCode = (listErr && listErr.code) || '';
-      if (errCode === 'not_granted' || errCode === 'capability_disabled') {
-        var grantMsg = errCode === 'not_granted'
-          ? 'MCP access not granted. Approve the connector prompt and refresh.'
-          : 'MCP not available in this viewer.';
-        var grantHtml = '<div class="error-state"><div class="err-label">' + esc(errCode) + '</div>' + esc(grantMsg) + '</div>';
-        document.getElementById('battlecard-updates').innerHTML = grantHtml;
-        document.getElementById('competitive-losses').innerHTML = grantHtml;
-        document.getElementById('market-pulse').innerHTML = grantHtml;
-        _initDone = true;
-        return;
-      }
-      hubspotOk = true;
-      salesHubOk = true;
-    }
-
-    showStatus('Fetching data...');
-
-    var bcPromise = hubspotOk
-      ? fetchBattlecards().catch(function(e) { return { error: e, source: 'mcp' }; })
-      : Promise.resolve({ error: { code: 'server_not_connected' }, source: 'mcp' });
-    var lostPromise = salesHubOk
-      ? fetchClosedLostDeals().catch(function(e) { return { error: e }; })
-      : Promise.resolve({ error: { code: 'server_not_connected' } });
-    var callPromise = salesHubOk
-      ? fetchCallIntelligence().catch(function(e) { return { error: e, source: 'mcp' }; })
-      : Promise.resolve({ error: { code: 'server_not_connected' }, source: 'mcp' });
-
-    var results = await Promise.all([bcPromise, lostPromise, callPromise]);
-    var bcStats = renderBattlecards(results[0]);
-    renderClosedLostDeals(results[1]);
-    renderCallIntelligence(results[2]);
-    document.getElementById('km-competitors').textContent = bcStats.competitors || '—';
-    document.getElementById('km-comp-deals').textContent = bcStats.deals || '—';
-    _initDone = true;
-    return;
-  }
-
-  /* Cowork path */
-  var results = await Promise.all([
-    fetchBattlecards().catch(function(e) { return { error: e, source: 'mcp' }; }),
-    fetchClosedLostDeals().catch(function(e) { return { error: e }; }),
-    fetchCallIntelligence().catch(function(e) { return { error: e, source: 'mcp' }; })
-  ]);
-  var bcStats = renderBattlecards(results[0]);
-  renderClosedLostDeals(results[1]);
-  renderCallIntelligence(results[2]);
-  document.getElementById('km-competitors').textContent = bcStats.competitors || '—';
-  document.getElementById('km-comp-deals').textContent = bcStats.deals || '—';
-  _initDone = true;
-}
-
-setTimeout(function() {
-  if (_initDone) return;
-  var loadEls = document.querySelectorAll('.loading');
-  var timeoutHtml = '<div class="error-state"><div class="err-label">Timeout</div>Connector did not respond within 30 seconds. Check that HubSpot and Sales Hub are connected in claude.ai Settings → Connectors, then refresh.</div>';
-  for (var i = 0; i < loadEls.length; i++) {
-    loadEls[i].parentNode.innerHTML = timeoutHtml;
-  }
-}, 30000);
-
-try {
-  init().catch(function(e) {
-    _initDone = true;
-    console.error('[Market Pulse] Init failed:', e);
-    var errHtml = '<div class="error-state"><div class="err-label">' + esc((e && e.code) || 'Error') + '</div>' + esc(String(e && e.message || e)) + '</div>';
-    try { document.getElementById('battlecard-updates').innerHTML = errHtml; } catch(x) {}
-    try { document.getElementById('competitive-losses').innerHTML = errHtml; } catch(x) {}
-    try { document.getElementById('market-pulse').innerHTML = errHtml; } catch(x) {}
-  });
-} catch(syncErr) {
-  _initDone = true;
-  console.error('[Market Pulse] Sync error:', syncErr);
-  try {
-    var errHtml = '<div class="error-state"><div class="err-label">Script Error</div>' + (syncErr && syncErr.message || String(syncErr)) + '</div>';
-    document.getElementById('battlecard-updates').innerHTML = errHtml;
-    document.getElementById('competitive-losses').innerHTML = errHtml;
-    document.getElementById('market-pulse').innerHTML = errHtml;
-  } catch(x) {}
-}
+renderMetrics();
+renderBattlecards();
+renderClosedLost();
+renderCallIntelligence();
 </script>
