@@ -114,8 +114,8 @@
         <h3 class="intel-section-head">Market Pulse</h3>
         <div class="call-type-pills">
           <span class="call-type-pill">Growth</span>
-          <span class="call-type-pill">Account Management</span>
           <span class="call-type-pill">Onboarding</span>
+          <span class="call-type-pill">Account Management</span>
         </div>
         <div id="market-pulse"><div class="loading">Loading call intelligence&hellip;</div></div>
       </div>
@@ -198,23 +198,6 @@ async function callSalesHub(tool, input) {
   }
   return data || {};
 }
-function deriveBattlecardsFromDeals(deals) {
-  if (!Array.isArray(deals) || deals.length === 0) return { competitors: {}, dealCount: 0, source: 'mcp' };
-  var competitors = {};
-  deals.forEach(function(d) {
-    var comp = (d.properties || {}).competitors;
-    if (comp) {
-      comp.split(/[;,]/).map(function(c) { return c.trim(); }).filter(Boolean).forEach(function(name) {
-        if (!competitors[name]) competitors[name] = { count: 0, arr: 0, deals: [] };
-        competitors[name].count++;
-        competitors[name].arr += parseFloat((d.properties || {}).annual_recurring_revenue_w_est) || 0;
-        competitors[name].deals.push(companyOf((d.properties || {}).dealname));
-      });
-    }
-  });
-  return { competitors: competitors, dealCount: deals.length, source: 'mcp' };
-}
-
 /* ── Unified HubSpot caller ── */
 async function searchDeals(filters, properties, limit) {
   if (ENV === 'claude') {
@@ -267,7 +250,33 @@ async function fetchClosedLostDeals() {
 }
 
 async function fetchBattlecards() {
-  if (ENV === 'claude') return { source: 'derive' };
+  if (ENV === 'claude') {
+    try {
+      const data = await searchDeals(
+        [{ propertyName: 'competitors', operator: 'HAS_PROPERTY' }],
+        ['dealname','competitors','dealstage','annual_recurring_revenue_w_est'],
+        100
+      );
+      const deals = data.results || [];
+      var competitors = {};
+      deals.forEach(function(d) {
+        var comp = (d.properties || {}).competitors;
+        if (comp) {
+          comp.split(/[;,]/).map(function(c) { return c.trim(); }).filter(Boolean).forEach(function(name) {
+            if (!competitors[name]) competitors[name] = { count: 0, arr: 0, deals: [], lost: 0 };
+            competitors[name].count++;
+            competitors[name].arr += parseFloat((d.properties || {}).annual_recurring_revenue_w_est) || 0;
+            competitors[name].deals.push(companyOf((d.properties || {}).dealname));
+            if ((d.properties || {}).dealstage === 'closedlost') competitors[name].lost++;
+          });
+        }
+      });
+      return { competitors: competitors, dealCount: deals.length, source: 'mcp' };
+    } catch (e) {
+      console.warn('[Battlecards claude]', e);
+      return { error: e, source: 'mcp' };
+    }
+  }
   if (ENV === 'static') return { unavailable: true };
   try {
     const [summaryRes, bcRes] = await Promise.all([
@@ -324,6 +333,14 @@ function renderBattlecards(data) {
     return 0;
   }
   if (data.source === 'mcp') {
+    if (data.error) {
+      var code = data.error.code || '';
+      var msg = 'Unable to load competitive intelligence.';
+      if (code === 'server_not_connected') msg = 'Connect HubSpot in claude.ai Settings → Connectors.';
+      else if (code === 'needs_reauth') msg = 'Reconnect HubSpot in claude.ai Settings → Connectors.';
+      el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
+      return 0;
+    }
     var html = '';
     var competitors = data.competitors || {};
     var compEntries = Object.entries(competitors).sort(function(a, b) { return b[1].count - a[1].count || b[1].arr - a[1].arr; });
@@ -332,9 +349,9 @@ function renderBattlecards(data) {
         var name = entry[0], info = entry[1];
         var threat = info.count >= 3 ? 'high' : info.count >= 2 ? 'medium' : 'low';
         html += '<div class="bc-chip threat-' + threat + '"><div class="bc-chip-name">' + esc(name) + '</div>' +
-          '<div class="bc-chip-change">' + info.count + ' loss' + (info.count > 1 ? 'es' : '') +
-          (info.arr > 0 ? ' · ' + fmtFull(info.arr) + ' ARR' : '') +
-          ' (' + info.deals.join(', ') + ')</div>' +
+          '<div class="bc-chip-change">' + info.count + ' deal' + (info.count > 1 ? 's' : '') +
+          (info.lost ? ' (' + info.lost + ' lost)' : '') +
+          (info.arr > 0 ? ' · ' + fmtFull(info.arr) + ' ARR' : '') + '</div>' +
           '<span class="bc-chip-threat ' + threat + '">' + esc(threat) + '</span></div>';
       });
     }
@@ -536,10 +553,7 @@ async function init() {
     fetchCallIntelligence(),
     fetchClosedLostDeals()
   ]);
-  const effectiveBcData = (bcData.source === 'derive')
-    ? deriveBattlecardsFromDeals(Array.isArray(lostDeals) ? lostDeals : [])
-    : bcData;
-  const competitorCount = renderBattlecards(effectiveBcData);
+  const competitorCount = renderBattlecards(bcData);
   renderClosedLostDeals(lostDeals);
   renderCallIntelligence(callData);
   document.getElementById('km-competitors').textContent = competitorCount || '—';
