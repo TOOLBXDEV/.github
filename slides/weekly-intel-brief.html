@@ -191,29 +191,42 @@ function parseCoworkRes(res) {
   return res;
 }
 
-/* ── Sales Hub MCP helper (claude.ai) ── */
-function withTimeout(promise, ms) {
-  return Promise.race([promise, new Promise(function(_, reject) { setTimeout(function() { reject(new Error('Timeout')); }, ms); })]);
+/* ── MCP helpers (claude.ai) ── */
+function mcpSignal(ms) {
+  if (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) return { signal: AbortSignal.timeout(ms) };
+  return {};
 }
-async function callSalesHub(tool, input) {
-  var result = await withTimeout(window.claude.mcp.callTool('Sales Hub', tool, input || {}), 25000);
+function withTimeout(promise, ms) {
+  return Promise.race([promise, new Promise(function(_, reject) { setTimeout(function() { reject(new Error('Timeout after ' + ms + 'ms')); }, ms); })]);
+}
+function parseCallResult(result) {
   var data = result.payload || result.structuredContent;
   if (!data && result.content && result.content[0]) {
     try { data = JSON.parse(result.content[0].text); } catch(e) { data = { text: result.content[0].text }; }
   }
   return data || {};
 }
+async function callSalesHub(tool, input) {
+  var result = await withTimeout(
+    window.claude.mcp.callTool('Sales Hub', tool, input || {}, mcpSignal(20000)),
+    25000
+  );
+  return parseCallResult(result);
+}
 /* ── Unified HubSpot caller ── */
 async function searchDeals(filters, properties, limit) {
   if (ENV === 'claude') {
-    var result = await withTimeout(window.claude.mcp.callTool('HubSpot', 'search_crm_objects', {
-      objectType: 'deals',
-      filterGroups: [{ filters: filters }],
-      properties: properties,
-      sorts: [{ propertyName: 'closedate', direction: 'DESCENDING' }],
-      limit: limit || 50,
-      chatInsights: { userIntent: 'Market Pulse closed-lost deals', satisfaction: 'NEUTRAL' }
-    }), 20000);
+    var result = await withTimeout(
+      window.claude.mcp.callTool('HubSpot', 'search_crm_objects', {
+        objectType: 'deals',
+        filterGroups: [{ filters: filters }],
+        properties: properties,
+        sorts: [{ propertyName: 'closedate', direction: 'DESCENDING' }],
+        limit: limit || 50,
+        chatInsights: { userIntent: 'Market Pulse competitive intelligence', satisfaction: 'NEUTRAL' }
+      }, mcpSignal(15000)),
+      20000
+    );
     var data = result.payload || result.structuredContent || {};
     if (typeof data === 'string') { try { return JSON.parse(data); } catch(e) { return {}; } }
     return data;
@@ -558,7 +571,95 @@ function renderCallIntelligence(data) {
 }
 
 /* ── Init ── */
+var _initDone = false;
+
+function showStatus(msg) {
+  var ids = ['battlecard-updates', 'competitive-losses', 'market-pulse'];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el && el.querySelector('.loading')) el.innerHTML = '<div class="loading">' + esc(msg) + '</div>';
+  }
+}
+
 async function init() {
+  if (ENV === 'static') {
+    renderBattlecards({ unavailable: true });
+    renderClosedLostDeals({ error: { code: 'static' } });
+    renderCallIntelligence({ unavailable: true });
+    _initDone = true;
+    return;
+  }
+
+  if (ENV === 'claude') {
+    showStatus('Checking connectors...');
+    var hubspotOk = false, salesHubOk = false;
+
+    try {
+      var toolsResult = await withTimeout(window.claude.mcp.listTools(), 10000);
+      var servers = (toolsResult && toolsResult.servers) || [];
+      for (var si = 0; si < servers.length; si++) {
+        var sv = servers[si];
+        if (sv.server === 'HubSpot') {
+          hubspotOk = sv.authStatus === 'connected' && sv.tools && sv.tools.length > 0;
+          if (!hubspotOk) {
+            var hsErr = sv.authStatus === 'needs_reauth' ? 'needs_reauth' : 'server_not_connected';
+            renderBattlecards({ error: { code: hsErr }, source: 'mcp' });
+            renderClosedLostDeals({ error: { code: hsErr } });
+          }
+        }
+        if (sv.server === 'Sales Hub') {
+          salesHubOk = sv.authStatus === 'connected' && sv.tools && sv.tools.length > 0;
+          if (!salesHubOk) {
+            var shErr = sv.authStatus === 'needs_reauth' ? 'needs_reauth' : 'server_not_connected';
+            renderCallIntelligence({ error: { code: shErr }, source: 'mcp' });
+          }
+        }
+      }
+      if (!servers.length) {
+        showStatus('No connectors found. Add HubSpot and Sales Hub in Settings.');
+        _initDone = true;
+        return;
+      }
+    } catch(listErr) {
+      console.warn('[Market Pulse] listTools failed:', listErr);
+      var errCode = (listErr && listErr.code) || '';
+      if (errCode === 'not_granted' || errCode === 'capability_disabled') {
+        var grantMsg = errCode === 'not_granted'
+          ? 'MCP access not granted. Approve the connector prompt and refresh.'
+          : 'MCP not available in this viewer.';
+        var grantHtml = '<div class="error-state"><div class="err-label">' + esc(errCode) + '</div>' + esc(grantMsg) + '</div>';
+        document.getElementById('battlecard-updates').innerHTML = grantHtml;
+        document.getElementById('competitive-losses').innerHTML = grantHtml;
+        document.getElementById('market-pulse').innerHTML = grantHtml;
+        _initDone = true;
+        return;
+      }
+      hubspotOk = true;
+      salesHubOk = true;
+    }
+
+    showStatus('Fetching data...');
+
+    var bcPromise = hubspotOk
+      ? fetchBattlecards().catch(function(e) { return { error: e, source: 'mcp' }; })
+      : Promise.resolve({ error: { code: 'server_not_connected' }, source: 'mcp' });
+    var lostPromise = hubspotOk
+      ? fetchClosedLostDeals().catch(function(e) { return { error: e }; })
+      : Promise.resolve({ error: { code: 'server_not_connected' } });
+    var callPromise = salesHubOk
+      ? fetchCallIntelligence().catch(function(e) { return { error: e, source: 'mcp' }; })
+      : Promise.resolve({ error: { code: 'server_not_connected' }, source: 'mcp' });
+
+    var results = await Promise.all([bcPromise, callPromise, lostPromise]);
+    var competitorCount = renderBattlecards(results[0]);
+    renderClosedLostDeals(results[2]);
+    renderCallIntelligence(results[1]);
+    document.getElementById('km-competitors').textContent = competitorCount || '—';
+    _initDone = true;
+    return;
+  }
+
+  /* Cowork path */
   var results = await Promise.all([
     fetchBattlecards().catch(function(e) { return { error: e, source: 'mcp' }; }),
     fetchCallIntelligence().catch(function(e) { return { error: e, source: 'mcp' }; }),
@@ -568,17 +669,30 @@ async function init() {
   renderClosedLostDeals(results[2]);
   renderCallIntelligence(results[1]);
   document.getElementById('km-competitors').textContent = competitorCount || '—';
+  _initDone = true;
 }
+
+/* Brute-force fallback: if still loading after 30s, show timeout error */
+setTimeout(function() {
+  if (_initDone) return;
+  var loadEls = document.querySelectorAll('.loading');
+  var timeoutHtml = '<div class="error-state"><div class="err-label">Timeout</div>Connector did not respond within 30 seconds. Check that HubSpot and Sales Hub are connected in claude.ai Settings → Connectors, then refresh.</div>';
+  for (var i = 0; i < loadEls.length; i++) {
+    loadEls[i].parentNode.innerHTML = timeoutHtml;
+  }
+}, 30000);
 
 try {
   init().catch(function(e) {
+    _initDone = true;
     console.error('[Market Pulse] Init failed:', e);
-    var errHtml = '<div class="error-state"><div class="err-label">Initialization Error</div>' + esc(String(e && e.message || e)) + '</div>';
+    var errHtml = '<div class="error-state"><div class="err-label">' + esc((e && e.code) || 'Error') + '</div>' + esc(String(e && e.message || e)) + '</div>';
     try { document.getElementById('battlecard-updates').innerHTML = errHtml; } catch(x) {}
     try { document.getElementById('competitive-losses').innerHTML = errHtml; } catch(x) {}
     try { document.getElementById('market-pulse').innerHTML = errHtml; } catch(x) {}
   });
 } catch(syncErr) {
+  _initDone = true;
   console.error('[Market Pulse] Sync error:', syncErr);
   try {
     var errHtml = '<div class="error-state"><div class="err-label">Script Error</div>' + (syncErr && syncErr.message || String(syncErr)) + '</div>';
