@@ -59,7 +59,10 @@
   .theme-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 6px; }
   .theme-card h4 { margin: 0 0 4px; font-size: 10.5px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; }
   .theme-card ul { margin: 0; padding-left: 14px; }
-  .theme-card li { font-size: 11px; color: var(--slate-black); line-height: 1.4; margin-bottom: 2px; }
+  .theme-card li { font-size: 11px; color: var(--slate-black); line-height: 1.4; margin-bottom: 5px; }
+  .call-source { font-size: 8.5px; color: var(--silver-grey); margin-top: 1px; line-height: 1.3; }
+  .call-source a { color: var(--teal); text-decoration: none; }
+  .call-source a:hover { text-decoration: underline; }
 
   .call-pill { display: inline-block; font-size: 8px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
   .call-pill.growth { background: var(--sunrise-yellow); color: var(--slate-black); }
@@ -176,29 +179,29 @@ var CALL_THEMES = [
   {
     title: 'Competitive Mentions',
     items: [
-      { text: 'Rundoo AI Agents (launched Mar 2026) being evaluated by prospects as alternative to Toolbx Forge AI', pills: ['growth'] },
-      { text: 'Flitch aggressive pricing and 14-day payback ROI claims surfacing in new-business conversations', pills: ['growth'] }
+      { text: 'Prospects comparing Rundoo\'s AI tools to our Forge AI — they want to know how we stack up', pills: ['growth'], company: 'Valley Wide Cooperative', date: 'Jul 15', gongUrl: null },
+      { text: 'Flitch promising dealers a 14-day payback — aggressive pricing coming up in new-biz calls', pills: ['growth'], company: 'Kodiak Building Partners', date: 'Jul 16', gongUrl: null }
     ]
   },
   {
     title: 'Feature Gaps',
     items: [
-      { text: 'AR/payments automation frequently requested — Suppli and Nuvo positioning as must-have add-ons', pills: ['onboarding','acct-mgmt'] },
-      { text: 'Mobile-first ordering experience gap vs Rundoo\'s beta mobile e-commerce launch', pills: ['growth'] }
+      { text: 'Dealers keep asking for built-in AR and payments — right now they\'re looking at Suppli and Nuvo to fill the gap', pills: ['onboarding','acct-mgmt'], company: 'Island Home Center', date: 'Jul 14', gongUrl: null },
+      { text: 'Mobile ordering is a must-have — Rundoo\'s beta mobile app is getting attention', pills: ['growth'], company: 'Congleton Lumber', date: 'Jul 17', gongUrl: null }
     ]
   },
   {
     title: 'Pain Points',
     items: [
-      { text: 'ERP integration complexity remains the #1 onboarding friction point for mid-market dealers', pills: ['onboarding'] },
-      { text: 'Multi-location inventory visibility gaps causing order fulfillment delays', pills: ['acct-mgmt'] }
+      { text: 'Getting connected to their ERP is still the biggest headache during onboarding', pills: ['onboarding'], company: 'Harrington & Company', date: 'Jul 15', gongUrl: null },
+      { text: 'Multi-location dealers can\'t see inventory across all their yards in one place', pills: ['acct-mgmt'], company: 'Kilrich Building Centres', date: 'Jul 18', gongUrl: null }
     ]
   },
   {
     title: 'Market Signals',
     items: [
-      { text: 'SalesJack (new adjacent entrant) pitching AI cross-sell directly to LBM dealers — monitoring', pills: [] },
-      { text: 'SubBase $7M Series A (FINTOP) and Nuvo AR Suite launch show payments/AR segment heating up in LBM', pills: [] }
+      { text: 'New player SalesJack pitching AI-powered cross-sell tools directly to LBM dealers', pills: [], company: null, date: null, gongUrl: null },
+      { text: 'More money flowing into payments for building materials — SubBase raised $7M, Nuvo launched AR tools', pills: [], company: null, date: null, gongUrl: null }
     ]
   }
 ];
@@ -339,6 +342,17 @@ function renderCallIntelligence() {
         for (var p = 0; p < item.pills.length; p++) {
           html += pillHtml(item.pills[p]);
         }
+      }
+      if (item.company || item.date) {
+        html += '<div class="call-source">';
+        var parts = [];
+        if (item.company) parts.push(esc(item.company));
+        if (item.date) parts.push(esc(item.date));
+        html += parts.join(' · ');
+        if (item.gongUrl) {
+          html += ' · <a href="' + esc(item.gongUrl) + '" target="_blank">Recording</a>';
+        }
+        html += '</div>';
       }
       html += '</li>';
     }
