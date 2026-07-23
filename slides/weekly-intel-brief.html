@@ -41,6 +41,7 @@
   .bc-chip.threat-high { border-left-color: var(--lost-red); }
   .bc-chip.threat-medium { border-left-color: var(--sunrise-yellow); }
   .bc-chip.threat-low { border-left-color: var(--metallic-seaweed); }
+  .bc-chip.change-new { border-left-color: var(--teal); }
   .bc-chip-name { font-weight: 700; font-size: 11.5px; }
   .bc-chip-change { color: var(--dark-grey); font-size: 10px; margin-top: 2px; line-height: 1.35; }
   .bc-chip-threat { display: inline-block; font-size: 8px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 3px; }
@@ -48,10 +49,12 @@
   .bc-chip-threat.medium { background: var(--sunrise-yellow); color: var(--slate-black); }
   .bc-chip-threat.low { background: var(--metallic-seaweed); color: var(--white); }
 
-  .deal-chip { background: var(--light-grey); padding: 5px 9px; border-radius: 2px; font-size: 11px; border-left: 3px solid var(--slate-black); color: var(--slate-black); line-height: 1.25; margin-bottom: 4px; }
+  .deal-chip { background: var(--light-grey); padding: 5px 9px; border-radius: 2px; font-size: 11px; border-left: 3px solid var(--lost-red); color: var(--slate-black); line-height: 1.25; margin-bottom: 4px; }
   .deal-chip-name { font-weight: 700; }
   .deal-chip-meta { color: var(--dark-grey); font-size: 10px; margin-top: 1px; }
   .deal-chip-arr { font-weight: 700; color: var(--slate-black); font-variant-numeric: tabular-nums; font-family: Georgia, "Bitter", serif; font-size: 11px; }
+  .deal-chip-detail { color: var(--dark-grey); font-size: 10px; margin-top: 1px; font-style: italic; line-height: 1.35; }
+  .competitor-tag { display: inline-block; margin-top: 3px; padding: 0px 5px; background: var(--white); color: var(--dark-grey); border: 1px solid var(--silver-grey); border-radius: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
 
   .theme-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 6px; }
   .theme-card h4 { margin: 0 0 4px; font-size: 10.5px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; }
@@ -62,6 +65,8 @@
   .call-pill.growth { background: var(--sunrise-yellow); color: var(--slate-black); }
   .call-pill.onboarding { background: var(--teal); color: var(--white); }
   .call-pill.acct-mgmt { background: var(--metallic-seaweed); color: var(--white); }
+
+  .empty-state { background: var(--light-grey); border-radius: 2px; padding: 8px 12px; font-size: 10px; color: var(--silver-grey); line-height: 1.4; border-left: 3px solid var(--light-grey); }
 
   .coming-soon-section { background: var(--light-grey); border-radius: 3px; padding: 14px 20px; margin-top: 14px; text-align: center; border: 1px dashed var(--silver-grey); }
   .coming-soon-section h3 { margin: 0; font-size: 11px; color: var(--silver-grey); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
@@ -88,17 +93,17 @@
   <div class="slide-body">
     <div class="key-metrics-strip">
       <div class="key-metric-cell"><div class="lbl">Competitors Tracked</div><div class="val" id="km-competitors"></div><div class="sub" id="km-comp-sub"></div></div>
-      <div class="key-metric-cell"><div class="lbl">High Threat</div><div class="val" id="km-high-threat"></div></div>
-      <div class="key-metric-cell"><div class="lbl">Closed-Lost (30d)</div><div class="val" id="km-lost-count"></div><div class="sub" id="km-lost-arr"></div></div>
+      <div class="key-metric-cell"><div class="lbl">Battlecard Changes</div><div class="val" id="km-changes"></div><div class="sub" id="km-changes-sub"></div></div>
+      <div class="key-metric-cell"><div class="lbl">Competitive Losses</div><div class="val" id="km-lost-count"></div><div class="sub" id="km-lost-arr"></div></div>
       <div class="key-metric-cell"><div class="lbl">New Entrants</div><div class="val" id="km-new"></div><div class="sub" id="km-new-sub"></div></div>
     </div>
 
     <div class="intel-grid">
       <div class="intel-section">
         <h3 class="intel-section-head">Competitive Intelligence</h3>
-        <div class="intel-sub">High-Threat Competitors</div>
+        <div class="intel-sub">Competitor Activity This Week</div>
         <div id="battlecard-updates"></div>
-        <div class="intel-sub" style="margin-top:12px">Competitive Losses (30d)</div>
+        <div class="intel-sub" style="margin-top:12px">Competitive Losses</div>
         <div id="competitive-losses"></div>
       </div>
       <div class="intel-section">
@@ -143,77 +148,56 @@ var ESC_MAP = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { if (s == null) return ''; return String(s).replace(/[&<>"']/g, function(c) { return ESC_MAP[c]; }); }
 
 /* ══════════════════════════════════════════════════════════
-   STATIC DATA — refreshed 2026-07-20
+   STATIC DATA — Week of Jul 13-19, 2026
+   Battlecard refresh: 2026-07-20
    ══════════════════════════════════════════════════════════ */
-
-var BATTLECARDS = [
-  { name: 'Epicor Commerce', threat: 'high', category: 'E-commerce', estWinRate: 70, tags: ['Enterprise','BisTrack-Locked','Limited-Innovation'], desc: 'eCommerce tightly coupled to BisTrack ERP. Strong on integration, weak on flexibility and innovation.' },
-  { name: 'Rundoo', threat: 'high', category: 'ERP-POS', estWinRate: 55, tags: ['AI-First','Well-Funded','$18M Series A'], desc: 'Best-funded direct competitor ($18M Sequoia/Bessemer/CRV). AI-first POS/ERP with custom AI Agents launched Mar 2026 — directly challenging Toolbx Forge AI.' },
-  { name: 'Flitch', threat: 'high', category: 'E-commerce', estWinRate: 60, tags: ['LBM-Native','Startup','AI-Inventory'], desc: 'Early-stage LBM-native cloud platform. Aggressive ROI messaging (14-day payback). Most direct Toolbx competitor discovered this cycle.' },
-  { name: 'Unilog', threat: 'high', category: 'E-commerce', estWinRate: 60, tags: ['Enterprise','Award-Winning','LMC-Partner'], desc: 'Award-winning B2B eCommerce with LMC buying group partnership. High cost and complex UX are major pain points.' },
-  { name: 'EvolutionX', threat: 'high', category: 'E-commerce', estWinRate: 65, tags: ['Headless','AI-New','Multi-ERP'], desc: 'ECI\'s premier B2B eCommerce with headless architecture and newly launched AI. Dangerous but unproven on construction.' },
-  { name: 'Suppli', threat: 'medium', category: 'AR-Payments', estWinRate: 72, tags: ['AR-Only','Point-Solution','Lien-Management'], desc: 'AR/payments point solution for construction suppliers. Full revenue cycle from credit onboarding to cash application.' },
-  { name: 'BuilderWire', threat: 'medium', category: 'E-commerce', estWinRate: 75, tags: ['LBM','Established','Legacy'], desc: 'Industry\'s oldest LBM eCommerce provider (since 2000). Broad ERP coverage with bundled digital marketing.' },
-  { name: 'Prokeep', threat: 'medium', category: 'E-commerce', estWinRate: 68, tags: ['Order-Capture','Conversational-Commerce','Well-Funded'], desc: 'AI-Powered Order Engine for wholesale distributors. Business texting and quote automation.' },
-  { name: 'SubBase', threat: 'medium', category: 'Payments', estWinRate: null, tags: ['$15M Raised','FINTOP-Backed'], desc: 'Construction payments. $7M Series A (Jun 2026, FINTOP). LBM customer base growing (Kodiak Building Partners).' },
-  { name: 'Nuvo', threat: 'medium', category: 'AR-Payments', estWinRate: null, tags: ['AR-Suite','LBM-Customers'], desc: 'AR Suite launched Jun 2026 with named LBM customers (Kodiak Building Partners).' }
-];
 
 var WEEKLY_SUMMARY = {
   refreshDate: '2026-07-20',
-  competitorsUpdated: 20,
-  keyChange: 'No net-new material moves this week. All 20 battlecards refreshed. Prokeep promoted to live battlecard.',
-  newEntrant: { name: 'SalesJack', category: 'adjacent', signal: 'AI cross-sell/recommendation layer pitched directly to LBM dealers. Sales-enablement add-on, not commerce/portal. No funding signal found.' },
-  note: 'Rundoo mobile e-commerce still in beta (Jun 7 launch), no GA date. Epicor Prism European GA (Jun 23) and BisTrack Desktop sunset (Dec 2026) already captured.'
+  competitorsTracked: 20,
+  threatBreakdown: '5 high · 10 medium · 5 low',
+  changes: [
+    { type: 'promoted', name: 'Prokeep', detail: 'Promoted from pending-research to live battlecard via server research endpoint.' },
+    { type: 'refresh', name: null, detail: 'All 20 battlecard timestamps refreshed. No net-new material competitive moves.' }
+  ],
+  newEntrants: [
+    { name: 'SalesJack', category: 'adjacent', signal: 'AI cross-sell/recommendation layer pitched directly to LBM dealers. Sales-enablement add-on, not commerce/portal. No funding signal found.' }
+  ],
+  threatLevelChanges: [],
+  watchItems: [
+    'Rundoo mobile e-commerce still in beta (Jun 7 launch), no GA date.',
+    'Epicor BisTrack Desktop on-prem sunset from Dec 2026.'
+  ]
 };
 
-var CLOSED_LOST_DEALS = [
-  { name: 'Supreme Deck Store', arr: null },
-  { name: 'Shagbark Lumber', arr: null },
-  { name: 'Congleton Lumber', arr: null },
-  { name: 'Harrington & Company', arr: 53976 },
-  { name: 'Kilrich Building Centres', arr: null },
-  { name: 'Island Home Center', arr: 16884 },
-  { name: 'Valley Wide Cooperative', arr: 90000 },
-  { name: 'Manion\'s Wholesale', arr: 32328 },
-  { name: 'Cobra Roofing', arr: null },
-  { name: 'Cornerstone Truss', arr: 18001 },
-  { name: 'Superior Lumber', arr: null },
-  { name: 'Klinkers Lumber', arr: null },
-  { name: 'Architectural Hardware', arr: null }
-];
+var COMPETITIVE_LOSSES = [];
 
 var CALL_THEMES = [
   {
     title: 'Competitive Mentions',
     items: [
       { text: 'Rundoo AI Agents (launched Mar 2026) being evaluated by prospects as alternative to Toolbx Forge AI', pills: ['growth'] },
-      { text: 'Flitch aggressive pricing and 14-day payback ROI claims surfacing in new-business conversations', pills: ['growth'] },
-      { text: 'Epicor BisTrack Desktop sunset (Dec 2026) creating urgency for existing Epicor customers to evaluate alternatives', pills: ['growth','acct-mgmt'] },
-      { text: 'Unilog/LMC buying group partnership locking in multi-location dealers before they see TOOLBX demos', pills: ['growth'] }
+      { text: 'Flitch aggressive pricing and 14-day payback ROI claims surfacing in new-business conversations', pills: ['growth'] }
     ]
   },
   {
     title: 'Feature Gaps',
     items: [
       { text: 'AR/payments automation frequently requested — Suppli and Nuvo positioning as must-have add-ons', pills: ['onboarding','acct-mgmt'] },
-      { text: 'Mobile-first ordering experience gap vs Rundoo\'s beta mobile e-commerce launch', pills: ['growth'] },
-      { text: 'Lien management and credit onboarding not natively supported, creating integration overhead', pills: ['onboarding'] }
+      { text: 'Mobile-first ordering experience gap vs Rundoo\'s beta mobile e-commerce launch', pills: ['growth'] }
     ]
   },
   {
     title: 'Pain Points',
     items: [
       { text: 'ERP integration complexity remains the #1 onboarding friction point for mid-market dealers', pills: ['onboarding'] },
-      { text: 'Multi-location inventory visibility gaps causing order fulfillment delays', pills: ['acct-mgmt'] },
-      { text: 'Customers asking for consolidated reporting across POS, eCommerce, and delivery in a single view', pills: ['acct-mgmt'] }
+      { text: 'Multi-location inventory visibility gaps causing order fulfillment delays', pills: ['acct-mgmt'] }
     ]
   },
   {
     title: 'Market Signals',
     items: [
       { text: 'SalesJack (new adjacent entrant) pitching AI cross-sell directly to LBM dealers — monitoring', pills: [] },
-      { text: 'Higharc $95M Series C (Insight Partners) + US LBM AI Estimating partnership signals capital flowing into adjacent LBM tech', pills: [] },
       { text: 'SubBase $7M Series A (FINTOP) and Nuvo AR Suite launch show payments/AR segment heating up in LBM', pills: [] }
     ]
   }
@@ -231,74 +215,109 @@ function fmtK(v) {
 }
 
 function renderMetrics() {
-  var highCount = 0;
-  for (var i = 0; i < BATTLECARDS.length; i++) {
-    if (BATTLECARDS[i].threat === 'high') highCount++;
-  }
-  document.getElementById('km-competitors').textContent = String(WEEKLY_SUMMARY.competitorsUpdated);
-  document.getElementById('km-comp-sub').textContent = '5 high · 10 medium · 5 low';
-  document.getElementById('km-high-threat').textContent = String(highCount);
-  document.getElementById('km-lost-count').textContent = String(CLOSED_LOST_DEALS.length);
+  document.getElementById('km-competitors').textContent = String(WEEKLY_SUMMARY.competitorsTracked);
+  document.getElementById('km-comp-sub').textContent = WEEKLY_SUMMARY.threatBreakdown;
 
-  var totalArr = 0;
-  for (var j = 0; j < CLOSED_LOST_DEALS.length; j++) {
-    if (CLOSED_LOST_DEALS[j].arr) totalArr += CLOSED_LOST_DEALS[j].arr;
+  var changeCount = 0;
+  for (var i = 0; i < WEEKLY_SUMMARY.changes.length; i++) {
+    if (WEEKLY_SUMMARY.changes[i].type !== 'refresh') changeCount++;
   }
-  if (totalArr > 0) {
-    document.getElementById('km-lost-arr').textContent = '$' + Math.round(totalArr / 1000) + 'k ARR at risk';
+  changeCount += WEEKLY_SUMMARY.newEntrants.length + WEEKLY_SUMMARY.threatLevelChanges.length;
+  document.getElementById('km-changes').textContent = String(changeCount);
+  document.getElementById('km-changes-sub').textContent = changeCount > 0 ? 'this week' : 'quiet week';
+
+  document.getElementById('km-lost-count').textContent = String(COMPETITIVE_LOSSES.length);
+  if (COMPETITIVE_LOSSES.length > 0) {
+    var totalArr = 0;
+    for (var j = 0; j < COMPETITIVE_LOSSES.length; j++) {
+      if (COMPETITIVE_LOSSES[j].arr) totalArr += COMPETITIVE_LOSSES[j].arr;
+    }
+    if (totalArr > 0) {
+      document.getElementById('km-lost-arr').textContent = '$' + Math.round(totalArr / 1000) + 'k ARR';
+    }
+  } else {
+    document.getElementById('km-lost-arr').textContent = 'this week';
   }
 
-  document.getElementById('km-new').textContent = '1';
-  document.getElementById('km-new-sub').textContent = 'SalesJack (adjacent)';
+  var newCount = WEEKLY_SUMMARY.newEntrants.length;
+  document.getElementById('km-new').textContent = String(newCount);
+  if (newCount > 0) {
+    document.getElementById('km-new-sub').textContent = WEEKLY_SUMMARY.newEntrants[0].name + ' (' + WEEKLY_SUMMARY.newEntrants[0].category + ')';
+  } else {
+    document.getElementById('km-new-sub').textContent = 'this week';
+  }
 }
 
-function renderBattlecards() {
+function renderCompetitorActivity() {
   var el = document.getElementById('battlecard-updates');
   var html = '';
-  for (var i = 0; i < BATTLECARDS.length; i++) {
-    var bc = BATTLECARDS[i];
-    if (bc.threat !== 'high') continue;
-    html += '<div class="bc-chip threat-high">';
-    html += '<div class="bc-chip-name">' + esc(bc.name) + ' <span style="font-weight:400;font-size:10px;color:var(--dark-grey)">' + esc(bc.category) + '</span></div>';
-    html += '<div class="bc-chip-change">' + esc(bc.desc) + '</div>';
-    html += '<span class="bc-chip-threat high">HIGH</span>';
-    if (bc.estWinRate != null) {
-      html += ' <span style="font-size:8px;color:var(--dark-grey);font-weight:600;margin-left:4px">Win rate: ' + bc.estWinRate + '%</span>';
-    }
+  var hasActivity = false;
+
+  for (var i = 0; i < WEEKLY_SUMMARY.newEntrants.length; i++) {
+    hasActivity = true;
+    var ne = WEEKLY_SUMMARY.newEntrants[i];
+    html += '<div class="bc-chip change-new">';
+    html += '<div class="bc-chip-name">' + esc(ne.name) + ' <span class="new-badge">New</span> <span style="font-weight:400;font-size:10px;color:var(--dark-grey)">' + esc(ne.category) + '</span></div>';
+    html += '<div class="bc-chip-change">' + esc(ne.signal) + '</div>';
     html += '</div>';
   }
-  html += '<div class="summary-bar">';
-  html += '<strong>Weekly update (' + esc(WEEKLY_SUMMARY.refreshDate) + '):</strong> ' + esc(WEEKLY_SUMMARY.keyChange);
-  html += '</div>';
-  if (WEEKLY_SUMMARY.newEntrant) {
-    html += '<div style="margin-top:4px;background:var(--light-grey);padding:5px 10px;border-radius:2px;border-left:3px solid var(--teal);font-size:10px;color:var(--dark-grey);line-height:1.35">';
-    html += '<strong style="color:var(--teal)">' + esc(WEEKLY_SUMMARY.newEntrant.name) + '</strong><span class="new-badge">New</span> — ';
-    html += esc(WEEKLY_SUMMARY.newEntrant.signal);
+
+  for (var j = 0; j < WEEKLY_SUMMARY.threatLevelChanges.length; j++) {
+    hasActivity = true;
+    var tc = WEEKLY_SUMMARY.threatLevelChanges[j];
+    html += '<div class="bc-chip threat-' + esc(tc.newThreat) + '">';
+    html += '<div class="bc-chip-name">' + esc(tc.name) + '</div>';
+    html += '<div class="bc-chip-change">Threat level changed: ' + esc(tc.oldThreat) + ' → ' + esc(tc.newThreat) + '. ' + esc(tc.reason || '') + '</div>';
+    html += '<span class="bc-chip-threat ' + esc(tc.newThreat) + '">' + esc(tc.newThreat) + '</span>';
     html += '</div>';
   }
+
+  for (var k = 0; k < WEEKLY_SUMMARY.changes.length; k++) {
+    var ch = WEEKLY_SUMMARY.changes[k];
+    if (ch.type === 'refresh') continue;
+    hasActivity = true;
+    html += '<div class="bc-chip threat-medium">';
+    html += '<div class="bc-chip-name">' + esc(ch.name) + '</div>';
+    html += '<div class="bc-chip-change">' + esc(ch.detail) + '</div>';
+    html += '</div>';
+  }
+
+  if (!hasActivity) {
+    html += '<div class="empty-state">No net-new competitive moves this week. ' + WEEKLY_SUMMARY.competitorsTracked + ' battlecards current.</div>';
+  }
+
+  if (WEEKLY_SUMMARY.watchItems && WEEKLY_SUMMARY.watchItems.length > 0) {
+    html += '<div class="summary-bar"><strong>Watch items:</strong> ';
+    html += WEEKLY_SUMMARY.watchItems.map(esc).join(' ');
+    html += '</div>';
+  }
+
   el.innerHTML = html;
 }
 
-function renderClosedLost() {
+function renderCompetitiveLosses() {
   var el = document.getElementById('competitive-losses');
+  if (COMPETITIVE_LOSSES.length === 0) {
+    el.innerHTML = '<div class="empty-state">No competitive losses this week.</div>';
+    return;
+  }
   var html = '';
-  for (var i = 0; i < CLOSED_LOST_DEALS.length; i++) {
-    var d = CLOSED_LOST_DEALS[i];
+  for (var i = 0; i < COMPETITIVE_LOSSES.length; i++) {
+    var d = COMPETITIVE_LOSSES[i];
     var arrStr = fmtK(d.arr);
     html += '<div class="deal-chip">';
     html += '<div class="deal-chip-name">' + esc(d.name) + '</div>';
     if (arrStr) {
       html += '<div class="deal-chip-meta"><span class="deal-chip-arr">' + esc(arrStr) + '</span> ARR</div>';
     }
+    if (d.detail) {
+      html += '<div class="deal-chip-detail">' + esc(d.detail) + '</div>';
+    }
+    if (d.competitor) {
+      html += '<span class="competitor-tag">vs ' + esc(d.competitor) + '</span>';
+    }
     html += '</div>';
   }
-  var totalArr = 0;
-  for (var j = 0; j < CLOSED_LOST_DEALS.length; j++) {
-    if (CLOSED_LOST_DEALS[j].arr) totalArr += CLOSED_LOST_DEALS[j].arr;
-  }
-  html += '<div class="summary-bar">' + CLOSED_LOST_DEALS.length + ' deals closed-lost in last 30 days';
-  if (totalArr > 0) html += ' · $' + Math.round(totalArr / 1000) + 'k ARR at risk (from ' + CLOSED_LOST_DEALS.filter(function(d) { return d.arr; }).length + ' with ARR data)';
-  html += '</div>';
   el.innerHTML = html;
 }
 
@@ -325,12 +344,12 @@ function renderCallIntelligence() {
     }
     html += '</ul></div>';
   }
-  html += '<div class="data-note">Intelligence derived from battlecard research, deal activity, and competitor monitoring · Refreshed ' + esc(WEEKLY_SUMMARY.refreshDate) + '</div>';
+  html += '<div class="data-note">Mon–Sun call intelligence · Battlecard research refreshed ' + esc(WEEKLY_SUMMARY.refreshDate) + '</div>';
   el.innerHTML = html;
 }
 
 renderMetrics();
-renderBattlecards();
-renderClosedLost();
+renderCompetitorActivity();
+renderCompetitiveLosses();
 renderCallIntelligence();
 </script>
