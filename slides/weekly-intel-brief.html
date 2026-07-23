@@ -113,7 +113,7 @@
       <div class="intel-section">
         <h3 class="intel-section-head">Market Pulse</h3>
         <div class="call-type-pills">
-          <span class="call-type-pill">AE Calls</span>
+          <span class="call-type-pill">Growth</span>
           <span class="call-type-pill">Account Management</span>
           <span class="call-type-pill">Onboarding</span>
         </div>
@@ -187,13 +187,32 @@ function parseCoworkRes(res) {
 }
 
 /* ── Sales Hub MCP helper (claude.ai) ── */
+function withTimeout(promise, ms) {
+  return Promise.race([promise, new Promise(function(_, reject) { setTimeout(function() { reject(new Error('Timeout')); }, ms); })]);
+}
 async function callSalesHub(tool, input) {
-  const result = await window.claude.mcp.callTool('Sales Hub', tool, input || {});
+  const result = await withTimeout(window.claude.mcp.callTool('Sales Hub', tool, input || {}), 25000);
   let data = result.payload || result.structuredContent;
   if (!data && result.content && result.content[0]) {
     try { data = JSON.parse(result.content[0].text); } catch(e) { data = { text: result.content[0].text }; }
   }
   return data || {};
+}
+function deriveBattlecardsFromDeals(deals) {
+  if (!Array.isArray(deals) || deals.length === 0) return { competitors: {}, dealCount: 0, source: 'mcp' };
+  var competitors = {};
+  deals.forEach(function(d) {
+    var comp = (d.properties || {}).competitors;
+    if (comp) {
+      comp.split(/[;,]/).map(function(c) { return c.trim(); }).filter(Boolean).forEach(function(name) {
+        if (!competitors[name]) competitors[name] = { count: 0, arr: 0, deals: [] };
+        competitors[name].count++;
+        competitors[name].arr += parseFloat((d.properties || {}).annual_recurring_revenue_w_est) || 0;
+        competitors[name].deals.push(companyOf((d.properties || {}).dealname));
+      });
+    }
+  });
+  return { competitors: competitors, dealCount: deals.length, source: 'mcp' };
 }
 
 /* ── Unified HubSpot caller ── */
@@ -248,26 +267,7 @@ async function fetchClosedLostDeals() {
 }
 
 async function fetchBattlecards() {
-  if (ENV === 'claude') {
-    try {
-      const data = await callSalesHub('search_deals', { closedLostSinceDays: 7 });
-      const deals = data.deals || [];
-      const topDeals = [...deals]
-        .sort((a, b) => (parseFloat(b.amount) || 0) - (parseFloat(a.amount) || 0))
-        .slice(0, 4);
-      const analyses = await Promise.all(topDeals.map(d =>
-        callSalesHub('ask_deal_question', {
-          dealId: d.id,
-          question: 'List competitors mentioned and key loss reasons. 3-4 bullet points max.'
-        }).then(r => ({ deal: d, answer: r.answer || '' }))
-          .catch(() => ({ deal: d, answer: '' }))
-      ));
-      return { analyses, allDeals: deals, source: 'mcp' };
-    } catch (e) {
-      console.warn('[Battlecards claude]', e);
-      return { error: e, source: 'mcp' };
-    }
-  }
+  if (ENV === 'claude') return { source: 'derive' };
   if (ENV === 'static') return { unavailable: true };
   try {
     const [summaryRes, bcRes] = await Promise.all([
@@ -288,17 +288,10 @@ async function fetchBattlecards() {
 async function fetchCallIntelligence() {
   if (ENV === 'claude') {
     try {
-      const data = await callSalesHub('search_deals', {});
-      const deals = (data.deals || []).slice(0, 5);
-      if (deals.length === 0) return { report: null, source: 'mcp' };
-      const analyses = await Promise.all(deals.slice(0, 3).map(d =>
-        callSalesHub('ask_deal_question', {
-          dealId: d.id,
-          question: 'From the Gong call recordings for this deal, what product questions, pain points, objections, and feature requests were raised? Bullet points only, grouped by category.'
-        }).then(r => ({ deal: d, answer: r.answer || '', sources: r.sources || [] }))
-          .catch(() => null)
-      ));
-      return { analyses: analyses.filter(Boolean), dealCount: deals.length, source: 'mcp' };
+      const data = await callSalesHub('ask_deal_question', {
+        question: 'Across all active deals, what are the top recurring objections, risk factors, and common themes? Group into: objections, pricing concerns, feature gaps, and competitive mentions. Bullet points only.'
+      });
+      return { answer: data.answer || '', sources: data.sources || [], source: 'mcp' };
     } catch (e) {
       console.warn('[Call Intelligence claude]', e);
       return { error: e, source: 'mcp' };
@@ -331,34 +324,11 @@ function renderBattlecards(data) {
     return 0;
   }
   if (data.source === 'mcp') {
-    if (data.error) {
-      const code = data.error.code || '';
-      let msg = 'Unable to load competitive intelligence.';
-      if (code === 'server_not_connected') msg = 'Connect Sales Hub in claude.ai Settings → Connectors.';
-      else if (code === 'needs_reauth') msg = 'Reconnect Sales Hub in claude.ai Settings → Connectors.';
-      el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
-      return 0;
-    }
-    let html = '';
-    const analyses = data.analyses || [];
-    const allDeals = data.allDeals || [];
-    const competitors = {};
-    analyses.forEach(function(a) {
-      var compBlock = a.answer.match(/competitors?\s*mentioned:?\s*([\s\S]*?)(?:\n\n\*\*|$)/i);
-      if (compBlock) {
-        var matches = compBlock[1].match(/\*\*([^*]{2,40})\*\*/g) || [];
-        matches.forEach(function(m) {
-          var name = m.replace(/\*\*/g, '').trim();
-          if (!competitors[name]) competitors[name] = { count: 0, deals: [], arr: 0 };
-          competitors[name].count++;
-          competitors[name].deals.push(a.deal.companyName || companyOf(a.deal.name));
-          competitors[name].arr += parseFloat(a.deal.amount) || 0;
-        });
-      }
-    });
+    var html = '';
+    var competitors = data.competitors || {};
     var compEntries = Object.entries(competitors).sort(function(a, b) { return b[1].count - a[1].count || b[1].arr - a[1].arr; });
     if (compEntries.length > 0) {
-      compEntries.slice(0, 5).forEach(function(entry) {
+      compEntries.slice(0, 6).forEach(function(entry) {
         var name = entry[0], info = entry[1];
         var threat = info.count >= 3 ? 'high' : info.count >= 2 ? 'medium' : 'low';
         html += '<div class="bc-chip threat-' + threat + '"><div class="bc-chip-name">' + esc(name) + '</div>' +
@@ -367,21 +337,11 @@ function renderBattlecards(data) {
           ' (' + info.deals.join(', ') + ')</div>' +
           '<span class="bc-chip-threat ' + threat + '">' + esc(threat) + '</span></div>';
       });
-    } else {
-      analyses.forEach(function(a) {
-        if (!a.answer) return;
-        var lines = a.answer.split('\n').filter(function(l) { return l.trim(); }).slice(0, 2)
-          .map(function(l) { return l.replace(/\*\*/g, '').replace(/^[-\d.)\s]+/, '').trim(); }).filter(Boolean);
-        html += '<div class="bc-chip threat-medium"><div class="bc-chip-name">' +
-          esc(a.deal.companyName || companyOf(a.deal.name)) +
-          (parseFloat(a.deal.amount) > 0 ? ' · ' + fmtK(a.deal.amount) : '') + '</div>' +
-          '<div class="bc-chip-change">' + lines.map(esc).join('; ') + '</div></div>';
-      });
     }
-    if (!html) html = '<div class="bc-chip"><div class="bc-chip-change">No competitive losses this week</div></div>';
-    if (allDeals.length > 0) html += '<div class="summary-bar">' + allDeals.length + ' losses (7d) · ' + analyses.length + ' analyzed via Sales Hub</div>';
+    if (!html) html = '<div class="bc-chip"><div class="bc-chip-change">No competitors tagged in this week\'s losses</div></div>';
+    if (data.dealCount > 0) html += '<div class="summary-bar">' + data.dealCount + ' closed-lost deals analyzed</div>';
     el.innerHTML = html;
-    return compEntries.length || analyses.length;
+    return compEntries.length;
   }
   if (data.error && !data.summary && data.battlecards.length === 0) {
     el.innerHTML = '<div class="error-state"><div class="err-label">Connection Issue</div>' +
@@ -477,47 +437,42 @@ function renderCallIntelligence(data) {
   if (data.source === 'mcp') {
     if (data.error) {
       var code = data.error.code || '';
-      var msg = 'Unable to load call intelligence.';
+      var msg = 'Unable to load market pulse.';
       if (code === 'server_not_connected') msg = 'Connect Sales Hub in claude.ai Settings → Connectors.';
       else if (code === 'needs_reauth') msg = 'Reconnect Sales Hub in claude.ai Settings → Connectors.';
+      else if (data.error.message === 'Timeout') msg = 'Sales Hub took too long to respond. Try refreshing.';
       el.innerHTML = '<div class="error-state"><div class="err-label">' + esc(code || 'Error') + '</div>' + esc(msg) + '</div>';
       document.getElementById('km-calls').textContent = '—';
       return;
     }
-    var analyses = data.analyses || [];
-    document.getElementById('km-calls').textContent = data.dealCount || analyses.length;
+    var answer = data.answer || '';
     var html = '';
-    analyses.forEach(function(a) {
-      if (!a.answer) return;
-      var sections = a.answer.split(/\n\n+/);
-      sections.forEach(function(sec) {
-        var headerMatch = sec.match(/^\*\*(.+?):?\*\*\s*([\s\S]*)/);
-        if (headerMatch) {
-          var title = headerMatch[1].replace(/:$/, '');
-          var body = headerMatch[2].trim();
-          var items = body.split(/\n/).filter(function(l) { return l.trim().match(/^[-•\d]/); })
-            .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
-          if (items.length > 0) {
-            html += '<div class="theme-card"><h4>' + esc(title) + ' <span style="font-weight:400;opacity:.6">(' + esc(a.deal.companyName || companyOf(a.deal.name)) + ')</span></h4><ul>' +
-              items.slice(0, 4).map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>';
-          }
-        }
-      });
-    });
-    if (!html && analyses.length > 0) {
-      analyses.forEach(function(a) {
-        if (!a.answer) return;
-        var lines = a.answer.split('\n').filter(function(l) { return l.trim() && l.trim().match(/^[-•\d]/); })
+    var sections = answer.split(/\n\n+/);
+    sections.forEach(function(sec) {
+      var headerMatch = sec.match(/^\*\*(.+?):?\*\*\s*([\s\S]*)/);
+      if (headerMatch) {
+        var title = headerMatch[1].replace(/:$/, '');
+        var body = headerMatch[2].trim();
+        var items = body.split(/\n/).filter(function(l) { return l.trim().match(/^[-•\d]/); })
           .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
-        if (lines.length > 0) {
-          html += '<div class="theme-card"><h4>' + esc(a.deal.companyName || companyOf(a.deal.name)) + '</h4><ul>' +
-            lines.slice(0, 5).map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></div>';
+        if (items.length > 0) {
+          html += '<div class="theme-card"><h4>' + esc(title) + '</h4><ul>' +
+            items.slice(0, 5).map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>';
         }
-      });
+      }
+    });
+    if (!html && answer) {
+      var lines = answer.split('\n').filter(function(l) { return l.trim() && l.trim().match(/^[-•\d]/); })
+        .map(function(l) { return l.replace(/^[-•\d.)\s]+/, '').replace(/\*\*/g, '').trim(); }).filter(Boolean);
+      if (lines.length > 0) {
+        html += '<div class="theme-card"><h4>Pipeline Themes</h4><ul>' +
+          lines.slice(0, 6).map(function(l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></div>';
+      }
     }
-    if (!html) html = '<div class="theme-card"><h4>No call data available</h4><ul><li>No Gong recordings found for recent deals</li></ul></div>';
-    html += '<div style="font-size:9px;color:var(--dark-grey);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:6px">' +
-      (data.dealCount || '—') + ' active deals · ' + analyses.length + ' analyzed via Sales Hub + Gong</div>';
+    if (!html) html = '<div class="theme-card"><h4>Pipeline Intelligence</h4><ul><li>No structured themes returned from current pipeline data</li></ul></div>';
+    var srcCount = (data.sources || []).length;
+    if (srcCount > 0) html += '<div style="font-size:9px;color:var(--dark-grey);font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-top:6px">' + srcCount + ' sources analyzed via Sales Hub</div>';
+    document.getElementById('km-calls').textContent = srcCount || '—';
     el.innerHTML = html;
     return;
   }
@@ -581,7 +536,10 @@ async function init() {
     fetchCallIntelligence(),
     fetchClosedLostDeals()
   ]);
-  const competitorCount = renderBattlecards(bcData);
+  const effectiveBcData = (bcData.source === 'derive')
+    ? deriveBattlecardsFromDeals(Array.isArray(lostDeals) ? lostDeals : [])
+    : bcData;
+  const competitorCount = renderBattlecards(effectiveBcData);
   renderClosedLostDeals(lostDeals);
   renderCallIntelligence(callData);
   document.getElementById('km-competitors').textContent = competitorCount || '—';
