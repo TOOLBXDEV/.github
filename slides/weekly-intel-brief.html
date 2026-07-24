@@ -34,13 +34,11 @@
   .key-metric-cell .sub { color: var(--silver-grey); font-size: 9px; margin-top: 3px; }
 
   .intel-section { margin-bottom: 14px; }
-  .intel-section h3 { margin: 0 0 8px; font-size: 10.5px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-left: 10px; border-left: 3px solid var(--sunrise-yellow); }
-  .section-label { font-size: 9px; font-weight: 700; color: var(--dark-grey); text-transform: uppercase; letter-spacing: 0.06em; margin: 10px 0 5px; }
+  .intel-section h3 { margin: 0 0 10px; font-size: 12px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 14px; border-left: 4px solid var(--sunrise-yellow); background: linear-gradient(90deg, rgba(28,141,161,0.07) 0%, transparent 60%); border-radius: 0 2px 2px 0; }
 
   .news-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .news-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--sunrise-yellow); flex: 1; min-width: 220px; }
   .news-card.high { border-left-color: var(--lost-red); }
-  .news-card.field { border-left-color: var(--teal); }
   .news-card-head { display: flex; align-items: center; gap: 6px; }
   .news-card-name { font-weight: 700; font-size: 11.5px; }
   .threat-pill { display: inline-block; font-size: 7.5px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -53,6 +51,7 @@
 
   .hearing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   @media (max-width: 820px) { .hearing-grid { grid-template-columns: 1fr; } }
+  #hearing-full { margin-top: 10px; }
 
   .theme-block { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); }
   .theme-block h4 { margin: 0 0 5px; font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; }
@@ -70,7 +69,7 @@
   .team-pill.onboarding { background: var(--sunrise-yellow); color: var(--slate-black); }
   .team-pill.acct-mgmt { background: var(--metallic-seaweed); color: var(--white); }
 
-  .section-icon { width: 14px; height: 14px; vertical-align: -2px; margin-right: 5px; }
+  .section-icon { width: 22px; height: 22px; vertical-align: -5px; margin-right: 8px; }
   .theme-item-link { font-size: 8px; color: var(--teal); text-decoration: none; font-weight: 600; margin-left: 4px; }
   .theme-item-link:hover { text-decoration: underline; }
 </style>
@@ -97,19 +96,18 @@
     </div>
 
     <div class="intel-section">
-      <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="14" width="4" height="8" rx="1" fill="#1C1C1E"/><rect x="8" y="10" width="4" height="12" rx="1" fill="#1C1C1E"/><rect x="14" y="6" width="4" height="16" rx="1" fill="#1C1C1E"/><rect x="20" y="2" width="4" height="20" rx="1" fill="#1C1C1E" opacity="0.4"/></svg>Competitor Activity</h3>
+      <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#1C8DA1" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="#1C8DA1" stroke-width="1.5"/><circle cx="12" cy="12" r="1.5" fill="#FFCA05"/><line x1="12" y1="1" x2="12" y2="5" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="19" x2="12" y2="23" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="12" x2="5" y2="12" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="12" x2="23" y2="12" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/></svg>Competitor Activity</h3>
       <div class="news-row" id="activity-news"></div>
-      <div class="section-label" id="field-label">In the Field</div>
-      <div class="news-row" id="activity-field"></div>
     </div>
 
     <div class="intel-section">
-      <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 11.5C21 16.75 16.75 21 11.5 21C10.05 21 8.68 20.67 7.45 20.08L3 21L3.92 16.55C3.33 15.32 3 13.95 3 12.5C3 7.25 7.25 3 12.5 3C17.75 3 21 7.25 21 11.5Z" stroke="#1C1C1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="12" r="1" fill="#1C1C1E"/><circle cx="12.5" cy="12" r="1" fill="#1C1C1E"/><circle cx="16.5" cy="12" r="1" fill="#1C1C1E"/></svg>What We're Hearing</h3>
+      <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 18V12a9 9 0 0 1 18 0v6" stroke="#1C8DA1" stroke-width="2.5" stroke-linecap="round"/><rect x="1" y="14" width="4" height="7" rx="2" fill="#FFCA05"/><rect x="19" y="14" width="4" height="7" rx="2" fill="#FFCA05"/><path d="M8.5 10.5a3.5 3.5 0 0 1 7 0" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg>What We're Hearing</h3>
       <div class="hearing-grid">
         <div id="hearing-left"></div>
         <div id="hearing-right"></div>
       </div>
-      <div class="data-note">Themes from Gong calls &middot; Jul 21&ndash;27, 2026 (Franklin, R.P. Lumber, TAL, Harrington)</div>
+      <div id="hearing-full"></div>
+      <div class="data-note">Themes from Gong calls &middot; Last 30 days (Franklin, R.P. Lumber, TAL, Tague, Harrington, Sunpro, Parr)</div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -144,24 +142,26 @@ function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function
 
 var DATA = {
   tracked: 20,
-  threatBreakdown: '5 high · 10 medium · 5 low',
+  threatBreakdown: '5 high \xb7 10 medium \xb7 5 low',
   news: [
     { name: 'Epicor', threat: 'high', text: 'Conexiom expanded partnership for AI-powered order and invoice automation across Eclipse and Prophet 21', src: 'BusinessWire, Jul 14', url: 'https://www.businesswire.com/news/home/20260714215043/en/Conexiom-Expands-Strategic-Partnership-With-Epicor-to-Advance-AI-Order-and-Invoice-Automation-for-Distributors' }
-  ],
-  fieldIntel: [
-    { name: 'WebTrack', text: 'Actively being replaced across 4 accounts citing payment failures, poor UX, and declining product quality', who: 'R.P. Lumber, Tague, Franklin, TAL' },
-    { name: 'Suppli', text: 'Emerging as closest direct competitor with prospects comparing pricing and implementation fees side by side', who: 'Franklin, Harrington' }
   ],
   entrants: [],
   losses: [],
   themes: [
+    { label: 'Feature Gaps', items: [
+      { title: 'Blueprint-to-Order / Takeoff', text: 'Competitors offering better online takeoff solutions; accounts shifting from Paradigm to Simpson; takeoff automation tied to AI order entry roadmap', who: 'Tague, TAL, R.P. Lumber', teams: ['growth', 'acct-mgmt'], url: 'https://app.gong.io/call?id=4214458280122658435' },
+      { title: 'Apple Pay / Google Pay', text: 'Not yet supported; acknowledged as "table stakes nowadays" with growing customer expectations for digital wallet checkout', who: 'R.P. Lumber, Tague', teams: ['growth'], url: 'https://app.gong.io/call?id=7035493197834213793' },
+      { title: 'Promo Codes', text: 'Multiple requests for retail-oriented promotional capabilities; "a big one" for B2C-focused accounts; feature in development for shipping', who: 'R.P. Lumber, Tague', teams: ['growth'], url: 'https://app.gong.io/call?id=4214458280122658435' }
+    ]},
     { label: 'Pain Points', items: [
-      { title: 'ERP/Payment Reconciliation', text: 'WebTrak causes "a big headache" with payment reconciliation across 15 branches and cash drawers; Epicor API instability breaking e-commerce', who: 'Franklin, R.P. Lumber', teams: ['onboarding', 'growth'] },
-      { title: 'AR Dashboard Gaps', text: 'Missing notes, date entry, and action panel for customer search; DSO underperforming targets', who: 'TAL Building Centers', teams: ['acct-mgmt'] }
+      { title: 'ERP/Payment Reconciliation', text: 'Cash drawer sync issues across 15 branches; merchant ID confusion causing "a big headache"; WebTrack API creating payment inconsistencies', who: 'Franklin, R.P. Lumber, TAL', teams: ['onboarding', 'growth', 'acct-mgmt'], url: 'https://app.gong.io/call?id=1288530892711481686' },
+      { title: 'Credit Card Processing Fees', text: '"Extraordinary amount of money" in CC fees; 1% reduction worth significant revenue; building business case for surcharging across accounts', who: 'TAL, Tague, R.P. Lumber, Harrington', teams: ['acct-mgmt', 'growth'], url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' },
+      { title: 'AR Collection / DSO', text: 'Manual AR follow-ups; accounts not tracking DSO; 30% DSO reduction demonstrated with TOOLBX payment tools', who: 'TAL, Harrington, R.P. Lumber', teams: ['acct-mgmt', 'growth'], url: 'https://app.gong.io/call?id=7634502219134060654' }
     ]},
     { label: 'Competitive Landscape', items: [
-      { title: 'WebTrack Displacement', text: 'Actively being replaced across 4 accounts citing payment failures, poor UX, and declining product quality', who: 'R.P. Lumber, Tague, Franklin, TAL', teams: ['growth', 'onboarding', 'acct-mgmt'] },
-      { title: 'Closed Lost Re-engage', text: 'Harrington evaluating upcoming tools from existing vendor; not interested in third-party billing at this time', who: 'Harrington', teams: ['growth'] }
+      { title: 'WebTrack Displacement', text: 'Actively being replaced across 5+ accounts; "tolerable...we\'ve gone downhill"; payment failures, poor UX, and declining quality', who: 'Franklin, R.P. Lumber, TAL, Tague, Sunpro', teams: ['growth', 'onboarding', 'acct-mgmt'], url: 'https://app.gong.io/call?id=4214458280122658435' },
+      { title: 'ERP Vendor Lock-in', text: 'ERPs have "a stranglehold over technology investment"; Epicor raising API costs to $600/mo and closing data access loopholes', who: 'Tague, R.P. Lumber, Franklin', teams: ['growth', 'onboarding'], url: 'https://app.gong.io/call?id=8193648096568394735' }
     ]}
   ]
 };
@@ -183,9 +183,6 @@ function renderMetrics() {
 
 function renderActivity() {
   var newsEl = document.getElementById('activity-news');
-  var fieldEl = document.getElementById('activity-field');
-  var fieldLabel = document.getElementById('field-label');
-
   var h = '';
   if (DATA.news.length === 0 && DATA.entrants.length === 0) {
     h = '<div class="empty-state">Quiet week across ' + DATA.tracked + ' battlecards</div>';
@@ -205,22 +202,6 @@ function renderActivity() {
     }
   }
   newsEl.innerHTML = h;
-
-  if (DATA.fieldIntel.length > 0) {
-    fieldLabel.style.display = '';
-    var f = '';
-    for (var k = 0; k < DATA.fieldIntel.length; k++) {
-      var fi = DATA.fieldIntel[k];
-      f += '<div class="news-card field">';
-      f += '<div class="news-card-head"><span class="news-card-name">' + esc(fi.name) + '</span></div>';
-      f += '<div class="news-card-body">' + esc(fi.text) + '</div>';
-      f += '<div class="news-card-src">' + esc(fi.who) + ' &middot; Gong</div>';
-      f += '</div>';
-    }
-    fieldEl.innerHTML = f;
-  } else {
-    fieldLabel.style.display = 'none';
-  }
 }
 
 var TEAM_LABELS = { 'growth': 'Growth', 'onboarding': 'Onboarding', 'acct-mgmt': 'Account Mgmt' };
@@ -252,16 +233,22 @@ function renderThemeBlock(theme) {
 function renderHearing() {
   var leftEl = document.getElementById('hearing-left');
   var rightEl = document.getElementById('hearing-right');
+  var fullEl = document.getElementById('hearing-full');
   var lh = '';
   var rh = '';
+  var fh = '';
   if (DATA.themes.length > 0) {
     lh = renderThemeBlock(DATA.themes[0]);
   }
   if (DATA.themes.length > 1) {
     rh = renderThemeBlock(DATA.themes[1]);
   }
+  if (DATA.themes.length > 2) {
+    fh = renderThemeBlock(DATA.themes[2]);
+  }
   leftEl.innerHTML = lh;
   rightEl.innerHTML = rh;
+  fullEl.innerHTML = fh;
 }
 
 renderMetrics();
