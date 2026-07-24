@@ -33,17 +33,14 @@
   .key-metric-cell .val { font-family: Georgia, "Bitter", serif; color: var(--white); font-size: 18px; font-weight: 700; line-height: 1; }
   .key-metric-cell .sub { color: var(--silver-grey); font-size: 9px; margin-top: 3px; }
 
-  .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1; min-height: 0; }
-  @media (max-width: 820px) { .intel-grid { grid-template-columns: 1fr; } }
+  .intel-section { margin-bottom: 14px; }
+  .intel-section h3 { margin: 0 0 8px; font-size: 10.5px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-left: 10px; border-left: 3px solid var(--sunrise-yellow); }
+  .section-label { font-size: 9px; font-weight: 700; color: var(--dark-grey); text-transform: uppercase; letter-spacing: 0.06em; margin: 10px 0 5px; }
 
-  .intel-col { display: flex; flex-direction: column; min-height: 0; }
-  .intel-col h3 { margin: 0 0 8px; font-size: 10.5px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-left: 10px; border-left: 3px solid var(--sunrise-yellow); }
-
-  .section-label { font-size: 9px; font-weight: 700; color: var(--dark-grey); text-transform: uppercase; letter-spacing: 0.06em; margin: 12px 0 5px; }
-  .section-label:first-of-type { margin-top: 0; }
-
-  .news-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--sunrise-yellow); margin-bottom: 5px; }
+  .news-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .news-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--sunrise-yellow); flex: 1; min-width: 220px; }
   .news-card.high { border-left-color: var(--lost-red); }
+  .news-card.field { border-left-color: var(--teal); }
   .news-card-head { display: flex; align-items: center; gap: 6px; }
   .news-card-name { font-weight: 700; font-size: 11.5px; }
   .threat-pill { display: inline-block; font-size: 7.5px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -54,27 +51,16 @@
   .news-card-src a { color: var(--teal); text-decoration: none; font-weight: 600; }
   .news-card-src a:hover { text-decoration: underline; }
 
-  .entrant-chip { background: var(--light-grey); padding: 6px 10px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 5px; }
-  .entrant-chip-head { font-weight: 700; font-size: 11px; }
-  .entrant-chip-head .new-tag { display: inline-block; font-size: 7px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--teal); color: var(--white); margin-left: 5px; vertical-align: middle; }
-  .entrant-chip-body { font-size: 10px; color: var(--dark-grey); margin-top: 2px; }
+  .hearing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 820px) { .hearing-grid { grid-template-columns: 1fr; } }
 
-  .loss-chip { background: var(--light-grey); padding: 5px 9px; border-radius: 2px; font-size: 11px; border-left: 3px solid var(--lost-red); margin-bottom: 5px; }
-  .loss-chip-name { font-weight: 700; }
-  .loss-chip-meta { color: var(--dark-grey); font-size: 10px; margin-top: 1px; }
-  .loss-chip-arr { font-weight: 700; font-variant-numeric: tabular-nums; font-family: Georgia, "Bitter", serif; }
-  .loss-chip-detail { color: var(--dark-grey); font-size: 10px; margin-top: 1px; font-style: italic; }
-  .competitor-tag { display: inline-block; margin-top: 2px; padding: 0px 5px; background: var(--white); color: var(--dark-grey); border: 1px solid var(--silver-grey); border-radius: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
-
-  .theme-block { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 6px; }
+  .theme-block { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); }
   .theme-block h4 { margin: 0 0 5px; font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; }
   .theme-item { margin-bottom: 6px; }
   .theme-item:last-child { margin-bottom: 0; }
   .theme-item-title { font-weight: 700; font-size: 11px; color: var(--slate-black); }
   .theme-item-text { font-size: 10px; color: var(--dark-grey); line-height: 1.35; }
   .theme-item-meta { font-size: 8px; color: var(--silver-grey); margin-top: 2px; }
-  .theme-item-meta a { color: var(--teal); text-decoration: none; font-weight: 600; }
-  .theme-item-meta a:hover { text-decoration: underline; }
 
   .empty-state { background: var(--light-grey); border-radius: 2px; padding: 6px 12px; font-size: 10px; color: var(--silver-grey); border-left: 3px solid var(--light-grey); }
   .data-note { font-size: 8.5px; color: var(--silver-grey); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -101,20 +87,23 @@
       <div class="key-metric-cell"><div class="lbl">New Entrants</div><div class="val" id="km-entrants"></div><div class="sub" id="km-entrants-sub"></div></div>
     </div>
 
-    <div class="intel-grid">
-      <div class="intel-col">
-        <h3>Competitor Activity</h3>
-        <div id="activity"></div>
-        <div class="section-label" style="margin-top:14px">Competitive Losses</div>
-        <div id="losses"></div>
+    <div class="intel-section">
+      <h3>Competitor Activity</h3>
+      <div class="news-row" id="activity-news"></div>
+      <div class="section-label" id="field-label">In the Field</div>
+      <div class="news-row" id="activity-field"></div>
+    </div>
+
+    <div class="intel-section">
+      <h3>What We're Hearing</h3>
+      <div class="hearing-grid">
+        <div id="hearing-left"></div>
+        <div id="hearing-right"></div>
       </div>
-      <div class="intel-col">
-        <h3>What We're Hearing</h3>
-        <div id="hearing"></div>
-      </div>
+      <div class="data-note">Themes ranked by frequency across accounts &middot; Gong Mar&ndash;Jul 2026</div>
     </div>
   </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; HubSpot &middot; Gong</span></div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
 </div>
 
 <script>
@@ -144,37 +133,30 @@ try {
 var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
-/* ======================================================
-   DATA
-   ====================================================== */
-
 var DATA = {
   tracked: 20,
   threatBreakdown: '5 high · 10 medium · 5 low',
   news: [
-    { name: 'Unilog', threat: 'medium', text: 'Won 8/10 gold medals in 2026 Paradigm B2B Combine -- top marks in AI, content management, and sales enablement', src: 'EIN Presswire, Jul 21', url: 'https://www.einnews.com/pr_news/928312923/unilog-wins-eight-gold-medals-in-2026-paradigm-b2b-combine' }
+    { name: 'Epicor', threat: 'high', text: 'Conexiom expanded partnership for AI-powered order and invoice automation across Eclipse and Prophet 21', src: 'BusinessWire, Jul 14', url: 'https://www.businesswire.com/news/home/20260714215043/en/Conexiom-Expands-Strategic-Partnership-With-Epicor-to-Advance-AI-Order-and-Invoice-Automation-for-Distributors' },
+    { name: 'Unilog', threat: 'medium', text: 'Won 8 of 10 gold medals in 2026 Paradigm B2B Combine for AI, content management, and sales enablement', src: 'EIN Presswire, Jul 21', url: 'https://www.einnews.com/pr_news/928312923/unilog-wins-eight-gold-medals-in-2026-paradigm-b2b-combine' }
+  ],
+  fieldIntel: [
+    { name: 'WebTrack', text: 'Actively being replaced across 4 accounts citing payment failures, poor UX, and declining product quality', who: 'R.P. Lumber, Tague, Franklin, TAL' },
+    { name: 'Suppli', text: 'Emerging as closest direct competitor with prospects comparing pricing and implementation fees side by side', who: 'Franklin, Harrington' }
   ],
   entrants: [],
   losses: [],
   themes: [
-    { label: 'Competitive Mentions', items: [
-      { title: 'Big-Box Pressure', text: 'HD/Lowe\'s pro apps setting contractor expectations dealers feel they must match', who: '10 accounts incl. Smick, Stockham, Tague, R.P. Lumber', url: 'https://us-43298.app.gong.io/call?id=5696443663530162994' },
-      { title: 'Epicor Lock-in', text: 'Dealers compare us against Epicor\'s own e-commerce; changing API fees create friction', who: '8 accounts incl. TAL, Tague, R.P. Lumber, Franklin', url: 'https://app.gong.io/call?id=7634502219134060654' }
-    ]},
     { label: 'Feature Gaps', items: [
-      { title: 'Blueprint-to-Order', text: 'Contractors send plans not lists -- need takeoff tool. HD already has one', who: 'Ganahl, Franklin, TAL', url: 'https://app.gong.io/call?id=1288530892711481686' },
-      { title: 'Mobile App', text: 'Job-site ordering on phones -- current ERP portals aren\'t mobile-friendly', who: 'TAL, Kansas Lumber, Bliffert', url: 'https://app.gong.io/call?id=7634502219134060654' }
+      { title: 'Blueprint/Takeoff', text: 'Contractors send plans not lists -- need integrated takeoff tool; HD and BFS already market this', who: 'R.P. Lumber, Ganahl, TAL, Tague' },
+      { title: 'Promo Codes', text: 'No native promo codes, coupons, or loyalty point redemption at checkout', who: 'R.P. Lumber, Franklin, Smick' }
     ]},
     { label: 'Pain Points', items: [
-      { title: 'ERP Integration', text: 'Syncing catalogs/pricing/customers takes weeks and delays launches', who: '10 accounts incl. R.P. Lumber, Franklin, TAL, Tague', url: 'https://app.gong.io/call?id=8763242451987280498' },
-      { title: 'AR Collection', text: '80% of customers require payment chasing; teams track on sticky notes', who: 'Dewitt, Tibbetts, Espy, Kansas, Stockham', url: null }
+      { title: 'ERP Integration', text: 'Unstable Epicor/Biztrack APIs cause sync failures and broken e-commerce workflows', who: '7 accounts incl. R.P. Lumber, Tague, Franklin, TAL' },
+      { title: 'AR Collection', text: 'Manual payment chasing via phone, email, spreadsheets with no automation for reminders', who: '5 accounts incl. Harrington, TAL, Espy, Tibbetts' }
     ]}
   ]
 };
-
-/* ======================================================
-   RENDER
-   ====================================================== */
 
 function renderMetrics() {
   document.getElementById('km-tracked').textContent = String(DATA.tracked);
@@ -185,81 +167,84 @@ function renderMetrics() {
   document.getElementById('km-activity-sub').textContent = actCount > 0 ? 'this week' : 'quiet week';
 
   document.getElementById('km-losses').textContent = String(DATA.losses.length);
-  document.getElementById('km-losses-sub').textContent = DATA.losses.length > 0 ? 'this week' : 'this week';
+  document.getElementById('km-losses-sub').textContent = 'this week';
 
   document.getElementById('km-entrants').textContent = String(DATA.entrants.length);
   document.getElementById('km-entrants-sub').textContent = DATA.entrants.length > 0 ? DATA.entrants[0].name : 'this week';
 }
 
 function renderActivity() {
-  var el = document.getElementById('activity');
-  if (!DATA.news.length && !DATA.entrants.length) {
-    el.innerHTML = '<div class="empty-state">Quiet week across ' + DATA.tracked + ' battlecards</div>';
-    return;
-  }
+  var newsEl = document.getElementById('activity-news');
+  var fieldEl = document.getElementById('activity-field');
+  var fieldLabel = document.getElementById('field-label');
+
   var h = '';
-  for (var i = 0; i < DATA.news.length; i++) {
-    var n = DATA.news[i];
-    h += '<div class="news-card' + (n.threat === 'high' ? ' high' : '') + '">';
-    h += '<div class="news-card-head"><span class="news-card-name">' + esc(n.name) + '</span>';
-    h += '<span class="threat-pill ' + esc(n.threat) + '">' + esc(n.threat) + '</span></div>';
-    h += '<div class="news-card-body">' + esc(n.text) + '</div>';
-    if (n.url) {
-      h += '<div class="news-card-src"><a href="' + esc(n.url) + '" target="_blank">' + esc(n.src) + '</a></div>';
-    } else if (n.src) {
-      h += '<div class="news-card-src">' + esc(n.src) + '</div>';
+  if (DATA.news.length === 0 && DATA.entrants.length === 0) {
+    h = '<div class="empty-state">Quiet week across ' + DATA.tracked + ' battlecards</div>';
+  } else {
+    for (var i = 0; i < DATA.news.length; i++) {
+      var n = DATA.news[i];
+      h += '<div class="news-card' + (n.threat === 'high' ? ' high' : '') + '">';
+      h += '<div class="news-card-head"><span class="news-card-name">' + esc(n.name) + '</span>';
+      h += '<span class="threat-pill ' + esc(n.threat) + '">' + esc(n.threat) + '</span></div>';
+      h += '<div class="news-card-body">' + esc(n.text) + '</div>';
+      if (n.url) {
+        h += '<div class="news-card-src"><a href="' + esc(n.url) + '" target="_blank">' + esc(n.src) + '</a></div>';
+      } else if (n.src) {
+        h += '<div class="news-card-src">' + esc(n.src) + '</div>';
+      }
+      h += '</div>';
     }
-    h += '</div>';
   }
-  for (var j = 0; j < DATA.entrants.length; j++) {
-    var e = DATA.entrants[j];
-    h += '<div class="entrant-chip"><div class="entrant-chip-head">' + esc(e.name) + '<span class="new-tag">New</span></div>';
-    h += '<div class="entrant-chip-body">' + esc(e.text) + '</div></div>';
+  newsEl.innerHTML = h;
+
+  if (DATA.fieldIntel.length > 0) {
+    fieldLabel.style.display = '';
+    var f = '';
+    for (var k = 0; k < DATA.fieldIntel.length; k++) {
+      var fi = DATA.fieldIntel[k];
+      f += '<div class="news-card field">';
+      f += '<div class="news-card-head"><span class="news-card-name">' + esc(fi.name) + '</span></div>';
+      f += '<div class="news-card-body">' + esc(fi.text) + '</div>';
+      f += '<div class="news-card-src">' + esc(fi.who) + ' &middot; Gong</div>';
+      f += '</div>';
+    }
+    fieldEl.innerHTML = f;
+  } else {
+    fieldLabel.style.display = 'none';
   }
-  el.innerHTML = h;
 }
 
-function renderLosses() {
-  var el = document.getElementById('losses');
-  if (!DATA.losses.length) {
-    el.innerHTML = '<div class="empty-state">No competitive losses this week</div>';
-    return;
-  }
-  var h = '';
-  for (var i = 0; i < DATA.losses.length; i++) {
-    var d = DATA.losses[i];
-    h += '<div class="loss-chip"><div class="loss-chip-name">' + esc(d.name) + '</div>';
-    if (d.arr) h += '<div class="loss-chip-meta"><span class="loss-chip-arr">$' + Math.round(d.arr / 1000) + 'k</span> ARR</div>';
-    if (d.detail) h += '<div class="loss-chip-detail">' + esc(d.detail) + '</div>';
-    if (d.competitor) h += '<span class="competitor-tag">vs ' + esc(d.competitor) + '</span>';
+function renderThemeBlock(theme) {
+  var h = '<div class="theme-block"><h4>' + esc(theme.label) + '</h4>';
+  for (var i = 0; i < theme.items.length; i++) {
+    var it = theme.items[i];
+    h += '<div class="theme-item">';
+    h += '<div class="theme-item-title">' + esc(it.title) + '</div>';
+    h += '<div class="theme-item-text">' + esc(it.text) + '</div>';
+    h += '<div class="theme-item-meta">' + esc(it.who) + '</div>';
     h += '</div>';
   }
-  el.innerHTML = h;
+  h += '</div>';
+  return h;
 }
 
 function renderHearing() {
-  var el = document.getElementById('hearing');
-  var h = '';
-  for (var t = 0; t < DATA.themes.length; t++) {
-    var theme = DATA.themes[t];
-    h += '<div class="theme-block"><h4>' + esc(theme.label) + '</h4>';
-    for (var i = 0; i < theme.items.length; i++) {
-      var it = theme.items[i];
-      h += '<div class="theme-item">';
-      h += '<div class="theme-item-title">' + esc(it.title) + '</div>';
-      h += '<div class="theme-item-text">' + esc(it.text) + '</div>';
-      h += '<div class="theme-item-meta">' + esc(it.who);
-      if (it.url) h += ' · <a href="' + esc(it.url) + '" target="_blank">Recording</a>';
-      h += '</div></div>';
-    }
-    h += '</div>';
+  var leftEl = document.getElementById('hearing-left');
+  var rightEl = document.getElementById('hearing-right');
+  var lh = '';
+  var rh = '';
+  if (DATA.themes.length > 0) {
+    lh = renderThemeBlock(DATA.themes[0]);
   }
-  h += '<div class="data-note">Themes ranked by frequency across accounts · Gong Mar–Jul 2026</div>';
-  el.innerHTML = h;
+  if (DATA.themes.length > 1) {
+    rh = renderThemeBlock(DATA.themes[1]);
+  }
+  leftEl.innerHTML = lh;
+  rightEl.innerHTML = rh;
 }
 
 renderMetrics();
 renderActivity();
-renderLosses();
 renderHearing();
 </script>
