@@ -67,7 +67,8 @@
 
   .team-pill { display: inline-block; font-size: 7px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 3px; vertical-align: middle; }
   .team-pill.growth { background: var(--teal); color: var(--white); }
-  .team-pill.acct-mgmt { background: var(--sunrise-yellow); color: var(--slate-black); }
+  .team-pill.onboarding { background: var(--teal); color: var(--white); }
+  .team-pill.acct-mgmt { background: var(--metallic-seaweed); color: var(--white); }
 
   .section-icon { width: 14px; height: 14px; vertical-align: -2px; margin-right: 5px; }
   .theme-item-link { font-size: 8px; color: var(--teal); text-decoration: none; font-weight: 600; margin-left: 4px; }
@@ -160,7 +161,7 @@ var DATA = {
     ]},
     { label: 'Competitive Landscape', items: [
       { title: 'WebTrack Displacement', text: 'Actively being replaced across 4 accounts citing payment failures, poor UX, and declining product quality', who: 'R.P. Lumber, Tague, Franklin, TAL', teams: ['acct-mgmt'] },
-      { title: 'Prospect Satisfied with Current Software', text: 'Harrington evaluating upcoming tools from existing vendor; not interested in third-party billing at this time', who: 'Harrington', teams: ['growth'] }
+      { title: 'Prospect Satisfied with Current Software', text: 'Harrington evaluating upcoming tools from existing vendor; not interested in third-party billing at this time', who: 'Harrington', teams: ['onboarding'] }
     ]}
   ]
 };
@@ -222,7 +223,7 @@ function renderActivity() {
   }
 }
 
-var TEAM_LABELS = { 'growth': 'Growth', 'acct-mgmt': 'Account Mgmt' };
+var TEAM_LABELS = { 'growth': 'Growth', 'onboarding': 'Onboarding', 'acct-mgmt': 'Account Mgmt' };
 
 function renderThemeBlock(theme) {
   var h = '<div class="theme-block"><h4>' + esc(theme.label) + '</h4>';
