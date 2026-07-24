@@ -67,7 +67,7 @@
 
   .team-pill { display: inline-block; font-size: 7px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 3px; vertical-align: middle; }
   .team-pill.growth { background: var(--teal); color: var(--white); }
-  .team-pill.onboarding { background: var(--teal); color: var(--white); }
+  .team-pill.onboarding { background: var(--sunrise-yellow); color: var(--slate-black); }
   .team-pill.acct-mgmt { background: var(--metallic-seaweed); color: var(--white); }
 
   .section-icon { width: 14px; height: 14px; vertical-align: -2px; margin-right: 5px; }
@@ -156,12 +156,12 @@ var DATA = {
   losses: [],
   themes: [
     { label: 'Pain Points', items: [
-      { title: 'ERP/Payment Reconciliation', text: 'WebTrak causes "a big headache" with payment reconciliation across 15 branches and cash drawers; Epicor API instability breaking e-commerce', who: 'Franklin, R.P. Lumber', teams: ['acct-mgmt'] },
+      { title: 'ERP/Payment Reconciliation', text: 'WebTrak causes "a big headache" with payment reconciliation across 15 branches and cash drawers; Epicor API instability breaking e-commerce', who: 'Franklin, R.P. Lumber', teams: ['onboarding', 'growth'] },
       { title: 'AR Dashboard Gaps', text: 'Missing notes, date entry, and action panel for customer search; DSO underperforming targets', who: 'TAL Building Centers', teams: ['acct-mgmt'] }
     ]},
     { label: 'Competitive Landscape', items: [
-      { title: 'WebTrack Displacement', text: 'Actively being replaced across 4 accounts citing payment failures, poor UX, and declining product quality', who: 'R.P. Lumber, Tague, Franklin, TAL', teams: ['acct-mgmt'] },
-      { title: 'Prospect Satisfied with Current Software', text: 'Harrington evaluating upcoming tools from existing vendor; not interested in third-party billing at this time', who: 'Harrington', teams: ['onboarding'] }
+      { title: 'WebTrack Displacement', text: 'Actively being replaced across 4 accounts citing payment failures, poor UX, and declining product quality', who: 'R.P. Lumber, Tague, Franklin, TAL', teams: ['growth', 'onboarding', 'acct-mgmt'] },
+      { title: 'Closed Lost Re-engage', text: 'Harrington evaluating upcoming tools from existing vendor; not interested in third-party billing at this time', who: 'Harrington', teams: ['growth'] }
     ]}
   ]
 };
