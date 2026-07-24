@@ -68,6 +68,7 @@
   .theme-card h4 { margin: 0 0 5px; font-size: 9.5px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.05em; }
   .theme-card ul { margin: 0; padding-left: 14px; }
   .theme-card li { font-size: 10.5px; color: var(--slate-black); line-height: 1.45; margin-bottom: 6px; }
+  .theme-card li strong { color: var(--slate-black); font-size: 11px; }
   .call-source { font-size: 8px; color: var(--mid-grey); margin-top: 2px; line-height: 1.3; }
   .call-source a { color: var(--teal); text-decoration: none; font-weight: 600; }
   .call-source a:hover { text-decoration: underline; }
@@ -113,7 +114,7 @@
     <div class="intel-grid">
       <div class="intel-section">
         <h3 class="intel-section-head">Competitive Intelligence</h3>
-        <div class="intel-sub">Competitor News This Week</div>
+        <div class="intel-sub">Competitor Activity This Week</div>
         <div id="competitor-news"></div>
         <div class="intel-sub" style="margin-top:14px">Competitive Losses</div>
         <div id="competitive-losses"></div>
@@ -172,54 +173,41 @@ var WEEKLY_SUMMARY = {
 
 var COMPETITOR_NEWS = [
   {
-    competitor: 'Rundoo',
-    threat: 'high',
-    headline: 'Rundoo goes live at Vetter Lumber with AI that builds reports in seconds — replaces hours of manual work on day one.',
-    sourceLabel: 'rundoo.ai — Vetter Lumber Case Study',
-    sourceUrl: 'https://rundoo.ai/clients/vetter-lumber/'
-  },
-  {
-    competitor: 'SubBase',
-    threat: 'medium',
-    headline: 'SubBase raised $7M Series A (FINTOP) to expand from procurement into payments and an AI layer that learns from pricing and supplier data.',
-    sourceLabel: 'GlobeNewsWire — Jun 17, 2026',
-    sourceUrl: 'https://www.globenewswire.com/news-release/2026/06/17/3313616/0/en/subbase-raises-7-million-series-a-to-further-grow-and-scale-its-construction-materials-procurement-platform.html'
-  },
-  {
-    competitor: 'Prokeep',
-    threat: 'medium',
-    headline: 'Prokeep partnered with Trade Hounds so contractors can snap a photo or speak an order and have it flow directly into a distributor’s system.',
-    sourceLabel: 'tradehounds.com — Prokeep Integration',
-    sourceUrl: 'https://www.tradehounds.com/news/trade-hounds-prokeep-integration-order-management'
+    competitor: ‘Unilog’,
+    threat: ‘medium’,
+    headline: ‘Unilog\’s CX1 platform won 8 of 10 gold medals in the 2026 Paradigm B2B Combine (Midmarket Edition) — including Content Management, Sales Enablement, and Vision & Strategy. Report also highlighted Unilog\’s emerging agentic AI capabilities.’,
+    sourceLabel: ‘EIN Presswire — Jul 21, 2026’,
+    sourceUrl: ‘https://www.einnews.com/pr_news/928312923/unilog-wins-eight-gold-medals-in-2026-paradigm-b2b-combine’
   }
 ];
 
-var NEW_ENTRANTS = [
-  { name: 'SalesJack', category: 'adjacent', signal: 'AI cross-sell tool pitched directly to LBM dealers. Sales add-on, not a commerce platform. No funding signal yet.' }
-];
+var NEW_ENTRANTS = [];
 
 var COMPETITIVE_LOSSES = [];
 
 var CALL_THEMES = [
   {
-    title: 'Competitive Mentions',
+    title: ‘Competitive Mentions’,
     items: [
-      { text: 'Prospects are shopping us against Rundoo’s AI tools — they want to know what we can do that Rundoo can’t, especially around reporting and inventory insights', pills: ['growth'], company: 'Valley Wide Cooperative', date: 'Jul 15', gongUrl: null },
-      { text: 'Flitch is quoting dealers a 14-day payback and lower monthly costs — coming up in almost every new-biz call as the “cheaper option”', pills: ['growth'], company: 'Kodiak Building Partners', date: 'Jul 16', gongUrl: null }
+      { label: ‘Big-Box Pressure’, text: ‘Home Depot and Lowe\’s pro apps and online pricing are setting contractor expectations that independent dealers feel they need to match — prospects consistently cite them as the default alternative’, pills: [‘growth’], companies: ‘Smick Lumber, Stockham, Tague, R.P. Lumber, Franklin, Ganahl +4 more’, gongUrl: ‘https://us-43298.app.gong.io/call?id=5696443663530162994’ },
+      { label: ‘Epicor Ecosystem Lock-in’, text: ‘Dealers on Epicor/BisTrack compare TOOLBX against Epicor\’s own e-commerce modules and WebTrack portals — Epicor\’s changing API fees and instability slow our integrations and create competitive friction’, pills: [‘onboarding’], companies: ‘TAL, Tague, R.P. Lumber, Franklin, Smick, Branford +2 more’, gongUrl: ‘https://app.gong.io/call?id=7634502219134060654’ },
+      { label: ‘Spruce as Alternative’, text: ‘Spruce (merged with Dry Powder) coming up as a direct e-commerce competitor — one dealer was openly unhappy with a peer\’s Spruce site, another found it unintuitive as an ERP’, pills: [‘growth’], companies: ‘B&B Lumber, Bliffert, Evans Lumber’, gongUrl: ‘https://us-43298.app.gong.io/call?id=4508524477491500427’ }
     ]
   },
   {
-    title: 'Feature Gaps',
+    title: ‘Feature Gaps’,
     items: [
-      { text: 'Dealers want to send invoices, collect payments, and manage credit all inside TOOLBX — today they need a separate tool like Suppli or Nuvo for that', pills: ['onboarding','acct-mgmt'], company: 'Island Home Center', date: 'Jul 14', gongUrl: null },
-      { text: 'Customers want to place and check orders from their phone on the job site — Rundoo’s new mobile app is getting their attention because we don’t have one yet', pills: ['growth'], company: 'Congleton Lumber', date: 'Jul 17', gongUrl: null }
+      { label: ‘Blueprint-to-Order’, text: ‘Contractors submit plans, not material lists — dealers need a takeoff tool to convert blueprints into orders. Home Depot already has one, and prospects keep asking if we do too’, pills: [‘growth’], companies: ‘Ganahl, Franklin, TAL’, gongUrl: ‘https://app.gong.io/call?id=1288530892711481686’ },
+      { label: ‘Mobile Ordering’, text: ‘Contractors want to place and check orders from their phone on the job site — multiple accounts asking for a native app since current ERP portals aren\’t mobile-friendly’, pills: [‘growth’], companies: ‘TAL, Kansas Lumber, Bliffert’, gongUrl: ‘https://app.gong.io/call?id=7634502219134060654’ },
+      { label: ‘Apple/Google Pay’, text: ‘Franklin called the current checkout process “completely unnecessary friction” — dealers want Apple Pay, Google Pay, and faster modern payment methods instead of traditional CC processing’, pills: [‘acct-mgmt’], companies: ‘Franklin, Brickyard, Dewitt’, gongUrl: ‘https://app.gong.io/call?id=1288530892711481686’ }
     ]
   },
   {
-    title: 'Pain Points',
+    title: ‘Pain Points’,
     items: [
-      { text: 'Syncing product catalogs, pricing tiers, and customer accounts between their ERP (BisTrack, Spruce, etc.) and TOOLBX takes weeks of custom mapping — dealers say it’s the main reason their launch gets delayed', pills: ['onboarding'], company: 'Harrington & Company', date: 'Jul 15', gongUrl: null },
-      { text: 'Dealers with 3+ yards can’t see what’s in stock across all locations from one screen — they’re calling individual yards to check availability before promising delivery', pills: ['acct-mgmt'], company: 'Kilrich Building Centres', date: 'Jul 18', gongUrl: null }
+      { label: ‘ERP Integration’, text: ‘The #1 pain point across 10 accounts — syncing catalogs, pricing, and customer data between ERPs (BisTrack, Eagle, Spruce) and TOOLBX takes weeks. Trio Forest has “PTSD” from past integration failures. R.P. Lumber called their Epicor Azure migration “the worst”’, pills: [‘onboarding’], companies: ‘R.P. Lumber, Franklin, TAL, Tague, Evans, Kansas +4 more’, gongUrl: ‘https://app.gong.io/call?id=8763242451987280498’ },
+      { label: ‘CC Processing Fees’, text: ‘Dealers are very sensitive to payment processing costs — Harrington said our 0.45% markup is considerably higher than their current rate. Kansas complained about high CC fees from customers paying AR by card’, pills: [‘acct-mgmt’], companies: ‘Harrington, Kansas, Branford, Brickyard, L.A. Roofing, Dewitt’, gongUrl: null },
+      { label: ‘AR Collection Pain’, text: ‘Dealers spend enormous time chasing payments — Dewitt says 80% of customers require chasing, Kansas tracks promises-to-pay on sticky notes and Excel, Espy\’s AR team is stretched by constant phone calls’, pills: [‘acct-mgmt’], companies: ‘Dewitt, Tibbetts, Espy, Kansas, Stockham’, gongUrl: null }
     ]
   }
 ];
@@ -267,7 +255,7 @@ function renderMetrics() {
 function renderCompetitorNews() {
   var el = document.getElementById('competitor-news');
   if (COMPETITOR_NEWS.length === 0) {
-    el.innerHTML = '<div class="empty-state">No material competitor news this week. ' + WEEKLY_SUMMARY.competitorsTracked + ' battlecards current.</div>';
+    el.innerHTML = '<div class="empty-state">No material competitor activity this week. ' + WEEKLY_SUMMARY.competitorsTracked + ' battlecards current.</div>';
     return;
   }
   var html = '';
@@ -340,18 +328,19 @@ function renderCallIntelligence() {
     html += '<div class="theme-card"><h4>' + esc(theme.title) + '</h4><ul>';
     for (var i = 0; i < theme.items.length; i++) {
       var item = theme.items[i];
-      html += '<li>' + esc(item.text);
+      html += '<li>';
+      if (item.label) {
+        html += '<strong>' + esc(item.label) + ':</strong> ';
+      }
+      html += esc(item.text);
       if (item.pills && item.pills.length > 0) {
         for (var p = 0; p < item.pills.length; p++) {
           html += pillHtml(item.pills[p]);
         }
       }
-      if (item.company || item.date) {
+      if (item.companies || item.company) {
         html += '<div class="call-source">';
-        var parts = [];
-        if (item.company) parts.push(esc(item.company));
-        if (item.date) parts.push(esc(item.date));
-        html += parts.join(' · ');
+        html += esc(item.companies || item.company);
         if (item.gongUrl) {
           html += ' · <a href="' + esc(item.gongUrl) + '" target="_blank">View Recording</a>';
         }
@@ -361,7 +350,7 @@ function renderCallIntelligence() {
     }
     html += '</ul></div>';
   }
-  html += '<div class="data-note">Mon–Sun call intelligence · Gong recording links populate when call pipeline is connected</div>';
+  html += '<div class="data-note">Themes prioritized by frequency across accounts · Gong call data Mar–Jul 2026</div>';
   el.innerHTML = html;
 }
 
