@@ -1,361 +1,246 @@
 <title>Market Pulse</title>
 <style>
+  @font-face { font-family: 'Inter'; src: local('Inter'), local('DM Sans'), local('Calibri'); }
   :root {
     color-scheme: light;
-    --slate-black: #1C1C1E; --dark-grey: #494949; --mid-grey: #8E8E93;
-    --silver-grey: #CCCCCC; --light-grey: #F5F5F7; --white: #FFFFFF;
-    --sunrise-yellow: #FFCA05; --won-bg: #FFF8E1;
-    --metallic-seaweed: #457F86; --lost-red: #B91C1C;
-    --teal: #1C8DA1; --teal-lt: #93C1C8; --teal-bg: #EDF6F8;
+    --black: #111113; --dark: #2C2C2E; --grey: #636366; --silver: #AEAEB2;
+    --pale: #F2F2F7; --white: #FFFFFF;
+    --yellow: #FFCA05; --yellow-soft: #FFF8E1;
+    --teal: #1C8DA1; --teal-dark: #157080; --teal-pale: #E8F4F7;
+    --red: #D32F2F; --red-pale: #FDECEA;
+    --green: #2E7D32;
   }
-  * { box-sizing: border-box; }
-  body { font-family: "DM Sans", Calibri, Arial, sans-serif; background: linear-gradient(135deg, #E8EAEE 0%, #D9DBDF 100%); color: var(--slate-black); margin: 0; padding: 28px 16px; font-size: 14px; line-height: 1.45; }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: 'Inter', 'DM Sans', Calibri, -apple-system, sans-serif; background: #ECEDF0; color: var(--black); padding: 20px 16px; font-size: 13px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
 
-  .deck-header { max-width: 1080px; margin: 0 auto 14px; display: flex; justify-content: space-between; align-items: center; color: var(--mid-grey); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; padding: 0 4px; }
-  .deck-header strong { color: var(--slate-black); font-size: 11px; }
+  .slide { max-width: 1060px; margin: 0 auto; background: var(--white); border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 12px 40px rgba(0,0,0,.08); overflow: hidden; }
 
-  .slide { max-width: 1080px; margin: 0 auto 20px; background: var(--white); border-radius: 6px; box-shadow: 0 8px 30px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.04); position: relative; overflow: hidden; display: flex; flex-direction: column; }
-  .slide-accent { height: 3px; background: linear-gradient(90deg, var(--sunrise-yellow) 0%, var(--teal) 100%); flex-shrink: 0; }
-  .slide-header { padding: 20px 32px 6px; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
-  .slide-eyebrow { color: var(--mid-grey); font-size: 9px; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 700; margin-bottom: 4px; }
-  .slide-title-row { display: flex; align-items: center; gap: 10px; }
-  .yellow-bar { display: inline-block; width: 5px; height: 26px; background: var(--sunrise-yellow); border-radius: 2px; flex-shrink: 0; }
-  .slide-title { font-family: Georgia, "Bitter", serif; font-size: 21px; font-weight: 700; color: var(--slate-black); letter-spacing: -0.01em; margin: 0; line-height: 1.15; }
-  .slide-stamp { font-family: Georgia, "Bitter", serif; font-weight: 700; color: var(--silver-grey); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .slide-top { background: var(--black); padding: 18px 32px 16px; display: flex; justify-content: space-between; align-items: flex-end; }
+  .slide-brand { display: flex; align-items: center; gap: 10px; }
+  .slide-logo { width: 4px; height: 28px; background: var(--yellow); border-radius: 2px; }
+  .slide-title { font-family: Georgia, 'Bitter', serif; font-size: 20px; font-weight: 700; color: var(--white); letter-spacing: -0.02em; }
+  .slide-title span { color: var(--yellow); }
+  .slide-date { color: var(--silver); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; text-align: right; line-height: 1.4; }
+  .slide-date strong { color: var(--white); display: block; font-family: Georgia, 'Bitter', serif; font-size: 13px; letter-spacing: 0.06em; }
 
-  .slide-body { padding: 12px 28px 16px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
-  .slide-footer { padding: 8px 32px 10px; display: flex; justify-content: space-between; align-items: center; color: var(--mid-grey); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; border-top: 1px solid var(--light-grey); flex-shrink: 0; }
-  .slide-footer .brand { font-family: Georgia, "Bitter", serif; color: var(--slate-black); font-weight: 700; font-size: 10px; }
+  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--pale); }
+  .metric { padding: 14px 20px; border-right: 1px solid var(--pale); text-align: center; }
+  .metric:last-child { border-right: none; }
+  .metric-val { font-family: Georgia, 'Bitter', serif; font-size: 26px; font-weight: 700; color: var(--black); line-height: 1; }
+  .metric-val.zero { color: var(--silver); }
+  .metric-lbl { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--grey); margin-top: 4px; }
 
-  .key-metrics-strip { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--slate-black); padding: 14px 8px; border-radius: 4px; margin-bottom: 16px; }
-  .key-metric-cell { padding: 0 14px; border-right: 1px solid rgba(255,255,255,.08); }
-  .key-metric-cell:last-child { border-right: none; }
-  .key-metric-cell .lbl { color: var(--sunrise-yellow); font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px; }
-  .key-metric-cell .val { font-family: Georgia, "Bitter", serif; color: var(--white); font-size: 20px; font-weight: 700; line-height: 1; }
-  .key-metric-cell .sub { color: rgba(255,255,255,.45); font-size: 8.5px; margin-top: 3px; }
+  .body { display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+  @media (max-width: 820px) { .body { grid-template-columns: 1fr; } }
 
-  .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; min-height: 0; }
-  @media (max-width: 820px) { .intel-grid { grid-template-columns: 1fr; } }
-  .intel-section { display: flex; flex-direction: column; min-height: 0; }
-  .intel-section-head { margin: 0 0 10px; font-size: 10.5px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding-left: 10px; border-left: 3px solid var(--sunrise-yellow); }
-  .intel-sub { font-size: 9px; font-weight: 700; color: var(--mid-grey); text-transform: uppercase; letter-spacing: 0.06em; margin: 12px 0 6px; }
-  .intel-sub:first-child { margin-top: 0; }
+  .col { padding: 16px 24px 18px; }
+  .col + .col { border-left: 1px solid var(--pale); }
+  .col-head { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+  .col-head::before { content: ''; width: 3px; height: 14px; background: var(--yellow); border-radius: 1px; }
 
-  .news-item { background: var(--light-grey); padding: 8px 11px; border-radius: 3px; border-left: 3px solid var(--lost-red); margin-bottom: 5px; }
-  .news-item.medium { border-left-color: var(--sunrise-yellow); }
-  .news-item-head { font-weight: 700; font-size: 11px; color: var(--slate-black); }
-  .news-item-head .threat-badge { display: inline-block; font-size: 7px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 5px; vertical-align: middle; }
-  .news-item-head .threat-badge.high { background: var(--lost-red); color: var(--white); }
-  .news-item-head .threat-badge.medium { background: var(--sunrise-yellow); color: var(--slate-black); }
-  .news-item-body { color: var(--dark-grey); font-size: 10.5px; margin-top: 3px; line-height: 1.4; }
-  .news-source { font-size: 8px; color: var(--mid-grey); margin-top: 3px; }
-  .news-source a { color: var(--teal); text-decoration: none; }
-  .news-source a:hover { text-decoration: underline; }
+  .card { background: var(--pale); border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; border-left: 3px solid var(--silver); }
+  .card.threat-high { border-left-color: var(--red); }
+  .card.threat-medium { border-left-color: var(--yellow); }
+  .card.threat-teal { border-left-color: var(--teal); }
+  .card.threat-green { border-left-color: var(--green); }
 
-  .bc-chip { background: var(--light-grey); padding: 7px 11px; border-radius: 3px; font-size: 11px; border-left: 3px solid var(--teal); color: var(--slate-black); line-height: 1.3; margin-bottom: 5px; }
-  .bc-chip.change-new { border-left-color: var(--teal); }
-  .bc-chip-name { font-weight: 700; font-size: 11px; }
-  .bc-chip-change { color: var(--dark-grey); font-size: 10px; margin-top: 2px; line-height: 1.35; }
+  .card-head { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+  .card-name { font-weight: 700; font-size: 11.5px; color: var(--black); }
+  .badge { font-size: 7px; padding: 2px 6px; border-radius: 999px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+  .badge-red { background: var(--red); color: var(--white); }
+  .badge-yellow { background: var(--yellow); color: var(--black); }
+  .badge-teal { background: var(--teal); color: var(--white); }
+  .card-body { font-size: 10.5px; color: var(--dark); line-height: 1.4; }
+  .card-source { font-size: 8px; color: var(--silver); margin-top: 4px; }
+  .card-source a { color: var(--teal); text-decoration: none; font-weight: 600; }
 
-  .deal-chip { background: var(--light-grey); padding: 6px 10px; border-radius: 3px; font-size: 11px; border-left: 3px solid var(--lost-red); color: var(--slate-black); line-height: 1.25; margin-bottom: 5px; }
-  .deal-chip-name { font-weight: 700; }
-  .deal-chip-meta { color: var(--dark-grey); font-size: 10px; margin-top: 1px; }
-  .deal-chip-arr { font-weight: 700; color: var(--slate-black); font-variant-numeric: tabular-nums; font-family: Georgia, "Bitter", serif; font-size: 11px; }
-  .deal-chip-detail { color: var(--dark-grey); font-size: 10px; margin-top: 1px; font-style: italic; line-height: 1.35; }
-  .competitor-tag { display: inline-block; margin-top: 3px; padding: 0px 5px; background: var(--white); color: var(--dark-grey); border: 1px solid var(--silver-grey); border-radius: 2px; font-size: 8px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
+  .theme-label { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--grey); margin: 14px 0 6px; }
+  .theme-label:first-child { margin-top: 0; }
 
-  .theme-card { background: var(--light-grey); padding: 9px 12px; border-radius: 3px; border-left: 3px solid var(--teal); margin-bottom: 7px; }
-  .theme-card h4 { margin: 0 0 5px; font-size: 9.5px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.05em; }
-  .theme-card ul { margin: 0; padding-left: 14px; }
-  .theme-card li { font-size: 10.5px; color: var(--slate-black); line-height: 1.45; margin-bottom: 6px; }
-  .theme-card li strong { color: var(--slate-black); font-size: 11px; }
-  .call-source { font-size: 8px; color: var(--mid-grey); margin-top: 2px; line-height: 1.3; }
-  .call-source a { color: var(--teal); text-decoration: none; font-weight: 600; }
-  .call-source a:hover { text-decoration: underline; }
+  .item { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+  .item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); margin-top: 5px; flex-shrink: 0; }
+  .item-content { flex: 1; min-width: 0; }
+  .item-title { font-weight: 700; font-size: 11px; color: var(--black); }
+  .item-text { font-size: 10px; color: var(--grey); line-height: 1.35; margin-top: 1px; }
+  .item-meta { font-size: 7.5px; color: var(--silver); margin-top: 2px; font-weight: 600; }
+  .item-meta a { color: var(--teal); text-decoration: none; }
 
-  .call-pill { display: inline-block; font-size: 7.5px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 4px; vertical-align: middle; }
-  .call-pill.growth { background: var(--sunrise-yellow); color: var(--slate-black); }
-  .call-pill.onboarding { background: var(--teal); color: var(--white); }
-  .call-pill.acct-mgmt { background: var(--metallic-seaweed); color: var(--white); }
+  .empty { font-size: 10px; color: var(--silver); padding: 6px 0; }
 
-  .empty-state { background: var(--light-grey); border-radius: 3px; padding: 8px 12px; font-size: 10px; color: var(--mid-grey); line-height: 1.4; border-left: 3px solid var(--light-grey); }
-
-  .coming-soon-section { background: var(--light-grey); border-radius: 4px; padding: 12px 20px; margin-top: 16px; text-align: center; border: 1px dashed var(--silver-grey); }
-  .coming-soon-section h3 { margin: 0; font-size: 10px; color: var(--mid-grey); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; }
-  .coming-soon-section p { margin: 3px 0 0; font-size: 9px; color: var(--mid-grey); }
-
-  .summary-bar { background: var(--won-bg); border-left: 3px solid var(--sunrise-yellow); padding: 6px 10px; border-radius: 3px; font-size: 9.5px; color: var(--dark-grey); line-height: 1.4; margin-top: 8px; }
-  .data-note { font-size: 8px; color: var(--mid-grey); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-  .new-badge { display: inline-block; font-size: 7px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--teal); color: var(--white); margin-left: 4px; vertical-align: middle; }
+  .slide-footer { padding: 8px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--pale); }
+  .slide-footer span { font-size: 8px; color: var(--silver); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+  .slide-footer .ft-brand { font-family: Georgia, 'Bitter', serif; color: var(--black); font-weight: 700; font-size: 9px; }
 </style>
 
-<div class="deck-header">
-  <span><strong>TOOLBX</strong> &middot; Market Pulse</span>
-  <span id="deck-date"></span>
-</div>
-
 <div class="slide">
-  <div class="slide-accent"></div>
-  <div class="slide-header">
-    <div>
-      <div class="slide-eyebrow">Weekly Overview</div>
-      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Market Pulse</h2></div>
+  <div class="slide-top">
+    <div class="slide-brand">
+      <div class="slide-logo"></div>
+      <div class="slide-title">Market <span>Pulse</span></div>
     </div>
-    <div class="slide-stamp" id="week-stamp"></div>
+    <div class="slide-date" id="slide-date"></div>
   </div>
-  <div class="slide-body">
-    <div class="key-metrics-strip">
-      <div class="key-metric-cell"><div class="lbl">Competitors Tracked</div><div class="val" id="km-competitors"></div><div class="sub" id="km-comp-sub"></div></div>
-      <div class="key-metric-cell"><div class="lbl">News This Week</div><div class="val" id="km-news"></div><div class="sub" id="km-news-sub"></div></div>
-      <div class="key-metric-cell"><div class="lbl">Competitive Losses</div><div class="val" id="km-lost-count"></div><div class="sub" id="km-lost-arr"></div></div>
-      <div class="key-metric-cell"><div class="lbl">New Entrants</div><div class="val" id="km-new"></div><div class="sub" id="km-new-sub"></div></div>
-    </div>
 
-    <div class="intel-grid">
-      <div class="intel-section">
-        <h3 class="intel-section-head">Competitive Intelligence</h3>
-        <div class="intel-sub">Competitor Activity This Week</div>
-        <div id="competitor-news"></div>
-        <div class="intel-sub" style="margin-top:14px">Competitive Losses</div>
-        <div id="competitive-losses"></div>
-      </div>
-      <div class="intel-section">
-        <h3 class="intel-section-head">What We&rsquo;re Hearing</h3>
-        <div id="market-pulse"></div>
-      </div>
-    </div>
+  <div class="metrics">
+    <div class="metric"><div class="metric-val" id="m-tracked"></div><div class="metric-lbl">Tracked</div></div>
+    <div class="metric"><div class="metric-val" id="m-news"></div><div class="metric-lbl">Activity This Week</div></div>
+    <div class="metric"><div class="metric-val" id="m-losses"></div><div class="metric-lbl">Losses</div></div>
+    <div class="metric"><div class="metric-val" id="m-entrants"></div><div class="metric-lbl">New Entrants</div></div>
+  </div>
 
-    <div class="coming-soon-section">
-      <h3>Website Traffic &mdash; Coming Soon</h3>
-      <p>Analytics integration launching after new website</p>
+  <div class="body">
+    <div class="col">
+      <div class="col-head">Competitor Activity</div>
+      <div id="activity"></div>
+      <div class="theme-label" style="margin-top:16px">Losses This Week</div>
+      <div id="losses"></div>
+    </div>
+    <div class="col">
+      <div class="col-head">What We're Hearing</div>
+      <div id="hearing"></div>
     </div>
   </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; HubSpot &middot; Gong</span></div>
+
+  <div class="slide-footer">
+    <span class="ft-brand">TOOLBX</span>
+    <span>Web Research &middot; Gong &middot; HubSpot</span>
+  </div>
 </div>
 
 <script>
 try {
-  var _nextMonday = function(d) {
+  var _nextMon = function(d) {
     var dow = d.getDay();
-    var dm = dow === 1 ? 0 : ((1 - dow + 7) % 7);
-    var r = new Date(d.getFullYear(), d.getMonth(), d.getDate() + dm);
-    r.setHours(0, 0, 0, 0);
+    var off = dow === 1 ? 0 : ((1 - dow + 7) % 7);
+    var r = new Date(d.getFullYear(), d.getMonth(), d.getDate() + off);
+    r.setHours(0,0,0,0);
     return r;
   };
-  var _fmtDate = function(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
-  var RUN_NOW = new Date();
-  var NOW = new Date(RUN_NOW.getTime() - 86400000);
-  var STANDUP_DATE = _nextMonday(NOW);
-  var WEEK_START = new Date(STANDUP_DATE.getTime() - 7 * 86400000);
-  var WEEK_END = new Date(STANDUP_DATE.getTime() - 1000);
-  document.getElementById('deck-date').textContent = _fmtDate(WEEK_START) + ' — ' + _fmtDate(WEEK_END);
-  var startOfYear = new Date(STANDUP_DATE.getFullYear(), 0, 1);
-  var weekNum = Math.ceil(((STANDUP_DATE - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
-  document.getElementById('week-stamp').textContent = 'W' + weekNum;
-} catch(dateErr) {
-  try { document.getElementById('deck-date').textContent = 'Date error'; } catch(e2) {}
-}
+  var _fmt = function(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); };
+  var now = new Date(Date.now() - 86400000);
+  var mon = _nextMon(now);
+  var wkStart = new Date(mon.getTime() - 7 * 86400000);
+  var sy = new Date(mon.getFullYear(), 0, 1);
+  var wn = Math.ceil(((mon - sy) / 86400000 + sy.getDay() + 1) / 7);
+  document.getElementById('slide-date').innerHTML = '<strong>W' + wn + '</strong>' + _fmt(wkStart) + ' - ' + _fmt(new Date(mon.getTime() - 86400000));
+} catch(e) {}
 </script>
+
 <script>
-var ESC_MAP = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
-function esc(s) { if (s == null) return ''; return String(s).replace(/[&<>"']/g, function(c) { return ESC_MAP[c]; }); }
+var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
+function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
-/* ══════════════════════════════════════════════════════════
-   STATIC DATA — Week of Jul 13-19, 2026
-   Research date: 2026-07-20
-   ══════════════════════════════════════════════════════════ */
-
-var WEEKLY_SUMMARY = {
-  refreshDate: '2026-07-20',
-  competitorsTracked: 20,
-  threatBreakdown: '5 high · 10 medium · 5 low'
+var DATA = {
+  tracked: 20,
+  news: [
+    {
+      name: 'Unilog',
+      threat: 'medium',
+      text: 'Won 8/10 gold medals in 2026 Paradigm B2B Combine -- top marks for AI, content management, and sales enablement',
+      src: 'EIN Presswire, Jul 21',
+      url: 'https://www.einnews.com/pr_news/928312923/unilog-wins-eight-gold-medals-in-2026-paradigm-b2b-combine'
+    }
+  ],
+  losses: [],
+  entrants: [],
+  themes: [
+    {
+      label: 'Competitive Mentions',
+      items: [
+        { title: 'Big-Box Pressure', text: 'HD/Lowe\'s pro apps setting contractor expectations dealers feel they must match', who: '10 accounts incl. Smick, Stockham, Tague, R.P. Lumber, Franklin', url: 'https://us-43298.app.gong.io/call?id=5696443663530162994' },
+        { title: 'Epicor Lock-in', text: 'Dealers compare us against Epicor\'s own e-commerce; changing API fees create friction', who: '8 accounts incl. TAL, Tague, R.P. Lumber, Franklin', url: 'https://app.gong.io/call?id=7634502219134060654' }
+      ]
+    },
+    {
+      label: 'Feature Gaps',
+      items: [
+        { title: 'Blueprint-to-Order', text: 'Contractors send plans not lists -- need takeoff tool. HD already has one', who: 'Ganahl, Franklin, TAL', url: 'https://app.gong.io/call?id=1288530892711481686' },
+        { title: 'Mobile App', text: 'Job-site ordering on phones -- ERP portals aren\'t mobile-friendly', who: 'TAL, Kansas Lumber, Bliffert', url: 'https://app.gong.io/call?id=7634502219134060654' }
+      ]
+    },
+    {
+      label: 'Pain Points',
+      items: [
+        { title: 'ERP Integration', text: 'Syncing catalogs/pricing/customers takes weeks and delays launches', who: '10 accounts incl. R.P. Lumber, Franklin, TAL, Tague', url: 'https://app.gong.io/call?id=8763242451987280498' },
+        { title: 'AR Collection', text: '80% of customers require payment chasing; teams track on sticky notes', who: 'Dewitt, Tibbetts, Espy, Kansas, Stockham', url: null }
+      ]
+    }
+  ]
 };
 
-var COMPETITOR_NEWS = [
-  {
-    competitor: 'Unilog',
-    threat: 'medium',
-    headline: 'Unilog\'s CX1 platform won 8 of 10 gold medals in the 2026 Paradigm B2B Combine (Midmarket Edition) — including Content Management, Sales Enablement, and Vision & Strategy. Report also highlighted Unilog\'s emerging agentic AI capabilities.',
-    sourceLabel: 'EIN Presswire — Jul 21, 2026',
-    sourceUrl: 'https://www.einnews.com/pr_news/928312923/unilog-wins-eight-gold-medals-in-2026-paradigm-b2b-combine'
-  }
-];
-
-var NEW_ENTRANTS = [];
-
-var COMPETITIVE_LOSSES = [];
-
-var CALL_THEMES = [
-  {
-    title: 'Competitive Mentions',
-    items: [
-      { label: 'Big-Box Pressure', text: 'Home Depot and Lowe\'s pro apps and online pricing are setting contractor expectations that independent dealers feel they need to match — prospects consistently cite them as the default alternative', pills: ['growth'], companies: 'Smick Lumber, Stockham, Tague, R.P. Lumber, Franklin, Ganahl +4 more', gongUrl: 'https://us-43298.app.gong.io/call?id=5696443663530162994' },
-      { label: 'Epicor Ecosystem Lock-in', text: 'Dealers on Epicor/BisTrack compare TOOLBX against Epicor\'s own e-commerce modules and WebTrack portals — Epicor\'s changing API fees and instability slow our integrations and create competitive friction', pills: ['onboarding'], companies: 'TAL, Tague, R.P. Lumber, Franklin, Smick, Branford +2 more', gongUrl: 'https://app.gong.io/call?id=7634502219134060654' },
-      { label: 'Spruce as Alternative', text: 'Spruce (merged with Dry Powder) coming up as a direct e-commerce competitor — one dealer was openly unhappy with a peer\'s Spruce site, another found it unintuitive as an ERP', pills: ['growth'], companies: 'B&B Lumber, Bliffert, Evans Lumber', gongUrl: 'https://us-43298.app.gong.io/call?id=4508524477491500427' }
-    ]
-  },
-  {
-    title: 'Feature Gaps',
-    items: [
-      { label: 'Blueprint-to-Order', text: 'Contractors submit plans, not material lists — dealers need a takeoff tool to convert blueprints into orders. Home Depot already has one, and prospects keep asking if we do too', pills: ['growth'], companies: 'Ganahl, Franklin, TAL', gongUrl: 'https://app.gong.io/call?id=1288530892711481686' },
-      { label: 'Mobile Ordering', text: 'Contractors want to place and check orders from their phone on the job site — multiple accounts asking for a native app since current ERP portals aren\'t mobile-friendly', pills: ['growth'], companies: 'TAL, Kansas Lumber, Bliffert', gongUrl: 'https://app.gong.io/call?id=7634502219134060654' },
-      { label: 'Apple/Google Pay', text: 'Franklin called the current checkout process "completely unnecessary friction" — dealers want Apple Pay, Google Pay, and faster modern payment methods instead of traditional CC processing', pills: ['acct-mgmt'], companies: 'Franklin, Brickyard, Dewitt', gongUrl: 'https://app.gong.io/call?id=1288530892711481686' }
-    ]
-  },
-  {
-    title: 'Pain Points',
-    items: [
-      { label: 'ERP Integration', text: 'The #1 pain point across 10 accounts — syncing catalogs, pricing, and customer data between ERPs (BisTrack, Eagle, Spruce) and TOOLBX takes weeks. Trio Forest has "PTSD" from past integration failures. R.P. Lumber called their Epicor Azure migration "the worst"', pills: ['onboarding'], companies: 'R.P. Lumber, Franklin, TAL, Tague, Evans, Kansas +4 more', gongUrl: 'https://app.gong.io/call?id=8763242451987280498' },
-      { label: 'CC Processing Fees', text: 'Dealers are very sensitive to payment processing costs — Harrington said our 0.45% markup is considerably higher than their current rate. Kansas complained about high CC fees from customers paying AR by card', pills: ['acct-mgmt'], companies: 'Harrington, Kansas, Branford, Brickyard, L.A. Roofing, Dewitt', gongUrl: null },
-      { label: 'AR Collection Pain', text: 'Dealers spend enormous time chasing payments — Dewitt says 80% of customers require chasing, Kansas tracks promises-to-pay on sticky notes and Excel, Espy\'s AR team is stretched by constant phone calls', pills: ['acct-mgmt'], companies: 'Dewitt, Tibbetts, Espy, Kansas, Stockham', gongUrl: null }
-    ]
-  }
-];
-
-/* ══════════════════════════════════════════════════════════
-   RENDER
-   ══════════════════════════════════════════════════════════ */
-
-function fmtK(v) {
-  if (v == null || v === 0) return null;
-  var n = parseFloat(v);
-  if (isNaN(n) || n === 0) return null;
-  return n >= 1000 ? '$' + Math.round(n / 1000) + 'k' : '$' + Math.round(n);
-}
-
 function renderMetrics() {
-  document.getElementById('km-competitors').textContent = String(WEEKLY_SUMMARY.competitorsTracked);
-  document.getElementById('km-comp-sub').textContent = WEEKLY_SUMMARY.threatBreakdown;
-
-  document.getElementById('km-news').textContent = String(COMPETITOR_NEWS.length);
-  document.getElementById('km-news-sub').textContent = COMPETITOR_NEWS.length > 0 ? 'sourced articles' : 'quiet week';
-
-  document.getElementById('km-lost-count').textContent = String(COMPETITIVE_LOSSES.length);
-  if (COMPETITIVE_LOSSES.length > 0) {
-    var totalArr = 0;
-    for (var j = 0; j < COMPETITIVE_LOSSES.length; j++) {
-      if (COMPETITIVE_LOSSES[j].arr) totalArr += COMPETITIVE_LOSSES[j].arr;
-    }
-    if (totalArr > 0) {
-      document.getElementById('km-lost-arr').textContent = '$' + Math.round(totalArr / 1000) + 'k ARR';
-    }
-  } else {
-    document.getElementById('km-lost-arr').textContent = 'this week';
-  }
-
-  var newCount = NEW_ENTRANTS.length;
-  document.getElementById('km-new').textContent = String(newCount);
-  if (newCount > 0) {
-    document.getElementById('km-new-sub').textContent = NEW_ENTRANTS[0].name + ' (' + NEW_ENTRANTS[0].category + ')';
-  } else {
-    document.getElementById('km-new-sub').textContent = 'this week';
-  }
+  var t = DATA.tracked, n = DATA.news.length, l = DATA.losses.length, e = DATA.entrants.length;
+  document.getElementById('m-tracked').textContent = t;
+  var ne = document.getElementById('m-news'); ne.textContent = n; if(!n) ne.className = 'metric-val zero';
+  var le = document.getElementById('m-losses'); le.textContent = l; if(!l) le.className = 'metric-val zero';
+  var ee = document.getElementById('m-entrants'); ee.textContent = e; if(!e) ee.className = 'metric-val zero';
 }
 
-function renderCompetitorNews() {
-  var el = document.getElementById('competitor-news');
-  if (COMPETITOR_NEWS.length === 0) {
-    el.innerHTML = '<div class="empty-state">No material competitor activity this week. ' + WEEKLY_SUMMARY.competitorsTracked + ' battlecards current.</div>';
+function renderActivity() {
+  var el = document.getElementById('activity');
+  if (!DATA.news.length && !DATA.entrants.length) {
+    el.innerHTML = '<div class="empty">Quiet week across ' + DATA.tracked + ' battlecards</div>';
     return;
   }
-  var html = '';
-  for (var i = 0; i < COMPETITOR_NEWS.length; i++) {
-    var n = COMPETITOR_NEWS[i];
-    var cls = n.threat === 'high' ? '' : ' medium';
-    html += '<div class="news-item' + cls + '">';
-    html += '<div class="news-item-head">' + esc(n.competitor);
-    html += ' <span class="threat-badge ' + esc(n.threat) + '">' + esc(n.threat) + '</span>';
-    html += '</div>';
-    html += '<div class="news-item-body">' + esc(n.headline) + '</div>';
-    html += '<div class="news-source">';
-    if (n.sourceUrl) {
-      html += '<a href="' + esc(n.sourceUrl) + '" target="_blank">' + esc(n.sourceLabel) + '</a>';
-    } else {
-      html += esc(n.sourceLabel);
-    }
-    html += '</div></div>';
+  var h = '';
+  for (var i = 0; i < DATA.news.length; i++) {
+    var n = DATA.news[i];
+    var bc = n.threat === 'high' ? 'threat-high' : (n.threat === 'medium' ? 'threat-medium' : 'threat-teal');
+    var bb = n.threat === 'high' ? 'badge-red' : (n.threat === 'medium' ? 'badge-yellow' : 'badge-teal');
+    h += '<div class="card ' + bc + '">';
+    h += '<div class="card-head"><span class="card-name">' + esc(n.name) + '</span><span class="badge ' + bb + '">' + esc(n.threat) + '</span></div>';
+    h += '<div class="card-body">' + esc(n.text) + '</div>';
+    if (n.url) h += '<div class="card-source"><a href="' + esc(n.url) + '" target="_blank">' + esc(n.src) + '</a></div>';
+    else if (n.src) h += '<div class="card-source">' + esc(n.src) + '</div>';
+    h += '</div>';
   }
-
-  if (NEW_ENTRANTS.length > 0) {
-    for (var j = 0; j < NEW_ENTRANTS.length; j++) {
-      var ne = NEW_ENTRANTS[j];
-      html += '<div class="bc-chip change-new">';
-      html += '<div class="bc-chip-name">' + esc(ne.name) + ' <span class="new-badge">New</span></div>';
-      html += '<div class="bc-chip-change">' + esc(ne.signal) + '</div>';
-      html += '</div>';
-    }
+  for (var j = 0; j < DATA.entrants.length; j++) {
+    var e = DATA.entrants[j];
+    h += '<div class="card threat-teal">';
+    h += '<div class="card-head"><span class="card-name">' + esc(e.name) + '</span><span class="badge badge-teal">New</span></div>';
+    h += '<div class="card-body">' + esc(e.text) + '</div>';
+    h += '</div>';
   }
-
-  el.innerHTML = html;
+  el.innerHTML = h;
 }
 
-function renderCompetitiveLosses() {
-  var el = document.getElementById('competitive-losses');
-  if (COMPETITIVE_LOSSES.length === 0) {
-    el.innerHTML = '<div class="empty-state">No competitive losses this week.</div>';
-    return;
+function renderLosses() {
+  var el = document.getElementById('losses');
+  if (!DATA.losses.length) { el.innerHTML = '<div class="empty">None this week</div>'; return; }
+  var h = '';
+  for (var i = 0; i < DATA.losses.length; i++) {
+    var d = DATA.losses[i];
+    h += '<div class="card threat-high">';
+    h += '<div class="card-name">' + esc(d.name) + '</div>';
+    h += '<div class="card-body">' + esc(d.detail) + '</div>';
+    h += '</div>';
   }
-  var html = '';
-  for (var i = 0; i < COMPETITIVE_LOSSES.length; i++) {
-    var d = COMPETITIVE_LOSSES[i];
-    var arrStr = fmtK(d.arr);
-    html += '<div class="deal-chip">';
-    html += '<div class="deal-chip-name">' + esc(d.name) + '</div>';
-    if (arrStr) {
-      html += '<div class="deal-chip-meta"><span class="deal-chip-arr">' + esc(arrStr) + '</span> ARR</div>';
-    }
-    if (d.detail) {
-      html += '<div class="deal-chip-detail">' + esc(d.detail) + '</div>';
-    }
-    if (d.competitor) {
-      html += '<span class="competitor-tag">vs ' + esc(d.competitor) + '</span>';
-    }
-    html += '</div>';
-  }
-  el.innerHTML = html;
+  el.innerHTML = h;
 }
 
-function pillHtml(type) {
-  var labels = { growth: 'Growth', onboarding: 'Onboarding', 'acct-mgmt': 'Account Mgmt' };
-  return '<span class="call-pill ' + type + '">' + (labels[type] || type) + '</span>';
-}
-
-function renderCallIntelligence() {
-  var el = document.getElementById('market-pulse');
-  var html = '';
-  for (var t = 0; t < CALL_THEMES.length; t++) {
-    var theme = CALL_THEMES[t];
-    html += '<div class="theme-card"><h4>' + esc(theme.title) + '</h4><ul>';
+function renderHearing() {
+  var el = document.getElementById('hearing');
+  var h = '';
+  for (var t = 0; t < DATA.themes.length; t++) {
+    var theme = DATA.themes[t];
+    h += '<div class="theme-label">' + esc(theme.label) + '</div>';
     for (var i = 0; i < theme.items.length; i++) {
-      var item = theme.items[i];
-      html += '<li>';
-      if (item.label) {
-        html += '<strong>' + esc(item.label) + ':</strong> ';
-      }
-      html += esc(item.text);
-      if (item.pills && item.pills.length > 0) {
-        for (var p = 0; p < item.pills.length; p++) {
-          html += pillHtml(item.pills[p]);
-        }
-      }
-      if (item.companies || item.company) {
-        html += '<div class="call-source">';
-        html += esc(item.companies || item.company);
-        if (item.gongUrl) {
-          html += ' · <a href="' + esc(item.gongUrl) + '" target="_blank">View Recording</a>';
-        }
-        html += '</div>';
-      }
-      html += '</li>';
+      var it = theme.items[i];
+      h += '<div class="item">';
+      h += '<div class="item-dot"></div>';
+      h += '<div class="item-content">';
+      h += '<div class="item-title">' + esc(it.title) + '</div>';
+      h += '<div class="item-text">' + esc(it.text) + '</div>';
+      h += '<div class="item-meta">' + esc(it.who);
+      if (it.url) h += ' &middot; <a href="' + esc(it.url) + '" target="_blank">Recording</a>';
+      h += '</div></div></div>';
     }
-    html += '</ul></div>';
   }
-  html += '<div class="data-note">Themes prioritized by frequency across accounts · Gong call data Mar–Jul 2026</div>';
-  el.innerHTML = html;
+  el.innerHTML = h;
 }
 
 renderMetrics();
-renderCompetitorNews();
-renderCompetitiveLosses();
-renderCallIntelligence();
+renderActivity();
+renderLosses();
+renderHearing();
 </script>
