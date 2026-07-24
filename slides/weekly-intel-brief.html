@@ -1,110 +1,120 @@
 <title>Market Pulse</title>
 <style>
-  @font-face { font-family: 'Inter'; src: local('Inter'), local('DM Sans'), local('Calibri'); }
   :root {
     color-scheme: light;
-    --black: #111113; --dark: #2C2C2E; --grey: #636366; --silver: #AEAEB2;
-    --pale: #F2F2F7; --white: #FFFFFF;
-    --yellow: #FFCA05; --yellow-soft: #FFF8E1;
-    --teal: #1C8DA1; --teal-dark: #157080; --teal-pale: #E8F4F7;
-    --red: #D32F2F; --red-pale: #FDECEA;
-    --green: #2E7D32;
+    --slate-black: #1C1C1E; --dark-grey: #494949; --silver-grey: #CCCCCC;
+    --light-grey: #F2F2F2; --white: #FFFFFF;
+    --sunrise-yellow: #FFCA05; --won-bg: #FFF8E1;
+    --metallic-seaweed: #457F86; --lost-red: #B91C1C;
+    --teal: #1C8DA1; --teal-lt: #93C1C8;
   }
-  * { box-sizing: border-box; margin: 0; }
-  body { font-family: 'Inter', 'DM Sans', Calibri, -apple-system, sans-serif; background: #ECEDF0; color: var(--black); padding: 20px 16px; font-size: 13px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  body { font-family: "DM Sans", Calibri, Arial, sans-serif; background: #e6e7eb; color: var(--slate-black); margin: 0; padding: 24px 16px; font-size: 14px; line-height: 1.45; }
 
-  .slide { max-width: 1060px; margin: 0 auto; background: var(--white); border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 12px 40px rgba(0,0,0,.08); overflow: hidden; }
+  .deck-header { max-width: 1080px; margin: 0 auto 18px; display: flex; justify-content: space-between; align-items: center; color: var(--dark-grey); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; padding: 0 4px; }
+  .deck-header strong { color: var(--slate-black); }
 
-  .slide-top { background: var(--black); padding: 18px 32px 16px; display: flex; justify-content: space-between; align-items: flex-end; }
-  .slide-brand { display: flex; align-items: center; gap: 10px; }
-  .slide-logo { width: 4px; height: 28px; background: var(--yellow); border-radius: 2px; }
-  .slide-title { font-family: Georgia, 'Bitter', serif; font-size: 20px; font-weight: 700; color: var(--white); letter-spacing: -0.02em; }
-  .slide-title span { color: var(--yellow); }
-  .slide-date { color: var(--silver); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; text-align: right; line-height: 1.4; }
-  .slide-date strong { color: var(--white); display: block; font-family: Georgia, 'Bitter', serif; font-size: 13px; letter-spacing: 0.06em; }
+  .slide { max-width: 1080px; margin: 0 auto 20px; background: var(--white); border-radius: 4px; box-shadow: 0 4px 16px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .slide-header { padding: 22px 36px 8px; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
+  .slide-eyebrow { color: var(--silver-grey); font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; margin-bottom: 4px; }
+  .slide-title-row { display: flex; align-items: center; gap: 12px; }
+  .yellow-bar { display: inline-block; width: 6px; height: 30px; background: var(--sunrise-yellow); flex-shrink: 0; }
+  .slide-title { font-family: Georgia, "Bitter", serif; font-size: 22px; font-weight: 700; color: var(--slate-black); letter-spacing: -0.01em; margin: 0; line-height: 1.15; }
+  .slide-stamp { font-family: Georgia, "Bitter", serif; font-weight: 700; color: var(--silver-grey); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; }
 
-  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--pale); }
-  .metric { padding: 14px 20px; border-right: 1px solid var(--pale); text-align: center; }
-  .metric:last-child { border-right: none; }
-  .metric-val { font-family: Georgia, 'Bitter', serif; font-size: 26px; font-weight: 700; color: var(--black); line-height: 1; }
-  .metric-val.zero { color: var(--silver); }
-  .metric-lbl { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--grey); margin-top: 4px; }
+  .slide-body { padding: 14px 28px 18px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .slide-footer { padding: 10px 36px 14px; display: flex; justify-content: space-between; align-items: center; color: var(--dark-grey); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; border-top: 1px solid var(--light-grey); flex-shrink: 0; }
+  .slide-footer .brand { font-family: Georgia, "Bitter", serif; color: var(--slate-black); font-weight: 700; }
 
-  .body { display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
-  @media (max-width: 820px) { .body { grid-template-columns: 1fr; } }
+  .key-metrics-strip { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--slate-black); padding: 12px 4px; border-radius: 2px; column-gap: 1px; margin-bottom: 14px; }
+  .key-metric-cell { padding: 0 12px; border-right: 1px solid #2A2A2C; }
+  .key-metric-cell:last-child { border-right: none; }
+  .key-metric-cell .lbl { color: var(--sunrise-yellow); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .key-metric-cell .val { font-family: Georgia, "Bitter", serif; color: var(--white); font-size: 18px; font-weight: 700; line-height: 1; }
+  .key-metric-cell .sub { color: var(--silver-grey); font-size: 9px; margin-top: 3px; }
 
-  .col { padding: 16px 24px 18px; }
-  .col + .col { border-left: 1px solid var(--pale); }
-  .col-head { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
-  .col-head::before { content: ''; width: 3px; height: 14px; background: var(--yellow); border-radius: 1px; }
+  .intel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; flex: 1; min-height: 0; }
+  @media (max-width: 820px) { .intel-grid { grid-template-columns: 1fr; } }
 
-  .card { background: var(--pale); border-radius: 6px; padding: 10px 12px; margin-bottom: 8px; border-left: 3px solid var(--silver); }
-  .card.threat-high { border-left-color: var(--red); }
-  .card.threat-medium { border-left-color: var(--yellow); }
-  .card.threat-teal { border-left-color: var(--teal); }
-  .card.threat-green { border-left-color: var(--green); }
+  .intel-col { display: flex; flex-direction: column; min-height: 0; }
+  .intel-col h3 { margin: 0 0 8px; font-size: 10.5px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding-left: 10px; border-left: 3px solid var(--sunrise-yellow); }
 
-  .card-head { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
-  .card-name { font-weight: 700; font-size: 11.5px; color: var(--black); }
-  .badge { font-size: 7px; padding: 2px 6px; border-radius: 999px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
-  .badge-red { background: var(--red); color: var(--white); }
-  .badge-yellow { background: var(--yellow); color: var(--black); }
-  .badge-teal { background: var(--teal); color: var(--white); }
-  .card-body { font-size: 10.5px; color: var(--dark); line-height: 1.4; }
-  .card-source { font-size: 8px; color: var(--silver); margin-top: 4px; }
-  .card-source a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  .section-label { font-size: 9px; font-weight: 700; color: var(--dark-grey); text-transform: uppercase; letter-spacing: 0.06em; margin: 12px 0 5px; }
+  .section-label:first-of-type { margin-top: 0; }
 
-  .theme-label { font-size: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--grey); margin: 14px 0 6px; }
-  .theme-label:first-child { margin-top: 0; }
+  .news-card { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--sunrise-yellow); margin-bottom: 5px; }
+  .news-card.high { border-left-color: var(--lost-red); }
+  .news-card-head { display: flex; align-items: center; gap: 6px; }
+  .news-card-name { font-weight: 700; font-size: 11.5px; }
+  .threat-pill { display: inline-block; font-size: 7.5px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+  .threat-pill.high { background: var(--lost-red); color: var(--white); }
+  .threat-pill.medium { background: var(--sunrise-yellow); color: var(--slate-black); }
+  .news-card-body { font-size: 10.5px; color: var(--dark-grey); margin-top: 3px; line-height: 1.35; }
+  .news-card-src { font-size: 8.5px; color: var(--silver-grey); margin-top: 3px; }
+  .news-card-src a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  .news-card-src a:hover { text-decoration: underline; }
 
-  .item { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
-  .item-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); margin-top: 5px; flex-shrink: 0; }
-  .item-content { flex: 1; min-width: 0; }
-  .item-title { font-weight: 700; font-size: 11px; color: var(--black); }
-  .item-text { font-size: 10px; color: var(--grey); line-height: 1.35; margin-top: 1px; }
-  .item-meta { font-size: 7.5px; color: var(--silver); margin-top: 2px; font-weight: 600; }
-  .item-meta a { color: var(--teal); text-decoration: none; }
+  .entrant-chip { background: var(--light-grey); padding: 6px 10px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 5px; }
+  .entrant-chip-head { font-weight: 700; font-size: 11px; }
+  .entrant-chip-head .new-tag { display: inline-block; font-size: 7px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; background: var(--teal); color: var(--white); margin-left: 5px; vertical-align: middle; }
+  .entrant-chip-body { font-size: 10px; color: var(--dark-grey); margin-top: 2px; }
 
-  .empty { font-size: 10px; color: var(--silver); padding: 6px 0; }
+  .loss-chip { background: var(--light-grey); padding: 5px 9px; border-radius: 2px; font-size: 11px; border-left: 3px solid var(--lost-red); margin-bottom: 5px; }
+  .loss-chip-name { font-weight: 700; }
+  .loss-chip-meta { color: var(--dark-grey); font-size: 10px; margin-top: 1px; }
+  .loss-chip-arr { font-weight: 700; font-variant-numeric: tabular-nums; font-family: Georgia, "Bitter", serif; }
+  .loss-chip-detail { color: var(--dark-grey); font-size: 10px; margin-top: 1px; font-style: italic; }
+  .competitor-tag { display: inline-block; margin-top: 2px; padding: 0px 5px; background: var(--white); color: var(--dark-grey); border: 1px solid var(--silver-grey); border-radius: 2px; font-size: 9px; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; }
 
-  .slide-footer { padding: 8px 24px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--pale); }
-  .slide-footer span { font-size: 8px; color: var(--silver); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
-  .slide-footer .ft-brand { font-family: Georgia, 'Bitter', serif; color: var(--black); font-weight: 700; font-size: 9px; }
+  .theme-block { background: var(--light-grey); padding: 8px 12px; border-radius: 2px; border-left: 3px solid var(--teal); margin-bottom: 6px; }
+  .theme-block h4 { margin: 0 0 5px; font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 0.04em; }
+  .theme-item { margin-bottom: 6px; }
+  .theme-item:last-child { margin-bottom: 0; }
+  .theme-item-title { font-weight: 700; font-size: 11px; color: var(--slate-black); }
+  .theme-item-text { font-size: 10px; color: var(--dark-grey); line-height: 1.35; }
+  .theme-item-meta { font-size: 8px; color: var(--silver-grey); margin-top: 2px; }
+  .theme-item-meta a { color: var(--teal); text-decoration: none; font-weight: 600; }
+  .theme-item-meta a:hover { text-decoration: underline; }
+
+  .empty-state { background: var(--light-grey); border-radius: 2px; padding: 6px 12px; font-size: 10px; color: var(--silver-grey); border-left: 3px solid var(--light-grey); }
+  .data-note { font-size: 8.5px; color: var(--silver-grey); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
 </style>
 
+<div class="deck-header">
+  <span><strong>TOOLBX</strong> &middot; Market Pulse</span>
+  <span id="deck-date"></span>
+</div>
+
 <div class="slide">
-  <div class="slide-top">
-    <div class="slide-brand">
-      <div class="slide-logo"></div>
-      <div class="slide-title">Market <span>Pulse</span></div>
+  <div class="slide-header">
+    <div>
+      <div class="slide-eyebrow">Weekly Overview</div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Market Pulse</h2></div>
     </div>
-    <div class="slide-date" id="slide-date"></div>
+    <div class="slide-stamp" id="week-stamp"></div>
   </div>
-
-  <div class="metrics">
-    <div class="metric"><div class="metric-val" id="m-tracked"></div><div class="metric-lbl">Tracked</div></div>
-    <div class="metric"><div class="metric-val" id="m-news"></div><div class="metric-lbl">Activity This Week</div></div>
-    <div class="metric"><div class="metric-val" id="m-losses"></div><div class="metric-lbl">Losses</div></div>
-    <div class="metric"><div class="metric-val" id="m-entrants"></div><div class="metric-lbl">New Entrants</div></div>
-  </div>
-
-  <div class="body">
-    <div class="col">
-      <div class="col-head">Competitor Activity</div>
-      <div id="activity"></div>
-      <div class="theme-label" style="margin-top:16px">Losses This Week</div>
-      <div id="losses"></div>
+  <div class="slide-body">
+    <div class="key-metrics-strip">
+      <div class="key-metric-cell"><div class="lbl">Tracked</div><div class="val" id="km-tracked"></div><div class="sub" id="km-tracked-sub"></div></div>
+      <div class="key-metric-cell"><div class="lbl">Activity</div><div class="val" id="km-activity"></div><div class="sub" id="km-activity-sub"></div></div>
+      <div class="key-metric-cell"><div class="lbl">Losses</div><div class="val" id="km-losses"></div><div class="sub" id="km-losses-sub"></div></div>
+      <div class="key-metric-cell"><div class="lbl">New Entrants</div><div class="val" id="km-entrants"></div><div class="sub" id="km-entrants-sub"></div></div>
     </div>
-    <div class="col">
-      <div class="col-head">What We're Hearing</div>
-      <div id="hearing"></div>
+
+    <div class="intel-grid">
+      <div class="intel-col">
+        <h3>Competitor Activity</h3>
+        <div id="activity"></div>
+        <div class="section-label" style="margin-top:14px">Competitive Losses</div>
+        <div id="losses"></div>
+      </div>
+      <div class="intel-col">
+        <h3>What We're Hearing</h3>
+        <div id="hearing"></div>
+      </div>
     </div>
   </div>
-
-  <div class="slide-footer">
-    <span class="ft-brand">TOOLBX</span>
-    <span>Web Research &middot; Gong &middot; HubSpot</span>
-  </div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; HubSpot &middot; Gong</span></div>
 </div>
 
 <script>
@@ -116,103 +126,112 @@ try {
     r.setHours(0,0,0,0);
     return r;
   };
-  var _fmt = function(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }); };
+  var _fmt = function(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); };
   var now = new Date(Date.now() - 86400000);
   var mon = _nextMon(now);
   var wkStart = new Date(mon.getTime() - 7 * 86400000);
+  var wkEnd = new Date(mon.getTime() - 1000);
+  document.getElementById('deck-date').textContent = _fmt(wkStart) + ' — ' + _fmt(wkEnd);
   var sy = new Date(mon.getFullYear(), 0, 1);
   var wn = Math.ceil(((mon - sy) / 86400000 + sy.getDay() + 1) / 7);
-  document.getElementById('slide-date').innerHTML = '<strong>W' + wn + '</strong>' + _fmt(wkStart) + ' - ' + _fmt(new Date(mon.getTime() - 86400000));
-} catch(e) {}
+  document.getElementById('week-stamp').textContent = 'W' + wn;
+} catch(e) {
+  try { document.getElementById('deck-date').textContent = ''; } catch(e2) {}
+}
 </script>
 
 <script>
 var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
+/* ======================================================
+   DATA
+   ====================================================== */
+
 var DATA = {
   tracked: 20,
+  threatBreakdown: '5 high · 10 medium · 5 low',
   news: [
-    {
-      name: 'Unilog',
-      threat: 'medium',
-      text: 'Won 8/10 gold medals in 2026 Paradigm B2B Combine -- top marks for AI, content management, and sales enablement',
-      src: 'EIN Presswire, Jul 21',
-      url: 'https://www.einnews.com/pr_news/928312923/unilog-wins-eight-gold-medals-in-2026-paradigm-b2b-combine'
-    }
+    { name: 'Unilog', threat: 'medium', text: 'Won 8/10 gold medals in 2026 Paradigm B2B Combine -- top marks in AI, content management, and sales enablement', src: 'EIN Presswire, Jul 21', url: 'https://www.einnews.com/pr_news/928312923/unilog-wins-eight-gold-medals-in-2026-paradigm-b2b-combine' }
   ],
-  losses: [],
   entrants: [],
+  losses: [],
   themes: [
-    {
-      label: 'Competitive Mentions',
-      items: [
-        { title: 'Big-Box Pressure', text: 'HD/Lowe\'s pro apps setting contractor expectations dealers feel they must match', who: '10 accounts incl. Smick, Stockham, Tague, R.P. Lumber, Franklin', url: 'https://us-43298.app.gong.io/call?id=5696443663530162994' },
-        { title: 'Epicor Lock-in', text: 'Dealers compare us against Epicor\'s own e-commerce; changing API fees create friction', who: '8 accounts incl. TAL, Tague, R.P. Lumber, Franklin', url: 'https://app.gong.io/call?id=7634502219134060654' }
-      ]
-    },
-    {
-      label: 'Feature Gaps',
-      items: [
-        { title: 'Blueprint-to-Order', text: 'Contractors send plans not lists -- need takeoff tool. HD already has one', who: 'Ganahl, Franklin, TAL', url: 'https://app.gong.io/call?id=1288530892711481686' },
-        { title: 'Mobile App', text: 'Job-site ordering on phones -- ERP portals aren\'t mobile-friendly', who: 'TAL, Kansas Lumber, Bliffert', url: 'https://app.gong.io/call?id=7634502219134060654' }
-      ]
-    },
-    {
-      label: 'Pain Points',
-      items: [
-        { title: 'ERP Integration', text: 'Syncing catalogs/pricing/customers takes weeks and delays launches', who: '10 accounts incl. R.P. Lumber, Franklin, TAL, Tague', url: 'https://app.gong.io/call?id=8763242451987280498' },
-        { title: 'AR Collection', text: '80% of customers require payment chasing; teams track on sticky notes', who: 'Dewitt, Tibbetts, Espy, Kansas, Stockham', url: null }
-      ]
-    }
+    { label: 'Competitive Mentions', items: [
+      { title: 'Big-Box Pressure', text: 'HD/Lowe\'s pro apps setting contractor expectations dealers feel they must match', who: '10 accounts incl. Smick, Stockham, Tague, R.P. Lumber', url: 'https://us-43298.app.gong.io/call?id=5696443663530162994' },
+      { title: 'Epicor Lock-in', text: 'Dealers compare us against Epicor\'s own e-commerce; changing API fees create friction', who: '8 accounts incl. TAL, Tague, R.P. Lumber, Franklin', url: 'https://app.gong.io/call?id=7634502219134060654' }
+    ]},
+    { label: 'Feature Gaps', items: [
+      { title: 'Blueprint-to-Order', text: 'Contractors send plans not lists -- need takeoff tool. HD already has one', who: 'Ganahl, Franklin, TAL', url: 'https://app.gong.io/call?id=1288530892711481686' },
+      { title: 'Mobile App', text: 'Job-site ordering on phones -- current ERP portals aren\'t mobile-friendly', who: 'TAL, Kansas Lumber, Bliffert', url: 'https://app.gong.io/call?id=7634502219134060654' }
+    ]},
+    { label: 'Pain Points', items: [
+      { title: 'ERP Integration', text: 'Syncing catalogs/pricing/customers takes weeks and delays launches', who: '10 accounts incl. R.P. Lumber, Franklin, TAL, Tague', url: 'https://app.gong.io/call?id=8763242451987280498' },
+      { title: 'AR Collection', text: '80% of customers require payment chasing; teams track on sticky notes', who: 'Dewitt, Tibbetts, Espy, Kansas, Stockham', url: null }
+    ]}
   ]
 };
 
+/* ======================================================
+   RENDER
+   ====================================================== */
+
 function renderMetrics() {
-  var t = DATA.tracked, n = DATA.news.length, l = DATA.losses.length, e = DATA.entrants.length;
-  document.getElementById('m-tracked').textContent = t;
-  var ne = document.getElementById('m-news'); ne.textContent = n; if(!n) ne.className = 'metric-val zero';
-  var le = document.getElementById('m-losses'); le.textContent = l; if(!l) le.className = 'metric-val zero';
-  var ee = document.getElementById('m-entrants'); ee.textContent = e; if(!e) ee.className = 'metric-val zero';
+  document.getElementById('km-tracked').textContent = String(DATA.tracked);
+  document.getElementById('km-tracked-sub').textContent = DATA.threatBreakdown;
+
+  var actCount = DATA.news.length + DATA.entrants.length;
+  document.getElementById('km-activity').textContent = String(actCount);
+  document.getElementById('km-activity-sub').textContent = actCount > 0 ? 'this week' : 'quiet week';
+
+  document.getElementById('km-losses').textContent = String(DATA.losses.length);
+  document.getElementById('km-losses-sub').textContent = DATA.losses.length > 0 ? 'this week' : 'this week';
+
+  document.getElementById('km-entrants').textContent = String(DATA.entrants.length);
+  document.getElementById('km-entrants-sub').textContent = DATA.entrants.length > 0 ? DATA.entrants[0].name : 'this week';
 }
 
 function renderActivity() {
   var el = document.getElementById('activity');
   if (!DATA.news.length && !DATA.entrants.length) {
-    el.innerHTML = '<div class="empty">Quiet week across ' + DATA.tracked + ' battlecards</div>';
+    el.innerHTML = '<div class="empty-state">Quiet week across ' + DATA.tracked + ' battlecards</div>';
     return;
   }
   var h = '';
   for (var i = 0; i < DATA.news.length; i++) {
     var n = DATA.news[i];
-    var bc = n.threat === 'high' ? 'threat-high' : (n.threat === 'medium' ? 'threat-medium' : 'threat-teal');
-    var bb = n.threat === 'high' ? 'badge-red' : (n.threat === 'medium' ? 'badge-yellow' : 'badge-teal');
-    h += '<div class="card ' + bc + '">';
-    h += '<div class="card-head"><span class="card-name">' + esc(n.name) + '</span><span class="badge ' + bb + '">' + esc(n.threat) + '</span></div>';
-    h += '<div class="card-body">' + esc(n.text) + '</div>';
-    if (n.url) h += '<div class="card-source"><a href="' + esc(n.url) + '" target="_blank">' + esc(n.src) + '</a></div>';
-    else if (n.src) h += '<div class="card-source">' + esc(n.src) + '</div>';
+    h += '<div class="news-card' + (n.threat === 'high' ? ' high' : '') + '">';
+    h += '<div class="news-card-head"><span class="news-card-name">' + esc(n.name) + '</span>';
+    h += '<span class="threat-pill ' + esc(n.threat) + '">' + esc(n.threat) + '</span></div>';
+    h += '<div class="news-card-body">' + esc(n.text) + '</div>';
+    if (n.url) {
+      h += '<div class="news-card-src"><a href="' + esc(n.url) + '" target="_blank">' + esc(n.src) + '</a></div>';
+    } else if (n.src) {
+      h += '<div class="news-card-src">' + esc(n.src) + '</div>';
+    }
     h += '</div>';
   }
   for (var j = 0; j < DATA.entrants.length; j++) {
     var e = DATA.entrants[j];
-    h += '<div class="card threat-teal">';
-    h += '<div class="card-head"><span class="card-name">' + esc(e.name) + '</span><span class="badge badge-teal">New</span></div>';
-    h += '<div class="card-body">' + esc(e.text) + '</div>';
-    h += '</div>';
+    h += '<div class="entrant-chip"><div class="entrant-chip-head">' + esc(e.name) + '<span class="new-tag">New</span></div>';
+    h += '<div class="entrant-chip-body">' + esc(e.text) + '</div></div>';
   }
   el.innerHTML = h;
 }
 
 function renderLosses() {
   var el = document.getElementById('losses');
-  if (!DATA.losses.length) { el.innerHTML = '<div class="empty">None this week</div>'; return; }
+  if (!DATA.losses.length) {
+    el.innerHTML = '<div class="empty-state">No competitive losses this week</div>';
+    return;
+  }
   var h = '';
   for (var i = 0; i < DATA.losses.length; i++) {
     var d = DATA.losses[i];
-    h += '<div class="card threat-high">';
-    h += '<div class="card-name">' + esc(d.name) + '</div>';
-    h += '<div class="card-body">' + esc(d.detail) + '</div>';
+    h += '<div class="loss-chip"><div class="loss-chip-name">' + esc(d.name) + '</div>';
+    if (d.arr) h += '<div class="loss-chip-meta"><span class="loss-chip-arr">$' + Math.round(d.arr / 1000) + 'k</span> ARR</div>';
+    if (d.detail) h += '<div class="loss-chip-detail">' + esc(d.detail) + '</div>';
+    if (d.competitor) h += '<span class="competitor-tag">vs ' + esc(d.competitor) + '</span>';
     h += '</div>';
   }
   el.innerHTML = h;
@@ -223,19 +242,19 @@ function renderHearing() {
   var h = '';
   for (var t = 0; t < DATA.themes.length; t++) {
     var theme = DATA.themes[t];
-    h += '<div class="theme-label">' + esc(theme.label) + '</div>';
+    h += '<div class="theme-block"><h4>' + esc(theme.label) + '</h4>';
     for (var i = 0; i < theme.items.length; i++) {
       var it = theme.items[i];
-      h += '<div class="item">';
-      h += '<div class="item-dot"></div>';
-      h += '<div class="item-content">';
-      h += '<div class="item-title">' + esc(it.title) + '</div>';
-      h += '<div class="item-text">' + esc(it.text) + '</div>';
-      h += '<div class="item-meta">' + esc(it.who);
-      if (it.url) h += ' &middot; <a href="' + esc(it.url) + '" target="_blank">Recording</a>';
-      h += '</div></div></div>';
+      h += '<div class="theme-item">';
+      h += '<div class="theme-item-title">' + esc(it.title) + '</div>';
+      h += '<div class="theme-item-text">' + esc(it.text) + '</div>';
+      h += '<div class="theme-item-meta">' + esc(it.who);
+      if (it.url) h += ' · <a href="' + esc(it.url) + '" target="_blank">Recording</a>';
+      h += '</div></div>';
     }
+    h += '</div>';
   }
+  h += '<div class="data-note">Themes ranked by frequency across accounts · Gong Mar–Jul 2026</div>';
   el.innerHTML = h;
 }
 
