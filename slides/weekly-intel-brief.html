@@ -64,6 +64,14 @@
 
   .empty-state { background: var(--light-grey); border-radius: 2px; padding: 6px 12px; font-size: 10px; color: var(--silver-grey); border-left: 3px solid var(--light-grey); }
   .data-note { font-size: 8.5px; color: var(--silver-grey); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .team-pill { display: inline-block; font-size: 7px; padding: 1px 5px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 3px; vertical-align: middle; }
+  .team-pill.growth { background: var(--teal); color: var(--white); }
+  .team-pill.acct-mgmt { background: var(--sunrise-yellow); color: var(--slate-black); }
+
+  .section-icon { width: 14px; height: 14px; vertical-align: -2px; margin-right: 5px; }
+  .theme-item-link { font-size: 8px; color: var(--teal); text-decoration: none; font-weight: 600; margin-left: 4px; }
+  .theme-item-link:hover { text-decoration: underline; }
 </style>
 
 <div class="deck-header">
@@ -88,19 +96,19 @@
     </div>
 
     <div class="intel-section">
-      <h3>Competitor Activity</h3>
+      <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="14" width="4" height="8" rx="1" fill="#1C1C1E"/><rect x="8" y="10" width="4" height="12" rx="1" fill="#1C1C1E"/><rect x="14" y="6" width="4" height="16" rx="1" fill="#1C1C1E"/><rect x="20" y="2" width="4" height="20" rx="1" fill="#1C1C1E" opacity="0.4"/></svg>Competitor Activity</h3>
       <div class="news-row" id="activity-news"></div>
       <div class="section-label" id="field-label">In the Field</div>
       <div class="news-row" id="activity-field"></div>
     </div>
 
     <div class="intel-section">
-      <h3>What We're Hearing</h3>
+      <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 11.5C21 16.75 16.75 21 11.5 21C10.05 21 8.68 20.67 7.45 20.08L3 21L3.92 16.55C3.33 15.32 3 13.95 3 12.5C3 7.25 7.25 3 12.5 3C17.75 3 21 7.25 21 11.5Z" stroke="#1C1C1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="12" r="1" fill="#1C1C1E"/><circle cx="12.5" cy="12" r="1" fill="#1C1C1E"/><circle cx="16.5" cy="12" r="1" fill="#1C1C1E"/></svg>What We're Hearing</h3>
       <div class="hearing-grid">
         <div id="hearing-left"></div>
         <div id="hearing-right"></div>
       </div>
-      <div class="data-note">Themes ranked by frequency across accounts &middot; Gong Mar&ndash;Jul 2026</div>
+      <div class="data-note">Themes from Gong calls &middot; Jul 21&ndash;27, 2026 (Franklin, R.P. Lumber, TAL, Harrington)</div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -137,8 +145,7 @@ var DATA = {
   tracked: 20,
   threatBreakdown: '5 high · 10 medium · 5 low',
   news: [
-    { name: 'Epicor', threat: 'high', text: 'Conexiom expanded partnership for AI-powered order and invoice automation across Eclipse and Prophet 21', src: 'BusinessWire, Jul 14', url: 'https://www.businesswire.com/news/home/20260714215043/en/Conexiom-Expands-Strategic-Partnership-With-Epicor-to-Advance-AI-Order-and-Invoice-Automation-for-Distributors' },
-    { name: 'Unilog', threat: 'medium', text: 'Won 8 of 10 gold medals in 2026 Paradigm B2B Combine for AI, content management, and sales enablement', src: 'EIN Presswire, Jul 21', url: 'https://www.einnews.com/pr_news/928312923/unilog-wins-eight-gold-medals-in-2026-paradigm-b2b-combine' }
+    { name: 'Epicor', threat: 'high', text: 'Conexiom expanded partnership for AI-powered order and invoice automation across Eclipse and Prophet 21', src: 'BusinessWire, Jul 14', url: 'https://www.businesswire.com/news/home/20260714215043/en/Conexiom-Expands-Strategic-Partnership-With-Epicor-to-Advance-AI-Order-and-Invoice-Automation-for-Distributors' }
   ],
   fieldIntel: [
     { name: 'WebTrack', text: 'Actively being replaced across 4 accounts citing payment failures, poor UX, and declining product quality', who: 'R.P. Lumber, Tague, Franklin, TAL' },
@@ -147,13 +154,13 @@ var DATA = {
   entrants: [],
   losses: [],
   themes: [
-    { label: 'Feature Gaps', items: [
-      { title: 'Blueprint/Takeoff', text: 'Contractors send plans not lists -- need integrated takeoff tool; HD and BFS already market this', who: 'R.P. Lumber, Ganahl, TAL, Tague' },
-      { title: 'Promo Codes', text: 'No native promo codes, coupons, or loyalty point redemption at checkout', who: 'R.P. Lumber, Franklin, Smick' }
-    ]},
     { label: 'Pain Points', items: [
-      { title: 'ERP Integration', text: 'Unstable Epicor/Biztrack APIs cause sync failures and broken e-commerce workflows', who: '7 accounts incl. R.P. Lumber, Tague, Franklin, TAL' },
-      { title: 'AR Collection', text: 'Manual payment chasing via phone, email, spreadsheets with no automation for reminders', who: '5 accounts incl. Harrington, TAL, Espy, Tibbetts' }
+      { title: 'ERP/Payment Reconciliation', text: 'WebTrak causes "a big headache" with payment reconciliation across 15 branches and cash drawers; Epicor API instability breaking e-commerce', who: 'Franklin, R.P. Lumber', teams: ['acct-mgmt'] },
+      { title: 'AR Dashboard Gaps', text: 'Missing notes, date entry, and action panel for customer search; DSO underperforming targets', who: 'TAL Building Centers', teams: ['acct-mgmt'] }
+    ]},
+    { label: 'Competitive Landscape', items: [
+      { title: 'WebTrack Displacement', text: 'Actively being replaced across 4 accounts citing payment failures, poor UX, and declining product quality', who: 'R.P. Lumber, Tague, Franklin, TAL', teams: ['acct-mgmt'] },
+      { title: 'Prospect Satisfied with Current Software', text: 'Harrington evaluating upcoming tools from existing vendor; not interested in third-party billing at this time', who: 'Harrington', teams: ['growth'] }
     ]}
   ]
 };
@@ -167,7 +174,7 @@ function renderMetrics() {
   document.getElementById('km-activity-sub').textContent = actCount > 0 ? 'this week' : 'quiet week';
 
   document.getElementById('km-losses').textContent = String(DATA.losses.length);
-  document.getElementById('km-losses-sub').textContent = 'this week';
+  document.getElementById('km-losses-sub').textContent = 'to competitors this week';
 
   document.getElementById('km-entrants').textContent = String(DATA.entrants.length);
   document.getElementById('km-entrants-sub').textContent = DATA.entrants.length > 0 ? DATA.entrants[0].name : 'this week';
@@ -215,14 +222,26 @@ function renderActivity() {
   }
 }
 
+var TEAM_LABELS = { 'growth': 'Growth', 'acct-mgmt': 'Account Mgmt' };
+
 function renderThemeBlock(theme) {
   var h = '<div class="theme-block"><h4>' + esc(theme.label) + '</h4>';
   for (var i = 0; i < theme.items.length; i++) {
     var it = theme.items[i];
     h += '<div class="theme-item">';
-    h += '<div class="theme-item-title">' + esc(it.title) + '</div>';
+    h += '<div class="theme-item-title">' + esc(it.title);
+    if (it.teams) {
+      for (var t = 0; t < it.teams.length; t++) {
+        h += '<span class="team-pill ' + esc(it.teams[t]) + '">' + esc(TEAM_LABELS[it.teams[t]] || it.teams[t]) + '</span>';
+      }
+    }
+    h += '</div>';
     h += '<div class="theme-item-text">' + esc(it.text) + '</div>';
-    h += '<div class="theme-item-meta">' + esc(it.who) + '</div>';
+    h += '<div class="theme-item-meta">' + esc(it.who);
+    if (it.url) {
+      h += ' &middot; <a class="theme-item-link" href="' + esc(it.url) + '" target="_blank">Recording</a>';
+    }
+    h += '</div>';
     h += '</div>';
   }
   h += '</div>';
