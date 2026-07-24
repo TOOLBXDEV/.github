@@ -419,155 +419,6 @@
   }
   .uc-note strong { color: var(--text-secondary); }
 
-  /* === BAR CHARTS === */
-  .chart-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 14px;
-  }
-  .chart-panel {
-    background: var(--light-grey);
-    border: 1px solid #D0D0D6;
-    border-left: 3px solid var(--sunrise-yellow);
-    border-radius: 3px;
-    padding: 10px 14px;
-  }
-  .chart-title {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--white);
-    background: var(--slate-black);
-    margin: -10px -14px 12px;
-    padding: 8px 14px;
-    border-radius: 2px 2px 0 0;
-  }
-  .legend {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 8px;
-    font-size: 10px;
-    color: var(--text-secondary);
-    font-weight: 600;
-  }
-  .legend-item { display: flex; align-items: center; gap: 5px; }
-  .legend-sw {
-    width: 12px;
-    height: 6px;
-    border-radius: 1px;
-    flex-shrink: 0;
-  }
-
-  .bar-grp { margin-bottom: 10px; }
-  .bar-grp:last-child { margin-bottom: 0; }
-  .bar-lbl { font-size: 11px; font-weight: 700; margin-bottom: 3px; color: var(--text-primary); }
-  .bar-r { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; height: 20px; }
-  .bar-ml { font-size: 9px; color: var(--text-muted); width: 1.75rem; flex-shrink: 0; text-align: right; font-weight: 600; text-transform: uppercase; letter-spacing: 0.02em; }
-  .bar-tk { flex: 1; height: 16px; background: var(--border); border-radius: 2px; overflow: visible; position: relative; }
-  .bar-fl { height: 100%; border-radius: 2px; min-width: 2px; }
-  .bar-v { font-size: 11px; font-weight: 700; color: var(--text-secondary); min-width: 3rem; text-align: left; font-variant-numeric: tabular-nums; }
-
-  /* === BAR CHART AVG LINE === */
-  .bar-avg {
-    position: absolute;
-    top: -2px;
-    bottom: -2px;
-    width: 0;
-    border-left: 2px dashed var(--text-muted);
-    z-index: 2;
-    pointer-events: none;
-  }
-  .bar-avg-tip {
-    position: absolute;
-    top: -9px;
-    left: -6px;
-    font-size: 7px;
-    font-weight: 800;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-  }
-
-  /* === DATA TABLES === */
-  .tbl-wrap {
-    overflow-x: auto;
-    border-radius: 2px;
-  }
-  table.dt {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-    font-variant-numeric: tabular-nums;
-  }
-  .dt th {
-    background: var(--slate-black);
-    color: var(--white);
-    text-align: left;
-    padding: 6px 10px;
-    font-size: 10.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  .dt th:not(:first-child) { text-align: right; }
-  .dt td {
-    padding: 5px 10px;
-    border-bottom: 1px solid var(--border);
-    font-variant-numeric: tabular-nums;
-    color: var(--text-primary);
-  }
-  .dt td.up { color: #1F7A3A; background-color: #F0FDF4; }
-  .dt td.dn { color: var(--lost-red); background-color: #FEF2F2; }
-  .dt td:not(:first-child) { text-align: right; }
-  .dt tbody tr:hover:not(.tot):not(.bench) td { background: var(--light-grey); }
-  .dt tr:last-child td { border-bottom: none; }
-  .dt .tot {
-    font-weight: 700;
-    background: var(--light-grey);
-  }
-  .dt .tot td { border-top: 2px solid var(--slate-black); }
-
-  /* === TABLE BENCH ROW === */
-  .dt tr.bench td {
-    border-top: 1px dashed var(--text-muted);
-    border-bottom: 1px solid var(--border);
-    color: var(--text-secondary);
-    font-size: 11px;
-  }
-  .dt tr.bench td:first-child {
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 800;
-    color: var(--text-muted);
-  }
-
-  .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 2px;
-    font-size: 11px;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-  }
-  .badge-red { background: #FEF2F2; color: var(--lost-red); }
-  .badge-amber { background: #FFF8E1; color: #92400E; }
-  .badge-green { background: #F0FDF4; color: #1F7A3A; }
-
-
-  /* === PRODUCT BARS === */
-  .prod-wrap { display: flex; flex-direction: column; gap: 8px; }
-  .prod-row { display: flex; align-items: center; gap: 8px; }
-  .prod-name { width: 6.5rem; font-size: 11px; font-weight: 700; flex-shrink: 0; text-align: right; }
-  .prod-tk { flex: 1; height: 22px; background: var(--border); border-radius: 2px; overflow: hidden; }
-  .prod-fl { height: 100%; border-radius: 2px; display: flex; align-items: center; padding-left: 8px; }
-  .prod-fl-label { font-size: 10px; font-weight: 800; color: var(--slate-black); }
-  .prod-stat { min-width: 3.5rem; font-size: 11px; color: var(--text-secondary); text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
-
   @media (max-width: 640px) {
     body { padding: 12px 8px; }
     .slide-header { padding: 16px 20px 6px; }
@@ -576,7 +427,6 @@
     .slide-title { font-size: 17px; }
     .kpi-grid { grid-template-columns: 1fr; }
     .uc-grid { grid-template-columns: 1fr; }
-    .chart-grid { grid-template-columns: 1fr; }
   }
 
   /* === VIEW TOGGLE === */
@@ -854,7 +704,7 @@
       </div>
 
       <!-- ARR Closed-Won — different values & rank by view -->
-      <div class="uc-card">
+      <div class="uc-card" data-color-by-avg>
         <div class="uc-head">
           <span class="uc-title">ARR Closed-Won</span>
           <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.25)" data-m="MoM" data-w="WoW">MoM</span>
@@ -1025,9 +875,10 @@
       <strong>Quota:</strong> $550K ARR (annual) &nbsp;&middot;&nbsp;
       <strong>Pipeline Cov.:</strong> Open Pipeline &divide; Remaining Quota ($550K &minus; YTD Won) &nbsp;&middot;&nbsp;
       <strong>Win Rate:</strong> T12M, benchmark = 21.9% team avg &nbsp;&middot;&nbsp;
-      <span class="uc-fill uc-g" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> at/above &ensp;
-      <span class="uc-fill uc-a" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> near &ensp;
-      <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> below
+      <span class="uc-fill uc-g" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> at/above target or avg &ensp;
+      <span class="uc-fill uc-a" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> near/below &ensp;
+      <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> below &ensp;
+      <span style="border-left:2px dashed var(--text-muted);height:10px;display:inline-block;vertical-align:middle;margin-right:4px"></span> Team Avg
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-m="June 2026 &middot; Source: HubSpot CRM" data-w="Wk ending Jul 20 &middot; Source: HubSpot CRM">June 2026 &middot; Source: HubSpot CRM</span></div>
@@ -1045,7 +896,7 @@
   <div class="slide-body">
     <div class="uc-grid">
       <!-- Total Activities — different values & rank by view -->
-      <div class="uc-card">
+      <div class="uc-card" data-color-by-avg>
         <div class="uc-head">
           <span class="uc-title">Total Activities</span>
           <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.25)" data-m="MoM" data-w="WoW">MoM</span>
@@ -1127,7 +978,7 @@
       </div>
 
       <!-- Outbound / wk — different values by view -->
-      <div class="uc-card">
+      <div class="uc-card" data-color-by-avg>
         <div class="uc-head">
           <span class="uc-title">Outbound / wk</span>
           <span class="uc-target">Target: TBD</span>
@@ -1209,7 +1060,7 @@
       </div>
 
       <!-- Opps Created — different values & rank by view -->
-      <div class="uc-card">
+      <div class="uc-card" data-color-by-avg>
         <div class="uc-head">
           <span class="uc-title">Opps Created</span>
           <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5);border-color:rgba(255,255,255,0.25)" data-m="MoM" data-w="WoW">MoM</span>
@@ -1332,177 +1183,11 @@
           <div class="uc-delta"></div>
         </div>
       </div>
-    </div>
-    <div class="uc-note">
-      <strong>Outbound:</strong> Calls + Emails + LinkedIn / wk &nbsp;&middot;&nbsp;
-      <strong>Sales Cycle:</strong> benchmark = 118d team avg &nbsp;&middot;&nbsp;
-      <span class="uc-fill uc-g" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> at/above &ensp;
-      <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> below &ensp;
-      <span class="uc-fill uc-n" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> neutral
-    </div>
-  </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-m="June 2026 &middot; Source: HubSpot CRM" data-w="Wk ending Jul 20 &middot; Source: HubSpot CRM">June 2026 &middot; Source: HubSpot CRM</span></div>
-</div>
 
-<!-- ==================== SLIDE 4: WIN RATE ==================== -->
-<div class="slide">
-  <div class="slide-header">
-    <div>
-      <div class="slide-eyebrow">Win Rate</div>
-      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">T12M Win Rate Rankings</h2></div>
-      <div class="view-note" data-m="" data-w="Trailing 12-month metric &mdash; same in both views"></div>
-    </div>
-    <div class="slide-stamp">4</div>
-  </div>
-  <div class="slide-body">
-    <div class="tbl-wrap" style="max-width:640px">
-      <table class="dt">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th style="text-align:left">Rep</th>
-            <th>Won</th>
-            <th>Lost</th>
-            <th>Win Rate</th>
-            <th>Jun Lost</th>
-            <th>May Lost</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="background:linear-gradient(135deg,#FFF3CC,#FFECAA)">
-            <td style="text-align:center;font-family:var(--font-display);font-weight:700;color:var(--white);font-size:16px;background:var(--over-easy);border-radius:50%;width:28px;height:28px;line-height:28px;padding:0">1</td>
-            <td style="text-align:left;font-size:13px"><strong>Pouyan</strong></td>
-            <td>2</td>
-            <td>3</td>
-            <td><strong>40.0%</strong></td>
-            <td>0</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td style="text-align:center;font-family:var(--font-display);font-weight:700;color:var(--text-muted)">2</td>
-            <td style="text-align:left">Michelle</td>
-            <td>12</td>
-            <td>45</td>
-            <td><strong>21.1%</strong></td>
-            <td>4</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td style="text-align:center;font-family:var(--font-display);font-weight:700;color:var(--text-muted)">3</td>
-            <td style="text-align:left">Joshua</td>
-            <td>5</td>
-            <td>31</td>
-            <td><strong>13.9%</strong></td>
-            <td>3</td>
-            <td>6</td>
-          </tr>
-          <tr>
-            <td style="text-align:center;font-family:var(--font-display);font-weight:700;color:var(--text-muted)">4</td>
-            <td style="text-align:left">Graham</td>
-            <td>1</td>
-            <td>7</td>
-            <td><strong>12.5%</strong></td>
-            <td>2</td>
-            <td>2</td>
-          </tr>
-          <tr class="bench">
-            <td></td>
-            <td style="text-align:left">Team Avg</td>
-            <td>5</td>
-            <td>21.5</td>
-            <td>21.9%</td>
-            <td>2.3</td>
-            <td>2.8</td>
-          </tr>
-          <tr class="tot">
-            <td></td>
-            <td style="text-align:left">Team</td>
-            <td>20</td>
-            <td>86</td>
-            <td><strong>18.9%</strong></td>
-            <td>9</td>
-            <td>11</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Trailing 12 months &middot; Source: HubSpot CRM</span></div>
-</div>
-
-<!-- ==================== SLIDE 5: PRODUCT MIX ==================== -->
-<div class="slide">
-  <div class="slide-header">
-    <div>
-      <div class="slide-eyebrow">Deal Analysis</div>
-      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Closed-Won by Product</h2></div>
-    </div>
-    <div class="slide-stamp">5</div>
-  </div>
-  <div class="slide-body">
-    <div class="monthly-only"><div class="chart-grid">
-      <div class="chart-panel">
-        <div class="chart-title">Closed-Won by Product &mdash; June</div>
-        <div class="prod-wrap">
-          <div class="prod-row">
-            <div class="prod-name">Payment Portal</div>
-            <div class="prod-tk"><div class="prod-fl" style="width:100%;background:var(--metallic-seaweed)"><span class="prod-fl-label">$120.2K</span></div></div>
-            <div class="prod-stat">3 deals</div>
-          </div>
-          <div class="prod-row">
-            <div class="prod-name">eCommerce</div>
-            <div class="prod-tk"><div class="prod-fl" style="width:65.5%;background:var(--dark-sky-blue)"><span class="prod-fl-label">$78.8K</span></div></div>
-            <div class="prod-stat">3 deals</div>
-          </div>
-          <div class="prod-row">
-            <div class="prod-name">AI Order Entry</div>
-            <div class="prod-tk"><div class="prod-fl" style="width:0%;background:var(--sunrise-yellow)"></div></div>
-            <div class="prod-stat">0 deals</div>
-          </div>
-        </div>
-      </div>
-    </div></div>
-    <div class="weekly-only"><div class="chart-grid">
-      <div class="chart-panel">
-        <div class="chart-title">Closed-Won by Product &mdash; Wk ending Jul 20</div>
-        <div class="prod-wrap">
-          <div class="prod-row">
-            <div class="prod-name">Payment Portal</div>
-            <div class="prod-tk"><div class="prod-fl" style="width:100%;background:var(--metallic-seaweed)"><span class="prod-fl-label">$28.5K</span></div></div>
-            <div class="prod-stat">1 deal</div>
-          </div>
-          <div class="prod-row">
-            <div class="prod-name">eCommerce</div>
-            <div class="prod-tk"><div class="prod-fl" style="width:65.6%;background:var(--dark-sky-blue)"><span class="prod-fl-label">$18.7K</span></div></div>
-            <div class="prod-stat">1 deal</div>
-          </div>
-          <div class="prod-row">
-            <div class="prod-name">AI Order Entry</div>
-            <div class="prod-tk"><div class="prod-fl" style="width:0%;background:var(--sunrise-yellow)"></div></div>
-            <div class="prod-stat">0 deals</div>
-          </div>
-        </div>
-      </div>
-    </div></div>
-  </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-m="June 2026 &middot; Source: HubSpot CRM" data-w="Wk ending Jul 20 &middot; Source: HubSpot CRM">June 2026 &middot; Source: HubSpot CRM</span></div>
-</div>
-
-<!-- ==================== SLIDE 6: OVERDUE TASKS ==================== -->
-<div class="slide">
-  <div class="slide-header">
-    <div>
-      <div class="slide-eyebrow">Task Management</div>
-      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Overdue Tasks</h2></div>
-      <div class="view-note" data-m="" data-w="Point-in-time snapshot &mdash; same in both views"></div>
-    </div>
-    <div class="slide-stamp">6</div>
-  </div>
-  <div class="slide-body">
-    <div class="uc-grid" style="grid-template-columns:1fr;max-width:640px;margin:0 auto">
+      <!-- Overdue Tasks — snapshot, same both views -->
       <div class="uc-card" data-avg="48">
         <div class="uc-head">
-          <span class="uc-title">Overdue Tasks by Rep</span>
+          <span class="uc-title">Overdue Tasks</span>
           <span class="uc-target">Total: 133</span>
         </div>
         <div class="uc-row uc-r1">
@@ -1542,14 +1227,17 @@
         </div>
       </div>
     </div>
-    <div class="uc-note" style="max-width:640px;margin:0 auto">
-      <span class="uc-fill uc-g" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> &le;20 &ensp;
-      <span class="uc-fill uc-a" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> 21&ndash;30 &ensp;
-      <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> &gt;30 &ensp;
+    <div class="uc-note">
+      <strong>Outbound:</strong> Calls + Emails + LinkedIn / wk &nbsp;&middot;&nbsp;
+      <strong>Sales Cycle:</strong> benchmark = 118d team avg &nbsp;&middot;&nbsp;
+      <strong>Overdue:</strong> &le;20 / 21&ndash;30 / &gt;30 thresholds &nbsp;&middot;&nbsp;
+      <span class="uc-fill uc-g" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> at/above &ensp;
+      <span class="uc-fill uc-a" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> near/below &ensp;
+      <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> below &ensp;
       <span style="border-left:2px dashed var(--text-muted);height:10px;display:inline-block;vertical-align:middle;margin-right:4px"></span> Team Avg
     </div>
   </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: HubSpot CRM</span></div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-m="June 2026 &middot; Source: HubSpot CRM" data-w="Wk ending Jul 20 &middot; Source: HubSpot CRM">June 2026 &middot; Source: HubSpot CRM</span></div>
 </div>
 
 <!-- ==================== APPENDIX FOOTER ==================== -->
@@ -1559,7 +1247,7 @@
       <div class="slide-eyebrow">Appendix</div>
       <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Data Sources &amp; Methodology</h2></div>
     </div>
-    <div class="slide-stamp">7</div>
+    <div class="slide-stamp">4</div>
   </div>
   <div class="slide-body" style="font-size:12px; color:var(--text-secondary); line-height:1.6;">
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
@@ -1582,6 +1270,42 @@
 </div>
 
 <script>
+function colorByAvg() {
+  var view = document.body.dataset.view || 'monthly';
+  var showClass = view === 'monthly' ? 'monthly-only' : 'weekly-only';
+  var hideClass = view === 'monthly' ? 'weekly-only' : 'monthly-only';
+
+  document.querySelectorAll('.uc-card[data-color-by-avg]').forEach(function(card) {
+    var rows = [];
+    card.querySelectorAll('.uc-row:not(.uc-bench)').forEach(function(row) {
+      var parent = row.parentElement;
+      if (parent.classList.contains(hideClass)) return;
+      var fill = row.querySelector('.uc-fill');
+      if (!fill) return;
+      var w = parseFloat(fill.style.width) || 0;
+      rows.push({ row: row, fill: fill, width: w });
+    });
+
+    if (!rows.length) return;
+    var sum = 0;
+    rows.forEach(function(r) { sum += r.width; });
+    var avg = sum / rows.length;
+
+    rows.forEach(function(r) {
+      var val = r.row.querySelector('.uc-val');
+      r.fill.classList.remove('uc-g', 'uc-a', 'uc-n');
+      if (r.width >= avg) {
+        r.fill.classList.add('uc-g');
+        if (val && r.width > 0) val.style.color = '#1F7A3A';
+      } else {
+        r.fill.classList.add('uc-a');
+        if (val && r.width > 0) val.style.color = '#92400E';
+      }
+      if (val && r.width === 0) val.style.color = '';
+    });
+  });
+}
+
 function setView(view) {
   document.body.dataset.view = view;
   document.querySelectorAll('.toggle-btn').forEach(function(b) {
@@ -1591,6 +1315,7 @@ function setView(view) {
   document.querySelectorAll('[data-m]').forEach(function(el) {
     el.textContent = el.dataset[attr];
   });
+  colorByAvg();
 }
 
 (function initEnhancements() {
@@ -1613,5 +1338,7 @@ function setView(view) {
     else if (fill.classList.contains('uc-a')) val.style.color = '#92400E';
     else if (fill.classList.contains('uc-r')) val.style.color = '#B91C1C';
   });
+
+  colorByAvg();
 })();
 </script>
