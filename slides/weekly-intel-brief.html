@@ -209,6 +209,7 @@ function renderThemeBlock(theme) {
     if (it.sources) {
       var names = '';
       var pills = '';
+      var seenTeams = {};
       for (var s = 0; s < it.sources.length; s++) {
         if (s > 0) names += ' &middot; ';
         var src = it.sources[s];
@@ -217,7 +218,8 @@ function renderThemeBlock(theme) {
         } else {
           names += esc(src.name);
         }
-        if (src.team) {
+        if (src.team && !seenTeams[src.team]) {
+          seenTeams[src.team] = true;
           pills += '<span class="team-pill ' + esc(src.team) + '">' + esc(TEAM_LABELS[src.team] || src.team) + '</span>';
         }
       }
