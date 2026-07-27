@@ -52,7 +52,7 @@
   .theme-item:last-child { margin-bottom: 0; }
   .theme-item-title { font-weight: 700; font-size: 11px; color: var(--slate-black); }
   .theme-item-text { font-size: 10px; color: var(--dark-grey); line-height: 1.35; }
-  .theme-item-meta { font-size: 8px; color: var(--silver-grey); margin-top: 2px; }
+  .theme-item-meta { font-size: 9px; color: var(--silver-grey); margin-top: 2px; }
 
   .empty-state { background: var(--light-grey); border-radius: 2px; padding: 6px 12px; font-size: 10px; color: var(--silver-grey); border-left: 3px solid var(--light-grey); }
   .data-note { font-size: 8.5px; color: var(--silver-grey); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
@@ -128,54 +128,71 @@ function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function
 
 var DATA = {
   news: [
-    { name: 'Epicor', threat: 'high', text: 'Conexiom expanded partnership for AI-powered order and invoice automation across Eclipse and Prophet 21', src: 'BusinessWire, Jul 14', url: 'https://www.businesswire.com/news/home/20260714215043/en/Conexiom-Expands-Strategic-Partnership-With-Epicor-to-Advance-AI-Order-and-Invoice-Automation-for-Distributors' }
+    { name: 'Unilog', threat: 'medium', text: 'Won 8 gold medals at Paradigm B2B Combine 2026, dominating digital commerce categories for distributors and wholesalers', src: 'Paradigm B2B, Jul 2026', url: '' }
   ],
   themes: [
     { label: 'Feature Gaps', items: [
-      { title: 'Blueprint-to-Order / Takeoff', text: 'Competitors offering better online takeoff solutions; accounts shifting from Paradigm to Simpson; takeoff automation tied to AI order entry roadmap', sources: [
+      { title: 'Blueprint-to-Order / Takeoff', text: 'Post-takeoff file ingestion and automated quote creation in BizTrack requested; Simpson vs Paradigm transitions; AI order entry is the next step', sources: [
         { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=4214458280122658435' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' }
-      ]},
-      { title: 'Apple Pay / Google Pay', text: 'Not yet supported; acknowledged as "table stakes nowadays" with growing customer expectations for digital wallet checkout', sources: [
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=7634502219134060654' },
         { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' },
-        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' }
+        { name: 'Parr', team: 'onboarding', url: 'https://app.gong.io/call?id=7583630796665423912' }
       ]},
-      { title: 'Promo Codes', text: 'Multiple requests for retail-oriented promotional capabilities; "a big one" for B2C-focused accounts; feature in development for shipping', sources: [
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
+      { title: 'Promo Codes / Coupons', text: 'Promo code support at checkout and gift card redemption requested; Orgill FanBuilder coupon integration a Phase 2 priority', sources: [
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=9192878962170947774' },
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' },
+        { name: 'Parr', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=6052405444224558694' }
+      ]},
+      { title: 'Apple Pay / Google Pay', text: 'Digital wallet support described as table stakes; needed for in-store card-present and online checkout', sources: [
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' },
         { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' }
       ]}
     ]},
     { label: 'Pain Points', items: [
-      { title: 'ERP/Payment Reconciliation', text: 'Cash drawer sync issues across 15 branches; merchant ID confusion causing "a big headache"; WebTrack API creating payment inconsistencies', sources: [
+      { title: 'CC Processing Fees', text: '$6M/yr at Parr alone; interchange-plus models and surcharging debated across all accounts; up to $1M savings projected with ACH shift', sources: [
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=6164644557960833344' },
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=8193648096568394735' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=8864246313282562378' },
         { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=1288530892711481686' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=1288530892711481686' },
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=1288530892711481686' }
+        { name: 'Parr', team: 'onboarding', url: 'https://app.gong.io/call?id=3468481099371179461' },
+        { name: 'Harrington', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=3705391642568906570' },
+        { name: 'Sunpro', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=2183490713318813814' }
       ]},
-      { title: 'Credit Card Processing Fees', text: '"Extraordinary amount of money" in CC fees; 1% reduction worth significant revenue; building business case for surcharging across accounts', sources: [
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' },
-        { name: 'Tague', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' },
-        { name: 'Harrington', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' }
+      { title: 'ERP/Payment Reconciliation', text: 'Cash drawer segregation across 15+ branches; merchant ID confusion; duplicate payments and WebTrack API sync failures', sources: [
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=1288530892711481686' },
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=72839779201354211' },
+        { name: 'Tague', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=4610694872201405311' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' },
+        { name: 'Parr', team: 'onboarding', url: 'https://app.gong.io/call?id=6252900165505022427' },
+        { name: 'Sunpro', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=3360084635572993820' }
       ]},
-      { title: 'AR Collection / DSO', text: 'Manual AR follow-ups; accounts not tracking DSO; 30% DSO reduction demonstrated with TOOLBX payment tools', sources: [
+      { title: 'AR Collection / DSO', text: 'Automated past-due reminders driving 10-40% DSO reduction; bulk payment requests and AR team restructuring across accounts', sources: [
         { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=7634502219134060654' },
-        { name: 'Harrington', team: 'growth', url: 'https://app.gong.io/call?id=7634502219134060654' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7634502219134060654' }
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=8193648096568394735' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=6902784528514407128' },
+        { name: 'Franklin', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=8920135316934835743' },
+        { name: 'Parr', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=3168995754794844883' },
+        { name: 'Harrington', team: 'growth', url: 'https://app.gong.io/call?id=4122677076355415186' },
+        { name: 'Sunpro', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=7119849182773420853' }
       ]}
     ]},
     { label: 'Competitive Landscape', items: [
-      { title: 'WebTrack Displacement', text: 'Actively being replaced across 5+ accounts; "tolerable...we\'ve gone downhill"; payment failures, poor UX, and declining quality', sources: [
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=4214458280122658435' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=4214458280122658435' },
+      { title: 'WebTrack Displacement', text: 'Actively replaced across 6 accounts; 10% WebTrack adoption jumping to 40% on Toolbx; payment failures and poor mobile UX driving switch', sources: [
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=1354191658473813998' },
         { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
-        { name: 'Sunpro', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' }
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=8763242451987280498' },
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=1288530892711481686' },
+        { name: 'Parr', team: 'onboarding', url: 'https://app.gong.io/call?id=3468481099371179461' },
+        { name: 'Sunpro', team: 'onboarding', url: 'https://app.gong.io/call?id=7597202723443366898' }
       ]},
-      { title: 'ERP Vendor Lock-in', text: 'ERPs have "a stranglehold over technology investment"; Epicor raising API costs to $600/mo and closing data access loopholes', sources: [
-        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=8193648096568394735' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=8193648096568394735' },
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=8193648096568394735' }
+      { title: 'ERP Vendor Lock-in', text: 'ERPs have a stranglehold over tech investment; Epicor API costs rising to $600/mo+, Azure migration failures, support quality declining', sources: [
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=7634502219134060654' },
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=8763242451987280498' },
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=1288530892711481686' },
+        { name: 'Parr', team: 'onboarding', url: 'https://app.gong.io/call?id=7583630796665423912' },
+        { name: 'Sunpro', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=1032689185230897878' }
       ]}
     ]}
   ]
@@ -194,7 +211,7 @@ function renderActivity() {
       h += '<span class="threat-pill ' + esc(n.threat) + '">' + esc(n.threat) + '</span></div>';
       h += '<div class="news-card-body">' + esc(n.text) + '</div>';
       if (n.url) {
-        h += '<div class="news-card-src"><a class="source-link" href="' + esc(n.url) + '" target="_blank" rel="noopener noreferrer">' + esc(n.src) + '</a></div>';
+        h += '<div class="news-card-src"><a class="source-link" href="' + esc(n.url) + '" rel="noopener noreferrer" onclick="window.open(this.href);return false;">' + esc(n.src) + ' &#x2197;</a></div>';
       } else if (n.src) {
         h += '<div class="news-card-src">' + esc(n.src) + '</div>';
       }
@@ -219,7 +236,7 @@ function renderThemeBlock(theme) {
         if (s > 0) h += ' &middot; ';
         var src = it.sources[s];
         if (src.url) {
-          h += '<a class="source-link" href="' + esc(src.url) + '" target="_blank" rel="noopener noreferrer">' + esc(src.name) + '</a>';
+          h += '<a class="source-link" href="' + esc(src.url) + '" rel="noopener noreferrer" onclick="window.open(this.href);return false;">' + esc(src.name) + ' &#x2197;</a>';
         } else {
           h += esc(src.name);
         }
