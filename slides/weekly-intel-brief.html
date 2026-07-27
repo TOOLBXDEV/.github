@@ -232,18 +232,21 @@ function renderThemeBlock(theme) {
     h += '<div class="theme-item-text">' + esc(it.text) + '</div>';
     h += '<div class="theme-item-meta">';
     if (it.sources) {
+      var names = '';
+      var pills = '';
       for (var s = 0; s < it.sources.length; s++) {
-        if (s > 0) h += ' &middot; ';
+        if (s > 0) names += ' &middot; ';
         var src = it.sources[s];
         if (src.url) {
-          h += '<a class="source-link" href="' + esc(src.url) + '" rel="noopener noreferrer" onclick="window.open(this.href);return false;">' + esc(src.name) + ' &#x2197;</a>';
+          names += '<a class="source-link" href="' + esc(src.url) + '" rel="noopener noreferrer" onclick="window.open(this.href);return false;">' + esc(src.name) + ' &#x2197;</a>';
         } else {
-          h += esc(src.name);
+          names += esc(src.name);
         }
         if (src.team) {
-          h += '<span class="team-pill ' + esc(src.team) + '">' + esc(TEAM_LABELS[src.team] || src.team) + '</span>';
+          pills += '<span class="team-pill ' + esc(src.team) + '">' + esc(TEAM_LABELS[src.team] || src.team) + '</span>';
         }
       }
+      h += names + pills;
     }
     h += '</div>';
     h += '</div>';
