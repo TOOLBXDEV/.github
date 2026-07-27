@@ -26,13 +26,6 @@
   .slide-footer { padding: 10px 36px 14px; display: flex; justify-content: space-between; align-items: center; color: var(--dark-grey); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; border-top: 1px solid var(--light-grey); flex-shrink: 0; }
   .slide-footer .brand { font-family: Georgia, "Bitter", serif; color: var(--slate-black); font-weight: 700; }
 
-  .key-metrics-strip { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--slate-black); padding: 12px 4px; border-radius: 2px; column-gap: 1px; margin-bottom: 14px; }
-  .key-metric-cell { padding: 0 12px; border-right: 1px solid #2A2A2C; }
-  .key-metric-cell:last-child { border-right: none; }
-  .key-metric-cell .lbl { color: var(--sunrise-yellow); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
-  .key-metric-cell .val { font-family: Georgia, "Bitter", serif; color: var(--white); font-size: 18px; font-weight: 700; line-height: 1; }
-  .key-metric-cell .sub { color: var(--silver-grey); font-size: 9px; margin-top: 3px; }
-
   .intel-section { margin-bottom: 14px; }
   .intel-section h3 { margin: 0 0 10px; font-size: 12px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 14px; border-left: 4px solid var(--sunrise-yellow); background: linear-gradient(90deg, rgba(28,141,161,0.07) 0%, transparent 60%); border-radius: 0 2px 2px 0; }
 
@@ -70,8 +63,8 @@
   .team-pill.acct-mgmt { background: var(--metallic-seaweed); color: var(--white); }
 
   .section-icon { width: 22px; height: 22px; vertical-align: -5px; margin-right: 8px; }
-  .theme-item-link { font-size: 8px; color: var(--teal); text-decoration: none; font-weight: 600; margin-left: 4px; }
-  .theme-item-link:hover { text-decoration: underline; }
+  .source-link { color: var(--teal); text-decoration: none; font-weight: 600; }
+  .source-link:hover { text-decoration: underline; }
 </style>
 
 <div class="deck-header">
@@ -88,13 +81,6 @@
     <div class="slide-stamp" id="week-stamp"></div>
   </div>
   <div class="slide-body">
-    <div class="key-metrics-strip">
-      <div class="key-metric-cell"><div class="lbl">Tracked</div><div class="val" id="km-tracked"></div><div class="sub" id="km-tracked-sub"></div></div>
-      <div class="key-metric-cell"><div class="lbl">Activity</div><div class="val" id="km-activity"></div><div class="sub" id="km-activity-sub"></div></div>
-      <div class="key-metric-cell"><div class="lbl">Losses</div><div class="val" id="km-losses"></div><div class="sub" id="km-losses-sub"></div></div>
-      <div class="key-metric-cell"><div class="lbl">New Entrants</div><div class="val" id="km-entrants"></div><div class="sub" id="km-entrants-sub"></div></div>
-    </div>
-
     <div class="intel-section">
       <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#1C8DA1" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="#1C8DA1" stroke-width="1.5"/><circle cx="12" cy="12" r="1.5" fill="#FFCA05"/><line x1="12" y1="1" x2="12" y2="5" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="19" x2="12" y2="23" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="12" x2="5" y2="12" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="12" x2="23" y2="12" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/></svg>Competitor Activity</h3>
       <div class="news-row" id="activity-news"></div>
@@ -141,51 +127,65 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
-  tracked: 20,
-  threatBreakdown: '5 high \xb7 10 medium \xb7 5 low',
   news: [
     { name: 'Epicor', threat: 'high', text: 'Conexiom expanded partnership for AI-powered order and invoice automation across Eclipse and Prophet 21', src: 'BusinessWire, Jul 14', url: 'https://www.businesswire.com/news/home/20260714215043/en/Conexiom-Expands-Strategic-Partnership-With-Epicor-to-Advance-AI-Order-and-Invoice-Automation-for-Distributors' }
   ],
-  entrants: [],
-  losses: [],
   themes: [
     { label: 'Feature Gaps', items: [
-      { title: 'Blueprint-to-Order / Takeoff', text: 'Competitors offering better online takeoff solutions; accounts shifting from Paradigm to Simpson; takeoff automation tied to AI order entry roadmap', who: 'Tague, TAL, R.P. Lumber', teams: ['growth', 'acct-mgmt'], url: 'https://app.gong.io/call?id=4214458280122658435' },
-      { title: 'Apple Pay / Google Pay', text: 'Not yet supported; acknowledged as "table stakes nowadays" with growing customer expectations for digital wallet checkout', who: 'R.P. Lumber, Tague', teams: ['growth'], url: 'https://app.gong.io/call?id=7035493197834213793' },
-      { title: 'Promo Codes', text: 'Multiple requests for retail-oriented promotional capabilities; "a big one" for B2C-focused accounts; feature in development for shipping', who: 'R.P. Lumber, Tague', teams: ['growth'], url: 'https://app.gong.io/call?id=4214458280122658435' }
+      { title: 'Blueprint-to-Order / Takeoff', text: 'Competitors offering better online takeoff solutions; accounts shifting from Paradigm to Simpson; takeoff automation tied to AI order entry roadmap', sources: [
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' }
+      ]},
+      { title: 'Apple Pay / Google Pay', text: 'Not yet supported; acknowledged as "table stakes nowadays" with growing customer expectations for digital wallet checkout', sources: [
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' },
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' }
+      ]},
+      { title: 'Promo Codes', text: 'Multiple requests for retail-oriented promotional capabilities; "a big one" for B2C-focused accounts; feature in development for shipping', sources: [
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' }
+      ]}
     ]},
     { label: 'Pain Points', items: [
-      { title: 'ERP/Payment Reconciliation', text: 'Cash drawer sync issues across 15 branches; merchant ID confusion causing "a big headache"; WebTrack API creating payment inconsistencies', who: 'Franklin, R.P. Lumber, TAL', teams: ['onboarding', 'growth', 'acct-mgmt'], url: 'https://app.gong.io/call?id=1288530892711481686' },
-      { title: 'Credit Card Processing Fees', text: '"Extraordinary amount of money" in CC fees; 1% reduction worth significant revenue; building business case for surcharging across accounts', who: 'TAL, Tague, R.P. Lumber, Harrington', teams: ['acct-mgmt', 'growth'], url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' },
-      { title: 'AR Collection / DSO', text: 'Manual AR follow-ups; accounts not tracking DSO; 30% DSO reduction demonstrated with TOOLBX payment tools', who: 'TAL, Harrington, R.P. Lumber', teams: ['acct-mgmt', 'growth'], url: 'https://app.gong.io/call?id=7634502219134060654' }
+      { title: 'ERP/Payment Reconciliation', text: 'Cash drawer sync issues across 15 branches; merchant ID confusion causing "a big headache"; WebTrack API creating payment inconsistencies', sources: [
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=1288530892711481686' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=1288530892711481686' },
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=1288530892711481686' }
+      ]},
+      { title: 'Credit Card Processing Fees', text: '"Extraordinary amount of money" in CC fees; 1% reduction worth significant revenue; building business case for surcharging across accounts', sources: [
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' },
+        { name: 'Tague', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' },
+        { name: 'Harrington', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=6650839165520700180' }
+      ]},
+      { title: 'AR Collection / DSO', text: 'Manual AR follow-ups; accounts not tracking DSO; 30% DSO reduction demonstrated with TOOLBX payment tools', sources: [
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=7634502219134060654' },
+        { name: 'Harrington', team: 'growth', url: 'https://app.gong.io/call?id=7634502219134060654' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7634502219134060654' }
+      ]}
     ]},
     { label: 'Competitive Landscape', items: [
-      { title: 'WebTrack Displacement', text: 'Actively being replaced across 5+ accounts; "tolerable...we\'ve gone downhill"; payment failures, poor UX, and declining quality', who: 'Franklin, R.P. Lumber, TAL, Tague, Sunpro', teams: ['growth', 'onboarding', 'acct-mgmt'], url: 'https://app.gong.io/call?id=4214458280122658435' },
-      { title: 'ERP Vendor Lock-in', text: 'ERPs have "a stranglehold over technology investment"; Epicor raising API costs to $600/mo and closing data access loopholes', who: 'Tague, R.P. Lumber, Franklin', teams: ['growth', 'onboarding'], url: 'https://app.gong.io/call?id=8193648096568394735' }
+      { title: 'WebTrack Displacement', text: 'Actively being replaced across 5+ accounts; "tolerable...we\'ve gone downhill"; payment failures, poor UX, and declining quality', sources: [
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
+        { name: 'Sunpro', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' }
+      ]},
+      { title: 'ERP Vendor Lock-in', text: 'ERPs have "a stranglehold over technology investment"; Epicor raising API costs to $600/mo and closing data access loopholes', sources: [
+        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=8193648096568394735' },
+        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=8193648096568394735' },
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=8193648096568394735' }
+      ]}
     ]}
   ]
 };
 
-function renderMetrics() {
-  document.getElementById('km-tracked').textContent = String(DATA.tracked);
-  document.getElementById('km-tracked-sub').textContent = DATA.threatBreakdown;
-
-  var actCount = DATA.news.length + DATA.entrants.length;
-  document.getElementById('km-activity').textContent = String(actCount);
-  document.getElementById('km-activity-sub').textContent = actCount > 0 ? 'this week' : 'quiet week';
-
-  document.getElementById('km-losses').textContent = String(DATA.losses.length);
-  document.getElementById('km-losses-sub').textContent = 'to competitors this week';
-
-  document.getElementById('km-entrants').textContent = String(DATA.entrants.length);
-  document.getElementById('km-entrants-sub').textContent = DATA.entrants.length > 0 ? DATA.entrants[0].name : 'this week';
-}
-
 function renderActivity() {
   var newsEl = document.getElementById('activity-news');
   var h = '';
-  if (DATA.news.length === 0 && DATA.entrants.length === 0) {
-    h = '<div class="empty-state">Quiet week across ' + DATA.tracked + ' battlecards</div>';
+  if (DATA.news.length === 0) {
+    h = '<div class="empty-state">No competitor activity this week</div>';
   } else {
     for (var i = 0; i < DATA.news.length; i++) {
       var n = DATA.news[i];
@@ -194,7 +194,7 @@ function renderActivity() {
       h += '<span class="threat-pill ' + esc(n.threat) + '">' + esc(n.threat) + '</span></div>';
       h += '<div class="news-card-body">' + esc(n.text) + '</div>';
       if (n.url) {
-        h += '<div class="news-card-src"><a href="' + esc(n.url) + '" target="_blank">' + esc(n.src) + '</a></div>';
+        h += '<div class="news-card-src"><a class="source-link" href="' + esc(n.url) + '" target="_blank" rel="noopener noreferrer">' + esc(n.src) + '</a></div>';
       } else if (n.src) {
         h += '<div class="news-card-src">' + esc(n.src) + '</div>';
       }
@@ -211,17 +211,22 @@ function renderThemeBlock(theme) {
   for (var i = 0; i < theme.items.length; i++) {
     var it = theme.items[i];
     h += '<div class="theme-item">';
-    h += '<div class="theme-item-title">' + esc(it.title);
-    if (it.teams) {
-      for (var t = 0; t < it.teams.length; t++) {
-        h += '<span class="team-pill ' + esc(it.teams[t]) + '">' + esc(TEAM_LABELS[it.teams[t]] || it.teams[t]) + '</span>';
-      }
-    }
-    h += '</div>';
+    h += '<div class="theme-item-title">' + esc(it.title) + '</div>';
     h += '<div class="theme-item-text">' + esc(it.text) + '</div>';
-    h += '<div class="theme-item-meta">' + esc(it.who);
-    if (it.url) {
-      h += ' &middot; <a class="theme-item-link" href="' + esc(it.url) + '" target="_blank">Recording</a>';
+    h += '<div class="theme-item-meta">';
+    if (it.sources) {
+      for (var s = 0; s < it.sources.length; s++) {
+        if (s > 0) h += ' &middot; ';
+        var src = it.sources[s];
+        if (src.url) {
+          h += '<a class="source-link" href="' + esc(src.url) + '" target="_blank" rel="noopener noreferrer">' + esc(src.name) + '</a>';
+        } else {
+          h += esc(src.name);
+        }
+        if (src.team) {
+          h += '<span class="team-pill ' + esc(src.team) + '">' + esc(TEAM_LABELS[src.team] || src.team) + '</span>';
+        }
+      }
     }
     h += '</div>';
     h += '</div>';
@@ -251,7 +256,6 @@ function renderHearing() {
   fullEl.innerHTML = fh;
 }
 
-renderMetrics();
 renderActivity();
 renderHearing();
 </script>
