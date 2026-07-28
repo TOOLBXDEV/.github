@@ -150,28 +150,67 @@ record with real activity risks losing data.
 Try connectors in this order and use the first that's available; note in
 `data_notes` which path was actually used.
 
-### Path 1 — Gong MCP connector (preferred)
+### Path 1 — Gong MCP connector directly (preferred, confirmed working)
 
-Tools: `ask_account`, `ask_deal`, `generate_brief`. These are
-account/deal-scoped and map directly onto items like "Gong notes across the
-N contacts" or "Gong history with account X" — ask a targeted question per
-account rather than pulling a raw transcript dump.
+Tools: `ask_account`, `ask_deal`, `generate_brief`. Confirmed working
+end-to-end on the IHI 2026 run with no interactive auth step — this is the
+connector to reach for first, not a fallback. Two things that mattered in
+practice:
 
-### Path 2 — Sales_Hub MCP connector (fallback)
+- **`ask_account` needs the exact CRM ID, not a fuzzy name.** A name search
+  for an account with a common name pattern (e.g. "Home Lumber & Supply")
+  returned `CRM_AMBIGUOUS_ENTITY` with 2–3 candidate accounts. Resolve the
+  company in HubSpot first (§B), then call `ask_account` with that
+  `company_id` as `crmAccount` directly — this always resolved cleanly.
+- **The default date window is only the last 30 days — too narrow for a
+  win-back campaign.** These are accounts closed lost in 2025/early 2026;
+  a default-window query returned zero calls even for accounts with real
+  Gong history. Always pass explicit `fromDateTime`/`toDateTime` covering
+  back to at least the earliest deal's close date (e.g. `2025-01-01` to
+  today) on the first pass.
+- Ask account-scoped, targeted questions per item rather than one generic
+  "summarize this account" query — e.g. "What was the outcome of the touch
+  on [date]? Are there other stakeholders mentioned besides the CRM
+  contact?" maps directly onto specific worklist items and often surfaces
+  named people (a second stakeholder, an unrecorded decision-maker) that
+  aren't in CRM at all — when that happens, add a `crm_hygiene` action and
+  a `corrections` entry, don't just fold the name into the resolved finding
+  and move on.
+- For "confirm attendance"-type items, a **negative result is still a
+  result worth stating explicitly.** Re-run the question narrowed to the
+  most recent window (e.g. the last 4–8 weeks) specifically for
+  event/trade-show mentions. Zero hits across both the full history and the
+  recent window is a real, reportable finding — state it as "no signal
+  found" in the item's `source` field, not as a resolution. The absence of
+  a mention is not evidence of non-attendance; only the actual attendance
+  channel (campaign reply, registration list) can resolve those items.
+
+### Path 2 — Sales_Hub MCP connector
 
 Tools: `get_deal_gong_calls`, `ask_deal_question`, `get_deal_handover`,
-`get_deal_reasons`. `get_deal_reasons` / `generate_deal_reasons` may also
-independently corroborate the HubSpot `closed_lost_reasons` pull — if it
-disagrees with the picklist, note the discrepancy rather than picking one
-silently.
+`get_deal_reasons`. **In practice this connector requires interactive
+sign-in and returned `401 Unauthorized: Sign in required` on every call in
+a non-interactive session**, even with the connector's tools loaded and
+callable. Try it, but don't spend more than one round-trip on it before
+falling back to Path 1 — if Path 1 (direct Gong) is reachable, prefer it
+outright rather than treating Sales_Hub as the primary path. If Sales_Hub
+does authenticate successfully in a given session, `get_deal_reasons` /
+`generate_deal_reasons` can independently corroborate the HubSpot
+`closed_lost_reasons` pull — if it disagrees with the picklist, note the
+discrepancy rather than picking one silently.
 
 ### Path 3 — Red Shift SQL (last resort)
 
-If neither MCP connector is reachable, the `elt-pre-read` skill documents a
-Redshift query pattern for Gong data in its own `references/data-sources.md`
-(`analytics.gong_calls` / `analytics.gong_call_transcripts`, filtered by
-`account_name ILIKE`). Table names may have drifted — verify against that
-skill's current reference before relying on it.
+**No Redshift connector was available in this environment** — `ListConnectors`
+with database/warehouse keywords returned only Supabase (not enabled), no
+Redshift. If a future environment does expose one, the `elt-pre-read` skill
+documents a query pattern for Gong data in its own
+`references/data-sources.md` (`analytics.gong_calls` /
+`analytics.gong_call_transcripts`, filtered by `account_name ILIKE`). Don't
+assume this path exists — confirm with `ListConnectors` before relying on
+it, and don't burn time hunting for a bare SQL tool if Path 1 is reachable;
+direct Gong access is both simpler and richer (synthesized answers, not
+raw transcripts to parse yourself).
 
 ### If none of the above are reachable
 

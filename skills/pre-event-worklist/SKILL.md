@@ -158,10 +158,32 @@ should eventually answer it. A wrong "resolved" is worse than an honest
 
 ## Step 5 — Gong / Red Shift
 
-Attempt remaining items via, in order: the `Gong` MCP connector, the
-`Sales_Hub` MCP connector, then Red Shift SQL if directly accessible (see
-`references/data-sources.md` §C for the exact tool calls and fallback
-chain). Anything still unresolved after this stays `open` — report which
+Try the `Gong` MCP connector (`ask_account`/`ask_deal`) directly first —
+confirmed to work without interactive auth, and richer than the
+alternatives since it returns synthesized answers, not raw transcripts.
+Resolve the account to its exact HubSpot company ID before calling
+`ask_account` (name search can return `CRM_AMBIGUOUS_ENTITY`), and always
+pass an explicit date range back to at least the earliest relevant deal's
+close date — the tool's 30-day default window misses everything on a
+win-back campaign. `Sales_Hub`'s Gong tools required interactive sign-in
+and 401'd in this environment; don't burn more than one attempt on it
+before falling back. Red Shift SQL is a last resort and may not exist at
+all — check `ListConnectors` before assuming it does. Full detail:
+`references/data-sources.md` §C.
+
+Gong questions often surface names and details CRM doesn't have — a second
+stakeholder, an internal follow-up thread, a concrete next step. When that
+happens, don't just fold it into the resolved finding: add a
+`crm_hygiene` action if it's a data gap, and a `corrections` entry if it
+changes how an existing Part 1 claim should be read (see the IHI 2026
+example, where a Gong call revealed the KB Home Center "Not in ICP"
+blocker was already under internal review at Toolbx — a materially
+different situation than "dead end, skip it").
+
+For "confirm attendance" items, an honest negative (checked, found
+nothing) is a valid outcome — report it as a checked-but-unconfirmed
+`open` item with the check noted in `source`, never as a resolution.
+Anything still unresolved after this stays `open` — report which
 connector path was actually used (or that none was reachable) in
 `data_notes`.
 

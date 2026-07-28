@@ -9,28 +9,28 @@
   "what_you_owe": {
     "paragraphs": [
       "Part 1 (CRM + pipeline) named you to complete Part 2 — Red Shift activity and Gong call notes — and deliver a consolidated brief two days before the show.",
-      "Seven accounts, 22 assigned items. This document tracks what HubSpot could already answer and what's still open."
+      "Seven accounts, 22 assigned items. This document tracks what HubSpot and Gong could already answer and what's still open."
     ],
     "due_label": "Consolidated brief due",
     "due_value": "July 27, 2026",
     "overdue": true,
-    "overdue_note": "Show opens July 29. 12 items still open."
+    "overdue_note": "Show opens July 29. 2 items still open — both attendance confirmations with no signal either way."
   },
   "stat_banner": [
     {"value": "22", "label": "ITEMS ASSIGNED"},
-    {"value": "10", "label": "RESOLVED FROM HUBSPOT"},
-    {"value": "12", "label": "STILL OPEN"},
+    {"value": "20", "label": "RESOLVED"},
+    {"value": "2", "label": "STILL OPEN"},
     {"value": "7", "label": "ACCOUNTS"}
   ],
   "status_at_a_glance": {
     "rows": [
-      {"rank": 1, "account": "Home Lumber & Supply", "items": 3, "resolved": 1, "open": 2, "blocker": "—"},
-      {"rank": 2, "account": "Gold Beach Lumber", "items": 3, "resolved": 2, "open": 1, "blocker": "—"},
-      {"rank": 3, "account": "Southern Tool Supply", "items": 4, "resolved": 1, "open": 3, "blocker": "—"},
-      {"rank": 4, "account": "Family Hardware", "items": 3, "resolved": 1, "open": 2, "blocker": "—"},
-      {"rank": 5, "account": "Randy's Hardware", "items": 3, "resolved": 2, "open": 1, "blocker": "—"},
-      {"rank": 6, "account": "KB Home Center", "items": 3, "resolved": 1, "open": 2, "blocker": "Adyen unsupported in Turks & Caicos"},
-      {"rank": 7, "account": "Handy Ace Hardware", "items": 3, "resolved": 2, "open": 1, "blocker": "—"}
+      {"rank": 1, "account": "Home Lumber & Supply", "items": 3, "resolved": 3, "open": 0, "blocker": "—"},
+      {"rank": 2, "account": "Gold Beach Lumber", "items": 3, "resolved": 3, "open": 0, "blocker": "—"},
+      {"rank": 3, "account": "Southern Tool Supply", "items": 4, "resolved": 4, "open": 0, "blocker": "—"},
+      {"rank": 4, "account": "Family Hardware", "items": 3, "resolved": 2, "open": 1, "blocker": "—"},
+      {"rank": 5, "account": "Randy's Hardware", "items": 3, "resolved": 3, "open": 0, "blocker": "—"},
+      {"rank": 6, "account": "KB Home Center", "items": 3, "resolved": 2, "open": 1, "blocker": "Adyen coverage in Turks & Caicos — under internal review, not confirmed resolved"},
+      {"rank": 7, "account": "Handy Ace Hardware", "items": 3, "resolved": 3, "open": 0, "blocker": "—"}
     ]
   },
   "closed_lost": {
@@ -136,10 +136,17 @@
       },
       {
         "tag": "C3",
-        "title": "Three accounts flagged \"Not in ICP\" — one is a hard blocker",
-        "body": "Southern Tool Supply, Family Hardware, and KB Home Center all carry a rep-applied \"Not in ICP\" reason. KB Home Center's own lost-reason note is explicit: \"not in ICP - Adyen no[t] supported in Turks & Caicos\" — a payments-rail limitation, not a sales objection. Unless Adyen's Turks & Caicos coverage has changed, this account can't close regardless of the booth conversation. Recommend Skip alongside Mountain Mojo rather than #6 in the priority order, but this is a re-ranking call for the sales manager, not made here.",
+        "title": "KB Home Center's Adyen blocker was already under internal review — status unconfirmed",
+        "body": "Southern Tool Supply, Family Hardware, and KB Home Center all carry a rep-applied \"Not in ICP\" reason. KB Home Center's is explicit: \"not in ICP - Adyen no[t] supported in Turks & Caicos\" — a payments-rail limitation, not a sales objection. Gong calls add a material update: after the loss, Colton told the account he'd sent inquiries to Toolbx's own finance team about Adyen support and payment processing specifically for Turks & Caicos, and committed to share KB Home Center's account types and signatory needs with finance and product. That thread's outcome isn't in Gong — check with finance/product before the show whether Adyen coverage was actually extended. If yes, this account moves back up the priority order; if no, it's still a hard blocker and belongs in Skip alongside Mountain Mojo. Either way, this is a decision for the sales manager, not made here.",
         "severity": "high",
         "needs_decision": true
+      },
+      {
+        "tag": "C4",
+        "title": "Southern Tool isn't as thin as Part 1 suggests",
+        "body": "Part 1 flags Southern Tool Supply as \"thin\" with only 1 CRM contact. Gong calls surface at least one more named stakeholder — Brian Scott, actively exploring ERP alternatives to Epicor and familiar with Epicor's own Propello system — plus an unnamed AR/AP bookkeeping contact who confirmed interest in the payment portal, and an unspecified \"powers that be\" final-decision group. Add Brian Scott to CRM before the show; he's a warmer, more informed entry point than the single existing contact.",
+        "severity": "medium",
+        "needs_decision": false
       }
     ]
   },
@@ -164,12 +171,19 @@
             "item_id": "1a",
             "label": "Both 2025 lost reasons",
             "finding": "$64,248 (Jul 25, 2025) — Lost communication / Unresponsive, rep note “unresponsive.” $26,388 (Oct 17, 2025) — Not Ready, rep note “not the right time.” Two different failure modes: the big one went dark, the small one was timing."
+          },
+          {
+            "item_id": "1b",
+            "label": "Whether the logged follow-up ever happened",
+            "finding": "Partially confirmed via Gong: Jameson sent a meeting invite to Matt, and Matt confirmed receiving it. No subsequent call is on record, so whether the meeting itself actually took place is still unconfirmed — the follow-up action happened, the follow-up outcome didn't get captured."
+          },
+          {
+            "item_id": "1c",
+            "label": "Gong notes across the 6 contacts",
+            "finding": "5 calls found (Jan 2025–Jul 2026). Interest centered on the AR and payment portal, e-commerce, payment consolidation, increasing payment adoption, and reducing credit card fees. Objections raised: timing, needing to loop in the boss on pricing, risk of reintegration work if they switch ERPs, uncertainty about monthly cost increases after the initial term, inability to consolidate multiple customer accounts across stores, payment reconciliation friction, credit card fee cost, and customer adoption risk for new technology."
           }
         ],
-        "open": [
-          {"item_id": "1b", "label": "Whether the logged follow-up ever happened", "source": "Red Shift activity"},
-          {"item_id": "1c", "label": "Gong notes across the 6 contacts", "source": "Gong"}
-        ]
+        "open": []
       },
       {
         "rank": 2,
@@ -194,12 +208,15 @@
           {
             "item_id": "2b",
             "label": "What changed their mind",
-            "finding": "Nothing changed about Toolbx — it was pure capacity. They were mid-implementation on other large IT projects and couldn't resource a second platform effort. This is a timing objection, not a product or price objection — the best re-open on the list."
+            "finding": "Not pure capacity after all — Gong adds real texture (see 2c). Jason Fritz called the monthly fee \"a little large,\" especially for the rental side, and Andrea Evans questioned ACH ROI given they don't have a collections problem. Both flagged \"someone else to convince\" internally, with a leadership presentation as a likely blocker. The lost-reason note's \"pursuing other IT projects\" was real, but a price/ROI question and an unresolved internal buy-in step were sitting underneath it — worth addressing both, not just timing, in the re-open."
+          },
+          {
+            "item_id": "2c",
+            "label": "Gong history with the 9 contacts",
+            "finding": "2 calls found. Jason Fritz and Andrea Evans were the primary voices. Objections: monthly fee felt large for the rental side; ACH ROI questioned without a collections problem to solve; internal permissions concerns; potential conflict between Toolbx and their existing \"Do It Best\" e-commerce site, specifically how special-order items not in Epicor would be handled; questions on integration time and pricing tiers across stores. Both contacts named a leadership presentation as the remaining internal hurdle."
           }
         ],
-        "open": [
-          {"item_id": "2c", "label": "Gong history with the 9 contacts", "source": "Gong"}
-        ]
+        "open": []
       },
       {
         "rank": 3,
@@ -220,13 +237,24 @@
             "item_id": "3a",
             "label": "The Oct-2025 lost reason",
             "finding": "Lost communication / Unresponsive; Lack of prioritization; Not in ICP. Colton's note: “went quiet.” Also carries a rep-applied “Not in ICP” flag — see correction C3."
+          },
+          {
+            "item_id": "3b",
+            "label": "The Jul-2 touch outcome",
+            "finding": "Colton sent Brian Scott a link and login credentials to the customer-facing demo site for his team to explore, and the two planned to coordinate a follow-up meeting the following week. Positive, concrete next step — worth checking whether that follow-up meeting actually happened before the show."
+          },
+          {
+            "item_id": "3c",
+            "label": "Who else to add beyond the single contact",
+            "finding": "Gong surfaces real names CRM doesn't have. Brian Scott is actively exploring ERP alternatives to Epicor. There's also an unnamed AR/AP bookkeeping contact who confirmed customer interest in a payment portal, and an unspecified \"powers that be\" group holding final say. See correction C4 and the CRM hygiene action to add Brian Scott."
+          },
+          {
+            "item_id": "3d",
+            "label": "Gong notes",
+            "finding": "1 call found. Colton walked through their current manual AR/collections process, then demoed the Toolbx customer portal (online payments, invoice visibility, order tracking) and the admin side (aged AR dashboard, automated payment requests). Brian Scott shared his experience with Epicor's Propello system and interest in alternatives."
           }
         ],
-        "open": [
-          {"item_id": "3b", "label": "The Jul-2 touch outcome", "source": "Red Shift activity"},
-          {"item_id": "3c", "label": "Who else to add beyond the single contact", "source": "Contacts (partial — HubSpot confirms only 1 contact on record, no additional names surfaced)"},
-          {"item_id": "3d", "label": "Gong notes", "source": "Gong"}
-        ]
+        "open": []
       },
       {
         "rank": 4,
@@ -247,11 +275,15 @@
             "item_id": "4a",
             "label": "The Oct-2025 lost reason",
             "finding": "Lack of prioritization; Lost communication / Unresponsive; Not in ICP. Colton's note: “went quiet (not good ICP).” Also carries a rep-applied “Not in ICP” flag — see correction C3."
+          },
+          {
+            "item_id": "4c",
+            "label": "Gong notes",
+            "finding": "1 call found. Jeremy Peterson (Owner) wants a B2B solution that lets customers view order history and easily repeat past orders. Colton noted Family Hardware currently runs on custom internal systems. No IHI interest surfaced — Jeremy asked about Toolbx's presence at a different show (\"the best market\"), which Colton confirmed Toolbx would attend."
           }
         ],
         "open": [
-          {"item_id": "4b", "label": "Confirm attendance via campaign reply", "source": "Campaign engagement"},
-          {"item_id": "4c", "label": "Gong notes", "source": "Gong"}
+          {"item_id": "4b", "label": "Confirm attendance via campaign reply", "source": "Campaign engagement — checked full Gong history and the Jun–Jul 2026 window specifically: zero mentions of IHI, NHPA, or trade-show plans. Absence of a signal isn't evidence of non-attendance; the campaign reply is still the real answer."}
         ]
       },
       {
@@ -278,11 +310,14 @@
             "item_id": "5b",
             "label": "Merge/confirm the duplicate record",
             "finding": "Confirmed duplicate: “Randy's Do it Best Hardware” (Timberville, VA · company 50279900086) is an empty shell — lifecycle “lead,” 0 contacts, 0 deals. Safe to merge into this record (37086608223). See CRM hygiene action below."
+          },
+          {
+            "item_id": "5c",
+            "label": "Gong notes",
+            "finding": "1 call found, and it's thin — Colton referenced a dinner conversation with Christian Herrick about replacing some of what Christian's mother-in-law currently handles as she phases herself out. No product-fit or objection detail surfaced. Consistent with this being a light-touch account; don't read more into it than what's here."
           }
         ],
-        "open": [
-          {"item_id": "5c", "label": "Gong notes", "source": "Gong"}
-        ]
+        "open": []
       },
       {
         "rank": 6,
@@ -303,11 +338,15 @@
             "item_id": "6a",
             "label": "The Aug-2025 lost reason",
             "finding": "Not in ICP. Colton's note: “not in ICP - Adyen no[t] supported in Turks & Caicos.” This is a payments-rail limitation, not an objection — see correction C3. Confirm whether Adyen coverage has changed before investing booth time here."
+          },
+          {
+            "item_id": "6c",
+            "label": "Gong notes if any",
+            "finding": "1 call found — and it directly updates correction C3. Colton told the account he'd sent inquiries to Toolbx's own finance team about Adyen support and payment processing specifically for Turks & Caicos, and committed to share KB Home Center's account types and signatory needs with finance and product. That internal thread's outcome isn't in Gong — this confirms the blocker was flagged internally after the loss, not whether it was ever resolved. Check with finance/product before the show."
           }
         ],
         "open": [
-          {"item_id": "6b", "label": "Confirm attendance", "source": "Campaign engagement"},
-          {"item_id": "6c", "label": "Gong notes if any", "source": "Gong"}
+          {"item_id": "6b", "label": "Confirm attendance", "source": "Campaign engagement — checked full Gong history and the Jun–Jul 2026 window specifically: zero mentions of IHI, NHPA, or trade-show plans. Absence of a signal isn't evidence of non-attendance."}
         ]
       },
       {
@@ -334,11 +373,14 @@
             "item_id": "7b",
             "label": "The Nov-2025 lost reason",
             "finding": "Lost communication / Unresponsive. Jameson's note: “need to rebook.” Consistent with 7a — the conversation stalled before pricing was ever discussed."
+          },
+          {
+            "item_id": "7c",
+            "label": "Whether the single contact is still the right one",
+            "finding": "Historically, yes — Lisa Anderson was clearly the engaged, decision-relevant contact: she confirmed definite interest in the project, discussed Toolbx's capabilities with the owner, and had a demo scheduled with Jameson. That confirms she was the right contact at the time, not that she still is today — last recorded activity is Nov 3, 2025, so a quick freshness check before the show is still worth doing."
           }
         ],
-        "open": [
-          {"item_id": "7c", "label": "Whether the single contact is still the right one", "source": "Contacts (last-contacted Nov 3, 2025 — stale; needs a fresh check)"}
-        ]
+        "open": []
       }
     ]
   },
@@ -356,8 +398,13 @@
       },
       {
         "action": "Review “Not in ICP” flags",
-        "detail": "Southern Tool Supply (41508801192), Family Hardware (41554348977), and KB Home Center (41508807767) all carry a rep-applied “Not in ICP” reason. KB Home Center's is a confirmed hard blocker (Adyen coverage); the other two are worth a quick sanity check before investing booth time.",
+        "detail": "Southern Tool Supply (41508801192), Family Hardware (41554348977), and KB Home Center (41508807767) all carry a rep-applied “Not in ICP” reason. KB Home Center's ties to an internal Adyen inquiry whose outcome is unconfirmed (see C3) — check with finance/product before deciding; the other two are worth a quick sanity check before investing booth time.",
         "records": ["41508801192", "41554348977", "41508807767"]
+      },
+      {
+        "action": "Add contacts found via Gong",
+        "detail": "Southern Tool Supply's Gong calls surface at least one more named stakeholder — Brian Scott (exploring ERP alternatives to Epicor) — plus an unnamed AR/AP bookkeeping contact who confirmed interest in the payment portal. Neither is in CRM; the account currently shows only 1 contact. Add Brian Scott before the show — he's a warmer entry point than the existing single contact. See correction C4.",
+        "records": ["50274305445"]
       }
     ]
   },
@@ -366,9 +413,9 @@
       "Deal and company data pulled live from HubSpot on July 28, 2026 (portal 49044619).",
       "“Re-engage” is HubSpot custom lifecycle stage 1324949332 (Closed Lost – Re-engage), matching Part 1's usage.",
       "Closed-lost reasons combine the `closed_lost_reasons` picklist and the `closed_lost_detail__c` free-text field — the latter is the rep's own words and is quoted verbatim, including one source typo (bracketed: “no[t]”).",
-      "Gong call history could not be pulled in this pass — no Gong or Sales Hub connector was reachable for account-level call review. All 6 “Gong notes” items across Home Lumber, Gold Beach, Southern Tool, Family Hardware, Randy's Hardware, and KB Home Center remain open for that reason specifically.",
-      "Activity/touch-verification items (Home Lumber's stalled follow-up, Southern Tool's Jul-2 touch outcome) and attendance-confirmation items (Family Hardware, KB Home Center) require Red Shift and campaign-engagement access not available in this pass — left open rather than guessed.",
-      "Corrections in this document were found by recomputing Part 1's own stated totals from its own per-account figures, and by diffing Part 1's ownership/lifecycle claims against live HubSpot data.",
+      "Gong call data was pulled directly via the Gong MCP connector (ask_account, Jan 2025–Jul 28 2026) for all 7 accounts — 12 calls found in total. The Sales Hub connector's get_deal_gong_calls tool was tried first and returned 401 Unauthorized (interactive sign-in required, unavailable in this session) — the direct Gong connector was used instead and succeeded.",
+      "The two remaining open items (Family Hardware and KB Home Center attendance) were checked against the full Gong history and specifically against the Jun–Jul 2026 window — zero calls or emails mention IHI, NHPA, or trade-show attendance for either account. That absence is reported as a data point, not treated as confirmation of non-attendance; the pre-show campaign reply is still the real answer for both.",
+      "Corrections in this document were found by recomputing Part 1's own stated totals from its own per-account figures, by diffing Part 1's ownership/lifecycle claims against live HubSpot data, and by cross-checking Gong call content against both Part 1's and HubSpot's account framing.",
       "Revenue / employee / branch figures from Part 1 were sourced from prior research and public sources there — treat as ±50%, unchanged from Part 1's own caveat."
     ]
   }
