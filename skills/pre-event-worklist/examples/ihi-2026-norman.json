@@ -1,0 +1,375 @@
+{
+  "header": {
+    "doc_kind": "PRE-EVENT WORKLIST",
+    "event_name": "IHI Conference 2026",
+    "subtitle": "Part 2 — Red Shift + Gong · assigned to Norman Kuan",
+    "logistics": "Independent Home Improvement Conf. (NHPA) · July 29–30, 2026 · JW Marriott Orlando, Grande Lakes · Booth 9",
+    "provenance": "Source: Part 1 brief v1 (Jul 21, 2026) · HubSpot refreshed July 28, 2026 · v1"
+  },
+  "what_you_owe": {
+    "paragraphs": [
+      "Part 1 (CRM + pipeline) named you to complete Part 2 — Red Shift activity and Gong call notes — and deliver a consolidated brief two days before the show.",
+      "Seven accounts, 22 assigned items. This document tracks what HubSpot could already answer and what's still open."
+    ],
+    "due_label": "Consolidated brief due",
+    "due_value": "July 27, 2026",
+    "overdue": true,
+    "overdue_note": "Show opens July 29. 12 items still open."
+  },
+  "stat_banner": [
+    {"value": "22", "label": "ITEMS ASSIGNED"},
+    {"value": "10", "label": "RESOLVED FROM HUBSPOT"},
+    {"value": "12", "label": "STILL OPEN"},
+    {"value": "7", "label": "ACCOUNTS"}
+  ],
+  "status_at_a_glance": {
+    "rows": [
+      {"rank": 1, "account": "Home Lumber & Supply", "items": 3, "resolved": 1, "open": 2, "blocker": "—"},
+      {"rank": 2, "account": "Gold Beach Lumber", "items": 3, "resolved": 2, "open": 1, "blocker": "—"},
+      {"rank": 3, "account": "Southern Tool Supply", "items": 4, "resolved": 1, "open": 3, "blocker": "—"},
+      {"rank": 4, "account": "Family Hardware", "items": 3, "resolved": 1, "open": 2, "blocker": "—"},
+      {"rank": 5, "account": "Randy's Hardware", "items": 3, "resolved": 2, "open": 1, "blocker": "—"},
+      {"rank": 6, "account": "KB Home Center", "items": 3, "resolved": 1, "open": 2, "blocker": "Adyen unsupported in Turks & Caicos"},
+      {"rank": 7, "account": "Handy Ace Hardware", "items": 3, "resolved": 2, "open": 1, "blocker": "—"}
+    ]
+  },
+  "closed_lost": {
+    "intro": "Pulled live from HubSpot on July 28, 2026. Picklist reason plus the closing rep's own note — the note is where the actual objection lives.",
+    "rows": [
+      {
+        "account": "Home Lumber & Supply",
+        "amount": "$64,248",
+        "closed": "Jul 25, 2025",
+        "reasons": ["Lost communication / Unresponsive"],
+        "detail": "unresponsive",
+        "owner": "Jameson Labuguen",
+        "deal_id": "33267747684",
+        "emphasis": true
+      },
+      {
+        "account": "Home Lumber & Supply",
+        "amount": "$26,388",
+        "closed": "Oct 17, 2025",
+        "reasons": ["Not Ready"],
+        "detail": "not the right time",
+        "owner": "Jameson Labuguen",
+        "deal_id": "41888879509",
+        "emphasis": false
+      },
+      {
+        "account": "Gold Beach Lumber",
+        "amount": "$27,444.72",
+        "closed": "May 7, 2026",
+        "reasons": ["Not Ready", "Other", "Lack of prioritization"],
+        "detail": "Pursuing other large IT projects and cannot put resources to this just now",
+        "owner": "Scott Hamilton",
+        "deal_id": "41883733548",
+        "emphasis": false
+      },
+      {
+        "account": "Southern Tool Supply",
+        "amount": "$20,000",
+        "closed": "Oct 13, 2025",
+        "reasons": ["Lost communication / Unresponsive", "Lack of prioritization", "Not in ICP"],
+        "detail": "went quiet",
+        "owner": "Colton Cranston",
+        "deal_id": "41508801192",
+        "emphasis": false
+      },
+      {
+        "account": "Family Hardware",
+        "amount": "$24,000",
+        "closed": "Oct 13, 2025",
+        "reasons": ["Lack of prioritization", "Lost communication / Unresponsive", "Not in ICP"],
+        "detail": "went quiet (not good ICP)",
+        "owner": "Colton Cranston",
+        "deal_id": "41554348977",
+        "emphasis": false
+      },
+      {
+        "account": "Randy's Hardware",
+        "amount": "$25,000",
+        "closed": "Oct 6, 2025",
+        "reasons": ["ROI - Price sensitivity"],
+        "detail": "hardware only - cant afford more that $500/mo",
+        "owner": "Colton Cranston",
+        "deal_id": "43264372513",
+        "emphasis": false
+      },
+      {
+        "account": "KB Home Center",
+        "amount": "$20,000",
+        "closed": "Aug 22, 2025",
+        "reasons": ["Not in ICP"],
+        "detail": "not in ICP - Adyen no[t] supported in Turks & Caicos",
+        "owner": "Colton Cranston",
+        "deal_id": "41508807767",
+        "emphasis": false
+      },
+      {
+        "account": "Handy Ace Hardware",
+        "amount": "— (never set)",
+        "closed": "Nov 4, 2025",
+        "reasons": ["Lost communication / Unresponsive"],
+        "detail": "need to rebook",
+        "owner": "Jameson Labuguen",
+        "deal_id": "41502765436",
+        "emphasis": false
+      }
+    ]
+  },
+  "corrections": {
+    "items": [
+      {
+        "tag": "C1",
+        "title": "Recoverable pipeline understated by $64,248",
+        "body": "Part 1 headlines ≈$142.8K. Summing the per-account figures Part 1 itself prints ($26,388 + $64,248 + $27,444.72 + $20,000 + $24,000 + $25,000 + $20,000 + $0) gives $207,080.72. The $64,248 Home Lumber deal (closed Jul 25, 2025) is counted in that account's card and its \"~$90K\" note, but excluded from every stated total — both stat cards and the manager takeaways. True recoverable ≈ $207.1K, not ≈$142.8K.",
+        "severity": "high",
+        "needs_decision": false
+      },
+      {
+        "tag": "C2",
+        "title": "The ownership gap is already closed",
+        "body": "Part 1 shows five accounts as — assign, unowned. As of today HubSpot has all seven owned: Pouyan Mirsaeidi (Home Lumber, Southern Tool, Randy's Hardware, Handy Ace Hardware) and Joshua Kolenda (Gold Beach Lumber, Family Hardware, KB Home Center). Assigned after the July 21, 2026 match date used in Part 1. \"Close the ownership gap\" is done — don't send Josh and Pouyan chasing a solved problem at the booth.",
+        "severity": "medium",
+        "needs_decision": false
+      },
+      {
+        "tag": "C3",
+        "title": "Three accounts flagged \"Not in ICP\" — one is a hard blocker",
+        "body": "Southern Tool Supply, Family Hardware, and KB Home Center all carry a rep-applied \"Not in ICP\" reason. KB Home Center's own lost-reason note is explicit: \"not in ICP - Adyen no[t] supported in Turks & Caicos\" — a payments-rail limitation, not a sales objection. Unless Adyen's Turks & Caicos coverage has changed, this account can't close regardless of the booth conversation. Recommend Skip alongside Mountain Mojo rather than #6 in the priority order, but this is a re-ranking call for the sales manager, not made here.",
+        "severity": "high",
+        "needs_decision": true
+      }
+    ]
+  },
+  "accounts": {
+    "cards": [
+      {
+        "rank": 1,
+        "name": "Home Lumber & Supply Co.",
+        "location": "Meade, KS",
+        "status_pill": "CLOSED LOST ×2 · RE-ENGAGE",
+        "company_id": "54970345103",
+        "facts": [
+          {"label": "Lifecycle", "value": "Re-engage"},
+          {"label": "CRM owner", "value": "Pouyan Mirsaeidi"},
+          {"label": "Contacts", "value": "6 in CRM"},
+          {"label": "Last activity", "value": "Jun 11, 2026"},
+          {"label": "Lost deals", "value": "$26,388 (Oct 2025) + $64,248 (Jul 2025)"},
+          {"label": "Deal owner", "value": "Jameson Labuguen"}
+        ],
+        "resolved": [
+          {
+            "item_id": "1a",
+            "label": "Both 2025 lost reasons",
+            "finding": "$64,248 (Jul 25, 2025) — Lost communication / Unresponsive, rep note “unresponsive.” $26,388 (Oct 17, 2025) — Not Ready, rep note “not the right time.” Two different failure modes: the big one went dark, the small one was timing."
+          }
+        ],
+        "open": [
+          {"item_id": "1b", "label": "Whether the logged follow-up ever happened", "source": "Red Shift activity"},
+          {"item_id": "1c", "label": "Gong notes across the 6 contacts", "source": "Gong"}
+        ]
+      },
+      {
+        "rank": 2,
+        "name": "Gold Beach Lumber",
+        "location": "Brookings, OR",
+        "status_pill": "CLOSED LOST · RE-ENGAGE",
+        "company_id": "55405450497",
+        "facts": [
+          {"label": "Lifecycle", "value": "Re-engage"},
+          {"label": "CRM owner", "value": "Joshua Kolenda"},
+          {"label": "Contacts", "value": "9 in CRM (deepest)"},
+          {"label": "Last activity", "value": "May 8, 2026"},
+          {"label": "Lost deal", "value": "$27,444.72 — lost May 7, 2026 (freshest)"},
+          {"label": "Deal owner", "value": "Scott Hamilton"}
+        ],
+        "resolved": [
+          {
+            "item_id": "2a",
+            "label": "The May-2026 lost reason",
+            "finding": "Not Ready; Other; Lack of prioritization. Scott's own note: “Pursuing other large IT projects and cannot put resources to this just now.”"
+          },
+          {
+            "item_id": "2b",
+            "label": "What changed their mind",
+            "finding": "Nothing changed about Toolbx — it was pure capacity. They were mid-implementation on other large IT projects and couldn't resource a second platform effort. This is a timing objection, not a product or price objection — the best re-open on the list."
+          }
+        ],
+        "open": [
+          {"item_id": "2c", "label": "Gong history with the 9 contacts", "source": "Gong"}
+        ]
+      },
+      {
+        "rank": 3,
+        "name": "Southern Tool Supply",
+        "location": "Louisville, KY",
+        "status_pill": "CLOSED LOST · RE-ENGAGE",
+        "company_id": "50274305445",
+        "facts": [
+          {"label": "Lifecycle", "value": "Re-engage"},
+          {"label": "CRM owner", "value": "Pouyan Mirsaeidi"},
+          {"label": "Contacts", "value": "1 in CRM (thin)"},
+          {"label": "Last activity", "value": "Jul 2, 2026 (most recent)"},
+          {"label": "Lost deal", "value": "$20,000 — lost Oct 2025"},
+          {"label": "Deal owner", "value": "Colton Cranston"}
+        ],
+        "resolved": [
+          {
+            "item_id": "3a",
+            "label": "The Oct-2025 lost reason",
+            "finding": "Lost communication / Unresponsive; Lack of prioritization; Not in ICP. Colton's note: “went quiet.” Also carries a rep-applied “Not in ICP” flag — see correction C3."
+          }
+        ],
+        "open": [
+          {"item_id": "3b", "label": "The Jul-2 touch outcome", "source": "Red Shift activity"},
+          {"item_id": "3c", "label": "Who else to add beyond the single contact", "source": "Contacts (partial — HubSpot confirms only 1 contact on record, no additional names surfaced)"},
+          {"item_id": "3d", "label": "Gong notes", "source": "Gong"}
+        ]
+      },
+      {
+        "rank": 4,
+        "name": "Family Hardware",
+        "location": "Cape Coral, FL",
+        "status_pill": "CLOSED LOST · RE-ENGAGE",
+        "company_id": "50262051446",
+        "facts": [
+          {"label": "Lifecycle", "value": "Re-engage"},
+          {"label": "CRM owner", "value": "Joshua Kolenda"},
+          {"label": "Contacts", "value": "3 in CRM"},
+          {"label": "Last activity", "value": "Jun 8, 2026"},
+          {"label": "Lost deal", "value": "$24,000 — lost Oct 2025"},
+          {"label": "Deal owner", "value": "Colton Cranston"}
+        ],
+        "resolved": [
+          {
+            "item_id": "4a",
+            "label": "The Oct-2025 lost reason",
+            "finding": "Lack of prioritization; Lost communication / Unresponsive; Not in ICP. Colton's note: “went quiet (not good ICP).” Also carries a rep-applied “Not in ICP” flag — see correction C3."
+          }
+        ],
+        "open": [
+          {"item_id": "4b", "label": "Confirm attendance via campaign reply", "source": "Campaign engagement"},
+          {"item_id": "4c", "label": "Gong notes", "source": "Gong"}
+        ]
+      },
+      {
+        "rank": 5,
+        "name": "Randy's Hardware",
+        "location": "Broadway, VA",
+        "status_pill": "CLOSED LOST · RE-ENGAGE",
+        "company_id": "37086608223",
+        "facts": [
+          {"label": "Lifecycle", "value": "Re-engage"},
+          {"label": "CRM owner", "value": "Pouyan Mirsaeidi"},
+          {"label": "Contacts", "value": "2 in CRM"},
+          {"label": "Last activity", "value": "Mar 5, 2026"},
+          {"label": "Lost deal", "value": "$25,000 — lost Oct 2025"},
+          {"label": "Deal owner", "value": "Colton Cranston"}
+        ],
+        "resolved": [
+          {
+            "item_id": "5a",
+            "label": "The Oct-2025 lost reason",
+            "finding": "ROI - Price sensitivity. Colton's note: “hardware only - cant afford more that $500/mo.” A clean price-ceiling objection, not a fit or communication problem — worth a repositioned, lower-tier offer."
+          },
+          {
+            "item_id": "5b",
+            "label": "Merge/confirm the duplicate record",
+            "finding": "Confirmed duplicate: “Randy's Do it Best Hardware” (Timberville, VA · company 50279900086) is an empty shell — lifecycle “lead,” 0 contacts, 0 deals. Safe to merge into this record (37086608223). See CRM hygiene action below."
+          }
+        ],
+        "open": [
+          {"item_id": "5c", "label": "Gong notes", "source": "Gong"}
+        ]
+      },
+      {
+        "rank": 6,
+        "name": "KB Home Center",
+        "location": "Providenciales, Turks & Caicos",
+        "status_pill": "CLOSED LOST · RE-ENGAGE",
+        "company_id": "50267780507",
+        "facts": [
+          {"label": "Lifecycle", "value": "Re-engage"},
+          {"label": "CRM owner", "value": "Joshua Kolenda"},
+          {"label": "Contacts", "value": "2 in CRM"},
+          {"label": "Last activity", "value": "Aug 14, 2025 (coldest)"},
+          {"label": "Lost deal", "value": "$20,000 — lost Aug 2025"},
+          {"label": "Deal owner", "value": "Colton Cranston"}
+        ],
+        "resolved": [
+          {
+            "item_id": "6a",
+            "label": "The Aug-2025 lost reason",
+            "finding": "Not in ICP. Colton's note: “not in ICP - Adyen no[t] supported in Turks & Caicos.” This is a payments-rail limitation, not an objection — see correction C3. Confirm whether Adyen coverage has changed before investing booth time here."
+          }
+        ],
+        "open": [
+          {"item_id": "6b", "label": "Confirm attendance", "source": "Campaign engagement"},
+          {"item_id": "6c", "label": "Gong notes if any", "source": "Gong"}
+        ]
+      },
+      {
+        "rank": 7,
+        "name": "Handy Ace Hardware",
+        "location": "Tucker, GA",
+        "status_pill": "CLOSED LOST · RE-ENGAGE",
+        "company_id": "37254600829",
+        "facts": [
+          {"label": "Lifecycle", "value": "Re-engage"},
+          {"label": "CRM owner", "value": "Pouyan Mirsaeidi"},
+          {"label": "Contacts", "value": "1 in CRM (thin)"},
+          {"label": "Last activity", "value": "Nov 3, 2025"},
+          {"label": "Lost deal", "value": "No value recorded — lost Nov 2025"},
+          {"label": "Deal owner", "value": "Jameson Labuguen"}
+        ],
+        "resolved": [
+          {
+            "item_id": "7a",
+            "label": "Why the deal carried no value",
+            "finding": "The `amount` field was never populated on this deal — confirmed live in HubSpot. Pricing was never scoped before the deal went cold; this isn't a data gap, it's the actual answer."
+          },
+          {
+            "item_id": "7b",
+            "label": "The Nov-2025 lost reason",
+            "finding": "Lost communication / Unresponsive. Jameson's note: “need to rebook.” Consistent with 7a — the conversation stalled before pricing was ever discussed."
+          }
+        ],
+        "open": [
+          {"item_id": "7c", "label": "Whether the single contact is still the right one", "source": "Contacts (last-contacted Nov 3, 2025 — stale; needs a fresh check)"}
+        ]
+      }
+    ]
+  },
+  "crm_hygiene": {
+    "actions": [
+      {
+        "action": "Merge duplicate",
+        "detail": "Randy's Do it Best Hardware (Timberville, VA · 50279900086) is an empty shell — lifecycle “lead”, 0 contacts, 0 deals. Merge into Randy's Hardware (Broadway, VA · 37086608223).",
+        "records": ["50279900086", "37086608223"]
+      },
+      {
+        "action": "Set missing deal amount",
+        "detail": "Handy Ace Hardware deal 41502765436 has no `amount` value — the source of Part 1's “no value recorded.” Never scoped; rep note “need to rebook.”",
+        "records": ["41502765436"]
+      },
+      {
+        "action": "Review “Not in ICP” flags",
+        "detail": "Southern Tool Supply (41508801192), Family Hardware (41554348977), and KB Home Center (41508807767) all carry a rep-applied “Not in ICP” reason. KB Home Center's is a confirmed hard blocker (Adyen coverage); the other two are worth a quick sanity check before investing booth time.",
+        "records": ["41508801192", "41554348977", "41508807767"]
+      }
+    ]
+  },
+  "data_notes": {
+    "bullets": [
+      "Deal and company data pulled live from HubSpot on July 28, 2026 (portal 49044619).",
+      "“Re-engage” is HubSpot custom lifecycle stage 1324949332 (Closed Lost – Re-engage), matching Part 1's usage.",
+      "Closed-lost reasons combine the `closed_lost_reasons` picklist and the `closed_lost_detail__c` free-text field — the latter is the rep's own words and is quoted verbatim, including one source typo (bracketed: “no[t]”).",
+      "Gong call history could not be pulled in this pass — no Gong or Sales Hub connector was reachable for account-level call review. All 6 “Gong notes” items across Home Lumber, Gold Beach, Southern Tool, Family Hardware, Randy's Hardware, and KB Home Center remain open for that reason specifically.",
+      "Activity/touch-verification items (Home Lumber's stalled follow-up, Southern Tool's Jul-2 touch outcome) and attendance-confirmation items (Family Hardware, KB Home Center) require Red Shift and campaign-engagement access not available in this pass — left open rather than guessed.",
+      "Corrections in this document were found by recomputing Part 1's own stated totals from its own per-account figures, and by diffing Part 1's ownership/lifecycle claims against live HubSpot data.",
+      "Revenue / employee / branch figures from Part 1 were sourced from prior research and public sources there — treat as ±50%, unchanged from Part 1's own caveat."
+    ]
+  }
+}

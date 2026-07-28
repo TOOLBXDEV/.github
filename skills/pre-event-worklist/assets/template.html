@@ -1,0 +1,325 @@
+<!--
+  Pre-Event Worklist template.
+  Rendered by scripts/fill_template.py (Jinja2) into a standalone HTML file,
+  then converted to PDF by scripts/render_pdf.py via headless Chromium.
+
+  Design system: matches the Toolbx Part 1 pre-event brief this document
+  answers to (Bitter/Rubik, #1C1C1E + #FFCA05 core palette, ▌ accent bar),
+  plus two document-specific status colors (#DC2626 red, #457F86/#D6E8EA
+  teal) documented in references/styling.md.
+
+  Scope rule encoded here: every block below renders conditionally and only
+  contains material assigned to the named person. There is no executive
+  summary, priority table, market intel, or account "Play" section — those
+  belong to the Part 1 brief, not this one.
+-->
+<style>
+  @font-face {
+    font-family: 'Bitter';
+    font-weight: 700;
+    font-style: normal;
+    src: url('{{ font_base }}Bitter-Bold.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Rubik';
+    font-weight: 400;
+    font-style: normal;
+    src: url('{{ font_base }}Rubik-Regular.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Rubik';
+    font-weight: 500;
+    font-style: normal;
+    src: url('{{ font_base }}Rubik-Medium.ttf') format('truetype');
+  }
+  @font-face {
+    font-family: 'Rubik';
+    font-weight: 700;
+    font-style: normal;
+    src: url('{{ font_base }}Rubik-Bold.ttf') format('truetype');
+  }
+
+  @page { size: Letter portrait; margin: 0.5in; }
+
+  body {
+    font-family: 'Rubik', 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+    color: #1C1C1E;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  h2 {
+    font-family: 'Bitter', Georgia, 'Times New Roman', serif;
+    font-size: 14pt;
+    color: #1C1C1E;
+    margin: 22px 0 10px 0;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-family: 'Rubik', Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1C1C1E;
+    margin: 12px 0 6px 0;
+  }
+  .bar { color: #FFCA05; }
+
+  table { border-collapse: collapse; }
+  .account-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 0 0 18px 0;
+    border: 1px solid #CCCCCC;
+    padding: 12px 14px;
+  }
+  .band { break-inside: avoid; page-break-inside: avoid; }
+
+  .status-pill {
+    display: inline-block;
+    background: #DC2626;
+    color: #FFFFFF;
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .pill-decision {
+    display: inline-block;
+    background: #DC2626;
+    color: #FFFFFF;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-left: 6px;
+  }
+  .tag-chip {
+    display: inline-block;
+    background: #1C1C1E;
+    color: #FFCA05;
+    font-size: 8pt;
+    font-weight: 700;
+    padding: 1px 6px;
+    margin-right: 6px;
+  }
+
+  .label-sm {
+    font-size: 8pt;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+</style>
+
+<!-- ===================== 1. HEADER ===================== -->
+<table style="width:100%; background:#1C1C1E; color:#FFFFFF; margin:0 0 16px 0;">
+  <tr>
+    <td style="padding:14px 18px;">
+      <span style="font-weight:700; letter-spacing:1px;">TOOLBX</span>
+      &nbsp;&nbsp;<span class="bar" style="font-size:14pt;">&#9612;</span>&nbsp;&nbsp;
+      <span style="font-family:'Bitter',Georgia,serif; font-weight:700; font-size:16pt;">{{ header.doc_kind }}</span>
+      <br>
+      <span style="font-size:11pt;">{{ header.event_name }}</span>
+      &nbsp;&middot;&nbsp;
+      <span style="font-size:10pt; font-style:italic; color:#CCCCCC;">{{ header.subtitle }}</span>
+      <br>
+      <span style="font-size:9pt; color:#CCCCCC;">{{ header.logistics }}</span>
+      <br>
+      <span style="font-size:8pt; color:#CCCCCC;">{{ header.provenance }}</span>
+    </td>
+  </tr>
+</table>
+
+<!-- ===================== 2. WHAT YOU OWE ===================== -->
+<h2><span class="bar">&#9612;</span> What you owe</h2>
+{% for p in what_you_owe.paragraphs %}
+<p style="font-size:11pt; margin:0 0 8px 0;">{{ p }}</p>
+{% endfor %}
+<table style="width:100%; background:#F2F2F2; border-left:4px solid #FFCA05; margin:10px 0;">
+  <tr>
+    <td style="padding:10px 14px; font-size:10pt;">
+      <span class="label-sm" style="color:#494949;">{{ what_you_owe.due_label }}:</span>
+      &nbsp;
+      {% if what_you_owe.overdue %}
+      <span class="status-pill">OVERDUE</span>&nbsp;
+      <strong style="color:#DC2626;">{{ what_you_owe.due_value }}</strong>
+      {% else %}
+      <strong>{{ what_you_owe.due_value }}</strong>
+      {% endif %}
+      {% if what_you_owe.overdue_note %}
+      <br><span style="color:#1C1C1E;">{{ what_you_owe.overdue_note }}</span>
+      {% endif %}
+    </td>
+  </tr>
+</table>
+
+<!-- ===================== 3. STAT BANNER ===================== -->
+<table style="width:100%; margin:12px 0;">
+  <tr>
+    {% for stat in stat_banner %}
+    <td style="width:25%; background:#F2F2F2; text-align:center; padding:14px 8px; border:1px solid #CCCCCC;">
+      <div style="font-family:'Bitter',Georgia,serif; font-size:18pt; font-weight:700; color:#1C1C1E; line-height:1.1;">{{ stat.value }}</div>
+      <div class="label-sm" style="color:#494949;">{{ stat.label }}</div>
+    </td>
+    {% endfor %}
+  </tr>
+</table>
+
+<!-- ===================== 4. STATUS AT A GLANCE ===================== -->
+<h2><span class="bar">&#9612;</span> Status at a glance</h2>
+<table style="width:100%; border:1px solid #CCCCCC;">
+  <thead>
+    <tr style="background:#1C1C1E; color:#FFFFFF;">
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">#</th>
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">ACCOUNT</th>
+      <th style="padding:8px 10px; text-align:center; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">ITEMS</th>
+      <th style="padding:8px 10px; text-align:center; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">RESOLVED</th>
+      <th style="padding:8px 10px; text-align:center; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">OPEN</th>
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">BLOCKER</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in status_at_a_glance.rows %}
+    <tr>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC;">{{ row.rank }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC;">{{ row.account }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; text-align:center;">{{ row['items'] }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; text-align:center; color:#457F86; font-weight:700;">{{ row.resolved }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; text-align:center; {% if row.open > 0 %}color:#1C1C1E; font-weight:700;{% else %}color:#7CB518;{% endif %}">{{ row.open }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; {% if row.blocker != '—' %}color:#DC2626;{% endif %}">{{ row.blocker }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- ===================== 5. CLOSED-LOST REASONS ===================== -->
+<h2><span class="bar">&#9612;</span> Closed-lost reasons (from HubSpot)</h2>
+<p style="font-size:10pt; color:#494949; margin:0 0 8px 0;">{{ closed_lost.intro }}</p>
+<table style="width:100%; border:1px solid #CCCCCC;">
+  <thead>
+    <tr style="background:#1C1C1E; color:#FFFFFF;">
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">ACCOUNT</th>
+      <th style="padding:8px 10px; text-align:right; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">AMOUNT</th>
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">CLOSED</th>
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">REASON &amp; REP'S NOTE</th>
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">OWNER</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in closed_lost.rows %}
+    <tr>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; font-size:10pt; {% if row.emphasis %}font-weight:700;{% endif %}">{{ row.account }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; font-size:10pt; text-align:right; {% if row.emphasis %}font-weight:700;{% endif %}">{{ row.amount }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; font-size:10pt;">{{ row.closed }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; font-size:10pt;">
+        {{ row.reasons | join('; ') }}
+        {% if row.detail %}<br><span style="font-style:italic; color:#494949;">&ldquo;{{ row.detail }}&rdquo;</span>{% endif %}
+      </td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; font-size:10pt;">{{ row.owner }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- ===================== 6. CORRECTIONS (conditional) ===================== -->
+{% if corrections and corrections['items'] %}
+<h2><span class="bar">&#9612;</span> Corrections to Part 1</h2>
+{% for item in corrections['items'] %}
+<table class="band" style="width:100%; background:#F2F2F2; border-left:4px solid #FFCA05; margin:10px 0;">
+  <tr>
+    <td style="padding:12px 16px;">
+      <span class="tag-chip">{{ item.tag }}</span>
+      <strong style="font-family:'Bitter',Georgia,serif; color:#1C1C1E; font-size:11pt;">{{ item.title }}</strong>
+      {% if item.needs_decision %}<span class="pill-decision">YOUR CALL</span>{% endif %}
+      <div style="margin-top:6px; font-size:10pt; color:#1C1C1E;">{{ item.body }}</div>
+    </td>
+  </tr>
+</table>
+{% endfor %}
+{% endif %}
+
+<!-- ===================== 7. PER-ACCOUNT WORKLIST ===================== -->
+<h2><span class="bar">&#9612;</span> Per-account worklist</h2>
+{% for card in accounts.cards %}
+<div class="account-card">
+  <div style="margin-bottom:8px;">
+    <span style="font-family:'Bitter',Georgia,serif; font-weight:700; font-size:12pt;">{{ card.rank }}. {{ card.name }}</span>
+    <span style="font-size:10pt; color:#494949;"> — {{ card.location }}</span>
+    &nbsp;&nbsp;<span class="status-pill">{{ card.status_pill }}</span>
+  </div>
+
+  <table style="width:100%; border:1px solid #CCCCCC; margin-bottom:8px;">
+    {% for i in range(0, card.facts|length, 3) %}
+    <tr>
+      {% for fact in card.facts[i:i+3] %}
+      <td style="background:#F2F2F2; font-weight:600; font-size:8pt; text-transform:uppercase; color:#494949; padding:6px 8px; border:1px solid #CCCCCC; width:14%;">{{ fact.label }}</td>
+      <td style="padding:6px 8px; border:1px solid #CCCCCC; font-size:10pt; width:19.3%;">{{ fact.value }}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% if card.resolved %}
+  <table class="band" style="width:100%; background:#D6E8EA; border-left:4px solid #457F86; margin:8px 0;">
+    <tr>
+      <td style="padding:10px 14px;">
+        <div class="label-sm" style="color:#457F86; margin-bottom:4px;">RESOLVED FROM HUBSPOT</div>
+        {% for item in card.resolved %}
+        <div style="margin:4px 0; font-size:10pt; color:#1C1C1E;"><strong>{{ item.label }}.</strong> {{ item.finding }}</div>
+        {% endfor %}
+      </td>
+    </tr>
+  </table>
+  {% endif %}
+
+  {% if card.open %}
+  <table class="band" style="width:100%; background:#F2F2F2; border-left:4px solid #FFCA05; margin:8px 0;">
+    <tr>
+      <td style="padding:10px 14px;">
+        <div class="label-sm" style="color:#1C1C1E; margin-bottom:4px;">STILL TO ADD (RED SHIFT + GONG)</div>
+        <div style="font-size:10pt; color:#1C1C1E;">
+          {% for item in card.open %}{{ item.label }}{% if item.source %} <span style="color:#494949;">[{{ item.source }}]</span>{% endif %}{% if not loop.last %} &middot; {% endif %}{% endfor %}
+        </div>
+      </td>
+    </tr>
+  </table>
+  {% endif %}
+</div>
+{% endfor %}
+
+<!-- ===================== 8. CRM HYGIENE (conditional) ===================== -->
+{% if crm_hygiene and crm_hygiene.actions %}
+<h2><span class="bar">&#9612;</span> CRM hygiene actions</h2>
+<table style="width:100%; border:1px solid #CCCCCC;">
+  <thead>
+    <tr style="background:#1C1C1E; color:#FFFFFF;">
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E; width:22%;">ACTION</th>
+      <th style="padding:8px 10px; text-align:left; font-size:9pt; letter-spacing:1px; border:1px solid #1C1C1E;">DETAIL</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for action in crm_hygiene.actions %}
+    <tr>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; font-size:10pt; font-weight:600;">{{ action.action }}</td>
+      <td style="padding:6px 10px; border:1px solid #CCCCCC; font-size:10pt;">{{ action.detail }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+<!-- ===================== 9. DATA NOTES ===================== -->
+<h2><span class="bar">&#9612;</span> Data notes &amp; confidence</h2>
+<ul style="font-size:9pt; color:#494949; margin:0 0 24px 0; padding-left:18px;">
+  {% for bullet in data_notes.bullets %}
+  <li style="margin-bottom:4px;">{{ bullet }}</li>
+  {% endfor %}
+</ul>
