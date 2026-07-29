@@ -428,8 +428,13 @@
   .toggle-btn.active { background: var(--sunrise-yellow); color: var(--slate-black); }
   .toggle-btn:hover:not(.active) { color: var(--white); }
   .monthly-only { display: none; }
+  .weekly-only { display: none; }
   body[data-view="monthly"] .monthly-only { display: block; }
   body[data-view="monthly"] .quarterly-only { display: none; }
+  body[data-view="monthly"] .weekly-only { display: none; }
+  body[data-view="weekly"] .weekly-only { display: block; }
+  body[data-view="weekly"] .quarterly-only { display: none; }
+  body[data-view="weekly"] .monthly-only { display: none; }
 </style>
 
 <!-- ==================== DECK HEADER ==================== -->
@@ -439,8 +444,9 @@
     <div class="toggle-group">
       <button class="toggle-btn active" data-view="quarterly" onclick="setView('quarterly')">Quarterly</button>
       <button class="toggle-btn" data-view="monthly" onclick="setView('monthly')">Monthly</button>
+      <button class="toggle-btn" data-view="weekly" onclick="setView('weekly')">Weekly</button>
     </div>
-    <span data-q="Q2 2026 (Apr&ndash;Jun)" data-m="June 2026">Q2 2026 (Apr&ndash;Jun)</span>
+    <span data-q="Q2 2026 (Apr&ndash;Jun)" data-m="June 2026" data-w="Wk ending Jul 27">Q2 2026 (Apr&ndash;Jun)</span>
   </div>
 </div>
 
@@ -448,8 +454,8 @@
 <div class="slide">
   <div class="slide-header">
     <div>
-      <div class="slide-eyebrow" data-q="Quarterly Overview" data-m="Monthly Overview">Quarterly Overview</div>
-      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Q2 2026 &mdash; Team Performance" data-m="June 2026 &mdash; Team Performance">Q2 2026 &mdash; Team Performance</h2></div>
+      <div class="slide-eyebrow" data-q="Quarterly Overview" data-m="Monthly Overview" data-w="Weekly Overview">Quarterly Overview</div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Q2 2026 &mdash; Team Performance" data-m="June 2026 &mdash; Team Performance" data-w="Wk ending Jul 27 &mdash; Team Performance">Q2 2026 &mdash; Team Performance</h2></div>
     </div>
     <div class="slide-stamp">1</div>
   </div>
@@ -551,7 +557,7 @@
       </div>
     </div>
   </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 vs Q1 2026 &middot; Growth Team" data-m="June 2026 vs May 2026 &middot; Growth Team">Q2 2026 vs Q1 2026 &middot; Growth Team</span></div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 vs Q1 2026 &middot; Growth Team" data-m="June 2026 vs May 2026 &middot; Growth Team" data-w="Wk ending Jul 27 vs Wk ending Jul 20 &middot; Growth Team">Q2 2026 vs Q1 2026 &middot; Growth Team</span></div>
 </div>
 
 <!-- ==================== SLIDE 2: PIPELINE & REVENUE ==================== -->
@@ -559,7 +565,7 @@
   <div class="slide-header">
     <div>
       <div class="slide-eyebrow">Per-Rep Breakdown</div>
-      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Pipeline &amp; Revenue &mdash; Q2 2026" data-m="Pipeline &amp; Revenue &mdash; June 2026">Pipeline &amp; Revenue &mdash; Q2 2026</h2></div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Pipeline &amp; Revenue &mdash; Q2 2026" data-m="Pipeline &amp; Revenue &mdash; June 2026" data-w="Pipeline &amp; Revenue &mdash; Wk ending Jul 27">Pipeline &amp; Revenue &mdash; Q2 2026</h2></div>
     </div>
     <div class="slide-stamp">2</div>
   </div>
@@ -720,7 +726,7 @@
       <div class="uc-card" data-color-by-avg>
         <div class="uc-head">
           <span class="uc-title">ARR Closed-Won</span>
-          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM">QoQ</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM" data-w="WoW">QoQ</span>
         </div>
         <div class="quarterly-only">
         <div class="uc-row uc-r1">
@@ -923,7 +929,7 @@
       <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> below
     </div>
   </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 &middot; Source: HubSpot CRM" data-m="June 2026 &middot; Source: HubSpot CRM">Q2 2026 &middot; Source: HubSpot CRM</span></div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 &middot; Source: HubSpot CRM" data-m="June 2026 &middot; Source: HubSpot CRM" data-w="Wk ending Jul 27 &middot; Source: HubSpot CRM">Q2 2026 &middot; Source: HubSpot CRM</span></div>
 </div>
 
 <!-- ==================== SLIDE 3: EFFORT & VELOCITY ==================== -->
@@ -931,7 +937,7 @@
   <div class="slide-header">
     <div>
       <div class="slide-eyebrow">Per-Rep Breakdown</div>
-      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Effort &amp; Velocity &mdash; Q2 2026" data-m="Effort &amp; Velocity &mdash; June 2026">Effort &amp; Velocity &mdash; Q2 2026</h2></div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Effort &amp; Velocity &mdash; Q2 2026" data-m="Effort &amp; Velocity &mdash; June 2026" data-w="Effort &amp; Velocity &mdash; Wk ending Jul 27">Effort &amp; Velocity &mdash; Q2 2026</h2></div>
     </div>
     <div class="slide-stamp">3</div>
   </div>
@@ -942,7 +948,7 @@
       <div class="uc-card" data-color-by-avg>
         <div class="uc-head">
           <span class="uc-title">Total Activities</span>
-          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM">QoQ</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM" data-w="WoW">QoQ</span>
         </div>
         <div class="quarterly-only">
         <div class="uc-row uc-r1">
@@ -1029,6 +1035,111 @@
           <div><div class="uc-name">Team Average</div><div class="uc-sub">380 emails &middot; 122 calls &middot; 12 meetings</div></div>
           <div class="uc-track" style="visibility:hidden"></div>
           <div class="uc-val">514</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Calls — different values by view -->
+      <div class="uc-card" data-color-by-avg>
+        <div class="uc-head">
+          <span class="uc-title">Calls</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="Total: 2,069" data-m="Total: 610" data-w="Total: —">Total: 2,069</span>
+        </div>
+        <div class="quarterly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">185 companies &middot; 17h 34m &middot; avg 1m 19s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">800</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">115 companies &middot; 9h 20m &middot; avg 0m 59s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:71%"></div></div>
+          <div class="uc-val">565</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">133 companies &middot; 8h 17m &middot; avg 1m 10s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:53%"></div></div>
+          <div class="uc-val">425</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">65 companies &middot; 7h 37m &middot; avg 2m 02s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:28%"></div></div>
+          <div class="uc-val">224</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">17 companies &middot; 38m &middot; avg 0m 42s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:7%"></div></div>
+          <div class="uc-val">55</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">avg 8h 41m &middot; avg 1m 16s/call</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">414</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="monthly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">67 companies &middot; 3h 28m &middot; avg 1m 00s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">209</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">70 companies &middot; 3h 24m &middot; avg 1m 04s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:92%"></div></div>
+          <div class="uc-val">192</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">73 companies &middot; 2h 32m &middot; avg 0m 57s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:76%"></div></div>
+          <div class="uc-val">159</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">20 companies &middot; 1h 24m &middot; avg 1m 57s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:21%"></div></div>
+          <div class="uc-val">43</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">2 companies &middot; 3m 44s &middot; avg 0m 32s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:3%"></div></div>
+          <div class="uc-val">7</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">avg 2h 10m &middot; avg 1m 04s/call</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">122</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="weekly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">&mdash;</div><div class="uc-sub">Awaiting data</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val">&mdash;</div>
           <div class="uc-delta"></div>
         </div>
         </div>
@@ -1134,7 +1245,7 @@
       <div class="uc-card" data-color-by-avg>
         <div class="uc-head">
           <span class="uc-title">Opps Created</span>
-          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM">QoQ</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM" data-w="WoW">QoQ</span>
         </div>
         <div class="quarterly-only">
         <div class="uc-row uc-r1">
@@ -1328,6 +1439,7 @@
 
     </div>
     <div class="uc-note">
+      <strong>Calls:</strong> HubSpot logged calls &middot; duration from hs_call_duration &middot; companies via association &nbsp;&middot;&nbsp;
       <strong>Outbound:</strong> Calls + Emails / wk &nbsp;&middot;&nbsp;
       <strong>Sales Cycle:</strong> T12M median, benchmark = 64d wt. avg &nbsp;&middot;&nbsp;
       <strong>Overdue:</strong> &le;10 / 11&ndash;30 / &gt;30 thresholds &nbsp;&middot;&nbsp;
@@ -1336,7 +1448,7 @@
       <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> below
     </div>
   </div>
-  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 &middot; Source: HubSpot CRM" data-m="June 2026 &middot; Source: HubSpot CRM">Q2 2026 &middot; Source: HubSpot CRM</span></div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 &middot; Source: HubSpot CRM" data-m="June 2026 &middot; Source: HubSpot CRM" data-w="Wk ending Jul 27 &middot; Source: HubSpot CRM">Q2 2026 &middot; Source: HubSpot CRM</span></div>
 </div>
 
 <!-- ==================== APPENDIX FOOTER ==================== -->
@@ -1356,6 +1468,7 @@
         <p style="margin:0 0 4px"><strong>Win Rate</strong> &mdash; Won / (Won + Lost) trailing 12 months. Team total = volume-weighted (25.2%)</p>
         <p style="margin:0 0 4px"><strong>Sales Cycle</strong> &mdash; median days_to_close from HubSpot, T12M by owner</p>
         <p style="margin:0 0 4px"><strong>Activities</strong> &mdash; Calls + Emails + Meetings logged in HubSpot</p>
+        <p style="margin:0 0 4px"><strong>Calls</strong> &mdash; HubSpot logged calls; duration from hs_call_duration; distinct companies via association</p>
         <p style="margin:0"><strong>Quota</strong> &mdash; $550K ARR annual per AE; mid-year pace = 50%</p>
       </div>
       <div style="background:var(--light-grey); border-left:3px solid var(--sunrise-yellow); border-radius:2px; padding:12px 16px;">
@@ -1363,7 +1476,7 @@
         <p style="margin:0 0 4px">All data sourced from <strong>HubSpot CRM</strong> via MCP connector.</p>
         <p style="margin:0 0 4px">Snapshot date: <strong>July 27, 2026</strong></p>
         <p style="margin:0 0 4px">AE roster: Michelle Kubas, Scott Hamilton, Joshua Kolenda, Graham Staley, Pouyan Mirsaeidi</p>
-        <p style="margin:0"><span data-q="Reporting period: " data-m="Reporting period: ">Reporting period: </span><strong data-q="Q2 2026 (Apr 1 – Jun 30)" data-m="June 1 – 30, 2026">Q2 2026 (Apr 1 – Jun 30)</strong><span data-q=" with comparison to Q1 2026 (Jan – Mar)." data-m=" with comparison to May 2026."> with comparison to Q1 2026 (Jan – Mar).</span></p>
+        <p style="margin:0"><span data-q="Reporting period: " data-m="Reporting period: " data-w="Reporting period: ">Reporting period: </span><strong data-q="Q2 2026 (Apr 1 – Jun 30)" data-m="June 1 – 30, 2026" data-w="Jul 21 – 27, 2026 (Wk ending Jul 27)">Q2 2026 (Apr 1 – Jun 30)</strong><span data-q=" with comparison to Q1 2026 (Jan – Mar)." data-m=" with comparison to May 2026." data-w=" with comparison to Wk ending Jul 20."> with comparison to Q1 2026 (Jan – Mar).</span></p>
       </div>
     </div>
   </div>
@@ -1373,14 +1486,14 @@
 <script>
 function colorByAvg() {
   var view = document.body.dataset.view || 'quarterly';
-  var showClass = view === 'quarterly' ? 'quarterly-only' : 'monthly-only';
-  var hideClass = view === 'quarterly' ? 'monthly-only' : 'quarterly-only';
+  var hideClasses = ['quarterly-only','monthly-only','weekly-only'].filter(function(c) { return c !== view + '-only'; });
 
   document.querySelectorAll('.uc-card[data-color-by-avg]').forEach(function(card) {
     var rows = [];
     card.querySelectorAll('.uc-row:not(.uc-bench)').forEach(function(row) {
       var parent = row.parentElement;
-      if (parent.classList.contains(hideClass)) return;
+      var hidden = hideClasses.some(function(c) { return parent.classList.contains(c); });
+      if (hidden) return;
       var fill = row.querySelector('.uc-fill');
       if (!fill) return;
       var w = parseFloat(fill.style.width) || 0;
@@ -1412,7 +1525,7 @@ function setView(view) {
   document.querySelectorAll('.toggle-btn').forEach(function(b) {
     b.classList.toggle('active', b.dataset.view === view);
   });
-  var attr = view === 'quarterly' ? 'q' : 'm';
+  var attr = view === 'quarterly' ? 'q' : view === 'monthly' ? 'm' : 'w';
   document.querySelectorAll('[data-q]').forEach(function(el) {
     el.textContent = el.dataset[attr];
   });
