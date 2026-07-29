@@ -1,3 +1,7 @@
+// icp-scoring-config.js - v3.4
+// Single source of truth for all scoring constants.
+// Imported by icp-scoring-engine.js (nightly) and kept in sync with api/icp-webhook.js (real-time).
+
 const COMPATIBLE_ERPS = new Set([
   'Epicor BisTrack',
   'Epicor Eagle',
@@ -5,29 +9,30 @@ const COMPATIBLE_ERPS = new Set([
   'DMSI Agility',
   'Sandbox',
   'Paladin',
-  'Epicor Warehouse Management (WMS)',
   'GenetiQ',
   'Deacom',
-  'ECI Deacom',
+  'Sage 100',
 ]);
 
-const NAMED_ASSOCIATIONS = new Set([
-  'LMC',
-  'LBM Advantage',
-  'Construction Suppliers Association (CSA)',
-  'Do It Best',
-  'Allied Building Stores',
-  'NEMEON Inc.',
-  'Castle Building Centres',
-  'Sexton Group',
-  'Timber Mart',
+const VALID_VERTICALS = new Set([
+  'Lumber & Building Materials (LBM)',
+  'Hardware Store',
+  'Home Centre / DIY',
+  'Roofing Supply',
+  'HVAC / Plumbing Supply',
+]);
+
+const VALID_COUNTRIES = new Set([
+  'united states',
+  'canada',
+  'ca',
 ]);
 
 const WEIGHTS = {
-  revenue: 0.30,
-  location: 0.30,
+  revenue:     0.30,
+  location:    0.30,
   association: 0.20,
-  erp: 0.20,
+  erp:         0.20,
 };
 
 const TIER_CUTOFFS = {
@@ -37,61 +42,64 @@ const TIER_CUTOFFS = {
 };
 
 const REVENUE_THRESHOLDS = {
-  US: { floor: 20_000_000, ceiling: 1_000_000_000 },
-  CA: { floor: 5_000_000, ceiling: 500_000_000 },
+  US: { floor:  20000000, ceiling: 1000000000 },
+  CA: { floor:   5000000, ceiling:  500000000 },
 };
 
 const REVENUE_SCORES = {
-  belowFloor: 30,
-  inBand: 100,
+  unknown:      50,
+  belowFloor:   30,
+  inBand:      100,
   aboveCeiling: 60,
-  unknown: 50,
 };
 
 const LOCATION_SCORES = {
-  single: 15,       // 1
-  smallChain: 60,   // 2-5
-  sweetSpot: 100,   // 6-50
-  megaCap: 40,      // 51+
-  unknown: 50,
-};
-
-const ERP_SCORES = {
-  compatible: 100,
-  unknown: 50,
-  nonCompatible: 15,
+  unknown:    50,
+  single:     15,
+  smallChain: 60,
+  sweetSpot: 100,
+  megaCap:    40,
 };
 
 const ASSOCIATION_SCORES = {
-  member: 100,
-  nonMember: 0,
+  member:    100,
+  nonMember:   0,
+};
+
+const ERP_SCORES = {
+  compatible:    100,
+  nonCompatible:  15,
+  unknown:        50,
 };
 
 const HUBSPOT_INPUT_PROPERTIES = [
   'annualrevenue',
   'country',
+  'vertical',
   'of_locations__c',
-  'location_count',
   'industry_association',
   'erp_pos__c',
-  'icp_score',
-  'revenue_score',
-  'location_score',
-  'industry_association_score',
-  'erp_score',
+  'icp_score_composite',
+  'icp_score_revenue',
+  'icp_score_locations',
+  'icp_score_association',
+  'icp_score_erp',
+  'icp_erp_class',
   'icp_tier',
-  'is_icp',
+  'icp_geo_gate',
+  'icp_vertical_gate',
 ];
 
 module.exports = {
   COMPATIBLE_ERPS,
-  NAMED_ASSOCIATIONS,
+  VALID_VERTICALS,
+  VALID_COUNTRIES,
   WEIGHTS,
   TIER_CUTOFFS,
   REVENUE_THRESHOLDS,
   REVENUE_SCORES,
   LOCATION_SCORES,
-  ERP_SCORES,
   ASSOCIATION_SCORES,
+  ERP_SCORES,
   HUBSPOT_INPUT_PROPERTIES,
 };
