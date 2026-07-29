@@ -1,0 +1,1806 @@
+<title>AE Performance Dashboard</title>
+<style>
+  :root {
+    --slate-black: #1C1C1E;
+    --dark-grey: #494949;
+    --silver-grey: #CCCCCC;
+    --light-grey: #EDEDF0;
+    --white: #FFFFFF;
+    --sunrise-yellow: #FFCA05;
+    --over-easy: #EFB600;
+    --metallic-seaweed: #457F86;
+    --dark-sky-blue: #93C1C8;
+    --azure: #D6E8EA;
+    --lost-red: #B91C1C;
+
+    --page-bg: #FFFFFF;
+    --card-bg: var(--white);
+    --text-primary: var(--slate-black);
+    --text-secondary: var(--dark-grey);
+    --text-muted: var(--silver-grey);
+    --border: var(--light-grey);
+
+    --rep-michelle: #457F86;
+    --rep-joshua: #93C1C8;
+    --rep-pouyan: #FFCA05;
+    --rep-graham: #6B6B6E;
+    --rep-scott: #D4812A;
+
+    --font-display: Georgia, 'Bitter', 'Times New Roman', serif;
+    --font-body: 'DM Sans', Calibri, Arial, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--page-bg);
+    color: var(--text-primary);
+    line-height: 1.45;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 16px;
+  }
+
+  .up { color: #1F7A3A; }
+  .dn { color: var(--lost-red); }
+  .fl { color: var(--text-muted); }
+
+  .deck-header {
+    max-width: 1080px;
+    margin: 0 auto 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    padding: 12px 20px;
+    background: var(--slate-black);
+    border-radius: 4px;
+  }
+  .deck-header, .deck-header strong { color: var(--white); }
+  .deck-header span:last-child { color: var(--sunrise-yellow); font-weight: 700; }
+
+  .slide {
+    max-width: 1080px;
+    margin: 0 auto 24px;
+    background: var(--card-bg);
+    border-radius: 4px;
+    border: 1px solid #B0B0B6;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide-header {
+    padding: 24px 36px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .slide-eyebrow {
+    color: var(--metallic-seaweed);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 800;
+    margin-bottom: 5px;
+  }
+  .slide-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .yellow-bar {
+    display: inline-block;
+    width: 6px;
+    height: 30px;
+    background: var(--sunrise-yellow);
+    flex-shrink: 0;
+  }
+  .slide-title {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.015em;
+    margin: 0;
+    line-height: 1.15;
+  }
+  .slide-stamp {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .slide-body {
+    padding: 18px 32px 22px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .slide-footer {
+    padding: 10px 36px 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-secondary);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    border-top: 1px solid #C8C8CC;
+    flex-shrink: 0;
+  }
+  .slide-footer .brand {
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 640px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .kpi-card {
+    background: var(--light-grey);
+    border: 1px solid #D0D0D6;
+    border-left: 5px solid var(--sunrise-yellow);
+    border-radius: 3px;
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 16px;
+  }
+  .kpi-card.kpi-hero {
+    background: linear-gradient(135deg, var(--sunrise-yellow) 0%, #FFD633 100%);
+    border-left-color: var(--slate-black);
+    box-shadow: 0 2px 6px rgba(239,182,0,0.25);
+  }
+
+  .kpi-label {
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    font-weight: 700;
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .kpi-value {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.05;
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .kpi-delta {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: right;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi-delta.up { color: #1F7A3A; }
+  .kpi-delta.dn { color: var(--lost-red); }
+
+  .key-metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: var(--slate-black);
+    padding: 14px 4px;
+    border-radius: 3px;
+    column-gap: 1px;
+    margin-top: 6px;
+  }
+  .key-metric-cell {
+    padding: 0 12px;
+    border-right: 1px solid #2A2A2C;
+  }
+  .key-metric-cell:last-child { border-right: none; }
+  .key-metric-cell .lbl {
+    color: var(--sunrise-yellow);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .key-metric-cell .val {
+    font-family: var(--font-display);
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .uc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 820px) { .uc-grid { grid-template-columns: 1fr; } }
+
+  .uc-card {
+    background: var(--light-grey);
+    border: 1px solid #D0D0D6;
+    border-left: 3px solid var(--sunrise-yellow);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .uc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 14px;
+    background: var(--slate-black);
+  }
+  .uc-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+  .uc-target {
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--slate-black);
+    background: var(--sunrise-yellow);
+    border-radius: 3px;
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  .uc-row {
+    display: grid;
+    grid-template-columns: 1.8rem 5rem 1fr auto auto;
+    align-items: center;
+    padding: 6px 14px;
+    border-bottom: 1px solid #E8E8EC;
+    gap: 8px;
+  }
+  .uc-row:last-child { border-bottom: none; }
+
+  .uc-row.uc-r1 {
+    background: linear-gradient(135deg, #FFF3CC 0%, #FFECAA 100%);
+    border-left: 5px solid var(--over-easy);
+    margin-left: -3px;
+    padding: 8px 14px 8px 12px;
+    box-shadow: inset 0 0 0 1px rgba(239,182,0,0.18);
+  }
+
+  .uc-rank {
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1;
+  }
+  .uc-r1 .uc-rank {
+    color: var(--white);
+    font-size: 14px;
+    background: var(--over-easy);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  }
+
+  .uc-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+  .uc-r1 .uc-name { font-size: 12px; }
+  .uc-sub {
+    font-size: 9.5px;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+  .uc-r1 .uc-sub { color: var(--dark-grey); }
+
+  .uc-track {
+    height: 14px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 2px;
+    overflow: visible;
+    position: relative;
+  }
+  .uc-fill {
+    height: 100%;
+    border-radius: 2px;
+    position: relative;
+    z-index: 1;
+  }
+  .uc-fill.uc-g { background: #86EFAC; }
+  .uc-fill.uc-a { background: #FDE68A; }
+  .uc-fill.uc-r { background: #FCA5A5; }
+  .uc-fill.uc-n { background: var(--dark-sky-blue); }
+
+  .uc-target-line {
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    width: 0;
+    border-left: 2px solid var(--dark-grey);
+    z-index: 3;
+    pointer-events: none;
+  }
+  .uc-avg-line {
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    width: 0;
+    border-left: 2px dashed var(--text-muted);
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .uc-val {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    color: var(--text-primary);
+    white-space: nowrap;
+    min-width: 3.2rem;
+  }
+  .uc-r1 .uc-val { font-size: 15px; color: var(--slate-black); }
+
+  .uc-delta {
+    font-size: 10px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+    min-width: 3rem;
+  }
+
+  .uc-row.uc-bench {
+    border-top: 1px dashed var(--text-muted);
+    border-bottom: none;
+    background: transparent;
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+  .uc-bench .uc-rank { font-size: 0; }
+  .uc-bench-label {
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 800;
+    color: var(--text-muted);
+  }
+  .uc-bench .uc-name { font-weight: 600; color: var(--text-secondary); font-size: 10px; }
+  .uc-bench .uc-val { font-size: 11px; color: var(--text-secondary); }
+  .uc-bench .uc-sub { font-size: 9px; }
+
+  .uc-note {
+    font-size: 10px;
+    color: var(--text-muted);
+    padding: 10px 14px;
+    line-height: 1.7;
+    border-top: 1px solid #E8E8EC;
+  }
+  .uc-note strong { color: var(--text-secondary); }
+
+  @media (max-width: 640px) {
+    body { padding: 12px 8px; }
+    .slide-header { padding: 16px 20px 6px; }
+    .slide-body { padding: 10px 16px 14px; }
+    .slide-footer { padding: 8px 20px 10px; }
+    .slide-title { font-size: 17px; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .uc-grid { grid-template-columns: 1fr; }
+  }
+
+  .toggle-group { display: flex; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,255,255,0.25); }
+  .toggle-btn { padding: 5px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; border: none; background: transparent; color: rgba(255,255,255,0.5); font-family: var(--font-body); transition: background 0.2s, color 0.2s; }
+  .toggle-btn.active { background: var(--sunrise-yellow); color: var(--slate-black); }
+  .toggle-btn:hover:not(.active) { color: var(--white); }
+  .monthly-only { display: none; }
+  .weekly-only { display: none; }
+  body[data-view="monthly"] .monthly-only { display: block; }
+  body[data-view="monthly"] .quarterly-only { display: none; }
+  body[data-view="monthly"] .weekly-only { display: none; }
+  body[data-view="weekly"] .weekly-only { display: block; }
+  body[data-view="weekly"] .quarterly-only { display: none; }
+  body[data-view="weekly"] .monthly-only { display: none; }
+</style>
+
+<!-- ==================== DECK HEADER ==================== -->
+<div class="deck-header">
+  <span><strong>TOOLBX</strong> &middot; AE PERFORMANCE &middot; GROWTH</span>
+  <div style="display:flex;align-items:center;gap:14px">
+    <div class="toggle-group">
+      <button class="toggle-btn active" data-view="quarterly" onclick="setView('quarterly')">Quarterly</button>
+      <button class="toggle-btn" data-view="monthly" onclick="setView('monthly')">Monthly</button>
+      <button class="toggle-btn" data-view="weekly" onclick="setView('weekly')">Weekly</button>
+    </div>
+    <span data-q="Q2 2026 (Apr&ndash;Jun)" data-m="June 2026" data-w="Wk ending Jul 27">Q2 2026 (Apr&ndash;Jun)</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 1: KPIs ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <div>
+      <div class="slide-eyebrow" data-q="Quarterly Overview" data-m="Monthly Overview" data-w="Weekly Overview">Quarterly Overview</div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Q2 2026 &mdash; Team Performance" data-m="June 2026 &mdash; Team Performance" data-w="Wk ending Jul 27 &mdash; Team Performance">Q2 2026 &mdash; Team Performance</h2></div>
+    </div>
+    <div class="slide-stamp">1</div>
+  </div>
+  <div class="slide-body">
+    <div class="quarterly-only">
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-hero">
+          <div class="kpi-label">Deals Won</div>
+          <div class="kpi-value">21</div>
+          <div class="kpi-delta up">+13 vs Q1</div>
+        </div>
+        <div class="kpi-card kpi-hero">
+          <div class="kpi-label">ARR Won</div>
+          <div class="kpi-value">$996.6K</div>
+          <div class="kpi-delta up">+$725.3K</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg Deal Size</div>
+          <div class="kpi-value">$47.5K</div>
+          <div class="kpi-delta up">&uarr; $13.6K</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Sales Cycle</div>
+          <div class="kpi-value">64d</div>
+          <div class="kpi-delta fl">T12M wt. avg</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">T12M Win Rate</div>
+          <div class="kpi-value">25.2%</div>
+          <div class="kpi-delta fl">40W / 119L</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Open Pipeline</div>
+          <div class="kpi-value">$2.92M</div>
+          <div class="kpi-delta fl">80 deals</div>
+        </div>
+      </div>
+      <div class="key-metrics-strip">
+        <div class="key-metric-cell">
+          <div class="lbl">Opps Created</div>
+          <div class="val">66</div>
+        </div>
+        <div class="key-metric-cell">
+          <div class="lbl">Total Activities</div>
+          <div class="val">9,319</div>
+        </div>
+        <div class="key-metric-cell">
+          <div class="lbl">Overdue Tasks</div>
+          <div class="val">134</div>
+        </div>
+      </div>
+    </div>
+    <div class="monthly-only">
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-hero">
+          <div class="kpi-label">Deals Won</div>
+          <div class="kpi-value">10</div>
+          <div class="kpi-delta up">+6 vs May</div>
+        </div>
+        <div class="kpi-card kpi-hero">
+          <div class="kpi-label">ARR Won</div>
+          <div class="kpi-value">$393.8K</div>
+          <div class="kpi-delta up">+$234.7K</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg Deal Size</div>
+          <div class="kpi-value">$39.4K</div>
+          <div class="kpi-delta fl">&darr; $0.4K</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Sales Cycle</div>
+          <div class="kpi-value">64d</div>
+          <div class="kpi-delta fl">T12M wt. avg</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">T12M Win Rate</div>
+          <div class="kpi-value">25.2%</div>
+          <div class="kpi-delta fl">40W / 119L</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Open Pipeline</div>
+          <div class="kpi-value">$2.92M</div>
+          <div class="kpi-delta fl">80 deals</div>
+        </div>
+      </div>
+      <div class="key-metrics-strip">
+        <div class="key-metric-cell">
+          <div class="lbl">Opps Created</div>
+          <div class="val">24</div>
+        </div>
+        <div class="key-metric-cell">
+          <div class="lbl">Total Activities</div>
+          <div class="val">2,572</div>
+        </div>
+        <div class="key-metric-cell">
+          <div class="lbl">Overdue Tasks</div>
+          <div class="val">134</div>
+        </div>
+      </div>
+    </div>
+    <div class="weekly-only">
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-hero">
+          <div class="kpi-label">Deals Won</div>
+          <div class="kpi-value">1</div>
+          <div class="kpi-delta up">+1 WoW</div>
+        </div>
+        <div class="kpi-card kpi-hero">
+          <div class="kpi-label">ARR Won</div>
+          <div class="kpi-value">$24.9K</div>
+          <div class="kpi-delta up">+$24.9K</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Avg Deal Size</div>
+          <div class="kpi-value">$24.9K</div>
+          <div class="kpi-delta fl">1 deal</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Sales Cycle</div>
+          <div class="kpi-value">64d</div>
+          <div class="kpi-delta fl">T12M wt. avg</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">T12M Win Rate</div>
+          <div class="kpi-value">25.2%</div>
+          <div class="kpi-delta fl">40W / 119L</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Open Pipeline</div>
+          <div class="kpi-value">$2.92M</div>
+          <div class="kpi-delta fl">80 deals</div>
+        </div>
+      </div>
+      <div class="key-metrics-strip">
+        <div class="key-metric-cell">
+          <div class="lbl">Opps Created</div>
+          <div class="val">1</div>
+        </div>
+        <div class="key-metric-cell">
+          <div class="lbl">Total Activities</div>
+          <div class="val">486</div>
+        </div>
+        <div class="key-metric-cell">
+          <div class="lbl">Overdue Tasks</div>
+          <div class="val">134</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 vs Q1 2026 &middot; Growth Team" data-m="June 2026 vs May 2026 &middot; Growth Team" data-w="Wk ending Jul 27 vs Wk ending Jul 20 &middot; Growth Team">Q2 2026 vs Q1 2026 &middot; Growth Team</span></div>
+</div>
+
+<!-- ==================== SLIDE 2: PIPELINE & REVENUE ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <div>
+      <div class="slide-eyebrow">Per-Rep Breakdown</div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Pipeline &amp; Revenue &mdash; Q2 2026" data-m="Pipeline &amp; Revenue &mdash; June 2026" data-w="Pipeline &amp; Revenue &mdash; Wk ending Jul 27">Pipeline &amp; Revenue &mdash; Q2 2026</h2></div>
+    </div>
+    <div class="slide-stamp">2</div>
+  </div>
+  <div class="slide-body">
+    <div class="uc-grid">
+
+      <!-- Pipeline Coverage — snapshot, same both views -->
+      <div class="uc-card">
+        <div class="uc-head">
+          <span class="uc-title">Pipeline Coverage</span>
+          <span class="uc-target">Target: 5x</span>
+        </div>
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">$597K / $89K remaining</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:100%"></div><div class="uc-target-line" style="left:100%"></div></div>
+          <div class="uc-val up">6.7x</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">$763K / $170K remaining</div></div>
+          <div class="uc-track"><div class="uc-fill uc-a" style="width:90%"></div><div class="uc-target-line" style="left:100%"></div></div>
+          <div class="uc-val" style="color:#92400E">4.5x</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">$765K / $273K remaining</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:56%"></div><div class="uc-target-line" style="left:100%"></div></div>
+          <div class="uc-val dn">2.8x</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">$553K / $493K remaining</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:22%"></div><div class="uc-target-line" style="left:100%"></div></div>
+          <div class="uc-val dn">1.1x</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">$242K / $457K remaining</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:10%"></div><div class="uc-target-line" style="left:100%"></div></div>
+          <div class="uc-val dn">0.5x</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub" style="color:var(--lost-red)">vs 5x target</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val" style="color:var(--lost-red)">2.0x</div>
+          <div class="uc-delta"></div>
+        </div>
+      </div>
+
+      <!-- Open Pipeline — snapshot, same both views -->
+      <div class="uc-card">
+        <div class="uc-head">
+          <span class="uc-title">Open Pipeline</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)">Snapshot</span>
+        </div>
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">21 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">$765,159</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">9 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">$762,759</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">23 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:78%"></div></div>
+          <div class="uc-val">$597,332</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">15 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:72%"></div></div>
+          <div class="uc-val">$552,991</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">12 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:32%"></div></div>
+          <div class="uc-val">$241,758</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">16.0 deals / rep</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">$584,000</div>
+          <div class="uc-delta"></div>
+        </div>
+      </div>
+
+      <!-- Quota Attainment — YTD, same both views -->
+      <div class="uc-card">
+        <div class="uc-head">
+          <span class="uc-title">Quota Attainment</span>
+          <span class="uc-target">Target: 100% ($550K)</span>
+        </div>
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">$460.9K of $550K</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:83.8%"></div><div class="uc-target-line" style="left:100%"></div><div class="uc-avg-line" style="left:50%"></div></div>
+          <div class="uc-val up">83.8%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">$380.4K of $550K</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:69.2%"></div><div class="uc-target-line" style="left:100%"></div><div class="uc-avg-line" style="left:50%"></div></div>
+          <div class="uc-val up">69.2%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">$276.7K of $550K</div></div>
+          <div class="uc-track"><div class="uc-fill uc-a" style="width:50.3%"></div><div class="uc-target-line" style="left:100%"></div><div class="uc-avg-line" style="left:50%"></div></div>
+          <div class="uc-val" style="color:#92400E">50.3%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">$92.7K of $550K</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:16.9%"></div><div class="uc-target-line" style="left:100%"></div><div class="uc-avg-line" style="left:50%"></div></div>
+          <div class="uc-val dn">16.9%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">$57.2K of $550K</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:10.4%"></div><div class="uc-target-line" style="left:100%"></div><div class="uc-avg-line" style="left:50%"></div></div>
+          <div class="uc-val dn">10.4%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">50% = mid-year pace</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val" style="color:#92400E">46.1%</div>
+          <div class="uc-delta"></div>
+        </div>
+      </div>
+
+      <!-- ARR Closed-Won — different values by view -->
+      <div class="uc-card" data-color-by-avg>
+        <div class="uc-head">
+          <span class="uc-title">ARR Closed-Won</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM" data-w="WoW">QoQ</span>
+        </div>
+        <div class="quarterly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">9 deals &middot; $40.7K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">$366,480</div>
+          <div class="uc-delta up">&uarr;$272.1K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">6 deals &middot; $47.3K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:77%"></div></div>
+          <div class="uc-val">$283,970</div>
+          <div class="uc-delta up">&uarr;$187.5K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">3 deals &middot; $65.4K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:54%"></div></div>
+          <div class="uc-val">$196,268</div>
+          <div class="uc-delta up">&uarr;$115.9K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">2 deals &middot; $46.3K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:25%"></div></div>
+          <div class="uc-val">$92,699</div>
+          <div class="uc-delta up">&uarr;$92.7K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">1 deal &middot; $57.2K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:16%"></div></div>
+          <div class="uc-val">$57,176</div>
+          <div class="uc-delta up">&uarr;$57.2K</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">4.2 deals / rep</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">$199,319</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="monthly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">4 deals &middot; $48.7K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">$194,822</div>
+          <div class="uc-delta up">&uarr;$194.8K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">4 deals &middot; $36.0K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:74%"></div></div>
+          <div class="uc-val">$144,168</div>
+          <div class="uc-delta dn">&darr;$14.9K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">1 deal &middot; $33.8K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:17%"></div></div>
+          <div class="uc-val">$33,763</div>
+          <div class="uc-delta up">&uarr;$33.8K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">1 deal &middot; $21.0K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:11%"></div></div>
+          <div class="uc-val">$21,003</div>
+          <div class="uc-delta up">&uarr;$21.0K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">0 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta fl">flat</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">2.0 deals / rep</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">$78,751</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="weekly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">1 deal &middot; $24.9K avg</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">$24,900</div>
+          <div class="uc-delta up">&uarr;$24.9K</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">0 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta fl">flat</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">0 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta fl">flat</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">0 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta fl">flat</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">0 deals</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta fl">flat</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">0.2 deals / rep</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">$4,980</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Win Rate — T12M, same both views -->
+      <div class="uc-card">
+        <div class="uc-head">
+          <span class="uc-title">Win Rate</span>
+          <span class="uc-target">Target: &ge;25%</span>
+        </div>
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">T12M &middot; 2W / 3L</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:89%"></div><div class="uc-target-line" style="left:56%"></div></div>
+          <div class="uc-val up">40.0%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">T12M &middot; 20W / 33L</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:84%"></div><div class="uc-target-line" style="left:56%"></div></div>
+          <div class="uc-val up">37.7%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">T12M &middot; 12W / 45L</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:47%"></div><div class="uc-target-line" style="left:56%"></div></div>
+          <div class="uc-val dn">21.1%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">T12M &middot; 5W / 31L</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:31%"></div><div class="uc-target-line" style="left:56%"></div></div>
+          <div class="uc-val dn">13.9%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">T12M &middot; 1W / 7L</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:28%"></div><div class="uc-target-line" style="left:56%"></div></div>
+          <div class="uc-val dn">12.5%</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">T12M &middot; 40W / 119L &middot; vs &ge;25% target</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val up">25.2%</div>
+          <div class="uc-delta"></div>
+        </div>
+      </div>
+
+      <!-- Avg Deal Size — T12M, same both views -->
+      <div class="uc-card">
+        <div class="uc-head">
+          <span class="uc-title">Avg Deal Size</span>
+          <span class="uc-target">T12M &middot; Team Avg $40.4K</span>
+        </div>
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">1 deal T12M</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:100%"></div></div>
+          <div class="uc-val up">$57.2K</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">5 deals T12M</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:97%"></div></div>
+          <div class="uc-val up">$55.3K</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">2 deals T12M</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:81%"></div></div>
+          <div class="uc-val up">$46.3K</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">12 deals T12M</div></div>
+          <div class="uc-track"><div class="uc-fill uc-a" style="width:70%"></div></div>
+          <div class="uc-val" style="color:#92400E">$40.1K</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">20 deals T12M</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:62%"></div></div>
+          <div class="uc-val dn">$35.4K</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">40 deals T12M</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">$40.4K</div>
+          <div class="uc-delta"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="uc-note">
+      <strong>Quota:</strong> $550K ARR (annual) &nbsp;&middot;&nbsp;
+      <strong>Pipeline Cov.:</strong> Open Pipeline &divide; Remaining Quota ($550K &minus; YTD Won) &nbsp;&middot;&nbsp;
+      <strong>Win Rate:</strong> T12M, target = &ge;25% &nbsp;&middot;&nbsp;
+      <strong>Mid-Year Pace:</strong> dashed line at 50% on Quota &nbsp;&middot;&nbsp;
+      <span class="uc-fill uc-g" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> at/above target &ensp;
+      <span class="uc-fill uc-a" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> near &ensp;
+      <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> below
+    </div>
+  </div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 &middot; Source: HubSpot CRM" data-m="June 2026 &middot; Source: HubSpot CRM" data-w="Wk ending Jul 27 &middot; Source: HubSpot CRM">Q2 2026 &middot; Source: HubSpot CRM</span></div>
+</div>
+
+<!-- ==================== SLIDE 3: EFFORT & VELOCITY ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <div>
+      <div class="slide-eyebrow">Per-Rep Breakdown</div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title" data-q="Effort &amp; Velocity &mdash; Q2 2026" data-m="Effort &amp; Velocity &mdash; June 2026" data-w="Effort &amp; Velocity &mdash; Wk ending Jul 27">Effort &amp; Velocity &mdash; Q2 2026</h2></div>
+    </div>
+    <div class="slide-stamp">3</div>
+  </div>
+  <div class="slide-body">
+    <div class="uc-grid">
+
+      <!-- Total Activities — different values by view -->
+      <div class="uc-card" data-color-by-avg>
+        <div class="uc-head">
+          <span class="uc-title">Total Activities</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM" data-w="WoW">QoQ</span>
+        </div>
+        <div class="quarterly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">1,351 emails &middot; 800 calls &middot; 23 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">2,174</div>
+          <div class="uc-delta up">&uarr;2,143</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">1,414 emails &middot; 425 calls &middot; 38 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:86%"></div></div>
+          <div class="uc-val">1,877</div>
+          <div class="uc-delta dn">&darr;970</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">1,297 emails &middot; 565 calls &middot; 15 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:86%"></div></div>
+          <div class="uc-val">1,877</div>
+          <div class="uc-delta up">&uarr;1,875</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">1,563 emails &middot; 224 calls &middot; 71 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:85%"></div></div>
+          <div class="uc-val">1,858</div>
+          <div class="uc-delta dn">&darr;905</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">1,422 emails &middot; 55 calls &middot; 56 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:71%"></div></div>
+          <div class="uc-val">1,533</div>
+          <div class="uc-delta dn">&darr;1,723</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">1,409 emails &middot; 414 calls &middot; 41 meetings</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">1,864</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="monthly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">475 emails &middot; 159 calls &middot; 8 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">642</div>
+          <div class="uc-delta up">&uarr;10</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">377 emails &middot; 192 calls &middot; 7 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:90%"></div></div>
+          <div class="uc-val">576</div>
+          <div class="uc-delta up">&uarr;148</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">521 emails &middot; 7 calls &middot; 17 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:85%"></div></div>
+          <div class="uc-val">545</div>
+          <div class="uc-delta up">&uarr;113</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">433 emails &middot; 43 calls &middot; 19 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:77%"></div></div>
+          <div class="uc-val">495</div>
+          <div class="uc-delta dn">&darr;132</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">94 emails &middot; 209 calls &middot; 11 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:49%"></div></div>
+          <div class="uc-val">314</div>
+          <div class="uc-delta dn">&darr;12</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">380 emails &middot; 122 calls &middot; 12 meetings</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">514</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="weekly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">119 emails &middot; 2 calls &middot; 8 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">129</div>
+          <div class="uc-delta dn">&darr;21</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">20 emails &middot; 92 calls &middot; 0 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:87%"></div></div>
+          <div class="uc-val">112</div>
+          <div class="uc-delta up">&uarr;56</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">62 emails &middot; 29 calls &middot; 4 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:74%"></div></div>
+          <div class="uc-val">95</div>
+          <div class="uc-delta up">&uarr;8</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">65 emails &middot; 22 calls &middot; 3 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:70%"></div></div>
+          <div class="uc-val">90</div>
+          <div class="uc-delta up">&uarr;69</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">53 emails &middot; 5 calls &middot; 2 meetings</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:47%"></div></div>
+          <div class="uc-val">60</div>
+          <div class="uc-delta up">&uarr;31</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">64 emails &middot; 30 calls &middot; 3 meetings</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">97</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Calls — different values by view -->
+      <div class="uc-card" data-color-by-avg>
+        <div class="uc-head">
+          <span class="uc-title">Calls</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="Total: 2,069" data-m="Total: 610" data-w="Total: 150">Total: 2,069</span>
+        </div>
+        <div class="quarterly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">185 companies &middot; 17h 34m &middot; avg 1m 19s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">800</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">115 companies &middot; 9h 20m &middot; avg 0m 59s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:71%"></div></div>
+          <div class="uc-val">565</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">133 companies &middot; 8h 17m &middot; avg 1m 10s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:53%"></div></div>
+          <div class="uc-val">425</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">65 companies &middot; 7h 37m &middot; avg 2m 02s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:28%"></div></div>
+          <div class="uc-val">224</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">17 companies &middot; 38m &middot; avg 0m 42s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:7%"></div></div>
+          <div class="uc-val">55</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">avg 8h 41m &middot; avg 1m 16s/call</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">414</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="monthly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">67 companies &middot; 3h 28m &middot; avg 1m 00s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">209</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">70 companies &middot; 3h 24m &middot; avg 1m 04s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:92%"></div></div>
+          <div class="uc-val">192</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">73 companies &middot; 2h 32m &middot; avg 0m 57s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:76%"></div></div>
+          <div class="uc-val">159</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">20 companies &middot; 1h 24m &middot; avg 1m 57s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:21%"></div></div>
+          <div class="uc-val">43</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">2 companies &middot; 3m 44s &middot; avg 0m 32s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:3%"></div></div>
+          <div class="uc-val">7</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">avg 2h 10m &middot; avg 1m 04s/call</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">122</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="weekly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">45 companies &middot; 1h 34m &middot; avg 1m 01s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">92</div>
+          <div class="uc-delta up">&uarr;51</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">10 companies &middot; 21m 42s &middot; avg 0m 45s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:32%"></div></div>
+          <div class="uc-val">29</div>
+          <div class="uc-delta dn">&darr;17</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">18 companies &middot; 22m 01s &middot; avg 1m 00s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:24%"></div></div>
+          <div class="uc-val">22</div>
+          <div class="uc-delta up">&uarr;16</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">3 companies &middot; 5m 28s &middot; avg 1m 06s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:5%"></div></div>
+          <div class="uc-val">5</div>
+          <div class="uc-delta up">&uarr;5</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">1 company &middot; 3m 37s &middot; avg 1m 49s/call</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:2%"></div></div>
+          <div class="uc-val">2</div>
+          <div class="uc-delta up">&uarr;1</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub">avg 29m &middot; avg 0m 59s/call</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">30</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Outbound / wk — different values by view -->
+      <div class="uc-card" data-color-by-avg>
+        <div class="uc-head">
+          <span class="uc-title">Outbound / wk</span>
+          <span class="uc-target">Target: TBD</span>
+        </div>
+        <div class="quarterly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">Calls + Emails / wk (13 wks)</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">165</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:87%"></div></div>
+          <div class="uc-val">143</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:85%"></div></div>
+          <div class="uc-val">141</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:83%"></div></div>
+          <div class="uc-val">137</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:69%"></div></div>
+          <div class="uc-val">114</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">140</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="monthly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">Calls + Emails / wk (4.3 wks)</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">148</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:90%"></div></div>
+          <div class="uc-val">133</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Scott Hamilton</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:83%"></div></div>
+          <div class="uc-val">123</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:75%"></div></div>
+          <div class="uc-val">111</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Graham Staley</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:48%"></div></div>
+          <div class="uc-val">71</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">117</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="weekly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">Calls + Emails (1 wk)</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">121</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Graham Staley</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:93%"></div></div>
+          <div class="uc-val">112</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:75%"></div></div>
+          <div class="uc-val">91</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Joshua Kolenda</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:72%"></div></div>
+          <div class="uc-val">87</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Michelle Kubas</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:48%"></div></div>
+          <div class="uc-val">58</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">94</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Opps Created — different values by view -->
+      <div class="uc-card" data-color-by-avg>
+        <div class="uc-head">
+          <span class="uc-title">Opps Created</span>
+          <span class="uc-target" style="background:transparent;color:rgba(255,255,255,0.5)" data-q="QoQ" data-m="MoM" data-w="WoW">QoQ</span>
+        </div>
+        <div class="quarterly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">19 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">19</div>
+          <div class="uc-delta up">&uarr;19</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">15 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:79%"></div></div>
+          <div class="uc-val">15</div>
+          <div class="uc-delta dn">&darr;10</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">12 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:63%"></div></div>
+          <div class="uc-val">12</div>
+          <div class="uc-delta dn">&darr;27</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">11 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:58%"></div></div>
+          <div class="uc-val">11</div>
+          <div class="uc-delta up">&uarr;10</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">9 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:47%"></div></div>
+          <div class="uc-val">9</div>
+          <div class="uc-delta up">&uarr;4</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">13.2</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="monthly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">7 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">7</div>
+          <div class="uc-delta up">&uarr;6</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">5 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:71%"></div></div>
+          <div class="uc-val">5</div>
+          <div class="uc-delta fl">flat</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">5 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:71%"></div></div>
+          <div class="uc-val">5</div>
+          <div class="uc-delta up">&uarr;1</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">4 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:57%"></div></div>
+          <div class="uc-val">4</div>
+          <div class="uc-delta dn">&darr;2</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">3 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:43%"></div></div>
+          <div class="uc-val">3</div>
+          <div class="uc-delta up">&uarr;1</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">4.8</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+        <div class="weekly-only">
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">1 opp</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:100%"></div></div>
+          <div class="uc-val">1</div>
+          <div class="uc-delta fl">flat</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">0 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta dn">&darr;5</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">0 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta dn">&darr;3</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">0 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta dn">&darr;2</div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">0 opps</div></div>
+          <div class="uc-track"><div class="uc-fill uc-n" style="width:0%"></div></div>
+          <div class="uc-val" style="color:var(--text-muted)">&mdash;</div>
+          <div class="uc-delta fl">flat</div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">0.2</div>
+          <div class="uc-delta"></div>
+        </div>
+        </div>
+      </div>
+
+      <!-- Avg Sales Cycle — T12M, same both views -->
+      <div class="uc-card">
+        <div class="uc-head">
+          <span class="uc-title">Avg Sales Cycle</span>
+          <span class="uc-target">Target: &le;64d</span>
+        </div>
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div><div class="uc-sub">50d below benchmark</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:9%"></div><div class="uc-target-line" style="left:43%"></div></div>
+          <div class="uc-val up">14d</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Graham Staley</div><div class="uc-sub">38d below benchmark</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:17%"></div><div class="uc-target-line" style="left:43%"></div></div>
+          <div class="uc-val up">26d</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">3</div>
+          <div><div class="uc-name">Joshua Kolenda</div><div class="uc-sub">27d below benchmark</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:25%"></div><div class="uc-target-line" style="left:43%"></div></div>
+          <div class="uc-val up">37d</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div><div class="uc-sub">12d below benchmark</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:35%"></div><div class="uc-target-line" style="left:43%"></div></div>
+          <div class="uc-val up">52d</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">21d above benchmark</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:56%"></div><div class="uc-target-line" style="left:43%"></div></div>
+          <div class="uc-val dn">85d</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div><div class="uc-sub" style="color:#1F7A3A">T12M weighted avg</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val" style="color:#1F7A3A">64d</div>
+          <div class="uc-delta"></div>
+        </div>
+      </div>
+
+      <!-- Overdue Tasks — snapshot, same both views -->
+      <div class="uc-card">
+        <div class="uc-head">
+          <span class="uc-title">Overdue Tasks</span>
+          <span class="uc-target">Total: 134</span>
+        </div>
+        <div class="uc-row uc-r1">
+          <div class="uc-rank">1</div>
+          <div><div class="uc-name">Scott Hamilton</div><div class="uc-sub">Fewest overdue</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:5%"></div></div>
+          <div class="uc-val" style="color:#1F7A3A">4</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Joshua Kolenda</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:11%"></div></div>
+          <div class="uc-val" style="color:#1F7A3A">9</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">2</div>
+          <div><div class="uc-name">Graham Staley</div></div>
+          <div class="uc-track"><div class="uc-fill uc-g" style="width:11%"></div></div>
+          <div class="uc-val" style="color:#1F7A3A">9</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">4</div>
+          <div><div class="uc-name">Michelle Kubas</div></div>
+          <div class="uc-track"><div class="uc-fill uc-a" style="width:35%"></div></div>
+          <div class="uc-val" style="color:#92400E">29</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row">
+          <div class="uc-rank">5</div>
+          <div><div class="uc-name">Pouyan Mirsaeidi</div></div>
+          <div class="uc-track"><div class="uc-fill uc-r" style="width:100%"></div></div>
+          <div class="uc-val" style="color:var(--lost-red)">83</div>
+          <div class="uc-delta"></div>
+        </div>
+        <div class="uc-row uc-bench">
+          <div class="uc-rank"><span class="uc-bench-label">AVG</span></div>
+          <div><div class="uc-name">Team Average</div></div>
+          <div class="uc-track" style="visibility:hidden"></div>
+          <div class="uc-val">27</div>
+          <div class="uc-delta"></div>
+        </div>
+      </div>
+
+    </div>
+    <div class="uc-note">
+      <strong>Calls:</strong> HubSpot logged calls &middot; duration from hs_call_duration &middot; companies via association &nbsp;&middot;&nbsp;
+      <strong>Outbound:</strong> Calls + Emails / wk &nbsp;&middot;&nbsp;
+      <strong>Sales Cycle:</strong> T12M median, benchmark = 64d wt. avg &nbsp;&middot;&nbsp;
+      <strong>Overdue:</strong> &le;10 / 11&ndash;30 / &gt;30 thresholds &nbsp;&middot;&nbsp;
+      <span class="uc-fill uc-g" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> at/above &ensp;
+      <span class="uc-fill uc-a" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> near/below &ensp;
+      <span class="uc-fill uc-r" style="display:inline-block;width:10px;height:10px;vertical-align:middle;border-radius:2px"></span> below
+    </div>
+  </div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span data-q="Q2 2026 &middot; Source: HubSpot CRM" data-m="June 2026 &middot; Source: HubSpot CRM" data-w="Wk ending Jul 27 &middot; Source: HubSpot CRM">Q2 2026 &middot; Source: HubSpot CRM</span></div>
+</div>
+
+<!-- ==================== APPENDIX FOOTER ==================== -->
+<div class="slide">
+  <div class="slide-header">
+    <div>
+      <div class="slide-eyebrow">Appendix</div>
+      <div class="slide-title-row"><span class="yellow-bar"></span><h2 class="slide-title">Data Sources &amp; Methodology</h2></div>
+    </div>
+    <div class="slide-stamp">4</div>
+  </div>
+  <div class="slide-body" style="font-size:12px; color:var(--text-secondary); line-height:1.6;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+      <div style="background:var(--light-grey); border-left:3px solid var(--sunrise-yellow); border-radius:2px; padding:12px 16px;">
+        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-primary); margin-bottom:6px;">Metrics</div>
+        <p style="margin:0 0 4px"><strong>ARR Won</strong> &mdash; sum of ARR property on Closed-Won deals in period (Sales Pipeline)</p>
+        <p style="margin:0 0 4px"><strong>Win Rate</strong> &mdash; Won / (Won + Lost) trailing 12 months. Team total = volume-weighted (25.2%)</p>
+        <p style="margin:0 0 4px"><strong>Sales Cycle</strong> &mdash; median days_to_close from HubSpot, T12M by owner</p>
+        <p style="margin:0 0 4px"><strong>Activities</strong> &mdash; Calls + Emails + Meetings logged in HubSpot</p>
+        <p style="margin:0 0 4px"><strong>Calls</strong> &mdash; HubSpot logged calls; duration from hs_call_duration; distinct companies via association</p>
+        <p style="margin:0"><strong>Quota</strong> &mdash; $550K ARR annual per AE; mid-year pace = 50%</p>
+      </div>
+      <div style="background:var(--light-grey); border-left:3px solid var(--sunrise-yellow); border-radius:2px; padding:12px 16px;">
+        <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--text-primary); margin-bottom:6px;">Data Source</div>
+        <p style="margin:0 0 4px">All data sourced from <strong>HubSpot CRM</strong> via MCP connector.</p>
+        <p style="margin:0 0 4px">Snapshot date: <strong>July 27, 2026</strong></p>
+        <p style="margin:0 0 4px">AE roster: Michelle Kubas, Scott Hamilton, Joshua Kolenda, Graham Staley, Pouyan Mirsaeidi</p>
+        <p style="margin:0"><span data-q="Reporting period: " data-m="Reporting period: " data-w="Reporting period: ">Reporting period: </span><strong data-q="Q2 2026 (Apr 1 – Jun 30)" data-m="June 1 – 30, 2026" data-w="Jul 21 – 27, 2026 (Wk ending Jul 27)">Q2 2026 (Apr 1 – Jun 30)</strong><span data-q=" with comparison to Q1 2026 (Jan – Mar)." data-m=" with comparison to May 2026." data-w=" with comparison to Wk ending Jul 20."> with comparison to Q1 2026 (Jan – Mar).</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>AES Performance Dashboard &middot; Confidential and Proprietary</span></div>
+</div>
+
+<script>
+function colorByAvg() {
+  var view = document.body.dataset.view || 'quarterly';
+  var hideClasses = ['quarterly-only','monthly-only','weekly-only'].filter(function(c) { return c !== view + '-only'; });
+
+  document.querySelectorAll('.uc-card[data-color-by-avg]').forEach(function(card) {
+    var rows = [];
+    card.querySelectorAll('.uc-row:not(.uc-bench)').forEach(function(row) {
+      var parent = row.parentElement;
+      var hidden = hideClasses.some(function(c) { return parent.classList.contains(c); });
+      if (hidden) return;
+      var fill = row.querySelector('.uc-fill');
+      if (!fill) return;
+      var w = parseFloat(fill.style.width) || 0;
+      rows.push({ row: row, fill: fill, width: w });
+    });
+
+    if (!rows.length) return;
+    var sum = 0;
+    rows.forEach(function(r) { sum += r.width; });
+    var avg = sum / rows.length;
+
+    rows.forEach(function(r) {
+      var val = r.row.querySelector('.uc-val');
+      r.fill.classList.remove('uc-g', 'uc-a', 'uc-n');
+      if (r.width >= avg) {
+        r.fill.classList.add('uc-g');
+        if (val && r.width > 0) val.style.color = '#1F7A3A';
+      } else {
+        r.fill.classList.add('uc-a');
+        if (val && r.width > 0) val.style.color = '#92400E';
+      }
+      if (val && r.width === 0) val.style.color = '';
+    });
+  });
+}
+
+function setView(view) {
+  document.body.dataset.view = view;
+  document.querySelectorAll('.toggle-btn').forEach(function(b) {
+    b.classList.toggle('active', b.dataset.view === view);
+  });
+  var attr = view === 'quarterly' ? 'q' : view === 'monthly' ? 'm' : 'w';
+  document.querySelectorAll('[data-q]').forEach(function(el) {
+    el.textContent = el.dataset[attr];
+  });
+  colorByAvg();
+}
+
+(function initEnhancements() {
+  document.querySelectorAll('.uc-row:not(.uc-bench)').forEach(function(row) {
+    var fill = row.querySelector('.uc-fill');
+    var val = row.querySelector('.uc-val');
+    if (!fill || !val || val.style.color) return;
+    if (fill.classList.contains('uc-g')) val.style.color = '#1F7A3A';
+    else if (fill.classList.contains('uc-a')) val.style.color = '#92400E';
+    else if (fill.classList.contains('uc-r')) val.style.color = '#B91C1C';
+  });
+
+  colorByAvg();
+})();
+</script>
