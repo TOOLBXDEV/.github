@@ -1,6 +1,6 @@
 name: ICP Scoring Engine v3.4
 
-on:
+"on":
   schedule:
     # Nightly at 02:00 UTC (full reconciliation)
     - cron: '0 2 * * *'
