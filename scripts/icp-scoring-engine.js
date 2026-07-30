@@ -4,9 +4,9 @@
 // Env: HUBSPOT_ACCESS_TOKEN (GitHub secret)
 
 const hubspot = require('@hubspot/api-client');
-const config  = require('./icp-scoring-config');
+const config = require('./icp-scoring-config');
 
-const client     = new hubspot.Client({ accessToken: process.env.HUBSPOT_ACCESS_TOKEN });
+const client = new hubspot.Client({ accessToken: process.env.HUBSPOT_ACCESS_TOKEN });
 const BATCH_SIZE = 100;
 
 // Gate helpers
@@ -35,7 +35,7 @@ function scoreRevenue(annualRevenue, country) {
   const rev = Number(annualRevenue);
   if (isNaN(rev) || rev <= 0) return config.REVENUE_SCORES.unknown;
   const t = isCanada(country) ? config.REVENUE_THRESHOLDS.CA : config.REVENUE_THRESHOLDS.US;
-  if (rev < t.floor)    return config.REVENUE_SCORES.belowFloor;
+  if (rev < t.floor) return config.REVENUE_SCORES.belowFloor;
   if (rev <= t.ceiling) return config.REVENUE_SCORES.inBand;
   return config.REVENUE_SCORES.aboveCeiling;
 }
@@ -44,9 +44,9 @@ function scoreLocation(locations) {
   if (locations == null || locations === '') return config.LOCATION_SCORES.unknown;
   const loc = Number(locations);
   if (isNaN(loc) || loc <= 0) return config.LOCATION_SCORES.unknown;
-  if (loc === 1)  return config.LOCATION_SCORES.single;
-  if (loc <= 5)   return config.LOCATION_SCORES.smallChain;
-  if (loc <= 50)  return config.LOCATION_SCORES.sweetSpot;
+  if (loc === 1) return config.LOCATION_SCORES.single;
+  if (loc <= 5) return config.LOCATION_SCORES.smallChain;
+  if (loc <= 50) return config.LOCATION_SCORES.sweetSpot;
   return config.LOCATION_SCORES.megaCap;
 }
 
@@ -80,10 +80,17 @@ function assignCompositeTier(composite) {
 }
 
 // Master scorer
+// icp_last_scored_at: HubSpot datetime fields require a Unix-ms value at exactly midnight UTC.
+
+function scoredAt() {
+  const day = new Date();
+  day.setUTCHours(0, 0, 0, 0);
+  return String(day.getTime());
+}
 
 function scoreCompany(properties) {
-  const now  = new Date().toISOString();
-  const geo  = geoGate(properties.country);
+  const now = scoredAt();
+  const geo = geoGate(properties.country);
   const vert = verticalGate(properties.vertical);
 
   if (geo === 'Fail') {
@@ -105,22 +112,22 @@ function scoreCompany(properties) {
     };
   }
 
-  const revScore   = scoreRevenue(properties.annualrevenue, properties.country);
-  const locScore   = scoreLocation(properties.of_locations__c);
+  const revScore = scoreRevenue(properties.annualrevenue, properties.country);
+  const locScore = scoreLocation(properties.of_locations__c);
   const assocScore = scoreAssociation(properties.industry_association);
-  const erpScore   = scoreERP(properties.erp_pos__c);
-  const composite  = computeComposite(revScore, locScore, assocScore, erpScore);
+  const erpScore = scoreERP(properties.erp_pos__c);
+  const composite = computeComposite(revScore, locScore, assocScore, erpScore);
 
   return {
     icp_geo_gate: 'Pass', icp_vertical_gate: 'Pass',
-    icp_score_revenue:     String(revScore),
-    icp_score_locations:   String(locScore),
+    icp_score_revenue: String(revScore),
+    icp_score_locations: String(locScore),
     icp_score_association: String(assocScore),
-    icp_score_erp:         String(erpScore),
-    icp_score_composite:   String(composite),
-    icp_erp_class:         erpClass(properties.erp_pos__c),
-    icp_tier:              assignCompositeTier(composite),
-    icp_last_scored_at:    now,
+    icp_score_erp: String(erpScore),
+    icp_score_composite: String(composite),
+    icp_erp_class: erpClass(properties.erp_pos__c),
+    icp_tier: assignCompositeTier(composite),
+    icp_last_scored_at: now,
   };
 }
 
@@ -135,13 +142,14 @@ function hasChanged(current, computed) {
 
 // HubSpot API helpers
 
-async function withRetry(fn, label = 'API call') {
+async function withRetry(fn, label) {
+  label = label || 'API call';
   let retries = 0;
   while (retries <= 4) {
     try {
       return await fn();
     } catch (err) {
-      const is429 = err.code === 429 || err.response?.status === 429;
+      const is429 = err.code === 429 || (err.response && err.response.status === 429);
       if (is429 && retries < 4) {
         retries++;
         const wait = Math.pow(2, retries) * 1000;
@@ -164,7 +172,9 @@ async function fetchAllCompanies() {
       }), 'company search',
     );
     companies.push(...response.results);
-    if (response.paging?.next?.after) { after = response.paging.next.after; } else { break; }
+    if (response.paging && response.paging.next && response.paging.next.after) {
+      after = response.paging.next.after;
+    } else { break; }
   }
   return companies;
 }
@@ -202,12 +212,13 @@ async function main() {
 
   for (const company of companies) {
     const computed = scoreCompany(company.properties);
-    tierCounts[computed.icp_tier] = (tierCounts[computed.icp_tier] ?? 0) + 1;
+    tierCounts[computed.icp_tier] = (tierCounts[computed.icp_tier] || 0) + 1;
     if (hasChanged(company.properties, computed)) { updates.push({ id: company.id, properties: computed }); }
   }
 
   console.log('Tier distribution:');
-  for (const [tier, count] of Object.entries(tierCounts)) {
+  for (const tier of Object.keys(tierCounts)) {
+    const count = tierCounts[tier];
     console.log('  ' + tier + ': ' + count + ' (' + ((count / companies.length) * 100).toFixed(1) + '%)');
   }
 
@@ -223,8 +234,13 @@ module.exports = { scoreCompany, hasChanged, fetchCompaniesByIds, batchUpdate, g
 
 if (require.main === module) {
   main().catch(err => {
-    console.error('\nFATAL:', err.message);
-    if (err.response?.body) console.error('HubSpot error:', JSON.stringify(err.response.body, null, 2));
+    console.error('\nFATAL: HTTP-Code: ' + (err.response && err.response.status));
+    if (err.response && err.response.body) {
+      console.error('Message: An error occurred.');
+      console.error('Body: ' + JSON.stringify(err.response.body));
+    } else {
+      console.error(err.message);
+    }
     process.exit(1);
   });
 }
