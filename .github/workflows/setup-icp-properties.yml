@@ -5,101 +5,22 @@ on:
 
 jobs:
   setup:
-    name: Create ICP v3.4 properties in HubSpot
+    name: Patch icp_tier with v3.4 DQ options
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - name: Create all missing ICP v3.4 properties via API
+      - name: PATCH icp_tier options via curl
         env:
           HUBSPOT_ACCESS_TOKEN: ${{ secrets.HUBSPOT_ACCESS_TOKEN }}
         run: |
-          python3 << 'PYEOF'
-          import os, json, urllib.request, urllib.error
-
-          TOKEN = os.environ["HUBSPOT_ACCESS_TOKEN"]
-          BASE = "https://api.hubapi.com/crm/v3/properties/companies"
-
-          def hs_get(name):
-              req = urllib.request.Request(f"{BASE}/{name}", headers={"Authorization": f"Bearer {TOKEN}"})
-              try:
-                  with urllib.request.urlopen(req) as r:
-                      return json.loads(r.read()), r.status
-              except urllib.error.HTTPError as e:
-                  return json.loads(e.read()), e.code
-
-          def hs_post(payload):
-              data = json.dumps(payload).encode()
-              req = urllib.request.Request(BASE, data=data, method="POST",
-                  headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"})
-              try:
-                  with urllib.request.urlopen(req) as r:
-                      return json.loads(r.read()), r.status
-              except urllib.error.HTTPError as e:
-                  return json.loads(e.read()), e.code
-
-          def hs_patch(name, payload):
-              data = json.dumps(payload).encode()
-              req = urllib.request.Request(f"{BASE}/{name}", data=data, method="PATCH",
-                  headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"})
-              try:
-                  with urllib.request.urlopen(req) as r:
-                      return json.loads(r.read()), r.status
-              except urllib.error.HTTPError as e:
-                  return json.loads(e.read()), e.code
-
-          def ensure_number(name, label):
-              body, status = hs_get(name)
-              if status == 200:
-                  print(f"  {name}: already exists")
-              else:
-                  resp, s = hs_post({"name": name, "label": label, "type": "number",
-                      "fieldType": "number", "groupName": "companyinformation", "hidden": False})
-                  print(f"  {name}: {'created' if s == 201 else 'ERROR ' + str(s) + ' ' + str(resp.get('message',''))}")
-
-          print("=== Creating numeric sub-score properties ===")
-          ensure_number("icp_score_revenue",     "ICP Score: Revenue")
-          ensure_number("icp_score_locations",   "ICP Score: Locations")
-          ensure_number("icp_score_association", "ICP Score: Association")
-          ensure_number("icp_score_erp",         "ICP Score: ERP")
-
-          print("\n=== Creating icp_erp_class dropdown ===")
-          body, status = hs_get("icp_erp_class")
-          if status == 200:
-              print("  icp_erp_class: already exists")
-          else:
-              resp, s = hs_post({
-                  "name": "icp_erp_class", "label": "ICP ERP Classification",
-                  "type": "enumeration", "fieldType": "select",
-                  "groupName": "companyinformation", "hidden": False,
-                  "options": [
-                      {"label": "Compatible",     "value": "Compatible",     "displayOrder": 0, "hidden": False},
-                      {"label": "Non-Compatible", "value": "Non-Compatible", "displayOrder": 1, "hidden": False},
-                      {"label": "Unknown",        "value": "Unknown",        "displayOrder": 2, "hidden": False},
-                  ]
-              })
-              print(f"  icp_erp_class: {'created' if s == 201 else 'ERROR ' + str(s) + ' ' + str(resp.get('message',''))}")
-
-          print("\n=== Patching icp_tier with v3.4 DQ options ===")
-          body, status = hs_get("icp_tier")
-          if status == 200:
-              existing_values = [o["value"] for o in body.get("options", [])]
-              new_options = list(body.get("options", []))
-              for v, label, order in [
-                  ("Disqualify - Composite",     "Disqualify - Composite",     3),
-                  ("Disqualify - Geo Gate",      "Disqualify - Geo Gate",      4),
-                  ("Disqualify - Vertical Gate", "Disqualify - Vertical Gate", 5),
-              ]:
-                  if v not in existing_values:
-                      new_options.append({"label": label, "value": v, "displayOrder": order, "hidden": False})
-              for o in new_options:
-                  if o["value"] == "Disqualify" and " - " not in o["value"]:
-                      o["hidden"] = True
-              resp, s = hs_patch("icp_tier", {"options": new_options})
-              active = [o["value"] for o in resp.get("options", []) if not o.get("hidden")]
-              print(f"  icp_tier options now: {active}")
-          else:
-              print(f"  ERROR fetching icp_tier: {status}")
-
-          print("\n=== Setup complete ===")
-          PYEOF
+          RESPONSE=$(curl -s -w "\n%{http_code}" -X PATCH \
+            "https://api.hubapi.com/crm/v3/properties/companies/icp_tier" \
+            -H "Authorization: Bearer $HUBSPOT_ACCESS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"options":[{"label":"Tier 1","value":"Tier 1","displayOrder":0,"hidden":false},{"label":"Tier 2","value":"Tier 2","displayOrder":1,"hidden":false},{"label":"Tier 3","value":"Tier 3","displayOrder":2,"hidden":false},{"label":"Disqualify","value":"Disqualify","displayOrder":3,"hidden":true},{"label":"Disqualify - Composite","value":"Disqualify - Composite","displayOrder":4,"hidden":false},{"label":"Disqualify - Geo Gate","value":"Disqualify - Geo Gate","displayOrder":5,"hidden":false},{"label":"Disqualify - Vertical Gate","value":"Disqualify - Vertical Gate","displayOrder":6,"hidden":false}]}')
+          HTTP_CODE=$(echo "$RESPONSE" | tail -1)
+          BODY=$(echo "$RESPONSE" | head -n -1)
+          echo "HTTP $HTTP_CODE"
+          echo "$BODY" | python3 -c "import sys,json; d=json.load(sys.stdin); [print('  option:', o['value'], '| hidden:', o['hidden']) for o in d.get('options',[])]" 2>/dev/null || echo "$BODY"
+          [ "$HTTP_CODE" = "200" ] || exit 1
