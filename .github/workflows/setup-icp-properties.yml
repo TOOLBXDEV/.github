@@ -14,74 +14,92 @@ jobs:
         env:
           HUBSPOT_ACCESS_TOKEN: ${{ secrets.HUBSPOT_ACCESS_TOKEN }}
         run: |
-          BASE="https://api.hubapi.com/crm/v3/properties/companies"
-          AUTH="Authorization: Bearer $HUBSPOT_ACCESS_TOKEN"
-          CT="Content-Type: application/json"
+          python3 << 'PYEOF'
+          import os, json, urllib.request, urllib.error
 
-          create_prop() {
-            local name="$1" label="$2" type="$3" field="$4"
-            local status=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" "$BASE/$name")
-            if [ "$status" = "200" ]; then
-              echo "  $name already exists."
-            else
-              local resp=$(curl -s -X POST "$BASE" -H "$AUTH" -H "$CT" -d "{\"name\":\"$name\",\"label\":\"$label\",\"type\":\"$type\",\"fieldType\":\"$field\",\"groupName\":\"companyinformation\",\"hidden\":false}" )
-              echo "  $name: $(echo $resp | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get('name','ERROR:'+str(d)))\" 2>/dev/null || echo $resp)"
-            fi
-          }
+          TOKEN = os.environ["HUBSPOT_ACCESS_TOKEN"]
+          BASE = "https://api.hubapi.com/crm/v3/properties/companies"
 
-          echo "=== Creating numeric sub-score properties ==="
-          create_prop "icp_score_revenue"     "ICP Score: Revenue"     "number"      "number"
-          create_prop "icp_score_locations"   "ICP Score: Locations"   "number"      "number"
-          create_prop "icp_score_association" "ICP Score: Association" "number"      "number"
-          create_prop "icp_score_erp"         "ICP Score: ERP"         "number"      "number"
+          def hs_get(name):
+              req = urllib.request.Request(f"{BASE}/{name}", headers={"Authorization": f"Bearer {TOKEN}"})
+              try:
+                  with urllib.request.urlopen(req) as r:
+                      return json.loads(r.read()), r.status
+              except urllib.error.HTTPError as e:
+                  return json.loads(e.read()), e.code
 
-          echo "=== Creating icp_erp_class dropdown ==="
-          local status=$(curl -s -o /dev/null -w "%{http_code}" -H "$AUTH" "$BASE/icp_erp_class")
-          if [ "$status" = "200" ]; then
-            echo "  icp_erp_class already exists."
-          else
-            curl -s -X POST "$BASE" -H "$AUTH" -H "$CT" -d '{
-              "name": "icp_erp_class",
-              "label": "ICP ERP Classification",
-              "type": "enumeration",
-              "fieldType": "select",
-              "groupName": "companyinformation",
-              "hidden": false,
-              "options": [
-                {"label":"Compatible","value":"Compatible","displayOrder":0,"hidden":false},
-                {"label":"Non-Compatible","value":"Non-Compatible","displayOrder":1,"hidden":false},
-                {"label":"Unknown","value":"Unknown","displayOrder":2,"hidden":false}
-              ]
-            }' | python3 -c "import sys,json; d=json.load(sys.stdin); print('  Created: ' + d.get('name','ERROR:'+str(d)))"
-          fi
+          def hs_post(payload):
+              data = json.dumps(payload).encode()
+              req = urllib.request.Request(BASE, data=data, method="POST",
+                  headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"})
+              try:
+                  with urllib.request.urlopen(req) as r:
+                      return json.loads(r.read()), r.status
+              except urllib.error.HTTPError as e:
+                  return json.loads(e.read()), e.code
 
-          echo "=== Patching icp_tier with v3.4 DQ options ==="
-          TIER_RESP=$(curl -s -H "$AUTH" "$BASE/icp_tier")
-          echo "$TIER_RESP" | python3 -c "
-          import sys, json, subprocess, os
-          d = json.load(sys.stdin)
-          opts = d.get('options', [])
-          values = [o['value'] for o in opts]
-          new_opts = list(opts)
-          for v, label, order in [
-            ('Disqualify - Composite','Disqualify - Composite',3),
-            ('Disqualify - Geo Gate','Disqualify - Geo Gate',4),
-            ('Disqualify - Vertical Gate','Disqualify - Vertical Gate',5),
-          ]:
-            if v not in values:
-              new_opts.append({'label':label,'value':v,'displayOrder':order,'hidden':False})
-          # Hide old Disqualify option
-          for o in new_opts:
-            if o['value'] == 'Disqualify' and ' - ' not in o['value']:
-              o['hidden'] = True
-          payload = json.dumps({'options': new_opts})
-          token = os.environ['HUBSPOT_ACCESS_TOKEN']
-          r = subprocess.run(['curl','-s','-X','PATCH','https://api.hubapi.com/crm/v3/properties/companies/icp_tier',
-            '-H','Authorization: Bearer '+token,'-H','Content-Type: application/json','-d',payload],
-            capture_output=True, text=True)
-          result = json.loads(r.stdout)
-          opts_after = [o['value'] for o in result.get('options', []) if not o.get('hidden')]
-          print('  icp_tier options now: ' + str(opts_after))
-          "
+          def hs_patch(name, payload):
+              data = json.dumps(payload).encode()
+              req = urllib.request.Request(f"{BASE}/{name}", data=data, method="PATCH",
+                  headers={"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"})
+              try:
+                  with urllib.request.urlopen(req) as r:
+                      return json.loads(r.read()), r.status
+              except urllib.error.HTTPError as e:
+                  return json.loads(e.read()), e.code
 
-          echo "=== Done ==="
+          def ensure_number(name, label):
+              body, status = hs_get(name)
+              if status == 200:
+                  print(f"  {name}: already exists")
+              else:
+                  resp, s = hs_post({"name": name, "label": label, "type": "number",
+                      "fieldType": "number", "groupName": "companyinformation", "hidden": False})
+                  print(f"  {name}: {'created' if s == 201 else 'ERROR ' + str(s) + ' ' + str(resp.get('message',''))}")
+
+          print("=== Creating numeric sub-score properties ===")
+          ensure_number("icp_score_revenue",     "ICP Score: Revenue")
+          ensure_number("icp_score_locations",   "ICP Score: Locations")
+          ensure_number("icp_score_association", "ICP Score: Association")
+          ensure_number("icp_score_erp",         "ICP Score: ERP")
+
+          print("\n=== Creating icp_erp_class dropdown ===")
+          body, status = hs_get("icp_erp_class")
+          if status == 200:
+              print("  icp_erp_class: already exists")
+          else:
+              resp, s = hs_post({
+                  "name": "icp_erp_class", "label": "ICP ERP Classification",
+                  "type": "enumeration", "fieldType": "select",
+                  "groupName": "companyinformation", "hidden": False,
+                  "options": [
+                      {"label": "Compatible",     "value": "Compatible",     "displayOrder": 0, "hidden": False},
+                      {"label": "Non-Compatible", "value": "Non-Compatible", "displayOrder": 1, "hidden": False},
+                      {"label": "Unknown",        "value": "Unknown",        "displayOrder": 2, "hidden": False},
+                  ]
+              })
+              print(f"  icp_erp_class: {'created' if s == 201 else 'ERROR ' + str(s) + ' ' + str(resp.get('message',''))}")
+
+          print("\n=== Patching icp_tier with v3.4 DQ options ===")
+          body, status = hs_get("icp_tier")
+          if status == 200:
+              existing_values = [o["value"] for o in body.get("options", [])]
+              new_options = list(body.get("options", []))
+              for v, label, order in [
+                  ("Disqualify - Composite",     "Disqualify - Composite",     3),
+                  ("Disqualify - Geo Gate",      "Disqualify - Geo Gate",      4),
+                  ("Disqualify - Vertical Gate", "Disqualify - Vertical Gate", 5),
+              ]:
+                  if v not in existing_values:
+                      new_options.append({"label": label, "value": v, "displayOrder": order, "hidden": False})
+              for o in new_options:
+                  if o["value"] == "Disqualify" and " - " not in o["value"]:
+                      o["hidden"] = True
+              resp, s = hs_patch("icp_tier", {"options": new_options})
+              active = [o["value"] for o in resp.get("options", []) if not o.get("hidden")]
+              print(f"  icp_tier options now: {active}")
+          else:
+              print(f"  ERROR fetching icp_tier: {status}")
+
+          print("\n=== Setup complete ===")
+          PYEOF
