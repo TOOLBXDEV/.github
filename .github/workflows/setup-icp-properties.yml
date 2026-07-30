@@ -22,7 +22,37 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run property setup
+      - name: Verify token can read properties
         env:
           HUBSPOT_ACCESS_TOKEN: ${{ secrets.HUBSPOT_ACCESS_TOKEN }}
-        run: node scripts/setup-icp-properties.js
+        run: |
+          echo "=== Token scope check ==="
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer $HUBSPOT_ACCESS_TOKEN" \
+            "https://api.hubapi.com/crm/v3/properties/companies/icp_score_composite")
+          echo "GET icp_score_composite -> HTTP $STATUS (404=not found, 403=no permission)"
+
+      - name: Try creating icp_score_composite via curl
+        env:
+          HUBSPOT_ACCESS_TOKEN: ${{ secrets.HUBSPOT_ACCESS_TOKEN }}
+        run: |
+          echo "=== Attempting property creation ==="
+          curl -s -X POST "https://api.hubapi.com/crm/v3/properties/companies" \
+            -H "Authorization: Bearer $HUBSPOT_ACCESS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "name": "icp_score_composite",
+              "label": "ICP Composite Score",
+              "type": "number",
+              "fieldType": "number",
+              "groupName": "companyinformation",
+              "hasUniqueValue": false,
+              "hidden": false
+            }' | python3 -m json.tool || true
+
+      - name: Run Node.js property setup script
+        env:
+          HUBSPOT_ACCESS_TOKEN: ${{ secrets.HUBSPOT_ACCESS_TOKEN }}
+        run: |
+          set -e
+          node scripts/setup-icp-properties.js
