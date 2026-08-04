@@ -1,22 +1,41 @@
-name: ICP Scoring Engine
+name: ICP Scoring Engine v3.4
 
 on:
   schedule:
+    - cron: '0 2 * * *'
     - cron: '0 */2 * * *'
   workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual run'
+        required: false
+        default: 'Manual trigger'
 
 jobs:
   score:
+    name: Score all HubSpot companies
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    timeout-minutes: 30
 
-      - uses: actions/setup-node@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
-      - run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-      - run: node scripts/icp-scoring-engine.js
+      - name: Run ICP scoring engine
         env:
           HUBSPOT_ACCESS_TOKEN: ${{ secrets.HUBSPOT_ACCESS_TOKEN }}
+        run: node scripts/icp-scoring-engine.js
+
+      - name: Log trigger reason
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "Manual run: ${{ github.event.inputs.reason }}"
