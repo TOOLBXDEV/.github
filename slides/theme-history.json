@@ -1,0 +1,13 @@
+[
+  {
+    "weekStart": "2026-07-20",
+    "weekEnd": "2026-07-26",
+    "themes": [
+      { "category": "Feature Gaps", "title": "Promo Codes / Coupons" },
+      { "category": "Feature Gaps", "title": "Apple Pay / Google Pay" },
+      { "category": "Pain Points", "title": "ERP/Payment Reconciliation" },
+      { "category": "Competitive Landscape", "title": "WebTrack Displacement" },
+      { "category": "Competitive Landscape", "title": "ERP Vendor Lock-in" }
+    ]
+  }
+]
