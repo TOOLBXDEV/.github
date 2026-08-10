@@ -9,5 +9,19 @@
       { "category": "Competitive Landscape", "title": "WebTrack Displacement" },
       { "category": "Competitive Landscape", "title": "ERP Vendor Lock-in" }
     ]
+  },
+  {
+    "weekStart": "2026-08-03",
+    "weekEnd": "2026-08-09",
+    "themes": [
+      { "category": "Feature Gaps", "title": "Self-Serve Customer Portal" },
+      { "category": "Feature Gaps", "title": "AI Order Entry / Quote Processing" },
+      { "category": "Feature Gaps", "title": "Promise to Pay / Installment AR" },
+      { "category": "Pain Points", "title": "ERP Integration Complexity" },
+      { "category": "Pain Points", "title": "CC Processing Fees / Surcharging" },
+      { "category": "Pain Points", "title": "Manual AR / Payment Reconciliation" },
+      { "category": "Competitive Landscape", "title": "Competing E-commerce/POS Platforms" },
+      { "category": "Competitive Landscape", "title": "Big-Box & Buying-Group Pressure" }
+    ]
   }
 ]

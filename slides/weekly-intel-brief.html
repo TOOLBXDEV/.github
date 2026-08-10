@@ -93,7 +93,7 @@
         <div id="hearing-right"></div>
       </div>
       <div id="hearing-full"></div>
-      <div class="data-note">Themes from Gong calls &middot; Last 30 days (Franklin, R.P. Lumber, TAL, Tague, Sunpro, Parr)</div>
+      <div class="data-note">Themes from Gong account briefs &middot; Last 7 days &middot; No call links this week (Sales Hub outage) &middot; Blackland, Blue Spruce, Camco, Cassity Jones, CNRG, Cozart, Franklin, Hamilton, Maxwell, McCray, Prestige, RoMac</div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -128,47 +128,50 @@ function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function
 
 var DATA = {
   news: [
-    { name: 'Spruce (ECI)', threat: 'medium', text: 'LBM Journal product showcase touted real-time inventory/pricing sync between yard and storefront with orders flowing straight into Spruce, no re-keying — direct overlap with Toolbx\'s catalog/ordering pitch', src: 'LBM Journal, Jul 24', url: 'https://www.lbmjournal.com/products/product-showcase/product/15829536/eci-software-solutions-your-yard-deserves-a-system-that-actually-gets-it' }
+    { name: 'Epicor', threat: 'medium', text: 'Launched Prism, embedded conversational AI agents giving live ERP data access across 200+ use cases, in Kinetic and Prophet 21 for ANZ (following the June EU rollout) — signals Epicor may push similar AI/ordering capability into BisTrack next', src: 'Enterprise Times, Aug 3', url: 'https://www.enterprisetimes.co.uk/2026/08/03/epicor-launches-ai-agents-across-australia-and-new-zealand/' }
   ],
   themes: [
     { label: 'Feature Gaps', items: [
-      { title: 'Promo Codes / Coupons', text: 'Promo code support at checkout and gift card redemption requested; Orgill FanBuilder coupon integration a Phase 2 priority', sources: [
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=9192878962170947774' },
-        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' },
-        { name: 'Parr', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=6052405444224558694' }
+      { title: 'Self-Serve Customer Portal', text: 'Customers lack reliable self-service access to order status, statements, and invoices; existing portals are payment-only or unreliable for document retrieval', sources: [
+        { name: 'RoMac', team: 'growth' },
+        { name: 'Franklin', team: 'onboarding' },
+        { name: 'Hamilton', team: 'acct-mgmt' },
+        { name: 'Blue Spruce', team: 'growth' }
       ]},
-      { title: 'Apple Pay / Google Pay', text: 'Digital wallet support described as table stakes; needed for in-store card-present and online checkout', sources: [
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' },
-        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' }
+      { title: 'AI Order Entry / Quote Processing', text: 'Requests to auto-process handwritten lists, competitor quotes, and voice input into orders instead of manual re-keying into the ERP', sources: [
+        { name: 'Cozart', team: 'growth' },
+        { name: 'Blackland', team: 'acct-mgmt' },
+        { name: 'Cassity Jones', team: 'acct-mgmt' }
+      ]},
+      { title: 'Promise to Pay / Installment AR', text: 'Feature request for tracking customer payment commitments with automated reminders, replacing manual sticky-note tracking of "promise to pay" balances', sources: [
+        { name: 'Maxwell', team: 'growth' },
+        { name: 'Blue Spruce', team: 'growth' }
       ]}
     ]},
     { label: 'Pain Points', items: [
-      { title: 'ERP/Payment Reconciliation', text: 'Cash drawer segregation across 15+ branches; merchant ID confusion; duplicate payments and WebTrack API sync failures', sources: [
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=1288530892711481686' },
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=72839779201354211' },
-        { name: 'Tague', team: 'growth', url: 'https://us-43298.app.gong.io/call?id=4610694872201405311' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=7035493197834213793' },
-        { name: 'Parr', team: 'onboarding', url: 'https://app.gong.io/call?id=6252900165505022427' },
-        { name: 'Sunpro', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=3360084635572993820' }
+      { title: 'ERP Integration Complexity', text: 'Sync reliability and API compatibility issues across Sage 100, Spruce, and DMSi Agility causing pricing errors, compliance exposure, and delayed rollouts', sources: [
+        { name: 'Camco', team: 'growth' },
+        { name: 'Blackland', team: 'acct-mgmt' },
+        { name: 'Franklin', team: 'onboarding' },
+        { name: 'McCray', team: 'onboarding' }
+      ]},
+      { title: 'CC Processing Fees / Surcharging', text: 'High per-transaction fees eating into margins; state surcharge caps (e.g. Colorado 2%) don\'t cover actual processing costs', sources: [
+        { name: 'McCray', team: 'onboarding' },
+        { name: 'Maxwell', team: 'growth' },
+        { name: 'Blue Spruce', team: 'growth' }
+      ]},
+      { title: 'Manual AR / Payment Reconciliation', text: 'Payments manually matched against invoices and job-specific rebate structures with no automated tooling', sources: [
+        { name: 'Maxwell', team: 'growth' },
+        { name: 'RoMac', team: 'growth' }
       ]}
     ]},
     { label: 'Competitive Landscape', items: [
-      { title: 'WebTrack Displacement', text: 'Actively replaced across 6 accounts; 10% WebTrack adoption jumping to 40% on Toolbx; payment failures and poor mobile UX driving switch', sources: [
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://us-43298.app.gong.io/call?id=1354191658473813998' },
-        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=8763242451987280498' },
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=1288530892711481686' },
-        { name: 'Parr', team: 'onboarding', url: 'https://app.gong.io/call?id=3468481099371179461' },
-        { name: 'Sunpro', team: 'onboarding', url: 'https://app.gong.io/call?id=7597202723443366898' }
+      { title: 'Competing E-commerce/POS Platforms', text: 'Prospects actively evaluating alternatives (Rondu, Genetic, Lightspeed, Paladin, MSI Agility) on pricing and API openness before committing', sources: [
+        { name: 'Blue Spruce', team: 'growth' },
+        { name: 'Prestige', team: 'growth' }
       ]},
-      { title: 'ERP Vendor Lock-in', text: 'ERPs have a stranglehold over tech investment; Epicor API costs rising to $600/mo+, Azure migration failures, support quality declining', sources: [
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=7634502219134060654' },
-        { name: 'Tague', team: 'growth', url: 'https://app.gong.io/call?id=4214458280122658435' },
-        { name: 'R.P. Lumber', team: 'growth', url: 'https://app.gong.io/call?id=8763242451987280498' },
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=1288530892711481686' },
-        { name: 'Parr', team: 'onboarding', url: 'https://app.gong.io/call?id=7583630796665423912' },
-        { name: 'Sunpro', team: 'onboarding', url: 'https://us-43298.app.gong.io/call?id=1032689185230897878' }
+      { title: 'Big-Box & Buying-Group Pressure', text: 'Buying-group members losing share to Home Depot, Lowe\'s, and Menards; Builders FirstSource\'s "builder.com" cited as a Costco-like contractor pricing threat', sources: [
+        { name: 'CNRG', team: 'growth' }
       ]}
     ]}
   ]
