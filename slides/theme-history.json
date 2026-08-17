@@ -21,5 +21,18 @@
       { "category": "Competitive Landscape", "title": "Competing E-commerce/POS Platforms" },
       { "category": "Competitive Landscape", "title": "Big-Box & Buying-Group Pressure" }
     ]
+  },
+  {
+    "weekStart": "2026-08-10",
+    "weekEnd": "2026-08-16",
+    "themes": [
+      { "category": "Feature Gaps", "title": "Automated Credit / Reference Checks" },
+      { "category": "Feature Gaps", "title": "Industry-Specific CRM / Quote Management" },
+      { "category": "Pain Points", "title": "Multi-System Quote-to-Order Tracking" },
+      { "category": "Pain Points", "title": "Manual Credit-App / Account Setup" },
+      { "category": "Pain Points", "title": "Non-Core Product Data Management" },
+      { "category": "Competitive Landscape", "title": "Legacy POS Displacement" },
+      { "category": "Competitive Landscape", "title": "Alternative PIM/CMS Options" }
+    ]
   }
 ]
