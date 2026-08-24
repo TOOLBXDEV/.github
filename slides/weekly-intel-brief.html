@@ -93,7 +93,7 @@
         <div id="hearing-right"></div>
       </div>
       <div id="hearing-full"></div>
-      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Andrews Ace, Hackensack, IWP, RoMac, Sound Hardware, Standard Building, Yates</div>
+      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; IWP, RoMac, Standard Building, Yates</div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -128,9 +128,7 @@ function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function
 
 var DATA = {
   news: [
-    { name: 'Epicor', threat: 'high', text: 'Launched Propello, a cloud POS/e-commerce/loyalty platform, via a new partnership with buying co-op Do it Best (~$6B in annual sales) — a direct customer-facing commerce play in the exact hardware/lumber channel Toolbx serves, and a continuation of the AI-agent + new-CEO momentum flagged the last two weeks', src: 'Red Book Lumber Data, Aug 21', url: 'https://www.redbooklumberdata.com/2026/08/21/do-it-best-group-announces-new-technology-services-partnership-with-epicor/' },
-    { name: 'Unilog', threat: 'high', text: 'Launched CX1 Sigma, an "AI-native" B2B commerce platform combining storefront, PIM/content, and an AI agent suite for demand-gen and account expansion, plus a "Site Studio" that auto-builds pages from plain-language prompts — direct overlap with Toolbx\'s catalog/ordering/AI territory', src: 'MDM, Aug 20', url: 'https://www.mdm.com/news/technology/technology-provider-news/unilog-launches-b2b-commerce-platform-for-distributors/' },
-    { name: 'Rundoo', threat: 'medium', text: 'Raised a $30M Series B (Battery Ventures-led, $48M total) for its AI-first quoting/ordering/inventory platform serving 500+ independent hardware, paint, farm & feed, and lumber stores — very likely the same competitor Blue Spruce has referenced under two different misspellings ("Rondu"/"Rondue") the past two weeks, now resolved', src: 'Morningstar/Business Wire, Aug 19', url: 'https://www.morningstar.com/news/business-wire/20260819537737/rundoo-the-ai-first-platform-for-independent-supply-stores-announces-48-million-in-financing' }
+    { name: 'Epicor', threat: 'high', text: 'Announced a new distribution partnership putting its existing Propello platform (cloud POS/e-commerce/loyalty, in market since 2024) in front of buying co-op Do it Best\'s ~$6B membership — not a new product, but a significant new channel directly into the hardware/lumber base Toolbx serves, and a continuation of the AI-agent + new-CEO momentum flagged the last two weeks', src: 'Red Book Lumber Data, Aug 21', url: 'https://www.redbooklumberdata.com/2026/08/21/do-it-best-group-announces-new-technology-services-partnership-with-epicor/' }
   ],
   themes: [
     { label: 'Feature Gaps', items: [
@@ -142,33 +140,17 @@ var DATA = {
       ]},
       { title: 'Reverse Tally for Random-Length Lumber', text: 'Tally tool only works one direction (lengths to total); can\'t take a target linear footage and calculate the board-length mix needed, unlike a tool this customer used previously', sources: [
         { name: 'IWP', team: 'growth', url: 'https://app.gong.io/call?id=5947784821552041420' }
+      ]},
+      { title: 'HubSpot CRM Evaluation', text: 'Actively comparing HubSpot against Toolbx\'s CRM module; named one specific gap — in-app click-to-call with automatic call logging, which HubSpot has and Toolbx doesn\'t yet', sources: [
+        { name: 'Standard Building', team: 'growth', url: 'https://app.gong.io/call?id=7537040341363562659' }
       ]}
     ]},
     { label: 'Pain Points', items: [
       { title: 'ACH Whitelisting Banking Friction', text: 'Toolbx\'s ACH setup is forcing this account to open a brand-new dedicated bank account and route it through corporate\'s full check-signing chain just to get set up', sources: [
         { name: 'Yates', team: 'onboarding', url: 'https://app.gong.io/call?id=5766060408307944795' }
-      ]},
-      { title: 'Manual Permit Lead Workflow', text: 'Leads assigned via a weekly meeting and Excel ("green sheets"); a separate self-built permit-tracking app runs completely siloed from their ERP/CRM', sources: [
-        { name: 'Standard Building', team: 'growth', url: 'https://app.gong.io/call?id=7537040341363562659' }
-      ]},
-      { title: 'Franchisor Brand/Domain Control Tension', text: 'Ace Hardware corporate is pushing back on keeping "ace" out of this dealer\'s e-commerce domain name; customer calls losing it a "deal breaker" consideration', sources: [
-        { name: 'Andrews Ace', team: 'onboarding', url: 'https://app.gong.io/call?id=5718354738423911884' }
       ]}
     ]},
-    { label: 'Competitive Landscape', items: [
-      { title: 'Epicor Propello via Do it Best', text: 'Toolbx\'s own rep raised Do it Best\'s new Epicor Propello partnership live on a call — no visibility yet into any customer actually using it', sources: [
-        { name: 'Hackensack', team: 'growth', url: 'https://app.gong.io/call?id=3518398876380056449' }
-      ]},
-      { title: '"Supply" Incumbent Comparison', text: 'Actively benchmarking Toolbx against current credit-app/payments tool "Supply" — a 3% card surcharge today, and asked Toolbx to share its own processing rates to stay competitive', sources: [
-        { name: 'RoMac', team: 'growth', url: 'https://app.gong.io/call?id=7839331121698897082' }
-      ]},
-      { title: 'Salesforce Displacement Timing', text: 'Timing a CRM switch to align with when their Salesforce contract lapses in September', sources: [
-        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=8678901131899857041' }
-      ]},
-      { title: 'HubSpot CRM Evaluation', text: 'Actively comparing HubSpot against Toolbx\'s CRM module; named one specific gap — in-app click-to-call with automatic call logging, which HubSpot has and Toolbx doesn\'t yet', sources: [
-        { name: 'Standard Building', team: 'growth', url: 'https://app.gong.io/call?id=7537040341363562659' }
-      ]}
-    ]}
+    { label: 'Competitive Landscape', items: [] }
   ]
 };
 
@@ -199,6 +181,9 @@ var TEAM_LABELS = { 'growth': 'Growth', 'onboarding': 'Onboarding', 'acct-mgmt':
 
 function renderThemeBlock(theme) {
   var h = '<div class="theme-block"><h4>' + esc(theme.label) + '</h4>';
+  if (theme.items.length === 0) {
+    h += '<div class="empty-state">No new ' + esc(theme.label.toLowerCase()) + ' themes this week</div>';
+  }
   for (var i = 0; i < theme.items.length; i++) {
     var it = theme.items[i];
     h += '<div class="theme-item">';
