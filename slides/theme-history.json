@@ -32,5 +32,21 @@
       { "category": "Pain Points", "title": "Manual Credit-App / Account Setup" },
       { "category": "Competitive Landscape", "title": "Legacy POS Displacement" }
     ]
+  },
+  {
+    "weekStart": "2026-08-17",
+    "weekEnd": "2026-08-23",
+    "themes": [
+      { "category": "Feature Gaps", "title": "Builder/GC Portal Integration" },
+      { "category": "Feature Gaps", "title": "BOGO / Bundle Promotions" },
+      { "category": "Feature Gaps", "title": "Reverse Tally for Random-Length Lumber" },
+      { "category": "Pain Points", "title": "ACH Whitelisting Banking Friction" },
+      { "category": "Pain Points", "title": "Manual Permit Lead Workflow" },
+      { "category": "Pain Points", "title": "Franchisor Brand/Domain Control Tension" },
+      { "category": "Competitive Landscape", "title": "Epicor Propello via Do it Best" },
+      { "category": "Competitive Landscape", "title": "\"Supply\" Incumbent Comparison" },
+      { "category": "Competitive Landscape", "title": "Salesforce Displacement Timing" },
+      { "category": "Competitive Landscape", "title": "HubSpot CRM Evaluation" }
+    ]
   }
 ]

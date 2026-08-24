@@ -93,7 +93,7 @@
         <div id="hearing-right"></div>
       </div>
       <div id="hearing-full"></div>
-      <div class="data-note">Themes from Gong account briefs &middot; Last 7 days &middot; No call links this week (Sales Hub outage) &middot; Blue Spruce, GR Mitchell, Lester Group, RoMac</div>
+      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Andrews Ace, Hackensack, IWP, RoMac, Sound Hardware, Standard Building, Yates</div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -128,28 +128,45 @@ function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function
 
 var DATA = {
   news: [
-    { name: 'Epicor', threat: 'medium', text: 'Named Vaibhav Vohra as next CEO (effective Oct 1), succeeding Steve Murphy — Vohra previously drove Epicor Prism (embedded AI agents) as President/CPTO, signaling continued momentum toward AI-native ERP capability that could eventually reach BisTrack', src: 'Businesswire, Aug 11', url: 'https://www.businesswire.com/news/home/20260811200211/en/Epicor-Announces-Vaibhav-Vohra-as-Chief-Executive-Officer' }
+    { name: 'Epicor', threat: 'high', text: 'Launched Propello, a cloud POS/e-commerce/loyalty platform, via a new partnership with buying co-op Do it Best (~$6B in annual sales) — a direct customer-facing commerce play in the exact hardware/lumber channel Toolbx serves, and a continuation of the AI-agent + new-CEO momentum flagged the last two weeks', src: 'Red Book Lumber Data, Aug 21', url: 'https://www.redbooklumberdata.com/2026/08/21/do-it-best-group-announces-new-technology-services-partnership-with-epicor/' },
+    { name: 'Unilog', threat: 'high', text: 'Launched CX1 Sigma, an "AI-native" B2B commerce platform combining storefront, PIM/content, and an AI agent suite for demand-gen and account expansion, plus a "Site Studio" that auto-builds pages from plain-language prompts — direct overlap with Toolbx\'s catalog/ordering/AI territory', src: 'MDM, Aug 20', url: 'https://www.mdm.com/news/technology/technology-provider-news/unilog-launches-b2b-commerce-platform-for-distributors/' },
+    { name: 'Rundoo', threat: 'medium', text: 'Raised a $30M Series B (Battery Ventures-led, $48M total) for its AI-first quoting/ordering/inventory platform serving 500+ independent hardware, paint, farm & feed, and lumber stores — very likely the same competitor Blue Spruce has referenced under two different misspellings ("Rondu"/"Rondue") the past two weeks, now resolved', src: 'Morningstar/Business Wire, Aug 19', url: 'https://www.morningstar.com/news/business-wire/20260819537737/rundoo-the-ai-first-platform-for-independent-supply-stores-announces-48-million-in-financing' }
   ],
   themes: [
     { label: 'Feature Gaps', items: [
-      { title: 'Automated Credit / Reference Checks', text: 'Toolbx confirmed it currently lacks automated credit-agency pings and reference checks (roadmapped for 2027, not available today); this deal is contingent on matching or exceeding their current credit-app tool on this specific capability', sources: [
-        { name: 'RoMac', team: 'growth' }
+      { title: 'Builder/GC Portal Integration', text: 'No way to pull purchase orders directly from major builder portals (e.g. DR Horton, SupplyPro) to auto-create orders — confirmed as a flat gap today, not a config option: "None of those as of right now, no."', sources: [
+        { name: 'RoMac', team: 'growth', url: 'https://app.gong.io/call?id=7839331121698897082' }
       ]},
-      { title: 'Industry-Specific CRM / Quote Management', text: 'No CRM built for this industry exists — only generic tools that don\'t fit. Result: zero quote visibility and a 25,000-quote backlog from manually double-entering everything into their ERP', sources: [
-        { name: 'Lester Group', team: 'acct-mgmt' }
+      { title: 'BOGO / Bundle Promotions', text: 'Can\'t run manufacturer bundle promos (e.g. buy-a-tool-get-a-free-battery) on the catalog today — confirmed directly: "That is not something we support right now"', sources: [
+        { name: 'Yates', team: 'onboarding', url: 'https://app.gong.io/call?id=5766060408307944795' }
+      ]},
+      { title: 'Reverse Tally for Random-Length Lumber', text: 'Tally tool only works one direction (lengths to total); can\'t take a target linear footage and calculate the board-length mix needed, unlike a tool this customer used previously', sources: [
+        { name: 'IWP', team: 'growth', url: 'https://app.gong.io/call?id=5947784821552041420' }
       ]}
     ]},
     { label: 'Pain Points', items: [
-      { title: 'Multi-System Quote-to-Order Tracking', text: 'Extreme difficulty tracking quotes through to sales orders across multiple systems as data changes, compounded by the manual burden of typing up material lists across counter, sales support, and outside sales', sources: [
-        { name: 'GR Mitchell', team: 'acct-mgmt' }
+      { title: 'ACH Whitelisting Banking Friction', text: 'Toolbx\'s ACH setup is forcing this account to open a brand-new dedicated bank account and route it through corporate\'s full check-signing chain just to get set up', sources: [
+        { name: 'Yates', team: 'onboarding', url: 'https://app.gong.io/call?id=5766060408307944795' }
       ]},
-      { title: 'Manual Credit-App / Account Setup', text: 'Integrating approved credit applications into their ERP (BizTrack) is a fully manual process, as is setting up new cash-customer accounts — both a real administrative burden', sources: [
-        { name: 'RoMac', team: 'growth' }
+      { title: 'Manual Permit Lead Workflow', text: 'Leads assigned via a weekly meeting and Excel ("green sheets"); a separate self-built permit-tracking app runs completely siloed from their ERP/CRM', sources: [
+        { name: 'Standard Building', team: 'growth', url: 'https://app.gong.io/call?id=7537040341363562659' }
+      ]},
+      { title: 'Franchisor Brand/Domain Control Tension', text: 'Ace Hardware corporate is pushing back on keeping "ace" out of this dealer\'s e-commerce domain name; customer calls losing it a "deal breaker" consideration', sources: [
+        { name: 'Andrews Ace', team: 'onboarding', url: 'https://app.gong.io/call?id=5718354738423911884' }
       ]}
     ]},
     { label: 'Competitive Landscape', items: [
-      { title: 'Legacy POS Displacement', text: 'Migrating off Paladin due to its outdated web UI and expensive per-computer licensing across six workstations; the destination platform\'s name could not be independently verified across two separate weeks of Gong data and is omitted rather than reported as fact', sources: [
-        { name: 'Blue Spruce', team: 'growth' }
+      { title: 'Epicor Propello via Do it Best', text: 'Toolbx\'s own rep raised Do it Best\'s new Epicor Propello partnership live on a call — no visibility yet into any customer actually using it', sources: [
+        { name: 'Hackensack', team: 'growth', url: 'https://app.gong.io/call?id=3518398876380056449' }
+      ]},
+      { title: '"Supply" Incumbent Comparison', text: 'Actively benchmarking Toolbx against current credit-app/payments tool "Supply" — a 3% card surcharge today, and asked Toolbx to share its own processing rates to stay competitive', sources: [
+        { name: 'RoMac', team: 'growth', url: 'https://app.gong.io/call?id=7839331121698897082' }
+      ]},
+      { title: 'Salesforce Displacement Timing', text: 'Timing a CRM switch to align with when their Salesforce contract lapses in September', sources: [
+        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=8678901131899857041' }
+      ]},
+      { title: 'HubSpot CRM Evaluation', text: 'Actively comparing HubSpot against Toolbx\'s CRM module; named one specific gap — in-app click-to-call with automatic call logging, which HubSpot has and Toolbx doesn\'t yet', sources: [
+        { name: 'Standard Building', team: 'growth', url: 'https://app.gong.io/call?id=7537040341363562659' }
       ]}
     ]}
   ]
