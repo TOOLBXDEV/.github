@@ -40,8 +40,10 @@
       { "category": "Feature Gaps", "title": "Builder/GC Portal Integration" },
       { "category": "Feature Gaps", "title": "BOGO / Bundle Promotions" },
       { "category": "Feature Gaps", "title": "Reverse Tally for Random-Length Lumber" },
-      { "category": "Feature Gaps", "title": "HubSpot CRM Evaluation" },
-      { "category": "Pain Points", "title": "ACH Whitelisting Banking Friction" }
+      { "category": "Feature Gaps", "title": "In-App Click-to-Call Logging" },
+      { "category": "Pain Points", "title": "Manual Margin-Based Commission Dashboarding" },
+      { "category": "Pain Points", "title": "CRM Migration Data-Continuity Risk" },
+      { "category": "Pain Points", "title": "Permit & Job Status Disconnected from ERP" }
     ]
   }
 ]
