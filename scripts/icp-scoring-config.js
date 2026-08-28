@@ -1,6 +1,7 @@
-// icp-scoring-config.js - v3.4
+// icp-scoring-config.js - v3.5
 // Single source of truth for all scoring constants.
 // Imported by icp-scoring-engine.js (nightly) and kept in sync with api/icp-webhook.js (real-time).
+// v3.5: Removed vertical gate — no longer a hard disqualifier or tracked property.
 
 const COMPATIBLE_ERPS = new Set([
   'Epicor BisTrack',
@@ -12,14 +13,6 @@ const COMPATIBLE_ERPS = new Set([
   'GenetiQ',
   'Deacom',
   'Sage 100',
-]);
-
-const VALID_VERTICALS = new Set([
-  'Lumber & Building Materials (LBM)',
-  'Hardware Store',
-  'Home Centre / DIY',
-  'Roofing Supply',
-  'HVAC / Plumbing Supply',
 ]);
 
 const VALID_COUNTRIES = new Set([
@@ -75,7 +68,6 @@ const ERP_SCORES = {
 const HUBSPOT_INPUT_PROPERTIES = [
   'annualrevenue',
   'country',
-  'vertical',
   'of_locations__c',
   'industry_association',
   'erp_pos__c',
@@ -87,12 +79,10 @@ const HUBSPOT_INPUT_PROPERTIES = [
   'icp_erp_class',
   'icp_tier',
   'icp_geo_gate',
-  'icp_vertical_gate',
 ];
 
 module.exports = {
   COMPATIBLE_ERPS,
-  VALID_VERTICALS,
   VALID_COUNTRIES,
   WEIGHTS,
   TIER_CUTOFFS,
