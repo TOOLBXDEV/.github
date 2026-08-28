@@ -1,7 +1,8 @@
-// icp-scoring-engine.js - v3.4
+// icp-scoring-engine.js - v3.5
 // Nightly full-book reconciliation + shared scoring logic used by the webhook.
 // Run via GitHub Actions (see .github/workflows/icp-scoring.yml).
 // Env: HUBSPOT_ACCESS_TOKEN (GitHub secret)
+// v3.5: Removed vertical gate — no longer a hard disqualifier or tracked property.
 
 const hubspot = require('@hubspot/api-client');
 const config = require('./icp-scoring-config');
@@ -20,12 +21,6 @@ function isCanada(country) {
 function geoGate(country) {
   if (!country) return 'Fail';
   return config.VALID_COUNTRIES.has(country.trim().toLowerCase()) ? 'Pass' : 'Fail';
-}
-
-function verticalGate(vertical) {
-  if (!vertical || vertical.trim() === '') return 'Fail';
-  return vertical.split(';').map(v => v.trim()).some(v => config.VALID_VERTICALS.has(v))
-    ? 'Pass' : 'Fail';
 }
 
 // Sub-scorers
@@ -91,24 +86,14 @@ function scoredAt() {
 function scoreCompany(properties) {
   const now = scoredAt();
   const geo = geoGate(properties.country);
-  const vert = verticalGate(properties.vertical);
 
   if (geo === 'Fail') {
     return {
-      icp_geo_gate: 'Fail', icp_vertical_gate: vert,
+      icp_geo_gate: 'Fail',
       icp_score_revenue: '', icp_score_locations: '', icp_score_association: '',
       icp_score_erp: '', icp_score_composite: '',
       icp_erp_class: erpClass(properties.erp_pos__c),
       icp_tier: 'Disqualify - Geo Gate', icp_last_scored_at: now,
-    };
-  }
-  if (vert === 'Fail') {
-    return {
-      icp_geo_gate: 'Pass', icp_vertical_gate: 'Fail',
-      icp_score_revenue: '', icp_score_locations: '', icp_score_association: '',
-      icp_score_erp: '', icp_score_composite: '',
-      icp_erp_class: erpClass(properties.erp_pos__c),
-      icp_tier: 'Disqualify - Vertical Gate', icp_last_scored_at: now,
     };
   }
 
@@ -119,7 +104,7 @@ function scoreCompany(properties) {
   const composite = computeComposite(revScore, locScore, assocScore, erpScore);
 
   return {
-    icp_geo_gate: 'Pass', icp_vertical_gate: 'Pass',
+    icp_geo_gate: 'Pass',
     icp_score_revenue: String(revScore),
     icp_score_locations: String(locScore),
     icp_score_association: String(assocScore),
@@ -135,7 +120,7 @@ function hasChanged(current, computed) {
   const fields = [
     'icp_score_composite','icp_score_revenue','icp_score_locations',
     'icp_score_association','icp_score_erp','icp_erp_class',
-    'icp_tier','icp_geo_gate','icp_vertical_gate',
+    'icp_tier','icp_geo_gate',
   ];
   return fields.some(f => String(current[f] ?? '') !== String(computed[f] ?? ''));
 }
@@ -198,7 +183,7 @@ async function batchUpdate(updates) {
 // Main
 
 async function main() {
-  console.log('=== TOOLBX ICP Scoring Engine v3.4 ===');
+  console.log('=== TOOLBX ICP Scoring Engine v3.5 ===');
   console.log('Started: ' + new Date().toISOString() + '\n');
   if (!process.env.HUBSPOT_ACCESS_TOKEN) { console.error('ERROR: HUBSPOT_ACCESS_TOKEN not set'); process.exit(1); }
 
@@ -208,7 +193,7 @@ async function main() {
   console.log('Fetched ' + companies.length + ' companies\n');
 
   const updates = [];
-  const tierCounts = { 'Tier 1': 0, 'Tier 2': 0, 'Tier 3': 0, 'Disqualify - Composite': 0, 'Disqualify - Geo Gate': 0, 'Disqualify - Vertical Gate': 0 };
+  const tierCounts = { 'Tier 1': 0, 'Tier 2': 0, 'Tier 3': 0, 'Disqualify - Composite': 0, 'Disqualify - Geo Gate': 0 };
 
   for (const company of companies) {
     const computed = scoreCompany(company.properties);
@@ -230,7 +215,7 @@ async function main() {
   console.log(JSON.stringify({ run_at: new Date().toISOString(), total: companies.length, changed: updates.length, tiers: tierCounts, elapsed_s: Number(elapsed) }, null, 2));
 }
 
-module.exports = { scoreCompany, hasChanged, fetchCompaniesByIds, batchUpdate, geoGate, verticalGate, scoreRevenue, scoreLocation, scoreAssociation, scoreERP, erpClass, computeComposite, assignCompositeTier };
+module.exports = { scoreCompany, hasChanged, fetchCompaniesByIds, batchUpdate, geoGate, scoreRevenue, scoreLocation, scoreAssociation, scoreERP, erpClass, computeComposite, assignCompositeTier };
 
 if (require.main === module) {
   main().catch(err => {
