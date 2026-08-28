@@ -5,7 +5,7 @@ on:
 
 jobs:
   setup:
-    name: Patch icp_tier with v3.4 DQ options
+    name: Patch icp_tier with v3.5 options (hide Vertical Gate)
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -18,7 +18,7 @@ jobs:
             "https://api.hubapi.com/crm/v3/properties/companies/icp_tier" \
             -H "Authorization: Bearer $HUBSPOT_ACCESS_TOKEN" \
             -H "Content-Type: application/json" \
-            -d '{"options":[{"label":"Tier 1","value":"Tier 1","displayOrder":0,"hidden":false},{"label":"Tier 2","value":"Tier 2","displayOrder":1,"hidden":false},{"label":"Tier 3","value":"Tier 3","displayOrder":2,"hidden":false},{"label":"Disqualify","value":"Disqualify","displayOrder":3,"hidden":true},{"label":"Disqualify - Composite","value":"Disqualify - Composite","displayOrder":4,"hidden":false},{"label":"Disqualify - Geo Gate","value":"Disqualify - Geo Gate","displayOrder":5,"hidden":false},{"label":"Disqualify - Vertical Gate","value":"Disqualify - Vertical Gate","displayOrder":6,"hidden":false}]}')
+            -d '{"options":[{"label":"Tier 1","value":"Tier 1","displayOrder":0,"hidden":false},{"label":"Tier 2","value":"Tier 2","displayOrder":1,"hidden":false},{"label":"Tier 3","value":"Tier 3","displayOrder":2,"hidden":false},{"label":"Disqualify","value":"Disqualify","displayOrder":3,"hidden":true},{"label":"Disqualify - Composite","value":"Disqualify - Composite","displayOrder":4,"hidden":false},{"label":"Disqualify - Geo Gate","value":"Disqualify - Geo Gate","displayOrder":5,"hidden":false},{"label":"Disqualify - Vertical Gate","value":"Disqualify - Vertical Gate","displayOrder":6,"hidden":true}]}')
           HTTP_CODE=$(echo "$RESPONSE" | tail -1)
           BODY=$(echo "$RESPONSE" | head -n -1)
           echo "HTTP $HTTP_CODE"
