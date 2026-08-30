@@ -93,7 +93,7 @@
         <div id="hearing-right"></div>
       </div>
       <div id="hearing-full"></div>
-      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Hackensack, IWP, RoMac, Sound Hardware, Standard Building, Yates</div>
+      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Franklin, McCray, Sound Hardware, TAL</div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -127,36 +127,45 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
-  news: [
-    { name: 'Epicor', threat: 'high', text: 'Announced a new distribution partnership putting its existing Propello platform (cloud POS/e-commerce/loyalty, in market since 2024) in front of buying co-op Do it Best\'s ~$6B membership — not a new product, but a significant new channel directly into the hardware/lumber base Toolbx serves, and a continuation of the AI-agent + new-CEO momentum flagged the last two weeks', src: 'Red Book Lumber Data, Aug 21', url: 'https://www.redbooklumberdata.com/2026/08/21/do-it-best-group-announces-new-technology-services-partnership-with-epicor/' }
-  ],
+  news: [],
   themes: [
     { label: 'Feature Gaps', items: [
-      { title: 'Builder/GC Portal Integration', text: 'No way to pull purchase orders directly from major builder portals (e.g. DR Horton, SupplyPro) to auto-create orders — confirmed as a flat gap today, not a config option: "None of those as of right now, no."', sources: [
-        { name: 'RoMac', team: 'growth', url: 'https://app.gong.io/call?id=7839331121698897082' }
+      { title: 'Concurrent SMS/Texting Line Conflict', text: 'Toolbx\'s Twilio-based texting can\'t run alongside an already-enabled texting line (VOIP or a tool like ProKeep) — customers must disable their existing solution or use a separate number, confirmed independently at two accounts this week', sources: [
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' },
+        { name: 'McCray', team: 'onboarding', url: 'https://app.gong.io/call?id=2229083521417165072' }
       ]},
-      { title: 'BOGO / Bundle Promotions', text: 'Can\'t run manufacturer bundle promos (e.g. buy-a-tool-get-a-free-battery) on the catalog today — confirmed directly: "That is not something we support right now"', sources: [
-        { name: 'Yates', team: 'onboarding', url: 'https://app.gong.io/call?id=5766060408307944795' }
+      { title: 'AR Notes / Call-Logging Sync to ERP', text: 'Notes and call logs entered in Toolbx don\'t pass back into BizTrack — confirmed directly: "I don\'t believe those get passed back into biztrack. Those are sort of just managed within toolbx."', sources: [
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' }
       ]},
-      { title: 'Reverse Tally for Random-Length Lumber', text: 'Tally tool only works one direction (lengths to total); can\'t take a target linear footage and calculate the board-length mix needed, unlike a tool this customer used previously', sources: [
-        { name: 'IWP', team: 'growth', url: 'https://app.gong.io/call?id=5947784821552041420' }
-      ]},
-      { title: 'In-App Click-to-Call Logging', text: 'Toolbx\'s CRM module can\'t place a call from inside the app with the call automatically logged to the record — a specific capability the customer named after comparing to HubSpot, which already has it', sources: [
-        { name: 'Standard Building', team: 'growth', url: 'https://app.gong.io/call?id=7537040341363562659' }
+      { title: 'Automated Bulk Payment Request Logic', text: 'Bulk payment requests must be manually initiated — no way to automate based on aging or timeframe rules: "They wouldn\'t be automatically initiated."', sources: [
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' }
       ]}
     ]},
     { label: 'Pain Points', items: [
-      { title: 'Manual Margin-Based Commission Dashboarding', text: 'Regional sales managers hand-build margin-filterable commission dashboards in Power BI today; asked if this could be built directly into Toolbx', sources: [
-        { name: 'Hackensack', team: 'growth', url: 'https://app.gong.io/call?id=3518398876380056449' }
+      { title: 'Multi-Location/Multi-Brand Complexity', text: 'Operating 29 locations under 14 different brand names raises real questions about whether users can navigate them, plus misrouted quote-form leads by location and API cost concerns with the proximity-based store locator', sources: [
+        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=6926420582413198309' }
       ]},
-      { title: 'CRM Migration Data-Continuity Risk', text: 'Customer is timing a CRM switch around when their Salesforce contract lapses, worried about losing data mid-migration — Toolbx\'s own rep confirmed the new CRM is still being built out with early customers, not fully mature yet', sources: [
-        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=8678901131899857041' }
+      { title: 'Multi-Location Payment Routing Complexity', text: 'Six locations require non-standard lockbox configuration, plus a specific branch-ID field is needed to correctly route ship-from/bill-from mismatches across yards', sources: [
+        { name: 'McCray', team: 'onboarding', url: 'https://app.gong.io/call?id=2229083521417165072' }
       ]},
-      { title: 'Permit & Job Status Disconnected from ERP', text: 'No way to link permit/lead data to job status today — a self-built app tracks permits separately, and confirming whether a "sold" job has actually shipped requires manually checking each one individually', sources: [
-        { name: 'Standard Building', team: 'growth', url: 'https://app.gong.io/call?id=7537040341363562659' }
+      { title: 'CRM Data Silos Across Systems', text: 'Current Salesforce and Eagle setup is disjointed — no way to connect an invoice in Eagle to the corresponding job/opportunity in Salesforce', sources: [
+        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
       ]}
     ]},
-    { label: 'Competitive Landscape', items: [] }
+    { label: 'Competitive Landscape', items: [
+      { title: 'Ace Hardware Migrating to Epicor Propello', text: 'Independently confirms and extends last week\'s Do it Best/Propello story — a named account is actively moving off Eagle to Propello specifically for its native API', sources: [
+        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
+      ]},
+      { title: 'Ace Hardware Building CRM on Zoho', text: 'Separate from the Propello move — reported to be developing its own CRM-type tooling on Zoho', sources: [
+        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
+      ]},
+      { title: 'Salesforce Pricing Comparison', text: 'Direct cost benchmark: ~$24K/yr current Salesforce spend vs. Toolbx\'s proposed CRM at $20K year one, $40K year two after negotiation', sources: [
+        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
+      ]},
+      { title: 'Incumbent Tools Creating Switching Friction', text: 'Already using named point solutions for adjacent functions — ProKeep for sales texting, Nuvo for credit applications — raising integration/replacement questions before committing to Toolbx', sources: [
+        { name: 'McCray', team: 'onboarding', url: 'https://app.gong.io/call?id=2229083521417165072' }
+      ]}
+    ]}
   ]
 };
 

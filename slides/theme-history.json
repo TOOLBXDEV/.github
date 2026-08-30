@@ -45,5 +45,21 @@
       { "category": "Pain Points", "title": "CRM Migration Data-Continuity Risk" },
       { "category": "Pain Points", "title": "Permit & Job Status Disconnected from ERP" }
     ]
+  },
+  {
+    "weekStart": "2026-08-24",
+    "weekEnd": "2026-08-30",
+    "themes": [
+      { "category": "Feature Gaps", "title": "Concurrent SMS/Texting Line Conflict" },
+      { "category": "Feature Gaps", "title": "AR Notes / Call-Logging Sync to ERP" },
+      { "category": "Feature Gaps", "title": "Automated Bulk Payment Request Logic" },
+      { "category": "Pain Points", "title": "Multi-Location/Multi-Brand Complexity" },
+      { "category": "Pain Points", "title": "Multi-Location Payment Routing Complexity" },
+      { "category": "Pain Points", "title": "CRM Data Silos Across Systems" },
+      { "category": "Competitive Landscape", "title": "Ace Hardware Migrating to Epicor Propello" },
+      { "category": "Competitive Landscape", "title": "Ace Hardware Building CRM on Zoho" },
+      { "category": "Competitive Landscape", "title": "Salesforce Pricing Comparison" },
+      { "category": "Competitive Landscape", "title": "Incumbent Tools Creating Switching Friction" }
+    ]
   }
 ]
