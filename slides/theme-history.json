@@ -50,7 +50,6 @@
     "weekStart": "2026-08-24",
     "weekEnd": "2026-08-30",
     "themes": [
-      { "category": "Competitive Landscape", "title": "Salesforce Pricing Comparison" },
       { "category": "Feature Gaps", "title": "AR Notes / Call-Logging Sync to ERP" }
     ]
   }

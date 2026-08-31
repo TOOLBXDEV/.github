@@ -93,7 +93,7 @@
         <div id="hearing-right"></div>
       </div>
       <div id="hearing-full"></div>
-      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Franklin, Sound Hardware</div>
+      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Franklin</div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -130,12 +130,12 @@ var DATA = {
   news: [
     { name: 'SalesJack', threat: 'high', text: 'Launched Radar: AI-powered CRM layer for LBM dealers adds natural-language search across ERP/quotes/permits/orders (Radar Chat) and a background AI agent that proactively surfaces high-value quotes, stale permits, and cross-sell gaps (Radar Flags). Directly competitive with Toolbx CRM positioning.', src: 'HBSDealer, Aug 25', url: 'https://hbsdealer.com/salesjack-launches-radar' }
   ],
+  compIntel: [
+    { title: 'Salesforce Pricing Comparison', text: 'Direct cost benchmark: ~$24K/yr current Salesforce spend vs. Toolbx\'s proposed CRM at $20K year one, $40K year two after negotiation', sources: [
+      { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
+    ]}
+  ],
   themes: [
-    { label: 'Competitive Landscape', items: [
-      { title: 'Salesforce Pricing Comparison', text: 'Direct cost benchmark: ~$24K/yr current Salesforce spend vs. Toolbx\'s proposed CRM at $20K year one, $40K year two after negotiation', sources: [
-        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
-      ]}
-    ]},
     { label: 'Feature Gaps', items: [
       { title: 'AR Notes / Call-Logging Sync to ERP', text: 'Notes and call logs entered in Toolbx don\'t pass back into BizTrack — confirmed directly: "I don\'t believe those get passed back into biztrack. Those are sort of just managed within toolbx."', sources: [
         { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' }
@@ -148,7 +148,9 @@ var DATA = {
 function renderActivity() {
   var newsEl = document.getElementById('activity-news');
   var h = '';
-  if (DATA.news.length === 0) {
+  var hasNews = DATA.news.length > 0;
+  var hasComp = DATA.compIntel && DATA.compIntel.length > 0;
+  if (!hasNews && !hasComp) {
     h = '<div class="empty-state">No competitor activity this week</div>';
   } else {
     for (var i = 0; i < DATA.news.length; i++) {
@@ -163,6 +165,37 @@ function renderActivity() {
         h += '<div class="news-card-src">' + esc(n.src) + '</div>';
       }
       h += '</div>';
+    }
+    if (hasComp) {
+      for (var c = 0; c < DATA.compIntel.length; c++) {
+        var ci = DATA.compIntel[c];
+        h += '<div class="news-card">';
+        h += '<div class="news-card-head"><span class="news-card-name">' + esc(ci.title) + '</span>';
+        h += '<span class="threat-pill medium">In Our Deals</span>';
+        if (ci.sources) {
+          for (var t = 0; t < ci.sources.length; t++) {
+            if (ci.sources[t].team) {
+              h += '<span class="team-pill ' + esc(ci.sources[t].team) + '">' + esc(TEAM_LABELS[ci.sources[t].team] || ci.sources[t].team) + '</span>';
+            }
+          }
+        }
+        h += '</div>';
+        h += '<div class="news-card-body">' + esc(ci.text) + '</div>';
+        if (ci.sources) {
+          h += '<div class="news-card-src">';
+          for (var s = 0; s < ci.sources.length; s++) {
+            if (s > 0) h += ' &middot; ';
+            var src = ci.sources[s];
+            if (src.url) {
+              h += '<a class="source-link" href="' + esc(src.url) + '" rel="noopener noreferrer" onclick="window.open(this.href);return false;">' + esc(src.name) + ' &#x2197;</a>';
+            } else {
+              h += esc(src.name);
+            }
+          }
+          h += '</div>';
+        }
+        h += '</div>';
+      }
     }
   }
   newsEl.innerHTML = h;
@@ -213,19 +246,15 @@ function renderHearing() {
   var fullEl = document.getElementById('hearing-full');
   var lh = '';
   var rh = '';
-  var fh = '';
   if (DATA.themes.length > 0) {
     lh = renderThemeBlock(DATA.themes[0]);
   }
   if (DATA.themes.length > 1) {
     rh = renderThemeBlock(DATA.themes[1]);
   }
-  if (DATA.themes.length > 2) {
-    fh = renderThemeBlock(DATA.themes[2]);
-  }
   leftEl.innerHTML = lh;
   rightEl.innerHTML = rh;
-  fullEl.innerHTML = fh;
+  fullEl.innerHTML = '';
 }
 
 renderActivity();
