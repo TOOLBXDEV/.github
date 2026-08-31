@@ -93,7 +93,7 @@
         <div id="hearing-right"></div>
       </div>
       <div id="hearing-full"></div>
-      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Franklin, McCray, Sound Hardware, TAL</div>
+      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Franklin, Sound Hardware</div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -127,45 +127,21 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
-  news: [],
+  news: [
+    { name: 'SalesJack', threat: 'high', text: 'Launched Radar: AI-powered CRM layer for LBM dealers adds natural-language search across ERP/quotes/permits/orders (Radar Chat) and a background AI agent that proactively surfaces high-value quotes, stale permits, and cross-sell gaps (Radar Flags). Directly competitive with Toolbx CRM positioning.', src: 'HBSDealer, Aug 25', url: 'https://hbsdealer.com/salesjack-launches-radar' }
+  ],
   themes: [
-    { label: 'Feature Gaps', items: [
-      { title: 'Concurrent SMS/Texting Line Conflict', text: 'Toolbx\'s Twilio-based texting can\'t run alongside an already-enabled texting line (VOIP or a tool like ProKeep) — customers must disable their existing solution or use a separate number, confirmed independently at two accounts this week', sources: [
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' },
-        { name: 'McCray', team: 'onboarding', url: 'https://app.gong.io/call?id=2229083521417165072' }
-      ]},
-      { title: 'AR Notes / Call-Logging Sync to ERP', text: 'Notes and call logs entered in Toolbx don\'t pass back into BizTrack — confirmed directly: "I don\'t believe those get passed back into biztrack. Those are sort of just managed within toolbx."', sources: [
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' }
-      ]},
-      { title: 'Automated Bulk Payment Request Logic', text: 'Bulk payment requests must be manually initiated — no way to automate based on aging or timeframe rules: "They wouldn\'t be automatically initiated."', sources: [
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' }
-      ]}
-    ]},
-    { label: 'Pain Points', items: [
-      { title: 'Multi-Location/Multi-Brand Complexity', text: 'Operating 29 locations under 14 different brand names raises real questions about whether users can navigate them, plus misrouted quote-form leads by location and API cost concerns with the proximity-based store locator', sources: [
-        { name: 'TAL', team: 'acct-mgmt', url: 'https://app.gong.io/call?id=6926420582413198309' }
-      ]},
-      { title: 'Multi-Location Payment Routing Complexity', text: 'Six locations require non-standard lockbox configuration, plus a specific branch-ID field is needed to correctly route ship-from/bill-from mismatches across yards', sources: [
-        { name: 'McCray', team: 'onboarding', url: 'https://app.gong.io/call?id=2229083521417165072' }
-      ]},
-      { title: 'CRM Data Silos Across Systems', text: 'Current Salesforce and Eagle setup is disjointed — no way to connect an invoice in Eagle to the corresponding job/opportunity in Salesforce', sources: [
-        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
-      ]}
-    ]},
     { label: 'Competitive Landscape', items: [
-      { title: 'Ace Hardware Migrating to Epicor Propello', text: 'Independently confirms and extends last week\'s Do it Best/Propello story — a named account is actively moving off Eagle to Propello specifically for its native API', sources: [
-        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
-      ]},
-      { title: 'Ace Hardware Building CRM on Zoho', text: 'Separate from the Propello move — reported to be developing its own CRM-type tooling on Zoho', sources: [
-        { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
-      ]},
       { title: 'Salesforce Pricing Comparison', text: 'Direct cost benchmark: ~$24K/yr current Salesforce spend vs. Toolbx\'s proposed CRM at $20K year one, $40K year two after negotiation', sources: [
         { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
-      ]},
-      { title: 'Incumbent Tools Creating Switching Friction', text: 'Already using named point solutions for adjacent functions — ProKeep for sales texting, Nuvo for credit applications — raising integration/replacement questions before committing to Toolbx', sources: [
-        { name: 'McCray', team: 'onboarding', url: 'https://app.gong.io/call?id=2229083521417165072' }
       ]}
-    ]}
+    ]},
+    { label: 'Feature Gaps', items: [
+      { title: 'AR Notes / Call-Logging Sync to ERP', text: 'Notes and call logs entered in Toolbx don\'t pass back into BizTrack — confirmed directly: "I don\'t believe those get passed back into biztrack. Those are sort of just managed within toolbx."', sources: [
+        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' }
+      ]}
+    ]},
+    { label: 'Pain Points', items: [] }
   ]
 };
 
