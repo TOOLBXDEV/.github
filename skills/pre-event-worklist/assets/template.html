@@ -9,9 +9,13 @@
   teal) documented in references/styling.md.
 
   Scope rule encoded here: every block below renders conditionally and only
-  contains material assigned to the named person. There is no executive
-  summary, priority table, market intel, or account "Play" section — those
-  belong to the Part 1 brief, not this one.
+  contains material assigned to the named person. There is no priority
+  table, market intel, or account "Play" section — those belong to the
+  Part 1 brief, not this one. The `executive_summary` block IS legitimate
+  here: it's a leadership-readable roll-up of THIS document's own findings
+  (not a copy of Part 1's show/room summary), followed by an explicit
+  appendix divider — the CEO reads page 1 and stops; Norman and the field
+  team have the full operational detail below it, unchanged.
 -->
 <style>
   @font-face {
@@ -117,6 +121,18 @@
     letter-spacing: 1px;
     text-transform: uppercase;
   }
+
+  .appendix-divider {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  .booth-brief {
+    background: #1C1C1E;
+    color: #FFFFFF;
+    border-left: 4px solid #FFCA05;
+    margin: 0 0 8px 0;
+  }
 </style>
 
 <!-- ===================== 1. HEADER ===================== -->
@@ -134,6 +150,58 @@
       <span style="font-size:9pt; color:#CCCCCC;">{{ header.logistics }}</span>
       <br>
       <span style="font-size:8pt; color:#CCCCCC;">{{ header.provenance }}</span>
+    </td>
+  </tr>
+</table>
+
+<!-- ===================== 1.5 EXECUTIVE SUMMARY ===================== -->
+<table style="width:100%; background:#F2F2F2; border:1px solid #CCCCCC; margin:0 0 4px 0;">
+  <tr>
+    <td style="padding:16px 18px;">
+      <div style="font-family:'Bitter',Georgia,serif; font-size:20pt; font-weight:700; color:#1C1C1E; line-height:1.2;">{{ executive_summary.headline }}</div>
+      <div style="font-size:9pt; color:#494949; margin-top:4px;">{{ executive_summary.correction_note }}</div>
+      <div style="font-size:10pt; color:#1C1C1E; margin-top:10px;">{{ executive_summary.prep_status }}</div>
+    </td>
+  </tr>
+</table>
+<table style="width:100%; border:1px solid #CCCCCC; margin:0 0 10px 0;">
+  <thead>
+    <tr style="background:#1C1C1E; color:#FFFFFF;">
+      <th style="padding:7px 9px; text-align:left; font-size:8pt; letter-spacing:1px; border:1px solid #1C1C1E;">ACCOUNT</th>
+      <th style="padding:7px 9px; text-align:right; font-size:8pt; letter-spacing:1px; border:1px solid #1C1C1E;">$ AT STAKE</th>
+      <th style="padding:7px 9px; text-align:left; font-size:8pt; letter-spacing:1px; border:1px solid #1C1C1E;">WHY LOST</th>
+      <th style="padding:7px 9px; text-align:left; font-size:8pt; letter-spacing:1px; border:1px solid #1C1C1E;">RE-ENGAGE ANGLE</th>
+      <th style="padding:7px 9px; text-align:left; font-size:8pt; letter-spacing:1px; border:1px solid #1C1C1E;">BLOCKER</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in executive_summary.rows %}
+    <tr>
+      <td style="padding:6px 9px; border:1px solid #CCCCCC; font-size:9.5pt; font-weight:600;">{{ row.account }}</td>
+      <td style="padding:6px 9px; border:1px solid #CCCCCC; font-size:9.5pt; text-align:right;">{{ row.amount }}</td>
+      <td style="padding:6px 9px; border:1px solid #CCCCCC; font-size:9.5pt;">{{ row.why_lost }}</td>
+      <td style="padding:6px 9px; border:1px solid #CCCCCC; font-size:9.5pt;">{{ row.angle }}</td>
+      <td style="padding:6px 9px; border:1px solid #CCCCCC; font-size:9.5pt; {% if row.blocker != '—' %}color:#DC2626; font-weight:600;{% endif %}">{{ row.blocker }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<table style="width:100%; background:#F2F2F2; border-left:4px solid #DC2626; margin:0 0 4px 0;">
+  <tr>
+    <td style="padding:10px 14px;">
+      <span class="pill-decision" style="margin-left:0; margin-right:6px;">FLAG</span>
+      <span style="font-size:10pt; color:#1C1C1E;">{{ executive_summary.flagged_decision }}</span>
+    </td>
+  </tr>
+</table>
+
+<!-- ===================== APPENDIX DIVIDER ===================== -->
+<div class="appendix-divider"></div>
+<table style="width:100%; background:#1C1C1E; margin:0 0 16px 0;">
+  <tr>
+    <td style="padding:8px 18px;">
+      <span style="color:#FFCA05; font-weight:700; font-size:9pt; letter-spacing:1.5px; text-transform:uppercase;">Appendix — operational detail</span>
+      <span style="color:#CCCCCC; font-size:8pt;"> &middot; sourcing, per-account history, and CRM actions for Norman and the field team</span>
     </td>
   </tr>
 </table>
@@ -255,6 +323,18 @@
     <span style="font-size:10pt; color:#494949;"> — {{ card.location }}</span>
     &nbsp;&nbsp;<span class="status-pill">{{ card.status_pill }}</span>
   </div>
+
+  {% if card.booth_brief %}
+  <table class="booth-brief">
+    <tr>
+      <td style="padding:9px 12px; font-size:9.5pt;">
+        <strong style="color:#FFCA05;">Say:</strong> {{ card.booth_brief.say }}<br>
+        <strong style="color:#FFCA05;">Ask:</strong> {{ card.booth_brief.ask }}<br>
+        <strong style="color:#FFCA05;">Watch for:</strong> {{ card.booth_brief.watch_for }}
+      </td>
+    </tr>
+  </table>
+  {% endif %}
 
   <table style="width:100%; border:1px solid #CCCCCC; margin-bottom:8px;">
     {% for i in range(0, card.facts|length, 3) %}

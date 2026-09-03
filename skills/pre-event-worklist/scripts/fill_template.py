@@ -41,6 +41,7 @@ FONT_FILES = ["Bitter-Bold.ttf", "Rubik-Regular.ttf", "Rubik-Medium.ttf", "Rubik
 
 REQUIRED_SECTIONS = [
     "header",
+    "executive_summary",
     "what_you_owe",
     "stat_banner",
     "status_at_a_glance",
@@ -50,6 +51,8 @@ REQUIRED_SECTIONS = [
 ]
 # corrections and crm_hygiene are intentionally conditional — see
 # references/document-structure.md. Do not add them here.
+
+REQUIRED_EXEC_SUMMARY_KEYS = ["headline", "correction_note", "prep_status", "rows", "flagged_decision"]
 
 
 def validate(data: dict):
@@ -98,11 +101,24 @@ def validate(data: dict):
                     "These should match exactly — recompute rather than hand-enter."
                 )
 
+        for k in REQUIRED_EXEC_SUMMARY_KEYS:
+            if k not in data.get("executive_summary", {}):
+                hard.append(f"  ✗ 'executive_summary' is missing required field: {k}")
+        exec_rows = data.get("executive_summary", {}).get("rows", [])
+        if exec_rows and len(exec_rows) != len(cards):
+            soft.append(
+                f"  ⚠ executive_summary has {len(exec_rows)} row(s) but accounts.cards has "
+                f"{len(cards)} — these should have exactly one row per account."
+            )
+
         # Scope guard: these keys should never appear in this document's
         # data. Their presence usually means someone copy-pasted structure
         # from a Part 1 brief JSON instead of building a Part 2 worklist.
+        # Note: executive_summary is NOT forbidden — it's a legitimate,
+        # documented block (see document-structure.md §1.5) added for a
+        # leadership-readable roll-up. It is validated above instead.
         forbidden_keys = [
-            "executive_summary", "priority_order", "market_intel",
+            "priority_order", "market_intel",
             "manager_takeaways", "about_the_show", "skip_accounts",
         ]
         for card in cards:

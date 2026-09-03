@@ -6,6 +6,21 @@
     "logistics": "Independent Home Improvement Conf. (NHPA) · July 29–30, 2026 · JW Marriott Orlando, Grande Lakes · Booth 9",
     "provenance": "Source: Part 1 brief v1 (Jul 21, 2026) · HubSpot refreshed July 28, 2026 · v1"
   },
+  "executive_summary": {
+    "headline": "≈$207K corrected recoverable pipeline · 7 accounts · IHI Conference 2026, Jul 29–30",
+    "correction_note": "Part 1 stated ≈$142.8K — a $64,248 summation error on an already-listed deal, not new pipeline.",
+    "prep_status": "20 of 22 prep items resolved. 2 open: attendance unconfirmed for Family Hardware and KB Home Center, pending campaign reply.",
+    "rows": [
+      {"account": "Home Lumber & Supply", "amount": "$90,636", "why_lost": "Went unresponsive twice", "angle": "Get their boss into the pricing conversation now", "blocker": "—"},
+      {"account": "Gold Beach Lumber", "amount": "$27,445", "why_lost": "Fee/ROI questioned, no internal buy-in", "angle": "Address ROI directly; help build their leadership pitch", "blocker": "—"},
+      {"account": "Southern Tool Supply", "amount": "$20,000", "why_lost": "Went quiet", "angle": "Ask for Brian Scott by name — newly identified, warmer than the CRM contact", "blocker": "—"},
+      {"account": "Family Hardware", "amount": "$24,000", "why_lost": "Went quiet, weak fit", "angle": "Lead with order-history / easy-reorder self-service", "blocker": "Attendance unconfirmed"},
+      {"account": "Randy's Hardware", "amount": "$25,000", "why_lost": "Price ceiling ($500/mo)", "angle": "Offer a lower, hardware-only tier", "blocker": "—"},
+      {"account": "KB Home Center", "amount": "$20,000", "why_lost": "Payments-rail blocker (Adyen)", "angle": "Hold — confirm the fix before re-pitching", "blocker": "Adyen/Turks & Caicos — status unknown"},
+      {"account": "Handy Ace Hardware", "amount": "$0 (never priced)", "why_lost": "Unresponsive before pricing", "angle": "Confirm Lisa Anderson is still there, then re-price", "blocker": "—"}
+    ],
+    "flagged_decision": "KB Home Center ($20K) was lost on a payments-rail blocker, not fit — Toolbx's own team looked into an Adyen fix for Turks & Caicos after the loss, but the outcome isn't confirmed. Check with finance before engaging at the booth; if unresolved, this account should move to Skip rather than stay in the priority order."
+  },
   "what_you_owe": {
     "paragraphs": [
       "Part 1 (CRM + pipeline) named you to complete Part 2 — Red Shift activity and Gong call notes — and deliver a consolidated brief two days before the show.",
@@ -130,7 +145,7 @@
       {
         "tag": "C2",
         "title": "The ownership gap is already closed",
-        "body": "Part 1 shows five accounts as — assign, unowned. As of today HubSpot has all seven owned: Pouyan Mirsaeidi (Home Lumber, Southern Tool, Randy's Hardware, Handy Ace Hardware) and Joshua Kolenda (Gold Beach Lumber, Family Hardware, KB Home Center). Assigned after the July 21, 2026 match date used in Part 1. \"Close the ownership gap\" is done — don't send Josh and Pouyan chasing a solved problem at the booth.",
+        "body": "Part 1 shows five accounts as — assign, unowned. As of today HubSpot has all seven owned: Pouyan Mirsaeidi (Home Lumber, Southern Tool, Randy's Hardware, Handy Ace Hardware) and Joshua Kolenda (Gold Beach Lumber, Family Hardware, KB Home Center). The exact assignment date isn't captured in the properties pulled here, but all five were unowned in Part 1's July 21 snapshot and are owned now — so the assignment happened sometime after that. \"Close the ownership gap\" is done — don't send Josh and Pouyan chasing a solved problem at the booth.",
         "severity": "medium",
         "needs_decision": false
       },
@@ -144,7 +159,7 @@
       {
         "tag": "C4",
         "title": "Southern Tool isn't as thin as Part 1 suggests",
-        "body": "Part 1 flags Southern Tool Supply as \"thin\" with only 1 CRM contact. Gong calls surface at least one more named stakeholder — Brian Scott, actively exploring ERP alternatives to Epicor and familiar with Epicor's own Propello system — plus an unnamed AR/AP bookkeeping contact who confirmed interest in the payment portal, and an unspecified \"powers that be\" final-decision group. Add Brian Scott to CRM before the show; he's a warmer, more informed entry point than the single existing contact.",
+        "body": "Part 1 flags Southern Tool Supply as \"thin\" with only 1 CRM contact. A single Gong call surfaces at least one more named stakeholder — Brian Scott, actively exploring ERP alternatives to Epicor and familiar with Epicor's own Propello system — plus an unnamed AR/AP bookkeeping contact who confirmed interest in the payment portal, and an unspecified \"powers that be\" final-decision group. Add Brian Scott to CRM before the show; he's a warmer, more informed entry point than the single existing contact — though this rests on one call, not a confirmed relationship.",
         "severity": "medium",
         "needs_decision": false
       }
@@ -158,6 +173,11 @@
         "location": "Meade, KS",
         "status_pill": "CLOSED LOST ×2 · RE-ENGAGE",
         "company_id": "54970345103",
+        "booth_brief": {
+          "say": "We know timing and pricing sign-off killed this last time — let's get your decision-maker in the room now.",
+          "ask": "Did the meeting with Matt ever happen after Jameson's invite?",
+          "watch_for": "Pushback on ERP-reintegration risk and multi-store payment consolidation — both came up repeatedly on past calls."
+        },
         "facts": [
           {"label": "Lifecycle", "value": "Re-engage"},
           {"label": "CRM owner", "value": "Pouyan Mirsaeidi"},
@@ -191,6 +211,11 @@
         "location": "Brookings, OR",
         "status_pill": "CLOSED LOST · RE-ENGAGE",
         "company_id": "55405450497",
+        "booth_brief": {
+          "say": "Here's the real ROI math on ACH, and we can help you build the case for your leadership.",
+          "ask": "Did you ever get in front of leadership with this, or is that still the blocker?",
+          "watch_for": "Concern about conflicting with their existing Do It Best e-commerce site — have an answer ready on special-order handling."
+        },
         "facts": [
           {"label": "Lifecycle", "value": "Re-engage"},
           {"label": "CRM owner", "value": "Joshua Kolenda"},
@@ -224,6 +249,11 @@
         "location": "Louisville, KY",
         "status_pill": "CLOSED LOST · RE-ENGAGE",
         "company_id": "50274305445",
+        "booth_brief": {
+          "say": "Ask for Brian Scott specifically — he's already exploring ERP alternatives to Epicor.",
+          "ask": "Did the follow-up meeting after the demo-site login happen?",
+          "watch_for": "There's also an AR/AP bookkeeper interested in the payment portal and an unnamed 'powers that be' group with final say — don't stop at one contact."
+        },
         "facts": [
           {"label": "Lifecycle", "value": "Re-engage"},
           {"label": "CRM owner", "value": "Pouyan Mirsaeidi"},
@@ -262,6 +292,11 @@
         "location": "Cape Coral, FL",
         "status_pill": "CLOSED LOST · RE-ENGAGE",
         "company_id": "50262051446",
+        "booth_brief": {
+          "say": "We can give your customers order history and one-click reordering — no custom build required.",
+          "ask": "Are you here at IHI this year?",
+          "watch_for": "Attendance is unconfirmed — no signal either way. Confirm before assuming they're in the room."
+        },
         "facts": [
           {"label": "Lifecycle", "value": "Re-engage"},
           {"label": "CRM owner", "value": "Joshua Kolenda"},
@@ -292,6 +327,11 @@
         "location": "Broadway, VA",
         "status_pill": "CLOSED LOST · RE-ENGAGE",
         "company_id": "37086608223",
+        "booth_brief": {
+          "say": "We hear you on price — let's talk about a lower, hardware-only tier that fits under $500/mo.",
+          "ask": "Has anything changed on budget since last fall?",
+          "watch_for": "Clean price objection, not a fit problem — don't over-pitch features, lead with the number."
+        },
         "facts": [
           {"label": "Lifecycle", "value": "Re-engage"},
           {"label": "CRM owner", "value": "Pouyan Mirsaeidi"},
@@ -325,6 +365,11 @@
         "location": "Providenciales, Turks & Caicos",
         "status_pill": "CLOSED LOST · RE-ENGAGE",
         "company_id": "50267780507",
+        "booth_brief": {
+          "say": "HOLD — confirm with finance/product whether Adyen now supports Turks & Caicos before restarting a pricing conversation here.",
+          "ask": "(If they're at the booth) a friendly hello only — do not re-pitch until the payments blocker is confirmed resolved.",
+          "watch_for": "If unresolved, this account can't close regardless of the conversation. Don't over-invest booth time."
+        },
         "facts": [
           {"label": "Lifecycle", "value": "Re-engage"},
           {"label": "CRM owner", "value": "Joshua Kolenda"},
@@ -355,6 +400,11 @@
         "location": "Tucker, GA",
         "status_pill": "CLOSED LOST · RE-ENGAGE",
         "company_id": "37254600829",
+        "booth_brief": {
+          "say": "Let's pick up where we left off on the website project — is Lisa Anderson still the right person?",
+          "ask": "Confirm Lisa Anderson is still with the company before re-opening pricing.",
+          "watch_for": "This deal never got priced last time — go in ready to actually scope it, not just re-introduce Toolbx."
+        },
         "facts": [
           {"label": "Lifecycle", "value": "Re-engage"},
           {"label": "CRM owner", "value": "Pouyan Mirsaeidi"},
@@ -377,7 +427,7 @@
           {
             "item_id": "7c",
             "label": "Whether the single contact is still the right one",
-            "finding": "Historically, yes — Lisa Anderson was clearly the engaged, decision-relevant contact: she confirmed definite interest in the project, discussed Toolbx's capabilities with the owner, and had a demo scheduled with Jameson. That confirms she was the right contact at the time, not that she still is today — last recorded activity is Nov 3, 2025, so a quick freshness check before the show is still worth doing."
+            "finding": "1 call found. Historically, yes — Lisa Anderson was clearly the engaged, decision-relevant contact: she confirmed definite interest in the project, discussed Toolbx's capabilities with the owner, and had a demo scheduled with Jameson. That confirms she was the right contact at the time, not that she still is today — last recorded activity is Nov 3, 2025, so a quick freshness check before the show is still worth doing."
           }
         ],
         "open": []

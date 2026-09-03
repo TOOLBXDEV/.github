@@ -6,27 +6,106 @@ authoritative reference for Step 6 (assemble JSON) in `SKILL.md`.
 **The governing rule for every block below: it exists only because it is
 assigned to the named person, or is required context for their assigned
 items.** This document is NOT a copy of the Part 1 brief. If a block would
-only make sense in a full account-strategy brief (executive summary of the
-show, priority-order table for field reps, "about the association", the
+only make sense in a full account-strategy brief (a summary of the show
+itself, priority-order table for field reps, "about the association", the
 aggregate market-intel grid, manager takeaways, or a `Play` recommendation
 per account) — it does not belong here. When genuinely unsure whether
 something belongs, cut it.
 
+**One explicit exception:** `executive_summary` (block 1.5) IS a summary —
+but of THIS document's own findings, for a leadership audience who won't
+read past page 1, not a copy of Part 1's show/room summary. It sits above
+an explicit appendix divider; everything below the divider is unchanged
+operational detail for Norman and the field team. Added in response to
+direct feedback that the original all-operational-detail version wasn't
+readable by a CEO — see the three-perspective review (executive brevity,
+RevOps rigor, field usefulness) that shaped this block and the
+`booth_brief` addition to each account card.
+
 Top-level JSON keys, in render order:
 
 1. `header` — title block
-2. `what_you_owe` — the assignment restated + due date
-3. `stat_banner` — 4 summary metrics
-4. `status_at_a_glance` — one row per account
-5. `closed_lost` — HubSpot lost-reason table
-6. `corrections` — discrepancies found vs. the Part 1 brief
-7. `accounts` — per-account cards, the core of the document
-8. `crm_hygiene` — concrete CRM cleanup actions (conditional block)
-9. `data_notes` — sourcing, refresh time, confidence caveats
+2. `executive_summary` — one-page leadership roll-up, then an appendix divider
+3. `what_you_owe` — the assignment restated + due date
+4. `stat_banner` — 4 summary metrics
+5. `status_at_a_glance` — one row per account
+6. `closed_lost` — HubSpot lost-reason table
+7. `corrections` — discrepancies found vs. the Part 1 brief
+8. `accounts` — per-account cards (each with a `booth_brief`), the core of the document
+9. `crm_hygiene` — concrete CRM cleanup actions (conditional block)
+10. `data_notes` — sourcing, refresh time, confidence caveats
 
-Blocks 6 and 8 are **conditional** — omit them entirely if there is nothing
+Blocks 7 and 9 are **conditional** — omit them entirely if there is nothing
 to report (no arithmetic/ownership discrepancies found; no hygiene issues
 detected). Never render an empty section with just a heading.
+
+---
+
+## 1.5 `executive_summary`
+
+A one-page, leadership-readable roll-up of this document's own findings —
+built from the same underlying facts as the appendix below it, compressed
+to what a CEO needs in under a minute. Always render this block first
+(right after the header) and always follow it with the appendix divider
+(handled automatically by the template — no JSON field needed for the
+divider itself).
+
+```json
+{
+  "headline": "≈$207K corrected recoverable pipeline · 7 accounts · IHI Conference 2026, Jul 29–30",
+  "correction_note": "Part 1 stated ≈$142.8K — a $64,248 summation error on an already-listed deal, not new pipeline.",
+  "prep_status": "20 of 22 prep items resolved. 2 open: attendance unconfirmed for Family Hardware and KB Home Center, pending campaign reply.",
+  "rows": [
+    {"account": "Home Lumber & Supply", "amount": "$90,636", "why_lost": "Went unresponsive twice", "angle": "Get their boss into the pricing conversation now", "blocker": "—"}
+  ],
+  "flagged_decision": "KB Home Center ($20K) was lost on a payments-rail blocker, not fit — the outcome of an internal fix attempt is unconfirmed. Check with finance before engaging; if unresolved, move this account to Skip."
+}
+```
+
+Field notes, each one earned from a real mistake made building the first
+draft of this block — don't reintroduce them:
+
+- `headline` — the single number and fact set that would otherwise get
+  buried in prose six sections down. If there's a corrected/disputed
+  figure anywhere in `corrections`, that number belongs here, not a raw
+  task-completion count (assigned/resolved/open is Norman's own tracking —
+  real to him, meaningless to a CEO deciding what to do about $207K).
+- `correction_note` — **must** make clear a corrected figure is a
+  recomputation of already-known numbers, not new pipeline that appeared
+  from nowhere. Compressing "Part 1 undercounted by $64K" into just "$64K
+  more pipeline" is a materially misleading simplification — a RevOps
+  rigor review specifically flagged this as the one number in the whole
+  document that survives compression as a *correction*, never as *growth*.
+- `prep_status` — one sentence, plain task-completion language. This is
+  the only place `stat_banner`-shaped information belongs at this altitude.
+- `rows` — exactly one row per account, in Part 1's priority order.
+  `why_lost` and `angle` are compressed to a single clause each (3-6
+  words / one short phrase) — the full multi-sentence version lives in the
+  appendix's `accounts` cards, never duplicate it here.
+  - `amount` — dollar figure at stake for that account (sum all of an
+    account's lost deals). Round to whole dollars; the exact-cents version
+    belongs in the appendix `closed_lost` table.
+  - `blocker` — `"—"` for none. A real blocker (payments-rail limitation,
+    unconfirmed attendance) goes here in a few words; template renders it
+    in red automatically.
+- `flagged_decision` — **exactly one**, the single thing a CEO or the
+  sales manager actually needs to decide. If there's a genuine
+  `needs_decision: true` correction in the appendix, this is almost always
+  a compressed version of it — but never compress away the uncertainty. A
+  correction stating an outcome is "unconfirmed" must stay unconfirmed
+  here too; do not round it up to "resolved" or down to "dead end" for the
+  sake of a cleaner sentence. If there's genuinely no flagged decision,
+  state that plainly ("No decisions pending — proceed per the plan above")
+  rather than omitting the field or manufacturing one.
+
+**What never belongs here, no matter how tempting for brevity:** verbatim
+rep quotes, deal IDs, Gong call counts, CRM property names, methodology
+citations ("checked the Jun–Jul window..."), or anything with a
+`needs_decision` nuance flattened into false certainty. If a fact can't be
+stated accurately in one clause, it stays in the appendix and this block
+just points at it (see `flagged_decision`'s handling of C3 above — it
+gestures at "check with finance" rather than re-deriving the whole KB Home
+Center Adyen story).
 
 ---
 
@@ -51,7 +130,7 @@ detected). Never render an empty section with just a heading.
 
 ---
 
-## 2. `what_you_owe`
+## 3. `what_you_owe`
 
 Restates the assignment in the person's own document — a reader should not
 need the Part 1 brief in hand to know what this is.
@@ -80,7 +159,7 @@ need the Part 1 brief in hand to know what this is.
 
 ---
 
-## 3. `stat_banner`
+## 4. `stat_banner`
 
 Exactly 4 cards. Unlike `elt-pre-read`'s company-metric cards, these are
 **work-tracking metrics**, always in this fixed order:
@@ -103,7 +182,7 @@ rounding choice.
 
 ---
 
-## 4. `status_at_a_glance`
+## 5. `status_at_a_glance`
 
 One row per account, in the Part 1 brief's own priority order (carry the
 `rank` field through so the two documents line up when read side by side).
@@ -127,7 +206,7 @@ One row per account, in the Part 1 brief's own priority order (carry the
 
 ---
 
-## 5. `closed_lost`
+## 6. `closed_lost`
 
 The HubSpot lost-reason pull — the single highest-value addition this
 skill makes, since it directly answers the most common item type ("the
@@ -170,7 +249,7 @@ lost reason") across nearly every account.
 
 ---
 
-## 6. `corrections` (conditional)
+## 7. `corrections` (conditional)
 
 Reconciliation findings — arithmetic, ownership, or classification
 discrepancies between what the Part 1 brief states and what HubSpot shows
@@ -210,7 +289,7 @@ block only if reconciliation finds nothing.
 
 ---
 
-## 7. `accounts`
+## 8. `accounts`
 
 The core of the document. One card per account **that has at least one
 item assigned to this person** — an account with zero assigned items does
@@ -225,6 +304,11 @@ not get a card here, even if it appears in the Part 1 brief.
       "location": "Meade, KS",
       "status_pill": "CLOSED LOST ×2 · RE-ENGAGE",
       "company_id": "54970345103",
+      "booth_brief": {
+        "say": "We know timing and pricing sign-off killed this last time — let's get your decision-maker in the room now.",
+        "ask": "Did the meeting with Matt ever happen after Jameson's invite?",
+        "watch_for": "Pushback on ERP-reintegration risk and multi-store payment consolidation — both came up repeatedly on past calls."
+      },
       "facts": [
         {"label": "Lifecycle",    "value": "Re-engage"},
         {"label": "CRM owner",    "value": "Pouyan Mirsaeidi"},
@@ -251,6 +335,29 @@ not get a card here, even if it appears in the Part 1 brief.
 
 Field notes:
 
+- `booth_brief` — optional but strongly recommended when the account has
+  enough resolved detail to compress. Exactly 3 fields (`say`, `ask`,
+  `watch_for`), each one short sentence, meant to be read in the seconds
+  before a live conversation. **This is a compression of facts already
+  established in `resolved`/`open` below it — never a new judgment call.**
+  If `say` states something not traceable to a `resolved` finding on this
+  same card, that's a bug: either the underlying finding is missing or the
+  `booth_brief` is inventing a recommendation the data doesn't support.
+  For an account with a hard blocker (see KB Home Center in the golden
+  example), `say` correctly becomes a hold instruction ("confirm X before
+  re-pitching") rather than an opener — the field still gets used, just to
+  say "don't," not "do." Omit the whole field only when an account is too
+  thin to say anything useful yet (e.g., a brand-new open item with no
+  resolved detail at all).
+- **How `booth_brief` differs from the forbidden `play` field below:**
+  `play` (Part 1's job, never ours) is a strategic account-approach
+  recommendation constructed from company research, competitive context,
+  and deal strategy. `booth_brief` is a compressed *restatement* of facts
+  this document already resolved — it adds no strategy of its own, it just
+  puts the existing findings into a scannable, in-the-moment format. If
+  you find yourself reasoning about the account's fit or long-term
+  strategy to write a `booth_brief`, stop — that's `play` territory, and
+  it belongs in Part 1's next cycle, not here.
 - `facts` — always exactly the 6 fields shown (Lifecycle, CRM owner,
   Contacts, Last activity, Lost deal(s), Deal owner), matching the Part 1
   brief's own per-account grid so a reader can cross-reference at a glance.
@@ -275,7 +382,7 @@ Field notes:
 
 ---
 
-## 8. `crm_hygiene` (conditional)
+## 9. `crm_hygiene` (conditional)
 
 Concrete, executable-without-a-lookup CRM cleanup actions surfaced while
 resolving items — always attach the actual record IDs.
@@ -303,7 +410,7 @@ hygiene issues were found during resolution.
 
 ---
 
-## 9. `data_notes`
+## 10. `data_notes`
 
 Sourcing and confidence, mirroring the Part 1 brief's own closing
 convention.

@@ -239,6 +239,64 @@ rep's verbatim note in italics to visually mark it as a quote:
 
 ---
 
+## 9. Executive summary block (leadership roll-up)
+
+```html
+<table style="width:100%; background:#F2F2F2; border:1px solid #CCCCCC; margin:0 0 4px 0;">
+  <tr>
+    <td style="padding:16px 18px;">
+      <div style="font-family:'Bitter',Georgia,serif; font-size:20pt; font-weight:700; color:#1C1C1E;">{{ executive_summary.headline }}</div>
+      <div style="font-size:9pt; color:#494949; margin-top:4px;">{{ executive_summary.correction_note }}</div>
+      <div style="font-size:10pt; color:#1C1C1E; margin-top:10px;">{{ executive_summary.prep_status }}</div>
+    </td>
+  </tr>
+</table>
+```
+
+20pt headline — the single largest text in the document, deliberately.
+Followed by the compact 7-column-free account table (account / $ at stake /
+why lost / angle / blocker) and a red-bordered "FLAG" callout for the one
+decision that needs a human. See `document-structure.md` §1.5 for what
+belongs in each field.
+
+## 10. Appendix divider
+
+```html
+<div style="break-before:page; page-break-before:always;"></div>
+<table style="width:100%; background:#1C1C1E; margin:0 0 16px 0;">
+  <tr>
+    <td style="padding:8px 18px;">
+      <span style="color:#FFCA05; font-weight:700; font-size:9pt; letter-spacing:1.5px; text-transform:uppercase;">Appendix — operational detail</span>
+    </td>
+  </tr>
+</table>
+```
+
+Forces a page break so the executive summary is always a clean, standalone
+page 1 — regardless of how long the summary table happens to render.
+
+## 11. Booth brief (per-account compressed action box)
+
+```html
+<table style="width:100%; background:#1C1C1E; color:#FFFFFF; border-left:4px solid #FFCA05; margin:0 0 8px 0;">
+  <tr>
+    <td style="padding:9px 12px; font-size:9.5pt;">
+      <strong style="color:#FFCA05;">Say:</strong> {{ card.booth_brief.say }}<br>
+      <strong style="color:#FFCA05;">Ask:</strong> {{ card.booth_brief.ask }}<br>
+      <strong style="color:#FFCA05;">Watch for:</strong> {{ card.booth_brief.watch_for }}
+    </td>
+  </tr>
+</table>
+```
+
+Dark background (inverted from the rest of the card) so it reads as a
+distinct "read this first" block at the top of each account card, before
+the fact grid and the resolved/open bands. Omit entirely if `card.booth_brief`
+is absent — same never-render-an-empty-block rule as every other
+conditional component here.
+
+---
+
 ## Jinja2 gotcha: fields literally named `items`
 
 Two schema fields are literally named `items` (`corrections.items`, and

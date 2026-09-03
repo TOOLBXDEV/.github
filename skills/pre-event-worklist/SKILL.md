@@ -31,21 +31,30 @@ them, with as much of it pre-resolved from HubSpot as the data supports.
 **The output document contains ONLY items assigned to the named person.**
 It is NOT a copy of the Part 1 brief, and reproducing Part 1's content is
 this skill's single most likely failure mode. The output must never
-contain: an executive summary of the show or the room, the priority-order
-table ranking accounts for field reps, "about the show/association"
-context, the aggregate market-intel grid, manager takeaways, or a
-recommended sales "Play" per account. If you're unsure whether something
-belongs, cut it. When you finish assembling the document, re-read it and
-ask: "if I removed the person's name, would this still look like someone
-else's document?" If yes, you've included Part 1 content — remove it.
+contain: a summary of the show or the room, the priority-order table
+ranking accounts for field reps, "about the show/association" context, the
+aggregate market-intel grid, manager takeaways, or a recommended sales
+"Play" per account. If you're unsure whether something belongs, cut it.
+When you finish assembling the document, re-read it and ask: "if I removed
+the person's name, would this still look like someone else's document?" If
+yes, you've included Part 1 content — remove it.
 
 Everything in this document exists because it is either (a) an item
 explicitly tagged to this person in Part 1, or (b) context required to
 understand that item (the account's basic facts, the lost-deal amount).
 
+**One deliberate exception:** the document's own `executive_summary` block
+(§8 below) IS a summary — but of THIS document's findings, for a
+leadership audience, not a copy of Part 1's show/room summary. It exists
+because a real user reviewed the all-operational-detail version and found
+it unreadable by a CEO. It sits above an explicit appendix divider;
+everything below is the unchanged operational detail Norman and the field
+team need. Don't let this exception creep — it's one page, one table, one
+flagged decision, nothing else.
+
 ## Reference files (read on demand)
 
-- `references/document-structure.md` — the 9 JSON blocks that make up the
+- `references/document-structure.md` — the 10 JSON blocks that make up the
   worklist, full schema, and what's conditional. Read before Step 6.
 - `references/data-sources.md` — HubSpot field/property patterns (company
   resolution, deal lost-reasons, owner lookup, duplicate detection) and the
@@ -215,9 +224,13 @@ step.
 ## Step 8 — Assemble JSON → HTML → PDF
 
 Read `references/document-structure.md` now for the complete schema.
-Build the JSON object matching all 9 blocks (2 conditional). Compute the
-`stat_banner` values from the actual `accounts.cards` data — never
-hand-enter numbers that could drift from the underlying counts.
+Build the JSON object matching all 10 blocks (2 conditional). Compute the
+`stat_banner` **and** `executive_summary` values from the actual
+`accounts.cards` / `corrections` data — never hand-enter a number that
+could drift from the underlying counts or figures. Build `executive_summary`
+and each card's `booth_brief` only after everything else is assembled —
+both are compressions of facts already established elsewhere in the
+document, never a source of new claims.
 
 ```bash
 python scripts/fill_template.py --data worklist-data.json --output worklist.html
@@ -226,16 +239,20 @@ python scripts/render_pdf.py --html worklist.html --output worklist.pdf
 
 `fill_template.py` validates required sections and will hard-error on
 Part-1-shaped content leaking in (a `play` field on an account, or a
-top-level key like `executive_summary`) — treat that error as a scope bug
-to fix, not a check to bypass.
+top-level key like `priority_order`/`market_intel`/`about_the_show`) —
+treat that error as a scope bug to fix, not a check to bypass.
+`executive_summary` is required, not forbidden — see the exception noted
+above.
 
 **Visually inspect the resulting PDF before reporting success.**
 `render_pdf.py` exits 0 even on a blank/failed render (e.g. missing
 `print-color-adjust: exact` silently drops every background fill). Use the
 `Read` tool on the PDF file directly and confirm: the `▌` bars render in
 yellow, both the teal "RESOLVED" and yellow "STILL TO ADD" bands are
-visible wherever they should be, backgrounds aren't collapsed to white, and
-no text is clipped.
+visible wherever they should be, backgrounds aren't collapsed to white, no
+text is clipped, page 1 is a clean self-contained executive summary, and
+the appendix divider forces a real page break (not just a visual line) so
+page 1 never bleeds into operational detail.
 
 ## Step 9 — Deliver
 
