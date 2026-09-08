@@ -65,6 +65,12 @@
   .section-icon { width: 22px; height: 22px; vertical-align: -5px; margin-right: 8px; }
   .source-link { color: var(--teal); text-decoration: none; font-weight: 600; }
   .source-link:hover { text-decoration: underline; }
+
+  .bottom-line { margin: 0 0 14px; padding: 10px 14px; font-size: 13px; font-weight: 700; color: var(--slate-black); line-height: 1.4; border-left: 4px solid var(--sunrise-yellow); background: var(--won-bg); border-radius: 0 2px 2px 0; }
+  .section-implication { font-size: 10px; font-style: italic; color: var(--metallic-seaweed); margin-top: 8px; line-height: 1.35; }
+  .theme-item-implication { font-size: 9.5px; font-style: italic; color: var(--metallic-seaweed); margin-top: 2px; line-height: 1.3; }
+  .recurring-badge { display: inline-block; font-size: 7.5px; padding: 1px 6px; border-radius: 999px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin-left: 5px; vertical-align: middle; background: var(--teal-lt); color: var(--slate-black); }
+  .signal-count { display: inline-block; font-size: 8px; font-weight: 700; color: var(--teal); margin-right: 4px; }
 </style>
 
 <div class="deck-header">
@@ -81,9 +87,11 @@
     <div class="slide-stamp" id="week-stamp"></div>
   </div>
   <div class="slide-body">
+    <div id="bottom-line"></div>
     <div class="intel-section">
       <h3><svg class="section-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#1C8DA1" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="#1C8DA1" stroke-width="1.5"/><circle cx="12" cy="12" r="1.5" fill="#FFCA05"/><line x1="12" y1="1" x2="12" y2="5" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="12" y1="19" x2="12" y2="23" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="12" x2="5" y2="12" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/><line x1="19" y1="12" x2="23" y2="12" stroke="#1C8DA1" stroke-width="1.5" stroke-linecap="round"/></svg>Competitor Activity</h3>
       <div class="news-row" id="activity-news"></div>
+      <div id="activity-implication"></div>
     </div>
 
     <div class="intel-section">
@@ -93,7 +101,7 @@
         <div id="hearing-right"></div>
       </div>
       <div id="hearing-full"></div>
-      <div class="data-note">Themes from Gong calls &middot; Last 7 days &middot; Franklin</div>
+      <div class="data-note" id="data-note"></div>
     </div>
   </div>
   <div class="slide-footer"><span class="brand">TOOLBX&trade;</span><span>Source: Web Research &middot; Gong</span></div>
@@ -127,6 +135,9 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
+  bottomLine: 'SalesJack is making a direct play for our CRM positioning in LBM; meanwhile the ERP-sync gap keeps surfacing as a structural pattern across onboarding accounts.',
+  implication: 'Radar positions SalesJack for the same single-pane CRM pitch we make — monitor dealer trials closely.',
+  meta: { activeDealCount: 6, totalDealCount: 50 },
   news: [
     { name: 'SalesJack', threat: 'high', text: 'Launched Radar: AI-powered CRM layer for LBM dealers adds natural-language search across ERP/quotes/permits/orders (Radar Chat) and a background AI agent that proactively surfaces high-value quotes, stale permits, and cross-sell gaps (Radar Flags). Directly competitive with Toolbx CRM positioning.', src: 'HBSDealer, Aug 25', url: 'https://hbsdealer.com/salesjack-launches-radar' }
   ],
@@ -139,11 +150,18 @@ var DATA = {
     { label: 'Feature Gaps', items: [
       { title: 'AR Notes / Call-Logging Sync to ERP', text: 'Notes and call logs entered in Toolbx don\'t pass back into BizTrack — confirmed directly: "I don\'t believe those get passed back into biztrack. Those are sort of just managed within toolbx."', sources: [
         { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' }
-      ]}
+      ], recurring: { weeks: 1, since: 'Aug 24' }, implication: 'Prioritize BizTrack write-back to neutralize the ERP-sync narrative competitors are exploiting.' }
     ]},
     { label: 'Pain Points', items: [] }
   ]
 };
+
+function renderBottomLine() {
+  var el = document.getElementById('bottom-line');
+  if (DATA.bottomLine) {
+    el.innerHTML = '<div class="bottom-line">' + esc(DATA.bottomLine) + '</div>';
+  }
+}
 
 function renderActivity() {
   var newsEl = document.getElementById('activity-news');
@@ -199,6 +217,10 @@ function renderActivity() {
     }
   }
   newsEl.innerHTML = h;
+  var impEl = document.getElementById('activity-implication');
+  if (DATA.implication) {
+    impEl.innerHTML = '<div class="section-implication">' + esc(DATA.implication) + '</div>';
+  }
 }
 
 var TEAM_LABELS = { 'growth': 'Growth', 'onboarding': 'Onboarding', 'acct-mgmt': 'Account Mgmt' };
@@ -211,10 +233,17 @@ function renderThemeBlock(theme) {
   for (var i = 0; i < theme.items.length; i++) {
     var it = theme.items[i];
     h += '<div class="theme-item">';
-    h += '<div class="theme-item-title">' + esc(it.title) + '</div>';
+    h += '<div class="theme-item-title">' + esc(it.title);
+    if (it.recurring) {
+      var badgeText = it.recurring.weeks > 1 ? it.recurring.weeks + ' weeks' : 'Recurring';
+      h += ' <span class="recurring-badge">' + esc(badgeText) + '</span>';
+    }
+    h += '</div>';
     h += '<div class="theme-item-text">' + esc(it.text) + '</div>';
     h += '<div class="theme-item-meta">';
-    if (it.sources) {
+    if (it.sources && it.sources.length > 0) {
+      var count = it.sources.length;
+      h += '<span class="signal-count">' + count + (count === 1 ? ' account' : ' accounts') + '</span>';
       var names = '';
       var pills = '';
       var seenTeams = {};
@@ -234,6 +263,9 @@ function renderThemeBlock(theme) {
       h += names + pills;
     }
     h += '</div>';
+    if (it.implication) {
+      h += '<div class="theme-item-implication">' + esc(it.implication) + '</div>';
+    }
     h += '</div>';
   }
   h += '</div>';
@@ -257,6 +289,36 @@ function renderHearing() {
   fullEl.innerHTML = '';
 }
 
+function renderDataNote() {
+  var el = document.getElementById('data-note');
+  var seen = {};
+  var companies = [];
+  for (var t = 0; t < DATA.themes.length; t++) {
+    for (var i = 0; i < DATA.themes[t].items.length; i++) {
+      var sources = DATA.themes[t].items[i].sources;
+      if (sources) {
+        for (var s = 0; s < sources.length; s++) {
+          if (!seen[sources[s].name]) {
+            seen[sources[s].name] = true;
+            companies.push(sources[s].name);
+          }
+        }
+      }
+    }
+  }
+  var parts = ['Themes from Gong calls'];
+  parts.push('Last 7 days');
+  if (DATA.meta && DATA.meta.activeDealCount != null) {
+    parts.push(DATA.meta.activeDealCount + ' of ' + DATA.meta.totalDealCount + ' deals active');
+  }
+  if (companies.length > 0) {
+    parts.push(companies.join(', '));
+  }
+  el.innerHTML = parts.join(' &middot; ');
+}
+
+renderBottomLine();
 renderActivity();
 renderHearing();
+renderDataNote();
 </script>
