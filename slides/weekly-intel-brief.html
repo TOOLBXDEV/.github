@@ -135,24 +135,16 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
-  bottomLine: 'CNRG/Orgill is negotiating buying-group deployment but current per-site pricing is a structural blocker -- Orgill\'s CDIO independently concluded Toolbx is too expensive for the majority of their dealer base.',
+  bottomLine: 'CNRG/Orgill buying-group pricing is the dominant signal this week -- both VP and CDIO independently say current per-site cost is a blocker, and competitor benchmarking (Impact Commerce, Unilog, EvoX) reinforces the pressure.',
   implication: 'Rundoo is the competitor accelerating fastest toward Toolbx territory -- fresh capital, PYMNTS visibility, and POS-to-delivery feature expansion signal a broadening platform play.',
   meta: { activeDealCount: 7, totalDealCount: 50 },
   news: [
     { name: 'Rundoo', threat: 'high', text: 'PYMNTS feature interview positions Rundoo as vertical SaaS for independent supply stores. Also launched Scheduled Deliveries from POS, expanding into delivery logistics. $48M total funding, 500+ stores, accelerating feature velocity.', src: 'PYMNTS, Sep 1', url: 'https://www.pymnts.com/news/retail/2026/rundoo-bets-independent-supply-stores-are-vertical-softwares-next-big-market/' }
   ],
-  compIntel: [
-    { title: 'Impact Commerce & Unilog Benchmarking', text: 'Orgill VP of Digital explicitly benchmarks Toolbx pricing against Impact Commerce and Unilog within the CNRG ecosystem: "We have both that are not profitable. We have both that are profitable in some areas."', sources: [
-      { name: 'CNRG/Orgill', team: 'growth', url: 'https://app.gong.io/call?id=4876297927183912593' }
-    ]},
-    { title: 'EvoX/Spruce Contract Lock-In', text: 'Stones locked into EvoX (ECI Spruce) contract; Toolbx president offered contract buyout to overcome switching cost barrier, demonstrating competitor stickiness in the dealer base.', sources: [
-      { name: 'Stones Home Centers', team: 'growth', url: 'https://app.gong.io/call?id=6431197749982716784' }
-    ]}
-  ],
   themes: [
     { label: 'Feature Gaps', items: [] },
     { label: 'Pain Points', items: [
-      { title: 'Buying-Group Dealer Pricing', text: 'Orgill VP says $2K/month per-site is "a no go" for the majority of CNRG dealers and requests a 40-50% reduction with a transparent pricing framework for buying-group rollout. CDIO independently reached the same conclusion.', sources: [
+      { title: 'Buying-Group Dealer Pricing', text: 'Orgill VP says $2K/month per-site is "a no go" for the majority of CNRG dealers and requests a 40-50% reduction. CDIO independently reached the same conclusion. Vanathy benchmarks against Impact Commerce and Unilog as lower-cost incumbents; separately, EvoX/Spruce at Stones is roughly half of Toolbx pricing.', sources: [
         { name: 'CNRG/Orgill', team: 'growth', url: 'https://app.gong.io/call?id=4876297927183912593' }
       ], implication: 'Buying-group channel requires a fundamentally different pricing model to unlock volume deployment across hundreds of dealers.' }
     ]}
@@ -170,8 +162,7 @@ function renderActivity() {
   var newsEl = document.getElementById('activity-news');
   var h = '';
   var hasNews = DATA.news.length > 0;
-  var hasComp = DATA.compIntel && DATA.compIntel.length > 0;
-  if (!hasNews && !hasComp) {
+  if (!hasNews) {
     h = '<div class="empty-state">No competitor activity this week</div>';
   } else {
     for (var i = 0; i < DATA.news.length; i++) {
@@ -186,37 +177,6 @@ function renderActivity() {
         h += '<div class="news-card-src">' + esc(n.src) + '</div>';
       }
       h += '</div>';
-    }
-    if (hasComp) {
-      for (var c = 0; c < DATA.compIntel.length; c++) {
-        var ci = DATA.compIntel[c];
-        h += '<div class="news-card">';
-        h += '<div class="news-card-head"><span class="news-card-name">' + esc(ci.title) + '</span>';
-        h += '<span class="threat-pill medium">In Our Deals</span>';
-        if (ci.sources) {
-          for (var t = 0; t < ci.sources.length; t++) {
-            if (ci.sources[t].team) {
-              h += '<span class="team-pill ' + esc(ci.sources[t].team) + '">' + esc(TEAM_LABELS[ci.sources[t].team] || ci.sources[t].team) + '</span>';
-            }
-          }
-        }
-        h += '</div>';
-        h += '<div class="news-card-body">' + esc(ci.text) + '</div>';
-        if (ci.sources) {
-          h += '<div class="news-card-src">';
-          for (var s = 0; s < ci.sources.length; s++) {
-            if (s > 0) h += ' &middot; ';
-            var src = ci.sources[s];
-            if (src.url) {
-              h += '<a class="source-link" href="' + esc(src.url) + '" rel="noopener noreferrer" onclick="window.open(this.href);return false;">' + esc(src.name) + ' &#x2197;</a>';
-            } else {
-              h += esc(src.name);
-            }
-          }
-          h += '</div>';
-        }
-        h += '</div>';
-      }
     }
   }
   newsEl.innerHTML = h;

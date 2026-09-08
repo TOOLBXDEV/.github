@@ -57,9 +57,7 @@
     "weekStart": "2026-09-01",
     "weekEnd": "2026-09-07",
     "themes": [
-      { "category": "Pain Points", "title": "Buying-Group Dealer Pricing" },
-      { "category": "Competitive Landscape", "title": "Impact Commerce & Unilog Benchmarking" },
-      { "category": "Competitive Landscape", "title": "EvoX/Spruce Contract Lock-In" }
+      { "category": "Pain Points", "title": "Buying-Group Dealer Pricing" }
     ]
   }
 ]
