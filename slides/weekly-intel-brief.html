@@ -135,18 +135,19 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
-  bottomLine: 'CNRG/Orgill buying-group pricing is the dominant signal this week -- both VP and CDIO independently say current per-site cost is a blocker, and competitor benchmarking (Impact Commerce, Unilog, EvoX) reinforces the pressure.',
-  implication: 'Rundoo is the competitor accelerating fastest toward Toolbx territory -- fresh capital, PYMNTS visibility, and POS-to-delivery feature expansion signal a broadening platform play.',
+  bottomLine: 'Buying-group pricing remains the top blocker at Orgill; meanwhile, Epicor\'s shifting API requirements are creating onboarding friction across BizTrack accounts -- two distinct forces slowing deal velocity.',
+  implication: '',
   meta: { activeDealCount: 7, totalDealCount: 50 },
-  news: [
-    { name: 'Rundoo', threat: 'high', text: 'PYMNTS feature interview positions Rundoo as vertical SaaS for independent supply stores. Also launched Scheduled Deliveries from POS, expanding into delivery logistics. $48M total funding, 500+ stores, accelerating feature velocity.', src: 'PYMNTS, Sep 1', url: 'https://www.pymnts.com/news/retail/2026/rundoo-bets-independent-supply-stores-are-vertical-softwares-next-big-market/' }
-  ],
+  news: [],
   themes: [
     { label: 'Feature Gaps', items: [] },
     { label: 'Pain Points', items: [
       { title: 'Buying-Group Dealer Pricing', text: 'Orgill VP says $2K/month per-site is "a no go" for the majority of CNRG dealers and requests a 40-50% reduction. CDIO independently reached the same conclusion. Vanathy benchmarks against Impact Commerce and Unilog as lower-cost incumbents; separately, EvoX/Spruce at Stones is roughly half of Toolbx pricing.', sources: [
         { name: 'CNRG/Orgill', team: 'growth', url: 'https://app.gong.io/call?id=4876297927183912593' }
-      ], implication: 'Buying-group channel requires a fundamentally different pricing model to unlock volume deployment across hundreds of dealers.' }
+      ], implication: 'Buying-group channel requires a fundamentally different pricing model to unlock volume deployment across hundreds of dealers.' },
+      { title: 'Epicor API Requirement Confusion', text: 'Franklin purchased the BizTrack API on expiring promotional pricing after being told it was required, then repeatedly heard it may not be needed -- "the mixed signals continue on." Toolbx acknowledges this is a recent Epicor policy shift they are still working through messaging on, affecting all BizTrack third-party integrations. The confusion stalled parallel API/VPN workstreams and slowed implementation.', sources: [
+        { name: 'Franklin Building Supply', team: 'onboarding', url: 'https://app.gong.io/call?id=7856380505469083053' }
+      ], implication: 'Proactively clarifying Epicor API requirements pre-sale would prevent trust erosion and implementation delays across BizTrack accounts.' }
     ]}
   ]
 };

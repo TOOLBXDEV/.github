@@ -57,7 +57,8 @@
     "weekStart": "2026-09-01",
     "weekEnd": "2026-09-07",
     "themes": [
-      { "category": "Pain Points", "title": "Buying-Group Dealer Pricing" }
+      { "category": "Pain Points", "title": "Buying-Group Dealer Pricing" },
+      { "category": "Pain Points", "title": "Epicor API Requirement Confusion" }
     ]
   }
 ]
