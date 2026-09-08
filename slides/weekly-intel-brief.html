@@ -135,24 +135,40 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
-  bottomLine: 'SalesJack is making a direct play for our CRM positioning in LBM; meanwhile the ERP-sync gap keeps surfacing as a structural pattern across onboarding accounts.',
-  implication: 'Radar positions SalesJack for the same single-pane CRM pitch we make — monitor dealer trials closely.',
-  meta: { activeDealCount: 6, totalDealCount: 50 },
+  bottomLine: 'CNRG/Orgill is negotiating buying-group deployment of Toolbx, but $2K/month per-site pricing and non-repeatable $10-30K ERP integrations are deal-blocking at scale -- these are the structural barriers between us and the highest-leverage distribution channel in LBM.',
+  implication: 'Rundoo is the competitor accelerating fastest toward Toolbx territory -- fresh capital, PYMNTS visibility, and POS-to-delivery feature expansion signal a broadening platform play.',
+  meta: { activeDealCount: 7, totalDealCount: 50 },
   news: [
-    { name: 'SalesJack', threat: 'high', text: 'Launched Radar: AI-powered CRM layer for LBM dealers adds natural-language search across ERP/quotes/permits/orders (Radar Chat) and a background AI agent that proactively surfaces high-value quotes, stale permits, and cross-sell gaps (Radar Flags). Directly competitive with Toolbx CRM positioning.', src: 'HBSDealer, Aug 25', url: 'https://hbsdealer.com/salesjack-launches-radar' }
+    { name: 'Rundoo', threat: 'high', text: 'PYMNTS feature interview positions Rundoo as vertical SaaS for independent supply stores. Also launched Scheduled Deliveries from POS, expanding into delivery logistics. $48M total funding, 500+ stores, accelerating feature velocity.', src: 'PYMNTS, Sep 1', url: 'https://www.pymnts.com/news/retail/2026/rundoo-bets-independent-supply-stores-are-vertical-softwares-next-big-market/' }
   ],
   compIntel: [
-    { title: 'Salesforce Pricing Comparison', text: 'Direct cost benchmark: ~$24K/yr current Salesforce spend vs. Toolbx\'s proposed CRM at $20K year one, $40K year two after negotiation', sources: [
-      { name: 'Sound Hardware', team: 'growth', url: 'https://app.gong.io/call?id=3195483990885332623' }
+    { title: 'Impact Commerce & Unilog Benchmarking', text: 'Orgill VP of Digital explicitly benchmarks Toolbx pricing against Impact Commerce and Unilog within the CNRG ecosystem: "We have both that are not profitable. We have both that are profitable in some areas."', sources: [
+      { name: 'CNRG/Orgill', team: 'growth', url: 'https://app.gong.io/call?id=4876297927183912593' }
+    ]},
+    { title: 'EvoX/Spruce Contract Lock-In', text: 'Stones locked into EvoX (ECI Spruce) contract; Toolbx president offered contract buyout to overcome switching cost barrier, demonstrating competitor stickiness in the dealer base.', sources: [
+      { name: 'Stones Home Centers', team: 'growth', url: 'https://app.gong.io/call?id=6431197749982716784' }
     ]}
   ],
   themes: [
     { label: 'Feature Gaps', items: [
-      { title: 'AR Notes / Call-Logging Sync to ERP', text: 'Notes and call logs entered in Toolbx don\'t pass back into BizTrack — confirmed directly: "I don\'t believe those get passed back into biztrack. Those are sort of just managed within toolbx."', sources: [
-        { name: 'Franklin', team: 'onboarding', url: 'https://app.gong.io/call?id=272542363609767030' }
-      ], recurring: { weeks: 1, since: 'Aug 24' }, implication: 'Prioritize BizTrack write-back to neutralize the ERP-sync narrative competitors are exploiting.' }
+      { title: 'Gift / Bridal / Baby Registry', text: 'Customer wants gift, bridal, and baby registries on their e-commerce site. Currently uses a physical iPhone at the counter for lookups. Shareable "lists" offered as workaround but cannot auto-decrement quantities when items are purchased.', sources: [
+        { name: 'Yates', team: 'onboarding', url: 'https://app.gong.io/call?id=146384062392043229' }
+      ], implication: 'Signals demand from diversified LBM dealers with gift/home decor departments -- a segment beyond core building supply.' },
+      { title: 'Accounts Payable Support', text: 'Customer asked if Toolbx can handle AP (paying manufacturers via credit card), not just AR. Confirmed: "It\'s not an accounts payable system. It\'s an accounts receivable system."', sources: [
+        { name: 'Brickyard', team: 'growth', url: 'https://app.gong.io/call?id=2617341501165520481' }
+      ], implication: 'AP is the other half of the payments story -- addressing it would complete the financial loop and deepen platform stickiness.' }
     ]},
-    { label: 'Pain Points', items: [] }
+    { label: 'Pain Points', items: [
+      { title: 'Buying-Group Dealer Pricing', text: 'Orgill VP says $2K/month per-site is "a no go" for the majority of CNRG dealers and requests a 40-50% reduction with a transparent pricing framework for buying-group rollout.', sources: [
+        { name: 'CNRG/Orgill', team: 'growth', url: 'https://app.gong.io/call?id=4876297927183912593' }
+      ], implication: 'Buying-group channel requires a fundamentally different pricing model to unlock volume deployment across hundreds of dealers.' },
+      { title: 'Non-Repeatable ERP Integration Costs', text: 'Orgill VP questions why each BisTrack integration costs $10-30K when expectation was templatized rollouts: "Why would each implementation cost that much when we are able to get to a place where we are able to templatize much of the integration?"', sources: [
+        { name: 'CNRG/Orgill', team: 'growth', url: 'https://app.gong.io/call?id=4876297927183912593' }
+      ], recurring: { weeks: 1, since: 'Aug 3' }, implication: 'Until ERP integration becomes repeatable and affordable, per-site costs block the buying-group rollout model.' },
+      { title: 'California CC Surcharging Legality', text: 'Customer tried at-counter surcharging and "almost ended up in court." Wants evidence of how other California dealers have implemented compliant surcharging via customer contracts.', sources: [
+        { name: 'Brickyard', team: 'growth', url: 'https://app.gong.io/call?id=2617341501165520481' }
+      ], recurring: { weeks: 1, since: 'Aug 3' }, implication: 'California dealers need a legally defensible surcharging playbook -- case studies from existing CA customers could unblock adoption.' }
+    ]}
   ]
 };
 

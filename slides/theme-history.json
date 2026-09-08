@@ -52,5 +52,18 @@
     "themes": [
       { "category": "Feature Gaps", "title": "AR Notes / Call-Logging Sync to ERP" }
     ]
+  },
+  {
+    "weekStart": "2026-09-01",
+    "weekEnd": "2026-09-07",
+    "themes": [
+      { "category": "Feature Gaps", "title": "Gift / Bridal / Baby Registry" },
+      { "category": "Feature Gaps", "title": "Accounts Payable Support" },
+      { "category": "Pain Points", "title": "Buying-Group Dealer Pricing" },
+      { "category": "Pain Points", "title": "Non-Repeatable ERP Integration Costs" },
+      { "category": "Pain Points", "title": "California CC Surcharging Legality" },
+      { "category": "Competitive Landscape", "title": "Impact Commerce & Unilog Benchmarking" },
+      { "category": "Competitive Landscape", "title": "EvoX/Spruce Contract Lock-In" }
+    ]
   }
 ]
