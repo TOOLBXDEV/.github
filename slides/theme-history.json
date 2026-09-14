@@ -60,5 +60,16 @@
       { "category": "Pain Points", "title": "Buying-Group Dealer Pricing" },
       { "category": "Pain Points", "title": "Epicor API Requirement Confusion" }
     ]
+  },
+  {
+    "weekStart": "2026-09-08",
+    "weekEnd": "2026-09-14",
+    "themes": [
+      { "category": "Feature Gaps", "title": "Canadian EFT Payment Support" },
+      { "category": "Feature Gaps", "title": "Eagle SKU Lifecycle Sync" },
+      { "category": "Feature Gaps", "title": "LumberTrack ERP Integration" },
+      { "category": "Pain Points", "title": "Spruce/ECI Platform Failure Driving Displacement" },
+      { "category": "Pain Points", "title": "ECI Closed-Ecosystem API Barriers" }
+    ]
   }
 ]

@@ -135,19 +135,32 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
-  bottomLine: 'Buying-group pricing remains the top blocker at Orgill; meanwhile, Epicor\'s shifting API requirements are creating onboarding friction across BizTrack accounts -- two distinct forces slowing deal velocity.',
-  implication: '',
-  meta: { activeDealCount: 7, totalDealCount: 50 },
-  news: [],
+  bottomLine: 'ECI\'s closed-ecosystem strategy is actively pushing dealers toward Toolbx -- Stones is ready to leave Spruce, and Orgill\'s VP calls ECI\'s API pricing "unethical." Meanwhile, Do it Best is volunteering as anchor customer for LumberTrack integration, a new ERP segment.',
+  implication: 'WizCommerce\'s CRM-to-order play targets the same integrated-sales workflow Toolbx owns; tariff volatility strengthens the case for digital ordering with real-time pricing.',
+  meta: { activeDealCount: 10, totalDealCount: 50 },
+  news: [
+    { name: 'WizCommerce Launches WizCRM', threat: 'medium', text: 'WizCommerce launched WizCRM, an AI-first CRM for wholesalers and distributors integrated into their sales platform. Includes WizPilot, an AI assistant that answers customer questions, prepares meeting briefs, flags stale quotes, and identifies reorder opportunities -- directly competing with Toolbx\'s CRM positioning in B2B distribution.', url: 'https://www.practicalecommerce.com/new-ecommerce-tools-september-8-2026', src: 'Practical Ecommerce' },
+    { name: 'Canada/US Tariffs Hit Building Materials', threat: 'medium', text: 'Canada\'s retaliatory counter-tariffs on CA$27.6B of US goods took effect Sep 8 at rates up to 50%, hitting construction materials, steel, and lumber. US tariffs on Canadian softwood lumber now sit at ~34.83%. Canadian lumber accounts for ~85% of US softwood imports -- price volatility is accelerating the case for real-time digital ordering.', url: 'https://www.cnbc.com/2026/09/08/canada-retaliatory-tariffs.html', src: 'CNBC' }
+  ],
   themes: [
-    { label: 'Feature Gaps', items: [] },
+    { label: 'Feature Gaps', items: [
+      { title: 'Canadian EFT Payment Support', text: 'Toolbx does not support EFT (Electronic Funds Transfer) for Canadian payments. Caliper Forest, a Canadian business, relies on EFT as the standard electronic payment method. Customer accepted a manual workaround -- displaying bank info on the payment screen with instructions to send EFT directly -- but noted "the ACH would be probably minimum because it\'s all EFT in Canada."', sources: [
+        { name: 'Caliper Forest Products', team: 'onboarding', url: 'https://app.gong.io/call?id=2715045927719169875' }
+      ], implication: 'Canadian dealer pipeline will grow with cross-border tariff pressures -- solving EFT closes the biggest adoption blocker for CA-based accounts.' },
+      { title: 'Eagle SKU Lifecycle Sync', text: 'Eagle flat-file integration forces manual dual-maintenance of SKU catalogs. Pricing and quantities sync automatically, but adding/removing products and changing discontinued flags requires manual updates in Toolbx. Customer reports other dealers spending "hours a week" on this same workflow and attributes the limitation to Eagle\'s flat-file architecture.', sources: [
+        { name: 'E.L. Spear Lumber', team: 'onboarding', url: 'https://app.gong.io/call?id=2722916136876151873' }
+      ], implication: 'Automated Eagle SKU sync would eliminate hours/week of manual work and reduce a key source of onboarding friction across Eagle accounts.' },
+      { title: 'LumberTrack ERP Integration', text: 'Do it Best asked whether Toolbx CRM could connect to LumberTrack. Scott confirmed it cannot -- the data model is "quite a bit different" from BizTrack. Do it Best volunteered to be an anchor/design partner. Separately, they noted Zendesk is sunsetting CRM support within a year, creating timing alignment for Toolbx CRM adoption.', sources: [
+        { name: 'Do it Best', team: 'growth', url: 'https://app.gong.io/call?id=8440102199568766466' }
+      ], implication: 'Do it Best is offering to anchor LumberTrack integration -- a rare design-partner opportunity to unlock a new ERP segment alongside the Zendesk CRM sunset.' }
+    ]},
     { label: 'Pain Points', items: [
-      { title: 'Buying-Group Dealer Pricing', text: 'Orgill VP says $2K/month per-site is "a no go" for the majority of CNRG dealers and requests a 40-50% reduction. CDIO independently reached the same conclusion. Vanathy benchmarks against Impact Commerce and Unilog as lower-cost incumbents; separately, EvoX/Spruce at Stones is roughly half of Toolbx pricing.', sources: [
-        { name: 'CNRG/Orgill', team: 'growth', url: 'https://app.gong.io/call?id=4876297927183912593' }
-      ], implication: 'Buying-group channel requires a fundamentally different pricing model to unlock volume deployment across hundreds of dealers.' },
-      { title: 'Epicor API Requirement Confusion', text: 'Franklin purchased the BizTrack API on expiring promotional pricing after being told it was required, then repeatedly heard it may not be needed -- "the mixed signals continue on." Toolbx acknowledges this is a recent Epicor policy shift they are still working through messaging on, affecting all BizTrack third-party integrations. The confusion stalled parallel API/VPN workstreams and slowed implementation.', sources: [
-        { name: 'Franklin Building Supply', team: 'onboarding', url: 'https://app.gong.io/call?id=7856380505469083053' }
-      ], implication: 'Proactively clarifying Epicor API requirements pre-sale would prevent trust erosion and implementation delays across BizTrack accounts.' }
+      { title: 'Spruce/ECI Platform Failure Driving Displacement', text: 'Stones is actively considering leaving Spruce (ECI/Evolution X) -- "it\'s not going well" on both integration and support. Already has ~150 customers paying online through Spruce but is nearing the decision to "pull the plug." Primary hesitation: migrating existing online-paying customers without disruption. Toolbx offered to waive onboarding fees.', sources: [
+        { name: 'Stones Home Centers', team: 'growth', url: 'https://app.gong.io/call?id=1467970317760917058' }
+      ], implication: 'Stones has 150 online-paying customers ready to migrate -- a high-value displacement opportunity with proven payment volume if switching friction is managed.' },
+      { title: 'ECI Closed-Ecosystem API Barriers', text: 'ECI/Spruce refuses third-party integrations to push their own Evo X e-commerce, jacking up API prices to deter vendors like Toolbx. Orgill VP says ECI overcharges on payment processing -- "they\'re ripping them off." 30% of Orgill\'s customer base is on Spruce. Jim plans to confront Spruce president at their vendor conference dinner.', sources: [
+        { name: 'CNRG/Orgill', team: 'growth', url: 'https://app.gong.io/call?id=2280563053918686055' }
+      ], implication: 'ECI\'s closed approach is accelerating frustration across Orgill\'s Spruce customer base -- a structural tailwind for open-platform competitors.' }
     ]}
   ]
 };
