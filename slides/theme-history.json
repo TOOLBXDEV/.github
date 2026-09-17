@@ -3,74 +3,570 @@
     "weekStart": "2026-07-20",
     "weekEnd": "2026-07-26",
     "themes": [
-      { "category": "Feature Gaps", "canonicalKey": "promo-codes-bundle-promotions", "title": "Promo Codes / Coupons" },
-      { "category": "Feature Gaps", "canonicalKey": "mobile-payment-methods", "title": "Apple Pay / Google Pay" },
-      { "category": "Pain Points", "canonicalKey": "erp-payment-reconciliation", "title": "ERP/Payment Reconciliation" },
-      { "category": "Competitive Landscape", "canonicalKey": "webtrack-displacement", "title": "WebTrack Displacement" },
-      { "category": "Competitive Landscape", "canonicalKey": "eci-ecosystem-barriers", "title": "ERP Vendor Lock-in" }
+      {
+        "category": "Feature Gaps",
+        "title": "Promo Codes / Coupons",
+        "canonicalKey": "promo-codes-bundle-promotions",
+        "text": "Promo code support at checkout and gift card redemption requested; Orgill FanBuilder coupon integration a Phase 2 priority",
+        "sources": [
+          {
+            "company": "TAL",
+            "team": "acct-mgmt",
+            "gongUrl": "https://us-43298.app.gong.io/call?id=9192878962170947774"
+          },
+          {
+            "company": "Tague",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=4214458280122658435"
+          },
+          {
+            "company": "R.P. Lumber",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=7035493197834213793"
+          },
+          {
+            "company": "Parr",
+            "team": "onboarding",
+            "gongUrl": "https://us-43298.app.gong.io/call?id=6052405444224558694"
+          }
+        ]
+      },
+      {
+        "category": "Feature Gaps",
+        "title": "Apple Pay / Google Pay",
+        "canonicalKey": "apple-pay-google-pay",
+        "text": "Digital wallet support described as table stakes; needed for in-store card-present and online checkout",
+        "sources": [
+          {
+            "company": "R.P. Lumber",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=7035493197834213793"
+          },
+          {
+            "company": "Tague",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=4214458280122658435"
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "ERP/Payment Reconciliation",
+        "canonicalKey": "erp-payment-reconciliation",
+        "text": "Cash drawer segregation across 15+ branches; merchant ID confusion; duplicate payments and WebTrack API sync failures",
+        "sources": [
+          {
+            "company": "Franklin",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=1288530892711481686"
+          },
+          {
+            "company": "TAL",
+            "team": "acct-mgmt",
+            "gongUrl": "https://us-43298.app.gong.io/call?id=72839779201354211"
+          },
+          {
+            "company": "Tague",
+            "team": "growth",
+            "gongUrl": "https://us-43298.app.gong.io/call?id=4610694872201405311"
+          },
+          {
+            "company": "R.P. Lumber",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=7035493197834213793"
+          },
+          {
+            "company": "Parr",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=6252900165505022427"
+          },
+          {
+            "company": "Sunpro",
+            "team": "onboarding",
+            "gongUrl": "https://us-43298.app.gong.io/call?id=3360084635572993820"
+          }
+        ]
+      },
+      {
+        "category": "Competitive Landscape",
+        "title": "WebTrack Displacement",
+        "canonicalKey": "competing-platforms-displacement",
+        "text": "Actively replaced across 6 accounts; 10% WebTrack adoption jumping to 40% on Toolbx; payment failures and poor mobile UX driving switch",
+        "sources": [
+          {
+            "company": "TAL",
+            "team": "acct-mgmt",
+            "gongUrl": "https://us-43298.app.gong.io/call?id=1354191658473813998"
+          },
+          {
+            "company": "Tague",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=4214458280122658435"
+          },
+          {
+            "company": "R.P. Lumber",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=8763242451987280498"
+          },
+          {
+            "company": "Franklin",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=1288530892711481686"
+          },
+          {
+            "company": "Parr",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=3468481099371179461"
+          },
+          {
+            "company": "Sunpro",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=7597202723443366898"
+          }
+        ]
+      },
+      {
+        "category": "Competitive Landscape",
+        "title": "ERP Vendor Lock-in",
+        "canonicalKey": "erp-vendor-lock-in-displacement",
+        "text": "ERPs have a stranglehold over tech investment; Epicor API costs rising to $600/mo+, Azure migration failures, support quality declining",
+        "sources": [
+          {
+            "company": "TAL",
+            "team": "acct-mgmt",
+            "gongUrl": "https://app.gong.io/call?id=7634502219134060654"
+          },
+          {
+            "company": "Tague",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=4214458280122658435"
+          },
+          {
+            "company": "R.P. Lumber",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=8763242451987280498"
+          },
+          {
+            "company": "Franklin",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=1288530892711481686"
+          },
+          {
+            "company": "Parr",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=7583630796665423912"
+          },
+          {
+            "company": "Sunpro",
+            "team": "onboarding",
+            "gongUrl": "https://us-43298.app.gong.io/call?id=1032689185230897878"
+          }
+        ]
+      }
     ]
   },
   {
     "weekStart": "2026-08-03",
     "weekEnd": "2026-08-09",
     "themes": [
-      { "category": "Feature Gaps", "canonicalKey": "in-order-messaging", "title": "In-Order Messaging" },
-      { "category": "Feature Gaps", "canonicalKey": "live-pricing-inventory", "title": "Live Pricing / Real-Time Inventory in Portal" },
-      { "category": "Pain Points", "canonicalKey": "erp-integration-complexity", "title": "ERP Integration Complexity" },
-      { "category": "Pain Points", "canonicalKey": "cc-processing-surcharging", "title": "CC Processing Fees / Surcharging" },
-      { "category": "Competitive Landscape", "canonicalKey": "competing-ecommerce-pos", "title": "Competing E-commerce/POS Platforms" },
-      { "category": "Competitive Landscape", "canonicalKey": "buying-group-pricing-pressure", "title": "Big-Box & Buying-Group Pressure" }
+      {
+        "category": "Feature Gaps",
+        "title": "In-Order Messaging",
+        "canonicalKey": "in-order-messaging",
+        "text": "Want to attach messages directly to a specific order for two-way communication with the dealer; not currently offered, noted internally as a candidate for future development",
+        "sources": [
+          {
+            "company": "RoMac",
+            "team": "growth",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Feature Gaps",
+        "title": "Live Pricing / Real-Time Inventory in Portal",
+        "canonicalKey": "live-pricing-inventory-portal",
+        "text": "Confirmed missing from this account's initial portal rollout scope; unclear whether this is a platform limitation or a phased-implementation decision",
+        "sources": [
+          {
+            "company": "Franklin",
+            "team": "onboarding",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "ERP Integration Complexity",
+        "canonicalKey": "erp-integration-api-barriers",
+        "text": "Sync reliability and API compatibility issues across Sage 100, Spruce, and DMSi Agility causing pricing errors, compliance exposure, and delayed rollouts",
+        "sources": [
+          {
+            "company": "Camco",
+            "team": "growth",
+            "gongUrl": null
+          },
+          {
+            "company": "Blackland",
+            "team": "acct-mgmt",
+            "gongUrl": null
+          },
+          {
+            "company": "Franklin",
+            "team": "onboarding",
+            "gongUrl": null
+          },
+          {
+            "company": "McCray",
+            "team": "onboarding",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "CC Processing Fees / Surcharging",
+        "canonicalKey": "cc-processing-fees-surcharging",
+        "text": "High per-transaction fees eating into margins; state surcharge caps (e.g. Colorado 2%) don't cover actual processing costs",
+        "sources": [
+          {
+            "company": "McCray",
+            "team": "onboarding",
+            "gongUrl": null
+          },
+          {
+            "company": "Maxwell",
+            "team": "growth",
+            "gongUrl": null
+          },
+          {
+            "company": "Blue Spruce",
+            "team": "growth",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Competitive Landscape",
+        "title": "Competing E-commerce/POS Platforms",
+        "canonicalKey": "competing-platforms-displacement",
+        "text": "Prospects actively evaluating alternatives (GenetiQ, Lightspeed, Paladin, MSI Agility) on pricing and API openness before committing",
+        "sources": [
+          {
+            "company": "Blue Spruce",
+            "team": "growth",
+            "gongUrl": null
+          },
+          {
+            "company": "Prestige",
+            "team": "growth",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Competitive Landscape",
+        "title": "Big-Box & Buying-Group Pressure",
+        "canonicalKey": "buying-group-pricing-pressure",
+        "text": "Buying-group members losing share to Home Depot, Lowe's, and Menards; Builders FirstSource's \"builder.com\" cited as a Costco-like contractor pricing threat",
+        "sources": [
+          {
+            "company": "CNRG",
+            "team": "growth",
+            "gongUrl": null
+          }
+        ]
+      }
     ]
   },
   {
     "weekStart": "2026-08-10",
     "weekEnd": "2026-08-16",
     "themes": [
-      { "category": "Feature Gaps", "canonicalKey": "automated-credit-checks", "title": "Automated Credit / Reference Checks" },
-      { "category": "Feature Gaps", "canonicalKey": "crm-quote-management", "title": "Industry-Specific CRM / Quote Management" },
-      { "category": "Pain Points", "canonicalKey": "multi-system-quote-tracking", "title": "Multi-System Quote-to-Order Tracking" },
-      { "category": "Pain Points", "canonicalKey": "manual-credit-app-setup", "title": "Manual Credit-App / Account Setup" },
-      { "category": "Competitive Landscape", "canonicalKey": "legacy-pos-displacement", "title": "Legacy POS Displacement" }
+      {
+        "category": "Feature Gaps",
+        "title": "Automated Credit / Reference Checks",
+        "canonicalKey": "credit-app-onboarding",
+        "text": "Toolbx confirmed it currently lacks automated credit-agency pings and reference checks (roadmapped for 2027, not available today); this deal is contingent on matching or exceeding their current credit-app tool on this specific capability",
+        "sources": [
+          {
+            "company": "RoMac",
+            "team": "growth",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Feature Gaps",
+        "title": "Industry-Specific CRM / Quote Management",
+        "canonicalKey": "crm-quote-management",
+        "text": "No CRM built for this industry exists -- only generic tools that don't fit. Result: zero quote visibility and a 25,000-quote backlog from manually double-entering everything into their ERP",
+        "sources": [
+          {
+            "company": "Lester Group",
+            "team": "acct-mgmt",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "Multi-System Quote-to-Order Tracking",
+        "canonicalKey": "crm-quote-management",
+        "text": "Extreme difficulty tracking quotes through to sales orders across multiple systems as data changes, compounded by the manual burden of typing up material lists across counter, sales support, and outside sales",
+        "sources": [
+          {
+            "company": "GR Mitchell",
+            "team": "acct-mgmt",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "Manual Credit-App / Account Setup",
+        "canonicalKey": "credit-app-onboarding",
+        "text": "Integrating approved credit applications into their ERP (BizTrack) is a fully manual process, as is setting up new cash-customer accounts -- both a real administrative burden",
+        "sources": [
+          {
+            "company": "RoMac",
+            "team": "growth",
+            "gongUrl": null
+          }
+        ]
+      },
+      {
+        "category": "Competitive Landscape",
+        "title": "Legacy POS Displacement",
+        "canonicalKey": "competing-platforms-displacement",
+        "text": "Migrating off Paladin due to its outdated web UI and expensive per-computer licensing across six workstations",
+        "sources": [
+          {
+            "company": "Blue Spruce",
+            "team": "growth",
+            "gongUrl": null
+          }
+        ]
+      }
     ]
   },
   {
     "weekStart": "2026-08-17",
     "weekEnd": "2026-08-23",
     "themes": [
-      { "category": "Feature Gaps", "canonicalKey": "builder-gc-portal", "title": "Builder/GC Portal Integration", "sources": [{ "company": "RoMac Building Supply", "team": "growth" }] },
-      { "category": "Feature Gaps", "canonicalKey": "promo-codes-bundle-promotions", "title": "BOGO / Bundle Promotions", "sources": [{ "company": "Yates", "team": "growth" }] },
-      { "category": "Feature Gaps", "canonicalKey": "reverse-tally-random-length", "title": "Reverse Tally for Random-Length Lumber", "sources": [{ "company": "International Wood Products", "team": "growth" }] },
-      { "category": "Feature Gaps", "canonicalKey": "click-to-call-logging", "title": "In-App Click-to-Call Logging", "sources": [{ "company": "Standard Building Supply", "team": "growth" }] },
-      { "category": "Pain Points", "canonicalKey": "manual-margin-commission", "title": "Manual Margin-Based Commission Dashboarding", "sources": [{ "company": "Hackensack Lumber", "team": "growth" }] },
-      { "category": "Pain Points", "canonicalKey": "crm-migration-data-risk", "title": "CRM Migration Data-Continuity Risk", "sources": [{ "company": "Sound Hardware", "team": "growth" }] },
-      { "category": "Pain Points", "canonicalKey": "permit-job-status-erp", "title": "Permit & Job Status Disconnected from ERP", "sources": [{ "company": "Standard Building Supply", "team": "growth" }] }
+      {
+        "category": "Feature Gaps",
+        "title": "Builder/GC Portal Integration",
+        "canonicalKey": "builder-gc-portal-integration",
+        "text": "No way to pull purchase orders directly from major builder portals (e.g. DR Horton, SupplyPro) to auto-create orders -- confirmed as a flat gap today, not a config option: \"None of those as of right now, no.\"",
+        "sources": [
+          {
+            "company": "RoMac",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=7839331121698897082"
+          }
+        ]
+      },
+      {
+        "category": "Feature Gaps",
+        "title": "BOGO / Bundle Promotions",
+        "canonicalKey": "promo-codes-bundle-promotions",
+        "text": "Can't run manufacturer bundle promos (e.g. buy-a-tool-get-a-free-battery) on the catalog today -- confirmed directly: \"That is not something we support right now\"",
+        "sources": [
+          {
+            "company": "Yates",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=5766060408307944795"
+          }
+        ]
+      },
+      {
+        "category": "Feature Gaps",
+        "title": "Reverse Tally for Random-Length Lumber",
+        "canonicalKey": "reverse-tally-random-length",
+        "text": "Tally tool only works one direction (lengths to total); can't take a target linear footage and calculate the board-length mix needed, unlike a tool this customer used previously",
+        "sources": [
+          {
+            "company": "IWP",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=5947784821552041420"
+          }
+        ]
+      },
+      {
+        "category": "Feature Gaps",
+        "title": "In-App Click-to-Call Logging",
+        "canonicalKey": "in-app-click-to-call",
+        "text": "Toolbx's CRM module can't place a call from inside the app with the call automatically logged to the record -- a specific capability the customer named after comparing to HubSpot, which already has it",
+        "sources": [
+          {
+            "company": "Standard Building",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=7537040341363562659"
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "Manual Margin-Based Commission Dashboarding",
+        "canonicalKey": "manual-commission-dashboarding",
+        "text": "Regional sales managers hand-build margin-filterable commission dashboards in Power BI today; asked if this could be built directly into Toolbx",
+        "sources": [
+          {
+            "company": "Hackensack",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=3518398876380056449"
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "CRM Migration Data-Continuity Risk",
+        "canonicalKey": "crm-migration-data-continuity",
+        "text": "Customer is timing a CRM switch around when their Salesforce contract lapses, worried about losing data mid-migration -- Toolbx's own rep confirmed the new CRM is still being built out with early customers, not fully mature yet",
+        "sources": [
+          {
+            "company": "Sound Hardware",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=8678901131899857041"
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "Permit & Job Status Disconnected from ERP",
+        "canonicalKey": "erp-data-sync-gaps",
+        "text": "No way to link permit/lead data to job status today -- a self-built app tracks permits separately, and confirming whether a \"sold\" job has actually shipped requires manually checking each one individually",
+        "sources": [
+          {
+            "company": "Standard Building",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=7537040341363562659"
+          }
+        ]
+      }
     ]
   },
   {
     "weekStart": "2026-08-24",
     "weekEnd": "2026-08-30",
     "themes": [
-      { "category": "Feature Gaps", "canonicalKey": "ar-notes-erp-sync", "title": "AR Notes / Call-Logging Sync to ERP", "sources": [{ "company": "Franklin Building Supply", "team": "growth", "gongUrl": "https://app.gong.io/call?id=272542363609767030" }] }
+      {
+        "category": "Feature Gaps",
+        "title": "AR Notes / Call-Logging Sync to ERP",
+        "canonicalKey": "erp-data-sync-gaps",
+        "text": "Notes and call logs entered in Toolbx don't pass back into BizTrack -- confirmed directly: \"I don't believe those get passed back into biztrack. Those are sort of just managed within toolbx.\"",
+        "sources": [
+          {
+            "company": "Franklin",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=272542363609767030"
+          }
+        ]
+      }
     ]
   },
   {
     "weekStart": "2026-09-01",
     "weekEnd": "2026-09-07",
     "themes": [
-      { "category": "Pain Points", "canonicalKey": "buying-group-pricing-pressure", "title": "Buying-Group Dealer Pricing" },
-      { "category": "Pain Points", "canonicalKey": "eci-ecosystem-barriers", "title": "Epicor API Requirement Confusion" }
+      {
+        "category": "Pain Points",
+        "title": "Buying-Group Dealer Pricing",
+        "canonicalKey": "buying-group-pricing-pressure",
+        "text": "Orgill VP says $2K/month per-site is \"a no go\" for the majority of CNRG dealers and requests a 40-50% reduction. CDIO independently reached the same conclusion. Vanathy benchmarks against Impact Commerce and Unilog as lower-cost incumbents; separately, EvoX/Spruce at Stones is roughly half of Toolbx pricing.",
+        "sources": [
+          {
+            "company": "CNRG/Orgill",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=4876297927183912593"
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "Epicor API Requirement Confusion",
+        "canonicalKey": "erp-integration-api-barriers",
+        "text": "Franklin purchased the BizTrack API on expiring promotional pricing after being told it was required, then repeatedly heard it may not be needed -- \"the mixed signals continue on.\" Toolbx acknowledges this is a recent Epicor policy shift they are still working through messaging on, affecting all BizTrack third-party integrations. The confusion stalled parallel API/VPN workstreams and slowed implementation.",
+        "sources": [
+          {
+            "company": "Franklin Building Supply",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=7856380505469083053"
+          }
+        ]
+      }
     ]
   },
   {
     "weekStart": "2026-09-08",
     "weekEnd": "2026-09-14",
-    "meta": { "activeDealCount": 10, "totalDealCount": 50 },
     "themes": [
-      { "category": "Feature Gaps", "canonicalKey": "canadian-eft-payment", "title": "Canadian EFT Payment Support", "sources": [{ "company": "Caliper Forest Products", "team": "onboarding", "gongUrl": "https://app.gong.io/call?id=2715045927719169875", "callDate": "2026-09-10" }] },
-      { "category": "Feature Gaps", "canonicalKey": "eagle-sku-lifecycle-sync", "title": "Eagle SKU Lifecycle Sync", "sources": [{ "company": "E.L. Spear Lumber", "team": "onboarding", "gongUrl": "https://app.gong.io/call?id=2722916136876151873", "callDate": "2026-09-09" }] },
-      { "category": "Feature Gaps", "canonicalKey": "lumbertrack-erp-integration", "title": "LumberTrack ERP Integration", "sources": [{ "company": "Do it Best", "team": "growth", "gongUrl": "https://app.gong.io/call?id=8440102199568766466", "callDate": "2026-09-10" }] },
-      { "category": "Pain Points", "canonicalKey": "spruce-platform-failure", "title": "Spruce/ECI Platform Failure Driving Displacement", "sources": [{ "company": "Stones Home Centers", "team": "growth", "gongUrl": "https://app.gong.io/call?id=1467970317760917058", "callDate": "2026-09-09" }] },
-      { "category": "Pain Points", "canonicalKey": "eci-ecosystem-barriers", "title": "ECI Closed-Ecosystem API Barriers", "sources": [{ "company": "CNRG/Orgill", "team": "growth", "gongUrl": "https://app.gong.io/call?id=2280563053918686055", "callDate": "2026-09-11" }] }
+      {
+        "category": "Feature Gaps",
+        "title": "Canadian EFT Payment Support",
+        "canonicalKey": "canadian-eft-payment",
+        "text": "Toolbx does not support EFT (Electronic Funds Transfer) for Canadian payments. Caliper Forest, a Canadian business, relies on EFT as the standard electronic payment method. Customer accepted a manual workaround -- displaying bank info on the payment screen with instructions to send EFT directly -- but noted \"the ACH would be probably minimum because it's all EFT in Canada.\"",
+        "sources": [
+          {
+            "company": "Caliper Forest Products",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=2715045927719169875"
+          }
+        ]
+      },
+      {
+        "category": "Feature Gaps",
+        "title": "Eagle SKU Lifecycle Sync",
+        "canonicalKey": "eagle-sku-lifecycle-sync",
+        "text": "Eagle flat-file integration forces manual dual-maintenance of SKU catalogs. Pricing and quantities sync automatically, but adding/removing products and changing discontinued flags requires manual updates in Toolbx. Customer reports other dealers spending \"hours a week\" on this same workflow and attributes the limitation to Eagle's flat-file architecture.",
+        "sources": [
+          {
+            "company": "E.L. Spear Lumber",
+            "team": "onboarding",
+            "gongUrl": "https://app.gong.io/call?id=2722916136876151873"
+          }
+        ]
+      },
+      {
+        "category": "Feature Gaps",
+        "title": "LumberTrack ERP Integration",
+        "canonicalKey": "lumbertrack-erp-integration",
+        "text": "Do it Best asked whether Toolbx CRM could connect to LumberTrack. Scott confirmed it cannot -- the data model is \"quite a bit different\" from BizTrack. Do it Best volunteered to be an anchor/design partner. Separately, they noted Zendesk is sunsetting CRM support within a year, creating timing alignment for Toolbx CRM adoption.",
+        "sources": [
+          {
+            "company": "Do it Best",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=8440102199568766466"
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "Spruce/ECI Platform Failure Driving Displacement",
+        "canonicalKey": "erp-vendor-lock-in-displacement",
+        "text": "Stones is actively considering leaving Spruce (ECI/Evolution X) -- \"it's not going well\" on both integration and support. Already has ~150 customers paying online through Spruce but is nearing the decision to \"pull the plug.\" Primary hesitation: migrating existing online-paying customers without disruption. Toolbx offered to waive onboarding fees.",
+        "sources": [
+          {
+            "company": "Stones Home Centers",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=1467970317760917058"
+          }
+        ]
+      },
+      {
+        "category": "Pain Points",
+        "title": "ECI Closed-Ecosystem API Barriers",
+        "canonicalKey": "erp-integration-api-barriers",
+        "text": "ECI/Spruce refuses third-party integrations to push their own Evo X e-commerce, jacking up API prices to deter vendors like Toolbx. Orgill VP says ECI overcharges on payment processing -- \"they're ripping them off.\" 30% of Orgill's customer base is on Spruce. Jim plans to confront Spruce president at their vendor conference dinner.",
+        "sources": [
+          {
+            "company": "CNRG/Orgill",
+            "team": "growth",
+            "gongUrl": "https://app.gong.io/call?id=2280563053918686055"
+          }
+        ]
+      }
     ]
   }
 ]
