@@ -1,0 +1,164 @@
+{
+  "promo-codes-bundle-promotions": {
+    "displayTitle": "Promo Codes & Bundle Promotions",
+    "aliases": ["Promo Codes / Coupons", "BOGO / Bundle Promotions"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-07-20"
+  },
+  "mobile-payment-methods": {
+    "displayTitle": "Apple Pay / Google Pay",
+    "aliases": ["Apple Pay / Google Pay"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-07-20"
+  },
+  "erp-payment-reconciliation": {
+    "displayTitle": "ERP/Payment Reconciliation",
+    "aliases": ["ERP/Payment Reconciliation"],
+    "category": "Pain Points",
+    "firstSeen": "2026-07-20"
+  },
+  "webtrack-displacement": {
+    "displayTitle": "WebTrack Displacement",
+    "aliases": ["WebTrack Displacement"],
+    "category": "Competitive Landscape",
+    "firstSeen": "2026-07-20"
+  },
+  "eci-ecosystem-barriers": {
+    "displayTitle": "ECI/Epicor Ecosystem Barriers",
+    "aliases": ["ERP Vendor Lock-in", "ECI Closed-Ecosystem API Barriers", "Epicor API Requirement Confusion"],
+    "category": "Pain Points",
+    "firstSeen": "2026-07-20"
+  },
+  "in-order-messaging": {
+    "displayTitle": "In-Order Messaging",
+    "aliases": ["In-Order Messaging"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-08-03"
+  },
+  "live-pricing-inventory": {
+    "displayTitle": "Live Pricing / Real-Time Inventory",
+    "aliases": ["Live Pricing / Real-Time Inventory in Portal"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-08-03"
+  },
+  "erp-integration-complexity": {
+    "displayTitle": "ERP Integration Complexity",
+    "aliases": ["ERP Integration Complexity"],
+    "category": "Pain Points",
+    "firstSeen": "2026-08-03"
+  },
+  "cc-processing-surcharging": {
+    "displayTitle": "CC Processing Fees / Surcharging",
+    "aliases": ["CC Processing Fees / Surcharging"],
+    "category": "Pain Points",
+    "firstSeen": "2026-08-03"
+  },
+  "competing-ecommerce-pos": {
+    "displayTitle": "Competing E-commerce/POS Platforms",
+    "aliases": ["Competing E-commerce/POS Platforms"],
+    "category": "Competitive Landscape",
+    "firstSeen": "2026-08-03"
+  },
+  "buying-group-pricing-pressure": {
+    "displayTitle": "Buying-Group & Big-Box Pressure",
+    "aliases": ["Big-Box & Buying-Group Pressure", "Buying-Group Dealer Pricing"],
+    "category": "Pain Points",
+    "firstSeen": "2026-08-03"
+  },
+  "automated-credit-checks": {
+    "displayTitle": "Automated Credit / Reference Checks",
+    "aliases": ["Automated Credit / Reference Checks"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-08-10"
+  },
+  "crm-quote-management": {
+    "displayTitle": "Industry-Specific CRM / Quote Management",
+    "aliases": ["Industry-Specific CRM / Quote Management"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-08-10"
+  },
+  "multi-system-quote-tracking": {
+    "displayTitle": "Multi-System Quote-to-Order Tracking",
+    "aliases": ["Multi-System Quote-to-Order Tracking"],
+    "category": "Pain Points",
+    "firstSeen": "2026-08-10"
+  },
+  "manual-credit-app-setup": {
+    "displayTitle": "Manual Credit-App / Account Setup",
+    "aliases": ["Manual Credit-App / Account Setup"],
+    "category": "Pain Points",
+    "firstSeen": "2026-08-10"
+  },
+  "legacy-pos-displacement": {
+    "displayTitle": "Legacy POS Displacement",
+    "aliases": ["Legacy POS Displacement"],
+    "category": "Competitive Landscape",
+    "firstSeen": "2026-08-10"
+  },
+  "builder-gc-portal": {
+    "displayTitle": "Builder/GC Portal Integration",
+    "aliases": ["Builder/GC Portal Integration"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-08-17"
+  },
+  "reverse-tally-random-length": {
+    "displayTitle": "Reverse Tally for Random-Length Lumber",
+    "aliases": ["Reverse Tally for Random-Length Lumber"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-08-17"
+  },
+  "click-to-call-logging": {
+    "displayTitle": "In-App Click-to-Call Logging",
+    "aliases": ["In-App Click-to-Call Logging"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-08-17"
+  },
+  "manual-margin-commission": {
+    "displayTitle": "Manual Margin-Based Commission Dashboarding",
+    "aliases": ["Manual Margin-Based Commission Dashboarding"],
+    "category": "Pain Points",
+    "firstSeen": "2026-08-17"
+  },
+  "crm-migration-data-risk": {
+    "displayTitle": "CRM Migration Data-Continuity Risk",
+    "aliases": ["CRM Migration Data-Continuity Risk"],
+    "category": "Pain Points",
+    "firstSeen": "2026-08-17"
+  },
+  "permit-job-status-erp": {
+    "displayTitle": "Permit & Job Status Disconnected from ERP",
+    "aliases": ["Permit & Job Status Disconnected from ERP"],
+    "category": "Pain Points",
+    "firstSeen": "2026-08-17"
+  },
+  "ar-notes-erp-sync": {
+    "displayTitle": "AR Notes / Call-Logging Sync to ERP",
+    "aliases": ["AR Notes / Call-Logging Sync to ERP"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-08-24"
+  },
+  "spruce-platform-failure": {
+    "displayTitle": "Spruce/ECI Platform Failure",
+    "aliases": ["Spruce/ECI Platform Failure Driving Displacement"],
+    "category": "Pain Points",
+    "firstSeen": "2026-09-08"
+  },
+  "canadian-eft-payment": {
+    "displayTitle": "Canadian EFT Payment Support",
+    "aliases": ["Canadian EFT Payment Support"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-09-08"
+  },
+  "eagle-sku-lifecycle-sync": {
+    "displayTitle": "Eagle SKU Lifecycle Sync",
+    "aliases": ["Eagle SKU Lifecycle Sync"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-09-08"
+  },
+  "lumbertrack-erp-integration": {
+    "displayTitle": "LumberTrack ERP Integration",
+    "aliases": ["LumberTrack ERP Integration"],
+    "category": "Feature Gaps",
+    "firstSeen": "2026-09-08"
+  }
+}

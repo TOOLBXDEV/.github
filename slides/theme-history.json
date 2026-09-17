@@ -3,73 +3,74 @@
     "weekStart": "2026-07-20",
     "weekEnd": "2026-07-26",
     "themes": [
-      { "category": "Feature Gaps", "title": "Promo Codes / Coupons" },
-      { "category": "Feature Gaps", "title": "Apple Pay / Google Pay" },
-      { "category": "Pain Points", "title": "ERP/Payment Reconciliation" },
-      { "category": "Competitive Landscape", "title": "WebTrack Displacement" },
-      { "category": "Competitive Landscape", "title": "ERP Vendor Lock-in" }
+      { "category": "Feature Gaps", "canonicalKey": "promo-codes-bundle-promotions", "title": "Promo Codes / Coupons" },
+      { "category": "Feature Gaps", "canonicalKey": "mobile-payment-methods", "title": "Apple Pay / Google Pay" },
+      { "category": "Pain Points", "canonicalKey": "erp-payment-reconciliation", "title": "ERP/Payment Reconciliation" },
+      { "category": "Competitive Landscape", "canonicalKey": "webtrack-displacement", "title": "WebTrack Displacement" },
+      { "category": "Competitive Landscape", "canonicalKey": "eci-ecosystem-barriers", "title": "ERP Vendor Lock-in" }
     ]
   },
   {
     "weekStart": "2026-08-03",
     "weekEnd": "2026-08-09",
     "themes": [
-      { "category": "Feature Gaps", "title": "In-Order Messaging" },
-      { "category": "Feature Gaps", "title": "Live Pricing / Real-Time Inventory in Portal" },
-      { "category": "Pain Points", "title": "ERP Integration Complexity" },
-      { "category": "Pain Points", "title": "CC Processing Fees / Surcharging" },
-      { "category": "Competitive Landscape", "title": "Competing E-commerce/POS Platforms" },
-      { "category": "Competitive Landscape", "title": "Big-Box & Buying-Group Pressure" }
+      { "category": "Feature Gaps", "canonicalKey": "in-order-messaging", "title": "In-Order Messaging" },
+      { "category": "Feature Gaps", "canonicalKey": "live-pricing-inventory", "title": "Live Pricing / Real-Time Inventory in Portal" },
+      { "category": "Pain Points", "canonicalKey": "erp-integration-complexity", "title": "ERP Integration Complexity" },
+      { "category": "Pain Points", "canonicalKey": "cc-processing-surcharging", "title": "CC Processing Fees / Surcharging" },
+      { "category": "Competitive Landscape", "canonicalKey": "competing-ecommerce-pos", "title": "Competing E-commerce/POS Platforms" },
+      { "category": "Competitive Landscape", "canonicalKey": "buying-group-pricing-pressure", "title": "Big-Box & Buying-Group Pressure" }
     ]
   },
   {
     "weekStart": "2026-08-10",
     "weekEnd": "2026-08-16",
     "themes": [
-      { "category": "Feature Gaps", "title": "Automated Credit / Reference Checks" },
-      { "category": "Feature Gaps", "title": "Industry-Specific CRM / Quote Management" },
-      { "category": "Pain Points", "title": "Multi-System Quote-to-Order Tracking" },
-      { "category": "Pain Points", "title": "Manual Credit-App / Account Setup" },
-      { "category": "Competitive Landscape", "title": "Legacy POS Displacement" }
+      { "category": "Feature Gaps", "canonicalKey": "automated-credit-checks", "title": "Automated Credit / Reference Checks" },
+      { "category": "Feature Gaps", "canonicalKey": "crm-quote-management", "title": "Industry-Specific CRM / Quote Management" },
+      { "category": "Pain Points", "canonicalKey": "multi-system-quote-tracking", "title": "Multi-System Quote-to-Order Tracking" },
+      { "category": "Pain Points", "canonicalKey": "manual-credit-app-setup", "title": "Manual Credit-App / Account Setup" },
+      { "category": "Competitive Landscape", "canonicalKey": "legacy-pos-displacement", "title": "Legacy POS Displacement" }
     ]
   },
   {
     "weekStart": "2026-08-17",
     "weekEnd": "2026-08-23",
     "themes": [
-      { "category": "Feature Gaps", "title": "Builder/GC Portal Integration" },
-      { "category": "Feature Gaps", "title": "BOGO / Bundle Promotions" },
-      { "category": "Feature Gaps", "title": "Reverse Tally for Random-Length Lumber" },
-      { "category": "Feature Gaps", "title": "In-App Click-to-Call Logging" },
-      { "category": "Pain Points", "title": "Manual Margin-Based Commission Dashboarding" },
-      { "category": "Pain Points", "title": "CRM Migration Data-Continuity Risk" },
-      { "category": "Pain Points", "title": "Permit & Job Status Disconnected from ERP" }
+      { "category": "Feature Gaps", "canonicalKey": "builder-gc-portal", "title": "Builder/GC Portal Integration", "sources": [{ "company": "RoMac Building Supply", "team": "growth" }] },
+      { "category": "Feature Gaps", "canonicalKey": "promo-codes-bundle-promotions", "title": "BOGO / Bundle Promotions", "sources": [{ "company": "Yates", "team": "growth" }] },
+      { "category": "Feature Gaps", "canonicalKey": "reverse-tally-random-length", "title": "Reverse Tally for Random-Length Lumber", "sources": [{ "company": "International Wood Products", "team": "growth" }] },
+      { "category": "Feature Gaps", "canonicalKey": "click-to-call-logging", "title": "In-App Click-to-Call Logging", "sources": [{ "company": "Standard Building Supply", "team": "growth" }] },
+      { "category": "Pain Points", "canonicalKey": "manual-margin-commission", "title": "Manual Margin-Based Commission Dashboarding", "sources": [{ "company": "Hackensack Lumber", "team": "growth" }] },
+      { "category": "Pain Points", "canonicalKey": "crm-migration-data-risk", "title": "CRM Migration Data-Continuity Risk", "sources": [{ "company": "Sound Hardware", "team": "growth" }] },
+      { "category": "Pain Points", "canonicalKey": "permit-job-status-erp", "title": "Permit & Job Status Disconnected from ERP", "sources": [{ "company": "Standard Building Supply", "team": "growth" }] }
     ]
   },
   {
     "weekStart": "2026-08-24",
     "weekEnd": "2026-08-30",
     "themes": [
-      { "category": "Feature Gaps", "title": "AR Notes / Call-Logging Sync to ERP" }
+      { "category": "Feature Gaps", "canonicalKey": "ar-notes-erp-sync", "title": "AR Notes / Call-Logging Sync to ERP", "sources": [{ "company": "Franklin Building Supply", "team": "growth", "gongUrl": "https://app.gong.io/call?id=272542363609767030" }] }
     ]
   },
   {
     "weekStart": "2026-09-01",
     "weekEnd": "2026-09-07",
     "themes": [
-      { "category": "Pain Points", "title": "Buying-Group Dealer Pricing" },
-      { "category": "Pain Points", "title": "Epicor API Requirement Confusion" }
+      { "category": "Pain Points", "canonicalKey": "buying-group-pricing-pressure", "title": "Buying-Group Dealer Pricing" },
+      { "category": "Pain Points", "canonicalKey": "eci-ecosystem-barriers", "title": "Epicor API Requirement Confusion" }
     ]
   },
   {
     "weekStart": "2026-09-08",
     "weekEnd": "2026-09-14",
+    "meta": { "activeDealCount": 10, "totalDealCount": 50 },
     "themes": [
-      { "category": "Feature Gaps", "title": "Canadian EFT Payment Support" },
-      { "category": "Feature Gaps", "title": "Eagle SKU Lifecycle Sync" },
-      { "category": "Feature Gaps", "title": "LumberTrack ERP Integration" },
-      { "category": "Pain Points", "title": "Spruce/ECI Platform Failure Driving Displacement" },
-      { "category": "Pain Points", "title": "ECI Closed-Ecosystem API Barriers" }
+      { "category": "Feature Gaps", "canonicalKey": "canadian-eft-payment", "title": "Canadian EFT Payment Support", "sources": [{ "company": "Caliper Forest Products", "team": "onboarding", "gongUrl": "https://app.gong.io/call?id=2715045927719169875", "callDate": "2026-09-10" }] },
+      { "category": "Feature Gaps", "canonicalKey": "eagle-sku-lifecycle-sync", "title": "Eagle SKU Lifecycle Sync", "sources": [{ "company": "E.L. Spear Lumber", "team": "onboarding", "gongUrl": "https://app.gong.io/call?id=2722916136876151873", "callDate": "2026-09-09" }] },
+      { "category": "Feature Gaps", "canonicalKey": "lumbertrack-erp-integration", "title": "LumberTrack ERP Integration", "sources": [{ "company": "Do it Best", "team": "growth", "gongUrl": "https://app.gong.io/call?id=8440102199568766466", "callDate": "2026-09-10" }] },
+      { "category": "Pain Points", "canonicalKey": "spruce-platform-failure", "title": "Spruce/ECI Platform Failure Driving Displacement", "sources": [{ "company": "Stones Home Centers", "team": "growth", "gongUrl": "https://app.gong.io/call?id=1467970317760917058", "callDate": "2026-09-09" }] },
+      { "category": "Pain Points", "canonicalKey": "eci-ecosystem-barriers", "title": "ECI Closed-Ecosystem API Barriers", "sources": [{ "company": "CNRG/Orgill", "team": "growth", "gongUrl": "https://app.gong.io/call?id=2280563053918686055", "callDate": "2026-09-11" }] }
     ]
   }
 ]
