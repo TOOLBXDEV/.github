@@ -59,6 +59,21 @@
   .cite-detail { font-size: 9px; color: var(--silver-grey); margin-top: 3px; line-height: 1.3; }
   .cite-detail-label { font-size: 7.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--silver-grey); }
 
+  .trend-table { display: flex; flex-direction: column; gap: 4px; }
+  .trend-row { display: flex; align-items: flex-start; gap: 10px; padding: 6px 10px; background: var(--light-grey); border-radius: 2px; }
+  .trend-arrow { width: 18px; font-size: 14px; font-weight: 700; flex-shrink: 0; text-align: center; line-height: 1.3; }
+  .trend-arrow.rising { color: var(--lost-red); }
+  .trend-arrow.stable { color: var(--silver-grey); }
+  .trend-arrow.fading { color: var(--silver-grey); opacity: 0.5; }
+  .trend-arrow.new { color: var(--teal); }
+  .trend-arrow.spike { color: var(--amber); }
+  .trend-body { flex: 1; min-width: 0; }
+  .trend-title-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .trend-title { font-weight: 700; font-size: 11px; color: var(--slate-black); }
+  .trend-sparkline { flex-shrink: 0; }
+  .trend-meta { font-size: 9px; color: var(--silver-grey); font-weight: 600; }
+  .trend-segment { font-size: 9px; color: var(--silver-grey); font-style: italic; margin-top: 1px; }
+
   .whats-landing { margin: 0 0 10px; padding: 8px 14px; font-size: 11px; font-weight: 600; color: var(--green); line-height: 1.4; border-left: 4px solid var(--green); background: var(--green-bg); border-radius: 0 2px 2px 0; }
   .whats-landing-label { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--green); margin-bottom: 2px; }
 
@@ -107,6 +122,7 @@
       <div class="data-note" id="data-note"></div>
     </div>
 
+    <div id="trend-intel"></div>
     <div id="whats-landing"></div>
     <div id="graduated"></div>
     <div id="bottom-line"></div>
@@ -163,6 +179,62 @@ var DATA = {
     { title: 'Spruce is failing and 150 online customers need somewhere to go', type: 'pain', summary: 'Stones nearing decision to leave Spruce -- 150 online-paying customers ready to migrate to a new platform.', trend: { direction: 'new', weeksActive: 1, firstSeen: '2026-09-08' }, citedBy: [{ company: 'Stones Home Centers', tier: 'mid', stage: 'late', weeksAgo: 0 }], gongUrls: ['https://app.gong.io/call?id=1467970317760917058'] }
   ],
   graduated: [],
+  trendIntel: {
+    quarterLabel: 'Q3 2026',
+    windowWeeks: 7,
+    themes: [
+      {
+        canonicalKey: 'erp-vendor-lock-in-displacement',
+        displayTitle: 'ERP Vendor Lock-in & Platform Displacement',
+        direction: 'rising',
+        momentum: 29,
+        weeksActive: 2,
+        uniqueCompanies: 7,
+        weeklyMentions: [6, 0, 0, 0, 0, 0, 1],
+        segmentation: null
+      },
+      {
+        canonicalKey: 'erp-integration-api-barriers',
+        displayTitle: 'ERP Integration & API Barriers',
+        direction: 'rising',
+        momentum: 29,
+        weeksActive: 3,
+        uniqueCompanies: 5,
+        weeklyMentions: [0, 4, 0, 0, 0, 1, 1],
+        segmentation: null
+      },
+      {
+        canonicalKey: 'competing-platforms-displacement',
+        displayTitle: 'Competing Platform Displacement',
+        direction: 'fading',
+        momentum: 18,
+        weeksActive: 3,
+        uniqueCompanies: 8,
+        weeklyMentions: [6, 2, 1, 0, 0, 0, 0],
+        segmentation: null
+      },
+      {
+        canonicalKey: 'promo-codes-bundle-promotions',
+        displayTitle: 'Promo Codes & Bundle Promotions',
+        direction: 'fading',
+        momentum: 10,
+        weeksActive: 2,
+        uniqueCompanies: 5,
+        weeklyMentions: [4, 0, 0, 1, 0, 0, 0],
+        segmentation: null
+      },
+      {
+        canonicalKey: 'canadian-eft-payment',
+        displayTitle: 'Canadian EFT Payment Support',
+        direction: 'new',
+        momentum: 9,
+        weeksActive: 1,
+        uniqueCompanies: 1,
+        weeklyMentions: [0, 0, 0, 0, 0, 0, 1],
+        segmentation: null
+      }
+    ]
+  }
 };
 
 function renderBottomLine() {
@@ -241,6 +313,51 @@ function renderBlockers() {
   el.innerHTML = h;
 }
 
+function renderSparkline(weeklyMentions) {
+  var maxM = Math.max.apply(null, weeklyMentions.concat([1]));
+  var bars = [];
+  for (var i = 0; i < weeklyMentions.length; i++) {
+    var h = weeklyMentions[i] > 0 ? Math.max(4, Math.round((weeklyMentions[i] / maxM) * 14)) : 3;
+    var fill = weeklyMentions[i] > 0 ? 'var(--teal)' : 'var(--silver-grey)';
+    var opacity = weeklyMentions[i] > 0 ? '1' : '0.3';
+    var x = i * 6;
+    var y = 14 - h;
+    bars.push('<rect x="' + x + '" y="' + y + '" width="4" height="' + h + '" rx="1" fill="' + fill + '" opacity="' + opacity + '"/>');
+  }
+  var w = weeklyMentions.length * 6;
+  return '<svg width="' + w + '" height="14" viewBox="0 0 ' + w + ' 14" class="trend-sparkline">' + bars.join('') + '</svg>';
+}
+
+function renderTrendIntel() {
+  var el = document.getElementById('trend-intel');
+  if (!DATA.trendIntel || !DATA.trendIntel.themes || DATA.trendIntel.themes.length === 0) return;
+
+  var ARROWS = { rising: '↑', stable: '→', fading: '↓', 'new': '★', spike: '⚡' };
+  var ti = DATA.trendIntel;
+  var h = '<div class="intel-section">';
+  h += '<h3>Trend Intelligence &middot; ' + esc(ti.quarterLabel) + ' &middot; ' + ti.windowWeeks + '-Week View</h3>';
+  h += '<div class="trend-table">';
+
+  for (var i = 0; i < ti.themes.length; i++) {
+    var t = ti.themes[i];
+    h += '<div class="trend-row">';
+    h += '<div class="trend-arrow ' + esc(t.direction) + '">' + (ARROWS[t.direction] || '') + '</div>';
+    h += '<div class="trend-body">';
+    h += '<div class="trend-title-row">';
+    h += '<span class="trend-title">' + esc(t.displayTitle) + '</span>';
+    h += renderSparkline(t.weeklyMentions);
+    h += '<span class="trend-meta">' + t.weeksActive + 'w active &middot; ' + t.uniqueCompanies + ' account' + (t.uniqueCompanies !== 1 ? 's' : '') + '</span>';
+    h += '</div>';
+    if (t.segmentation) {
+      h += '<div class="trend-segment">' + esc(t.segmentation) + '</div>';
+    }
+    h += '</div></div>';
+  }
+
+  h += '</div></div>';
+  el.innerHTML = h;
+}
+
 function renderWhatsLanding() {
   var el = document.getElementById('whats-landing');
   if (DATA.whatsLanding) {
@@ -309,6 +426,7 @@ function renderDataNote() {
 
 renderActivity();
 renderBlockers();
+renderTrendIntel();
 renderWhatsLanding();
 renderGraduated();
 renderDataNote();
