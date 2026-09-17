@@ -8,6 +8,7 @@
     --metallic-seaweed: #457F86; --lost-red: #B91C1C;
     --teal: #1C8DA1; --teal-lt: #93C1C8;
     --amber: #E67E22;
+    --violet: #7C3AED;
   }
   * { box-sizing: border-box; }
   body { font-family: "DM Sans", Calibri, Arial, sans-serif; background: #e6e7eb; color: var(--slate-black); margin: 0; padding: 24px 16px; font-size: 14px; line-height: 1.45; }
@@ -27,12 +28,6 @@
   .slide-footer { padding: 10px 36px 14px; display: flex; justify-content: space-between; align-items: center; color: var(--dark-grey); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; border-top: 1px solid var(--light-grey); flex-shrink: 0; }
   .slide-footer .brand { font-family: Georgia, "Bitter", serif; color: var(--slate-black); font-weight: 700; }
 
-  .kpi-row { display: flex; gap: 0; justify-content: center; margin: 0 8px 14px; border: 1px solid var(--light-grey); border-radius: 3px; overflow: hidden; }
-  .kpi-tile { flex: 1; text-align: center; padding: 12px 16px 8px; border-right: 1px solid var(--light-grey); }
-  .kpi-tile:last-child { border-right: none; }
-  .kpi-number { font-family: "DM Sans", Calibri, sans-serif; font-size: 28px; font-weight: 800; color: var(--slate-black); line-height: 1; margin-bottom: 2px; }
-  .kpi-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--silver-grey); }
-
   .intel-section { margin-bottom: 14px; }
   .intel-section h3 { margin: 0 0 10px; font-size: 12px; color: var(--slate-black); font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 14px; border-left: 4px solid var(--sunrise-yellow); background: linear-gradient(90deg, rgba(28,141,161,0.07) 0%, transparent 60%); border-radius: 0 2px 2px 0; }
 
@@ -49,7 +44,7 @@
   .news-card-src a { color: var(--teal); text-decoration: none; font-weight: 600; }
   .news-card-src a:hover { text-decoration: underline; }
 
-  .hearing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .hearing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
   @media (max-width: 820px) { .hearing-grid { grid-template-columns: 1fr; } }
 
   .theme-block { padding: 0; }
@@ -57,25 +52,23 @@
   .category-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
   .category-dot.teal { background: var(--teal); }
   .category-dot.amber { background: var(--amber); }
+  .category-dot.violet { background: var(--violet); }
   .theme-block-label { font-size: 11px; font-weight: 700; color: var(--slate-black); text-transform: uppercase; letter-spacing: 0.08em; }
 
-  .theme-item { display: flex; align-items: flex-start; gap: 0; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,0.04); }
+  .theme-item { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,0.04); }
   .theme-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-  .mention-count { font-family: "DM Sans", Calibri, sans-serif; font-size: 22px; font-weight: 800; color: var(--dark-grey); line-height: 1; min-width: 32px; text-align: right; padding-right: 10px; flex-shrink: 0; padding-top: 1px; }
-  .mention-count.recurring { color: var(--teal); }
-  .theme-item-body { flex: 1; min-width: 0; }
   .theme-item-title { font-weight: 700; font-size: 12px; color: var(--slate-black); line-height: 1.3; }
   .theme-item-text { font-size: 10px; color: var(--dark-grey); line-height: 1.35; margin-top: 2px; max-height: 2.6em; overflow: hidden; }
   .cited-by { font-size: 9px; color: var(--silver-grey); margin-top: 3px; line-height: 1.3; }
   .cited-by-label { font-size: 7.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--silver-grey); }
 
+  .trend-badge { display: inline-block; font-size: 7.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 1px 5px; border-radius: 2px; margin-left: 6px; vertical-align: middle; position: relative; top: -1px; }
+  .trend-badge.recurring { background: rgba(28,141,161,0.12); color: var(--teal); }
+
   .empty-state { background: var(--light-grey); border-radius: 2px; padding: 6px 12px; font-size: 10px; color: var(--silver-grey); }
   .data-note { font-size: 8.5px; color: var(--silver-grey); margin-top: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
 
-  .bottom-line { margin: 0 0 0; padding: 10px 14px; font-size: 11px; font-weight: 600; color: var(--slate-black); line-height: 1.5; border-left: 4px solid var(--sunrise-yellow); background: var(--won-bg); border-radius: 0 2px 2px 0; }
-  .bottom-line ul { margin: 0; padding: 0 0 0 16px; }
-  .bottom-line li { margin-bottom: 2px; }
-  .bottom-line li:last-child { margin-bottom: 0; }
+  .bottom-line { margin: 0; padding: 8px 14px; font-size: 11px; font-weight: 600; color: var(--slate-black); line-height: 1.4; border-left: 4px solid var(--sunrise-yellow); background: var(--won-bg); border-radius: 0 2px 2px 0; }
 
   .source-link { color: var(--teal); text-decoration: none; font-weight: 600; }
   .source-link:hover { text-decoration: underline; }
@@ -94,7 +87,6 @@
     </div>
     <div class="slide-stamp" id="week-stamp"></div>
   </div>
-  <div id="kpi-row"></div>
   <div class="slide-body">
     <div class="intel-section">
       <h3>Competitor Activity</h3>
@@ -103,10 +95,7 @@
 
     <div class="intel-section">
       <h3>What We're Hearing &mdash; Trends</h3>
-      <div class="hearing-grid">
-        <div id="hearing-left"></div>
-        <div id="hearing-right"></div>
-      </div>
+      <div class="hearing-grid" id="hearing-grid"></div>
       <div class="data-note" id="data-note"></div>
     </div>
 
@@ -143,11 +132,7 @@ var ESC = {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'};
 function esc(s) { return s == null ? '' : String(s).replace(/[&<>"']/g, function(c){return ESC[c];}); }
 
 var DATA = {
-  bottomLineBullets: [
-    'ECI ecosystem friction spans two weeks and multiple accounts -- strongest recurring signal in the window',
-    'Three new ERP-adjacent feature gaps signal broadening dealer platform expectations',
-    'Do it Best offering to anchor LumberTrack integration -- rare design-partner opportunity'
-  ],
+  keySignal: 'ECI ecosystem friction spans two weeks and multiple accounts -- strongest recurring signal in the window.',
   window: {
     start: '2026-08-18',
     end: '2026-09-14',
@@ -168,47 +153,15 @@ var DATA = {
     { label: 'Pain Points', dotColor: 'amber', items: [
       { title: 'ECI Closed-Ecosystem API Barriers', summary: 'ECI refuses third-party integrations and inflates API pricing to push their own Evo X e-commerce.', trend: { direction: 'continuing', weeksActive: 2, firstSeen: '2026-09-01' }, mentions: { total: 2, uniqueCompanies: 2 }, citedBy: [{ company: 'CNRG/Orgill', weeksAgo: 0 }, { company: 'Buying-Group Dealer', weeksAgo: 1 }], gongUrls: ['https://app.gong.io/call?id=2280563053918686055'] },
       { title: 'Spruce/ECI Platform Failure', summary: 'Stones nearing decision to leave Spruce -- 150 online-paying customers ready to migrate.', trend: { direction: 'new', weeksActive: 1, firstSeen: '2026-09-08' }, mentions: { total: 1, uniqueCompanies: 1 }, citedBy: [{ company: 'Stones Home Centers', weeksAgo: 0 }], gongUrls: ['https://app.gong.io/call?id=1467970317760917058'] }
-    ]}
+    ]},
+    { label: 'Objections', dotColor: 'violet', items: [] }
   ]
 };
 
-function renderKPIs() {
-  var el = document.getElementById('kpi-row');
-  var themeCount = 0;
-  var compSeen = {};
-  var compCount = 0;
-  var recurringCount = 0;
-  for (var t = 0; t < DATA.themes.length; t++) {
-    for (var i = 0; i < DATA.themes[t].items.length; i++) {
-      themeCount++;
-      var it = DATA.themes[t].items[i];
-      if (it.trend && it.trend.weeksActive > 1) recurringCount++;
-      if (it.citedBy) {
-        for (var c = 0; c < it.citedBy.length; c++) {
-          if (!compSeen[it.citedBy[c].company]) {
-            compSeen[it.citedBy[c].company] = true;
-            compCount++;
-          }
-        }
-      }
-    }
-  }
-  el.innerHTML = '<div class="kpi-row">' +
-    '<div class="kpi-tile"><div class="kpi-number">' + themeCount + '</div><div class="kpi-label">Themes Tracked</div></div>' +
-    '<div class="kpi-tile"><div class="kpi-number">' + compCount + '</div><div class="kpi-label">Accounts Cited</div></div>' +
-    '<div class="kpi-tile"><div class="kpi-number">' + recurringCount + '</div><div class="kpi-label">Recurring Signals</div></div>' +
-    '</div>';
-}
-
 function renderBottomLine() {
   var el = document.getElementById('bottom-line');
-  if (DATA.bottomLineBullets && DATA.bottomLineBullets.length > 0) {
-    var h = '<div class="bottom-line"><ul>';
-    for (var i = 0; i < DATA.bottomLineBullets.length; i++) {
-      h += '<li>' + esc(DATA.bottomLineBullets[i]) + '</li>';
-    }
-    h += '</ul></div>';
-    el.innerHTML = h;
+  if (DATA.keySignal) {
+    el.innerHTML = '<div class="bottom-line"><strong>Key signal:</strong> ' + esc(DATA.keySignal) + '</div>';
   }
 }
 
@@ -237,21 +190,22 @@ function renderActivity() {
 }
 
 function renderThemeBlock(theme) {
+  if (!theme.items || theme.items.length === 0) {
+    return '';
+  }
   var dotClass = theme.dotColor || 'teal';
   var h = '<div class="theme-block">';
   h += '<div class="theme-block-header"><span class="category-dot ' + esc(dotClass) + '"></span>';
   h += '<span class="theme-block-label">' + esc(theme.label) + '</span></div>';
-  if (!theme.items || theme.items.length === 0) {
-    h += '<div class="empty-state">No ' + esc(theme.label.toLowerCase()) + ' themes in this window</div>';
-  }
   for (var i = 0; i < theme.items.length; i++) {
     var it = theme.items[i];
-    var count = it.mentions ? it.mentions.total : 1;
     var isRecurring = it.trend && it.trend.weeksActive > 1;
     h += '<div class="theme-item">';
-    h += '<div class="mention-count' + (isRecurring ? ' recurring' : '') + '">' + count + '</div>';
-    h += '<div class="theme-item-body">';
-    h += '<div class="theme-item-title">' + esc(it.title) + '</div>';
+    h += '<div class="theme-item-title">' + esc(it.title);
+    if (isRecurring) {
+      h += ' <span class="trend-badge recurring">' + it.trend.weeksActive + 'w recurring</span>';
+    }
+    h += '</div>';
     if (it.summary) {
       h += '<div class="theme-item-text">' + esc(it.summary) + '</div>';
     }
@@ -262,25 +216,22 @@ function renderThemeBlock(theme) {
       }
       h += '<div class="cited-by"><span class="cited-by-label">Cited by: </span>' + names.join(', ') + '</div>';
     }
-    h += '</div></div>';
+    h += '</div>';
   }
   h += '</div>';
   return h;
 }
 
 function renderHearing() {
-  var leftEl = document.getElementById('hearing-left');
-  var rightEl = document.getElementById('hearing-right');
-  var lh = '';
-  var rh = '';
-  if (DATA.themes.length > 0) {
-    lh = renderThemeBlock(DATA.themes[0]);
+  var gridEl = document.getElementById('hearing-grid');
+  var h = '';
+  for (var t = 0; t < DATA.themes.length; t++) {
+    h += renderThemeBlock(DATA.themes[t]);
   }
-  if (DATA.themes.length > 1) {
-    rh = renderThemeBlock(DATA.themes[1]);
+  if (h === '') {
+    h = '<div class="empty-state">No themes in this window</div>';
   }
-  leftEl.innerHTML = lh;
-  rightEl.innerHTML = rh;
+  gridEl.innerHTML = h;
 }
 
 function renderDataNote() {
@@ -318,7 +269,6 @@ function renderDataNote() {
   el.innerHTML = parts.join(' &middot; ');
 }
 
-renderKPIs();
 renderActivity();
 renderHearing();
 renderDataNote();
