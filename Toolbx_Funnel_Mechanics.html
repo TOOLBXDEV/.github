@@ -1,0 +1,745 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Toolbx Funnel Mechanics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Rubik:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --page:#F2F2F2; --surface:#FFFFFF; --sunk:#F7F7F6;
+  --ink:#1C1C1E; --ink-2:#46464A; --ink-3:#6E6E73;
+  --rule:#DCDCDA; --rule-2:#EAEAE8;
+  --yellow:#FFCA05; --gold:#8A6D00; --tint:#FFF5CC;
+  --blue:#3A506B; --sea:#457F86; --sea-tint:#E4EFF0;
+  --good:#4F7A0E; --good-tint:#EAF3DC;
+  --warn:#B4450F; --warn-tint:#FCE9DF;
+  --fd:"Bitter",Georgia,"Times New Roman",serif;
+  --fb:"Rubik",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --fm:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#111113; --surface:#1C1C1E; --sunk:#232326;
+    --ink:#F2F2F2; --ink-2:#CACACD; --ink-3:#9A9AA0;
+    --rule:#36363A; --rule-2:#2B2B2E;
+    --gold:#FFD84D; --tint:rgba(255,202,5,.12);
+    --blue:#93C1C8; --sea:#93C1C8; --sea-tint:rgba(147,193,200,.12);
+    --good:#9BD13A; --good-tint:rgba(124,181,24,.14);
+    --warn:#FF8A5B; --warn-tint:rgba(255,107,53,.14);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#111113; --surface:#1C1C1E; --sunk:#232326;
+  --ink:#F2F2F2; --ink-2:#CACACD; --ink-3:#9A9AA0;
+  --rule:#36363A; --rule-2:#2B2B2E;
+  --gold:#FFD84D; --tint:rgba(255,202,5,.12);
+  --blue:#93C1C8; --sea:#93C1C8; --sea-tint:rgba(147,193,200,.12);
+  --good:#9BD13A; --good-tint:rgba(124,181,24,.14);
+  --warn:#FF8A5B; --warn-tint:rgba(255,107,53,.14);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:2px}
+code,.mono{font-family:var(--fm);font-size:.86em;background:var(--sunk);border:1px solid var(--rule-2);border-radius:4px;padding:.05em .35em;white-space:nowrap}
+pre{font-family:var(--fm);font-size:13px;line-height:1.55;background:var(--sunk);border:1px solid var(--rule-2);border-radius:6px;padding:14px 16px;overflow-x:auto;margin:14px 0}
+pre code{background:none;border:0;padding:0;font-size:inherit;white-space:pre}
+
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+.masthead{background:var(--surface);border-bottom:1px solid var(--rule)}
+.masthead .inner{max-width:1180px;margin:0 auto;padding:28px 20px 34px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{height:26px;width:auto;color:var(--ink);display:block}
+.tag{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--fd);font-weight:800;font-size:clamp(2.1rem,4.4vw,3.1rem);line-height:1.06;letter-spacing:-.03em;margin:30px 0 12px;text-wrap:balance;max-width:20ch}
+.lede{font-size:clamp(1.05rem,1.6vw,1.2rem);font-weight:400;color:var(--ink-2);max-width:62ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:13px;color:var(--ink-3)}
+.meta b{color:var(--ink);font-weight:500}
+
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px;margin-top:40px}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;max-height:calc(100vh - 40px);overflow:auto;font-size:13.5px;padding-right:6px}
+nav.toc .h{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;counter-reset:t}
+nav.toc a{display:block;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-left:2px solid transparent;line-height:1.35}
+nav.toc a:hover{color:var(--ink);background:var(--surface)}
+nav.toc a.on{color:var(--ink);border-left-color:var(--yellow);background:var(--surface);font-weight:500}
+nav.toc .grp{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:14px 0 4px 12px}
+
+main{min-width:0}
+section{scroll-margin-top:20px;padding-top:8px;margin-bottom:56px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 8px}
+h2{font-family:var(--fb);font-weight:300;font-size:clamp(1.75rem,3vw,2.35rem);line-height:1.12;letter-spacing:-.025em;margin:0 0 14px;text-wrap:balance}
+h3{font-family:var(--fd);font-weight:700;font-size:1.28rem;line-height:1.25;letter-spacing:-.015em;margin:34px 0 10px;text-wrap:balance}
+h4{font-size:1rem;font-weight:600;margin:22px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+.prose ul,.prose ol{margin:0 0 16px;padding-left:1.25em;max-width:66ch}
+.prose li{margin:4px 0}
+.small{font-size:14px;color:var(--ink-2)}
+.muted{color:var(--ink-3)}
+
+/* callouts */
+.callout{border:1px solid var(--rule);border-left:4px solid var(--yellow);background:var(--surface);padding:14px 18px;border-radius:0 6px 6px 0;margin:18px 0;max-width:72ch}
+.callout p:last-child{margin-bottom:0}
+.callout .k{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:4px}
+.callout.warn{border-left-color:var(--warn)}
+.callout.sea{border-left-color:var(--sea)}
+
+/* tables */
+.tbl{overflow-x:auto;margin:16px 0 20px;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45}
+th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:10px 14px;border-bottom:1px solid var(--rule);background:var(--sunk);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--rule-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.wrapk{white-space:normal;min-width:130px}
+.tbl.w720 table{min-width:720px}
+.tbl.w860 table{min-width:860px}
+
+/* pills */
+.pill{display:inline-block;font-size:11.5px;font-weight:500;line-height:1;padding:4px 8px;border-radius:999px;white-space:nowrap;border:1px solid var(--rule)}
+.pill.yes{color:var(--good);background:var(--good-tint);border-color:transparent}
+.pill.no{color:var(--warn);background:var(--warn-tint);border-color:transparent}
+.pill.part{color:var(--gold);background:var(--tint);border-color:transparent}
+.pill.auto{color:var(--sea);background:var(--sea-tint);border-color:transparent}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:22px 0 10px;background:var(--surface);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.step{padding:16px 16px 18px;border-right:1px solid var(--rule-2);position:relative;min-width:0}
+.step:last-child{border-right:0}
+.step .obj{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.step .nm{font-family:var(--fd);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;margin:4px 0 6px;line-height:1.1}
+.step .ds{font-size:13px;color:var(--ink-2);line-height:1.45}
+.step .fld{margin-top:10px;font-family:var(--fm);font-size:11.5px;color:var(--ink-3);word-break:break-word}
+.step.state{background:var(--sunk)}
+.step.mark::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--yellow)}
+.flowkey{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
+.flowkey i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--rule)}
+
+/* ladders */
+.ladders{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0}
+.ladder{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 16px}
+.ladder .t{font-family:var(--fd);font-weight:700;font-size:1.05rem;margin:0 0 2px}
+.ladder .q{font-size:13px;color:var(--ink-3);margin:0 0 10px}
+.ladder ol{list-style:none;margin:0;padding:0;font-size:13.5px}
+.ladder li{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-top:1px solid var(--rule-2)}
+.ladder li:first-child{border-top:0}
+.ladder li span:last-child{font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:12px}
+.ladder li.bar{box-shadow:inset 3px 0 0 var(--yellow);padding-left:8px;margin-left:-8px}
+
+/* decisions */
+.decisions{counter-reset:d;display:flex;flex-direction:column;gap:12px;margin:18px 0}
+.dec{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px 18px 16px 58px;position:relative}
+.dec::before{counter-increment:d;content:counter(d);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:50%;background:var(--yellow);color:#1C1C1E;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center}
+.dec h4{margin:0 0 6px;font-size:1.02rem}
+.dec p{margin:0 0 8px;font-size:14.5px}
+.dec p:last-child{margin-bottom:0}
+.dec .rec{font-size:14px;color:var(--ink)}
+.dec .rec b{font-weight:600}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;background:var(--surface);border:1px solid var(--rule);border-radius:6px;margin:16px 0}
+.num{padding:14px 16px;border-right:1px solid var(--rule-2)}
+.num:last-child{border-right:0}
+.num .v{font-family:var(--fd);font-weight:800;font-size:1.7rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.num .l{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:8px}
+.num .d{font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.35}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px 18px}
+.card h4{margin-top:0}
+.card p{font-size:14.5px}
+.card p:last-child{margin-bottom:0}
+
+footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;color:var(--ink-3);max-width:72ch}
+
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr;gap:18px}
+  nav.toc{position:static;max-height:none;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 12px}
+  nav.toc ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+  .flow{grid-template-columns:1fr 1fr}
+  .step{border-bottom:1px solid var(--rule-2)}
+}
+@media (max-width:640px){
+  .wrap,.masthead .inner{padding-inline:16px}
+  .flow{grid-template-columns:1fr}
+  .step{border-right:0}
+  .two{grid-template-columns:1fr}
+  .num{border-right:0;border-bottom:1px solid var(--rule-2)}
+  .dec{padding-left:18px;padding-top:52px}
+  .dec::before{top:14px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+</style>
+
+<header class="masthead">
+  <div class="inner">
+    <div class="brandrow">
+      <svg class="logo" viewBox="0 0 696 163" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Toolbx">
+        <path d="M587.4 81.2C586.2 81.8 586.4 83.6 587.6 84C589.5 84.8 591.3 85.9 593 87.2C598 91.5 599.2 97.2 598.6 103.4C597.6 115.6 588.3 121.9 577.3 122.8C571.9 123.2 566.6 123.2 561.2 123.2C551.5 123.2 541.8 123.2 531.9 123.2C530.9 123.2 530.3 122.4 530.3 121.7V46.3C530.3 45.4 531.1 44.8 531.9 44.8C538.1 44.8 560.4 44.8 572 44.8C579.9 44.8 586.7 47.1 592.2 53.1C597.6 59.5 598.8 73.1 590.6 79.1C589.7 80.1 588.6 80.6 587.4 81.2ZM550 107.7C550.2 107.7 550.4 107.9 550.6 107.9C557.2 107.9 563.8 107.9 570.6 107.7C572.2 107.7 573.9 106.9 575.3 106C578.6 103.9 579.2 100.5 578.4 97.2C577.6 93.4 575.1 91 571.4 90.8C564.4 90.4 557.4 90.6 550.3 90.4C550.3 90.4 550.1 90.6 549.9 90.6C550 96.2 550 101.9 550 107.7ZM550 61.6V75.7C550 76.6 550.8 77.2 551.6 77.2C557.2 77.2 563 77.2 568.7 77.2C569.5 77.2 570.1 77 570.8 76.8C575.3 75.5 577.6 71.9 577 67C576.6 63 573.1 60 568.9 60C565.8 60 562.5 60 559.4 60C556.9 60 554.4 60 551.8 60C550.8 59.9 550 60.7 550 61.6Z" fill="currentColor"/>
+        <path d="M446.7 85C447.5 106.5 427.7 127.2 401.5 126.2C379.8 125.4 359 107.7 360 83.1C360.8 61.8 379.8 42.4 405.2 43.4C427.5 44.3 447.3 62 446.7 85ZM403.3 61.2C389.9 61.2 379.8 71.2 379.6 84.2C379.6 97.9 389.3 107.7 402.9 108.1C415.7 108.5 426.6 98.5 426.6 84.7C426.5 71 416.2 61.2 403.3 61.2Z" fill="currentColor"/>
+        <path d="M308.5 126.4C289.3 126.6 273.4 114.3 268.2 99.7C263 85.2 264.7 71.6 274.6 59.4C282 50.4 291.7 45.3 303.5 44C315.7 42.7 326.8 45.5 336.3 53C345.4 60 350.6 69.2 351.8 80.3C353 91.6 350.4 101.8 343.1 110.6C336.7 118.5 328.4 123.6 318.1 125.5C314.9 125.8 311.6 126 308.5 126.4ZM308.5 108.1C320.7 108.7 332 98.5 332 84.9C331.8 71.2 322.3 61.2 308.7 61.2C295.3 61.2 285.2 71.2 285 84.4C284.6 98.5 296 108.7 308.5 108.1Z" fill="currentColor"/>
+        <path d="M685.9 122.2C686.1 122.6 685.9 123.1 685.3 123.1C678.1 123.1 671 123.1 664 123.1C663.6 123.1 663 122.5 662.8 122.2C657.8 114.1 652.5 106 647.5 97.9C647.1 97.3 646.7 97 646.3 96.2C643.8 100.2 641.5 103.7 639.1 107.5C636 112.4 632.9 117.3 629.8 122C629.6 122.4 628.8 122.9 628.4 122.9C622.2 122.9 610.8 123.1 606.9 123.1C606.3 123.1 606.1 122.5 606.3 122.2C608.4 118.8 610.8 115.2 612.9 111.8C618.5 103.1 624.1 94.3 630 85.6C630.8 84.3 630.8 82.8 630 81.6C622.8 70.7 609.8 50.2 606.7 45.4C606.5 45 606.7 44.5 607.3 44.5C610.4 44.5 613.3 44.5 616 44.5C619.9 44.5 623.8 44.7 627.4 44.5C628.9 44.5 629.5 45.1 630.1 46.2C635.1 54.3 640.2 62.2 645 70.3C645.2 70.5 645.4 70.7 645.6 71.2C646.2 70.3 647 69.3 647.3 68.6C652.2 61.1 656.8 53.3 661.6 45.8C662 45.2 662.8 44.7 663.3 44.7C670.3 44.7 677.1 44.7 684.2 44.7C684.8 44.7 685.2 45.3 684.8 45.6C681.7 50.5 668.1 71.6 661.3 82.3C660.5 83.4 660.5 84.2 661.3 85.3C669.2 96.2 682.8 117.3 685.9 122.2Z" fill="currentColor"/>
+        <path d="M233.6 123.5H216C215 123.5 214.4 122.7 214.4 122C214.4 114.3 214.4 79.3 214.4 66.6C214.4 63.6 211.1 60 207.8 59.8C203.7 59.4 200.6 60.7 198.9 64.3C198.7 64.7 198.1 64.9 197.9 64.9C195.4 64.9 192.7 64.9 190.1 64.9C188.2 64.9 186.6 63.4 186.6 61.5C186.6 56.6 186.6 51.5 186.6 46.6C186.6 44.7 188.2 43.2 189.9 43.2C192.6 43.2 195.1 43.2 197.8 43.2C198.2 43.2 198.8 43.6 199 44C200.6 47 203.1 48.5 206.4 48.5C209.9 48.5 212.4 47 214.2 44C214.4 43.6 214.8 43.2 215.2 43.2C224.3 43.2 233.6 43.6 242.5 45.8C250.3 47.9 256.5 52.2 261.3 58.2C261.9 58.8 262.3 59.5 262.9 60.1C263.9 61 263.5 61.6 262.7 62.2C261.9 63 261.3 63.9 259.8 63C255.3 59.8 250.3 59 244.9 59.8C242.2 60.2 239.5 60.9 237.3 62.6C236.1 63.5 235.6 64.5 235.6 66C235.6 78.8 235.6 114 235.6 121.9C235.2 123 234.4 123.5 233.6 123.5Z" fill="currentColor"/>
+        <path d="M457.5 121.7V46.3C457.5 45.4 458.3 44.8 459.1 44.8H476C477 44.8 477.6 45.6 477.6 46.3V104.7C477.6 105.6 478.4 106.2 479.2 106.2H516C517 106.2 517.6 107 517.6 107.7V121.4C517.6 122.3 516.8 122.9 516 122.9H459C458.3 123.4 457.5 122.6 457.5 121.7Z" fill="currentColor"/>
+        <path d="M121.3 152.3H94.3L121.3 126.1V132.3C125.4 132.3 129 130.7 131.7 128.1C134.3 125.6 136.1 121.9 136.1 118V54.2H156.6V118C156.6 127.4 152.7 136 146.3 142.2C139.8 148.5 131 152.3 121.3 152.3ZM30.6 54.2V118C30.6 121.9 32.2 125.5 35 128.1C37.6 130.6 41.4 132.3 45.4 132.3H67.9C70.9 132.3 73.4 129.9 73.4 126.9V98.9V76.9C70.5 69.4 59.9 69.4 57 76.9H48.3C46.3 76.9 44.5 75.2 44.5 73.2V57.9C44.5 55.9 46.2 54.2 48.3 54.2H57C59.9 61.7 70.5 61.7 73.4 54.2C107.1 54.2 114 60.3 124.2 72.8C124.3 73.4 121.9 76 120.9 75.3C114.8 69.7 99.3 69.8 95.2 76.3V127V132.4V134.4C95.2 144.3 86.9 152.4 76.6 152.4H45.3C35.6 152.4 26.7 148.6 20.3 142.4C13.9 136.1 10 127.5 10 118.1V54.2H30.6Z" fill="currentColor"/>
+        <path d="M45.3 10H121.3C131 10 139.9 13.8 146.3 20C152.7 26.2 156.6 34.8 156.6 44.2H136C136 40.3 134.4 36.7 131.6 34.1C129 31.6 125.2 29.9 121.2 29.9H45.3C41.2 29.9 37.6 31.5 34.9 34.1C32.3 36.6 30.5 40.3 30.5 44.2H10C10 34.8 13.9 26.2 20.3 20C26.7 13.8 35.5 10 45.3 10Z" fill="#FFCA05"/>
+      </svg>
+      <span class="tag">Go-to-market reference</span>
+    </div>
+    <h1>MQL, SQL and campaign attribution at Toolbx</h1>
+    <p class="lede">How contacts, accounts and deals move through the funnel, how each is labelled and dated in HubSpot, and what runs automatically.</p>
+    <div class="meta">
+      <span><b>State as of</b> 24 September 2026</span>
+      <span><b>Scope</b> GTM Campaigns, contacts, companies, Sales Pipeline deals</span>
+      <span><b>Owner</b> Marketing (Marketing OS)</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="layout">
+
+<nav class="toc" aria-label="Contents">
+  <div class="h">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li class="grp">Definitions</li>
+    <li><a href="#stages">Funnel stages</a></li>
+    <li><a href="#model">Data model</a></li>
+    <li><a href="#campaigns">Campaigns</a></li>
+    <li><a href="#labels">Contact–campaign labels</a></li>
+    <li class="grp">Qualification</li>
+    <li><a href="#mql">MQL</a></li>
+    <li><a href="#mqa">MQA</a></li>
+    <li><a href="#sql">SQL and HIRO</a></li>
+    <li><a href="#attribution">Deal attribution</a></li>
+    <li><a href="#dates">Dates</a></li>
+    <li><a href="#lifecycle">Lifecycle stage</a></li>
+    <li class="grp">Operations</li>
+    <li><a href="#automation">Automation</a></li>
+    <li><a href="#reconciler">Running the reconciler</a></li>
+    <li><a href="#ownership">Responsibilities</a></li>
+    <li><a href="#status">Rollout status</a></li>
+    <li><a href="#open">Open items</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<section id="overview">
+  <p class="eyebrow">Start here</p>
+  <h2>Overview</h2>
+  <div class="prose">
+    <p>Every campaign lives on the <b>GTM Campaign</b> object in HubSpot. Contacts, companies and deals are associated with campaigns, and each association carries labels describing what happened.</p>
+    <ul>
+      <li><b>Contacts</b> are labelled from recorded activity (replies, connected calls, meetings, forms, attendance and conversation notes) inside each campaign's attribution window.</li>
+      <li>A contact becomes an <b>MQL</b> the first time a campaign qualifies them. That date is <code>mos_mql_date</code>.</li>
+      <li>An account becomes an <b>MQA</b> when its first contact becomes an MQL (<code>mos_mqa_date</code>).</li>
+      <li>An <b>SQL</b> is a deal created in the Sales Pipeline. A <b>HIRO</b> is an SQL that reached Solution Review.</li>
+      <li>Each deal is credited to one campaign through <b>Primary deal source</b>.</li>
+      <li>The <b>reconciler</b> sets the contact labels and the MQL and MQA dates. Anything that would add a contact to a campaign or make them an MQL waits for approval in the Marketing OS <b>review queue</b>.</li>
+      <li>MQL and MQA dates before <b>1 September 2026</b> are locked.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="stages">
+  <p class="eyebrow">Definitions</p>
+  <h2>Funnel stages</h2>
+  <div class="flow" role="list">
+    <div class="step state" role="listitem"><div class="obj">Contact · company</div><div class="nm">Engaged ICP</div><div class="ds">Did something deliberate in the last 90 days.</div><div class="fld">rolling 90 days</div></div>
+    <div class="step mark" role="listitem"><div class="obj">Contact</div><div class="nm">MQL</div><div class="ds">First time a campaign qualifies them. Counted once.</div><div class="fld">mos_mql_date</div></div>
+    <div class="step mark" role="listitem"><div class="obj">Company</div><div class="nm">MQA</div><div class="ds">The account's first MQL.</div><div class="fld">mos_mqa_date</div></div>
+    <div class="step mark" role="listitem"><div class="obj">Deal</div><div class="nm">SQL</div><div class="ds">Deal created in the Sales Pipeline.</div><div class="fld">deal createdate</div></div>
+    <div class="step mark" role="listitem"><div class="obj">Deal</div><div class="nm">HIRO</div><div class="ds">SQL at Solution Review or beyond.</div><div class="fld">date entered Solution Review</div></div>
+  </div>
+  <div class="flowkey"><span><i style="background:var(--sunk)"></i>State: contacts and accounts move in and out</span><span><i style="background:var(--yellow);border-color:transparent"></i>Event: dated once, never reverses</span></div>
+
+  <div class="tbl w860"><table>
+    <thead><tr><th>Stage</th><th>Object</th><th>Definition</th><th>Date</th><th class="n">Q2 25 – Q3 26</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Engaged ICP contact</td><td>Contact</td><td>ICP contact whose last deliberate action (reply, connected call, meeting, attendance) is within the trailing 90 days.</td><td>—</td><td class="n">1,001 today</td></tr>
+      <tr><td class="k">Engaged ICP account</td><td>Company</td><td>Target account (ICP, not a customer) with at least one engaged ICP contact. Accounts at Awaiting Kick Off Call or In Flight count as customers.</td><td>—</td><td class="n">240 today</td></tr>
+      <tr><td class="k">MQL</td><td>Contact</td><td>Contact at an ICP company who qualified on a campaign. See <a href="#mql">MQL</a>.</td><td><code>mos_mql_date</code></td><td class="n">894</td></tr>
+      <tr><td class="k">MQA</td><td>Company</td><td>ICP account whose first contact has become an MQL.</td><td><code>mos_mqa_date</code></td><td class="n">644</td></tr>
+      <tr><td class="k">SQL</td><td>Deal</td><td>Deal created in the Sales Pipeline at an ICP company. New business and expansion both count; <code>dealtype</code> separates them. Renewals are in their own pipeline and don't count.</td><td>deal create date</td><td class="n">415</td></tr>
+      <tr><td class="k">HIRO</td><td>Deal</td><td>SQL that reached Solution Review or a later stage. Valued at <code>annual_recurring_revenue_w_est</code>.</td><td>date entered Solution Review</td><td class="n">296 · $7.82M</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Rates to report</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Rate</th><th>Use</th><th class="n">Q2 25 – Q3 26</th></tr></thead>
+    <tbody>
+      <tr><td class="k">MQA → SQL</td><td>Accounts to deals, the like-for-like conversion rate</td><td class="n">644 → 415</td></tr>
+      <tr><td class="k">SQL → HIRO</td><td>Deal quality</td><td class="n">71%</td></tr>
+      <tr><td class="k">MQL : SQL</td><td>A ratio, not a rate: MQL counts people and SQL counts deals</td><td class="n">894 : 415</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="model">
+  <p class="eyebrow">Definitions</p>
+  <h2>Data model</h2>
+  <div class="tbl w860"><table>
+    <thead><tr><th>Object</th><th>Field</th><th>Meaning</th><th>Set by</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Contact</td><td><code>mos_mql_date</code></td><td>First qualifying date. The MQL date.</td><td>Reconciler</td></tr>
+      <tr><td class="k"></td><td><code>mos_mql_last_date</code></td><td>Most recent qualifying date</td><td>Reconciler</td></tr>
+      <tr><td class="k"></td><td><code>mos_mql_basis</code></td><td><i>engagement</i>, <i>attendance</i> or <i>deal-inferred</i></td><td>Reconciler</td></tr>
+      <tr><td class="k"></td><td><code>mos_mql_reengaged_date</code> / <code>_count</code></td><td>Latest return after 210+ days' silence, and how many times</td><td>Reconciler</td></tr>
+      <tr><td class="k"></td><td><code>lifecyclestage</code></td><td>Marketing Qualified Lead is set from <code>mos_mql_date</code>; later stages by sales and deals</td><td>Reconciler (MQL) · Sales</td></tr>
+      <tr><td class="k">Company</td><td><code>mos_mqa_date</code></td><td>Earliest <code>mos_mql_date</code> among contacts whose primary company it is</td><td>Reconciler</td></tr>
+      <tr><td class="k"></td><td><code>is_icp</code></td><td>Company is in our ideal customer profile</td><td>HubSpot</td></tr>
+      <tr><td class="k">Deal</td><td>pipeline · <code>createdate</code> · <code>dealstage</code> · <code>dealtype</code> · <code>annual_recurring_revenue_w_est</code></td><td>What makes a deal an SQL or HIRO, and its value</td><td>Sales</td></tr>
+      <tr><td class="k">GTM Campaign</td><td>See <a href="#campaigns">Campaigns</a></td><td>Custom object <code>2-41201412</code></td><td>Marketing</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Associations</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Link</th><th>Labels</th><th>Set by</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Contact ↔ Campaign</td><td>Status · Depth · Intent · IO · RO, one of each (<a href="#labels">below</a>)</td><td>Reconciler; additions and MQL promotions via the review queue</td></tr>
+      <tr><td class="k">Company ↔ Campaign</td><td><code>Single contact</code> (one contact on the campaign) · <code>Multi-contact</code> (two or more)</td><td>Reconciler, from the contact count. A HubSpot workflow also writes these.</td></tr>
+      <tr><td class="k">Deal ↔ Campaign</td><td><code>Primary deal source</code> · <code>Sourced by</code> · <code>Accelerated by</code> · <code>Influenced by</code> (<a href="#attribution">Deal attribution</a>)</td><td>Daily attribution scan (proposals) and by hand</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="campaigns">
+  <p class="eyebrow">Definitions</p>
+  <h2>Campaigns</h2>
+  <div class="tbl w860"><table>
+    <thead><tr><th>Field</th><th>Meaning</th><th>Values</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><code>type</code></td><td>The format of the campaign. Sets the attribution window.</td><td>Conference, Trade Show, Roundtable, Virtual Event, Executive Networking, Cold Outbound, Inbound Demo Request, Upsell / Cross-Sell, …</td></tr>
+      <tr><td class="k">start / end date</td><td>When it ran. The window is measured from the end date (or the start date, if there's no end date).</td><td>dates</td></tr>
+      <tr><td class="k"><code>pipeline_source</code></td><td>The channel</td><td>Field / Events · Inbound · Outbound · Partner · Referral · Paid · …</td></tr>
+      <tr><td class="k"><code>sub_pipeline_source</code></td><td>The motion within the channel</td><td>Trade Show · Website · Sales Prospecting · Buying Group · Association · …</td></tr>
+      <tr><td class="k"><code>owning_function</code></td><td>Who owns the number. Separates marketing-sourced from sales-sourced pipeline.</td><td>Marketing · Sales</td></tr>
+      <tr><td class="k"><code>execution_model</code></td><td>Who does the work</td><td>In-house · Outsourced (Agency) · Partner-led · Hybrid</td></tr>
+      <tr><td class="k"><code>execution_vendor</code></td><td>The agency or partner, when there is one</td><td>AlleyOop · Throxy · …</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Agency outbound is tagged Outbound / Sales Prospecting / Cold Outbound, with <code>owning_function = Sales</code>, <code>execution_model = Outsourced (Agency)</code> and the vendor set. Each quarter has a <i>Sales Prospecting (YYYY-QN)</i> campaign for rep-sourced work, and <i>Customer Expansion</i> campaigns hold upsell and cross-sell.</p>
+
+  <h3>Attribution windows</h3>
+  <p>How long after a campaign ends it can claim a contact's activity or a new deal.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Campaign type</th><th class="n">Window</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Conference · Trade Show · Roundtable · Virtual Event · Executive Networking · Cold Outbound</td><td class="n">90 days</td></tr>
+      <tr><td class="k">All other types</td><td class="n">30 days</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="labels">
+  <p class="eyebrow">Definitions</p>
+  <h2>Contact–campaign labels</h2>
+  <p>One label from each dimension per contact–campaign link. Status, Depth and IO only ever move up. Positive outcomes apply as soon as they happen; <i>Unresponsive</i> and <i>No conversion</i> apply only once the window has closed.</p>
+
+  <h3>Status: did they engage?</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th class="n">Rank</th><th>Label</th><th>Set when</th></tr></thead>
+    <tbody>
+      <tr><td class="n">0</td><td class="k">Unresponsive</td><td>The window closed with no qualifying activity</td></tr>
+      <tr><td class="n">10</td><td class="k">Targeted</td><td>On the campaign, with no activity yet. Third-party event rosters and bought lists start here.</td></tr>
+      <tr><td class="n">20</td><td class="k">Lead</td><td>Identified by the campaign, not yet engaged</td></tr>
+      <tr><td class="n">30</td><td class="k">Registered</td><td>Signed up for an event we host</td></tr>
+      <tr><td class="n">35</td><td class="k">No show</td><td>Registered and didn't attend</td></tr>
+      <tr><td class="n">40</td><td class="k">Attendee</td><td>Attended. <b>MQL bar.</b></td></tr>
+      <tr><td class="n">50</td><td class="k">Engaged</td><td>A deliberate action: reply, connected call, meeting, conversation note, buying form or click</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Depth: how substantive was it?</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th class="n">Rank</th><th>Label</th><th>Set when</th></tr></thead>
+    <tbody>
+      <tr><td class="n">1</td><td class="k">Light touch</td><td>A click only</td></tr>
+      <tr><td class="n">2</td><td class="k">Content consumed</td><td>Attended, or consumed campaign content</td></tr>
+      <tr><td class="n">3</td><td class="k">Conversation</td><td>Reply, connected call, conversation note or buying form</td></tr>
+      <tr><td class="n">4</td><td class="k">Meeting</td><td>A meeting</td></tr>
+      <tr><td class="n">5</td><td class="k">Presented</td><td>Spoke or featured (set by hand)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Intent: the relationship when the campaign started</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Label</th><th>Set when, on the campaign's start date</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Customer</td><td>Had reached the Customer stage</td></tr>
+      <tr><td class="k">Pipeline</td><td>Had reached Opportunity</td></tr>
+      <tr><td class="k">Win-back</td><td>Had a closed-lost deal</td></tr>
+      <tr><td class="k">Nurture</td><td>Was a Lead, MQL or SQL. A stage set automatically when we created the record doesn't count; a stage from the contact's own form fill does.</td></tr>
+      <tr><td class="k">New logo</td><td>None of the above</td></tr>
+      <tr><td class="k">Partner</td><td>Set by hand</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>IO: initial outcome</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th class="n">Rank</th><th>Label</th><th>Set when</th></tr></thead>
+    <tbody>
+      <tr><td class="n">0</td><td class="k">IO: Pending</td><td>Window open, nothing converted yet</td></tr>
+      <tr><td class="n">5</td><td class="k">IO: No conversion</td><td>Window closed, nothing converted</td></tr>
+      <tr><td class="n">20</td><td class="k">IO: Converted - MQL</td><td>Contact qualifies as an MQL on this campaign (<a href="#mql">MQL rule</a>)</td></tr>
+      <tr><td class="n">30</td><td class="k">IO: Meeting booked</td><td>A meeting in the window, with no deal</td></tr>
+      <tr><td class="n">40</td><td class="k">IO: Deal created</td><td>A Sales Pipeline deal was created in the window. The SQL outcome.</td></tr>
+      <tr><td class="n">—</td><td class="k">Disqualified</td><td>Set by hand. Final.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>RO: revenue outcome</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Label</th><th>Set when the contact shares a deal with the campaign and that deal is</th></tr></thead>
+    <tbody>
+      <tr><td class="k">RO: Deal influenced</td><td>Open</td></tr>
+      <tr><td class="k">RO: Closed won</td><td>Won</td></tr>
+      <tr><td class="k">RO: Closed lost</td><td>Lost</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="mql">
+  <p class="eyebrow">Qualification</p>
+  <h2>MQL</h2>
+
+  <h3>What counts as evidence</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Activity</th><th>Qualifies?</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Email reply</td><td><span class="pill yes">Yes</span></td></tr>
+      <tr><td class="k">Connected call</td><td><span class="pill yes">Yes</span> 2 minutes or longer</td></tr>
+      <tr><td class="k">Meeting</td><td><span class="pill yes">Yes</span></td></tr>
+      <tr><td class="k">Conversation note (logged in Marketing OS)</td><td><span class="pill yes">Yes</span> counts only for the campaign it's logged against</td></tr>
+      <tr><td class="k">Buying form: demo booking, meetings link, waitlist, early access</td><td><span class="pill yes">Yes</span></td></tr>
+      <tr><td class="k">Event attendance</td><td><span class="pill yes">Yes</span></td></tr>
+      <tr><td class="k">Email click</td><td><span class="pill part">Not on its own</span></td></tr>
+      <tr><td class="k">Email open · auto-reply · calendar response · registered but absent</td><td><span class="pill no">No</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The rule</h3>
+  <p>A contact qualifies on a campaign when, inside its window, at least one of these holds:</p>
+  <div class="prose"><ul>
+    <li>Status is <b>Attendee</b> or <b>Engaged</b>, and the evidence is more than a click</li>
+    <li>They have a <b>Depth</b> label above Light touch</li>
+    <li>The campaign produced a meeting or a deal <b>and</b> there's recorded activity behind it</li>
+  </ul></div>
+  <p>Reported MQLs are then limited to contacts at <b>ICP companies</b>.</p>
+
+  <h3>The contact's MQL fields</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Field</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><code>mos_mql_date</code></td><td>The earliest qualifying date across all campaigns. Set once; it can move earlier if earlier evidence arrives, never later.</td></tr>
+      <tr><td class="k"><code>mos_mql_last_date</code></td><td>The latest qualifying date</td></tr>
+      <tr><td class="k"><code>mos_mql_basis</code></td><td>The strongest basis across campaigns: <b>engagement</b> (a recorded activity), <b>attendance</b> (attended, nothing else recorded) or <b>deal-inferred</b> (below). Never downgrades.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Deal-inferred MQLs</h3>
+  <p>When a campaign sources a deal and no contact on the deal qualified within 7 days of it opening, one contact on the deal (ICP first) is made an MQL, dated to the deal's create date, with basis <i>deal-inferred</i>. The system never overwrites an existing date. <a href="#open">See open item 2.</a></p>
+
+  <h3>Re-engagement</h3>
+  <p>An MQL who goes 210 days or more without a qualifying touch and then comes back is <b>re-engaged</b>, not a new MQL. <code>mos_mql_reengaged_date</code> holds the latest return and <code>mos_mql_reengaged_count</code> the number of returns. Re-engagements are reported as a separate line, never added to MQLs.</p>
+  <p class="small"><b>Why 210 days.</b> Two thresholds from our own data:</p>
+  <div class="prose small"><ul>
+    <li>The longest silence seen inside a live deal is 199 days.</li>
+    <li>95% of MQLs that become deals do so within 209 days.</li>
+  </ul></div>
+  <p class="small">210 is the first threshold that never fires on someone still in a buying cycle. A 180-day threshold misfires once in a live deal, and 90 days misfires 25 times.</p>
+
+  <h3>Counting</h3>
+  <pre><code>MQLs in a period     contacts at ICP companies with mos_mql_date in the period
+Strict marketing     … where mos_mql_basis = engagement
+By owner             … split by owning_function of the qualifying campaign
+Re-engaged           contacts with mos_mql_reengaged_date in the period (reported separately)</code></pre>
+</section>
+
+<section id="mqa">
+  <p class="eyebrow">Qualification</p>
+  <h2>MQA</h2>
+  <p><code>mos_mqa_date</code> is the earliest <code>mos_mql_date</code> among the contacts whose <b>primary</b> company is the account. It can move earlier if an earlier-dated contact appears, never later. Only ICP accounts are reported. <a href="#open">See open item 3</a> for a proposed tighter definition.</p>
+</section>
+
+<section id="sql">
+  <p class="eyebrow">Qualification</p>
+  <h2>SQL and HIRO</h2>
+  <div class="two">
+    <div class="card">
+      <h4>SQL</h4>
+      <p>A deal created in the <b>Sales Pipeline</b> at an ICP company, dated by its create date. Deals enter at <i>Meeting Booked</i>. <code>dealtype</code> separates new business from expansion; renewals sit in their own pipeline and don't count.</p>
+    </div>
+    <div class="card">
+      <h4>HIRO</h4>
+      <p>An SQL that reached <b>Solution Review</b> or later, dated by when it entered Solution Review. Pipeline value is the sum of <code>annual_recurring_revenue_w_est</code> on HIRO deals.</p>
+    </div>
+  </div>
+  <p class="small">Stage order: Meeting Booked → Solution Review → Proposal Review → Negotiation → Contract Sent → Closed Won. On contact–campaign links the SQL outcome is <i>IO: Deal created</i>. HubSpot's Sales Qualified Lead lifecycle stage is sales-owned and isn't used to count SQLs.</p>
+</section>
+
+<section id="attribution">
+  <p class="eyebrow">Qualification</p>
+  <h2>Deal attribution</h2>
+  <div class="tbl w860"><table>
+    <thead><tr><th>Label</th><th>Meaning</th><th>Rule</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Primary deal source</td><td>The one campaign credited with the deal. Sourced-pipeline reporting uses this.</td><td>Exactly one per deal, except influence-only deals, which have none</td></tr>
+      <tr><td class="k">Sourced by</td><td>The campaign that created the opportunity: the first qualifying touch</td><td>A single-touch deal carries both Sourced by and Primary deal source</td></tr>
+      <tr><td class="k">Accelerated by</td><td>A campaign that moved an existing deal forward</td><td>Only if the deal existed before the touch</td></tr>
+      <tr><td class="k">Influenced by</td><td>A campaign that touched the deal without sourcing or accelerating it</td><td>Default for any other qualifying touch</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>How credit is decided</h3>
+  <div class="prose"><ol>
+    <li><b>Primary contact.</b> A deal's campaigns come through its primary contact, the person who started the conversation. Other contacts on the deal don't add campaigns.</li>
+    <li><b>Evidence.</b> A touch earns credit only if its label records an actual interaction (Light touch or stronger). Targeted, No show and Pending earn none.</li>
+    <li><b>Window.</b> The deal must be created within the campaign's window.</li>
+    <li><b>Proximity.</b> A touch more than 90 days before the deal can be Influenced by, never Primary deal source. If no touch is close enough, the deal is influence-only.</li>
+    <li><b>Sales-sourced.</b> If no campaign qualifies and a rep connected first (an answered call, a reply or a meeting), the deal goes to that quarter's <i>Sales Prospecting (YYYY-QN)</i> campaign.</li>
+  </ol></div>
+  <p class="small">Multi-touch weighting (W-shape): one touch 100%; two 50/50; three 30/40/30; four or more 30% first, 30% key middle, 30% last, and 10% across the rest.</p>
+
+  <h3>Sourced and influenced pipeline</h3>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Measure</th><th>Filter</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Marketing-sourced</td><td>Deals whose Primary deal source campaign has <code>owning_function = Marketing</code></td></tr>
+      <tr><td class="k">Sales-sourced</td><td>Deals whose Primary deal source campaign has <code>owning_function = Sales</code></td></tr>
+      <tr><td class="k">Marketing-influenced</td><td>Deals with any campaign association</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="dates">
+  <p class="eyebrow">Qualification</p>
+  <h2>Dates</h2>
+
+  <h3>Evidence dates</h3>
+  <p>A campaign qualifies a contact on the date of its earliest qualifying evidence inside the window.</p>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Evidence</th><th>Dated by</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Email reply</td><td>When the reply was received</td></tr>
+      <tr><td class="k">Connected call</td><td>When the call took place</td></tr>
+      <tr><td class="k">Meeting</td><td>When it was booked, or when it took place if it was logged afterwards. A booking made before the campaign started is dated by the meeting itself.</td></tr>
+      <tr><td class="k">Buying form</td><td>The submission</td></tr>
+      <tr><td class="k">Conversation note</td><td>The conversation date the rep enters. A note logged during the event defaults to that moment; one logged after it defaults to the event's last day.</td></tr>
+      <tr><td class="k">Attendance, with no other activity</td><td>The campaign start date</td></tr>
+      <tr><td class="k">Deal-inferred</td><td>The deal's create date</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Field dates</h3>
+  <div class="tbl w860"><table>
+    <thead><tr><th>Field</th><th>Value</th><th>Can change</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><code>mos_mql_date</code></td><td>Earliest qualifying date across all campaigns</td><td>Only earlier; never after the lock</td></tr>
+      <tr><td class="k"><code>mos_mql_last_date</code></td><td>Latest qualifying date</td><td>Only later</td></tr>
+      <tr><td class="k"><code>mos_mql_reengaged_date</code></td><td>Latest return after 210+ days' silence</td><td>Only later</td></tr>
+      <tr><td class="k"><code>mos_mqa_date</code></td><td>Earliest <code>mos_mql_date</code> among the account's primary contacts</td><td>Only earlier; never after the lock</td></tr>
+      <tr><td class="k">SQL date</td><td>Deal create date</td><td>No</td></tr>
+      <tr><td class="k">HIRO date</td><td>Date the deal entered Solution Review</td><td>No</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <span class="k">Reporting lock: before 1 September 2026</span>
+    <p>MQL and MQA dates before 1 September 2026 are final: confirmed and shared with investors. The reconciler never moves or clears them, or changes their basis. An MQL or MQA found now whose true date falls before the lock is dated <b>1 September 2026</b>. Labels aren't locked. Every full run prints reported MQLs by month (current → after the run) and the number of locked months affected, which must be 0.</p>
+  </div>
+</section>
+
+<section id="lifecycle">
+  <p class="eyebrow">Qualification</p>
+  <h2>Lifecycle stage</h2>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Stage</th><th>Set by</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Subscriber · Lead</td><td>HubSpot on creation, forms and imports</td></tr>
+      <tr><td class="k">Marketing Qualified Lead</td><td>The reconciler, when <code>mos_mql_date</code> is set. No other workflow sets MQL. <span class="pill part">Building</span></td></tr>
+      <tr><td class="k">Sales Qualified Lead · Opportunity</td><td>Sales and deal creation</td></tr>
+      <tr><td class="k">Awaiting Kick Off Call · In Flight · Customer</td><td>Sales and onboarding</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Lifecycle stage only moves forward. HubSpot's "date entered MQL" records when the stage was set; the MQL date is always <code>mos_mql_date</code>.</p>
+</section>
+
+<section id="automation">
+  <p class="eyebrow">Operations</p>
+  <h2>Automation</h2>
+  <div class="tbl w860"><table>
+    <thead><tr><th>Process</th><th>Does</th><th>Runs</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Reconciler</td><td>Sets all contact–campaign labels, company breadth labels, <code>mos_mql_*</code>, <code>mos_mqa_date</code> and (building) the MQL lifecycle stage. Holds new campaign additions and MQL promotions for review.</td><td>Weekly full run; daily for recent activity (building)</td></tr>
+      <tr><td class="k">Review queue</td><td>Shows each held change with its evidence (kind, date, who logged it, the text) and whether it makes the contact an MQL. Approve writes the Status label; reject keeps the claim from being proposed again.</td><td>Reviewed by Marketing</td></tr>
+      <tr><td class="k">Daily attribution scan</td><td>Proposes campaign links and Primary deal source for recent contacts and deals. Deterministic, high-confidence matches apply automatically; the rest go to the queue.</td><td>Daily, 07:00</td></tr>
+      <tr><td class="k">Event capture</td><td>Reps log conversations per attendee. Each creates a HubSpot note on the contact and campaign, adds the contact to the campaign and can raise a follow-up task.</td><td>During and after events</td></tr>
+      <tr><td class="k">Attendee import</td><td>Adds attendee lists to a campaign: Registered for our events, Targeted for third-party shows.</td><td>After each event</td></tr>
+      <tr><td class="k">HubSpot breadth workflow</td><td>Adds Single contact / Multi-contact to company–campaign links</td><td>On HubSpot triggers</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="reconciler">
+  <p class="eyebrow">Operations</p>
+  <h2>Running the reconciler</h2>
+  <p><code>scripts/reconcile-campaign-labels.ts</code> works out the complete label set for every contact–campaign and company–campaign link and replaces what's there. It reads campaigns, associations, contact lifecycle history, deals, and email, call, meeting and note activity. It never edits deals or deal attribution labels.</p>
+  <pre><code># dry run (default): full report, writes nothing
+npx tsx scripts/reconcile-campaign-labels.ts
+
+# send held changes to the review queue
+npx tsx scripts/reconcile-campaign-labels.ts --propose=queue.json
+npx tsx scripts/import-attribution-proposals.ts queue.json --apply
+
+# write all changes that don't need review
+CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></pre>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Option</th><th>Effect</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><code>--apply</code></td><td>Writes. Requires <code>CONFIRM_APPLY=yes</code>.</td></tr>
+      <tr><td class="k"><code>--propose=file</code></td><td>Writes held changes to a file for the importer instead</td></tr>
+      <tr><td class="k"><code>--include-review</code></td><td>Also writes held changes (for deliberate backfills only)</td></tr>
+      <tr><td class="k"><code>--campaign=id</code> · <code>--only=dimension</code></td><td>Limits the run. MQL dates aren't written on a limited run.</td></tr>
+      <tr><td class="k"><code>--json=file</code></td><td>Exports every proposed change for review</td></tr>
+      <tr><td class="k"><code>--mql-out=file</code></td><td>Exports every contact's MQL date after the run</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">A full dry run takes about 15–20 minutes, and a full apply about 40. Before applying, check the dry run's month table: locked months affected must be 0.</p>
+</section>
+
+<section id="ownership">
+  <p class="eyebrow">Operations</p>
+  <h2>Responsibilities</h2>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Area</th><th>Marketing</th><th>Sales Ops</th></tr></thead>
+    <tbody>
+      <tr><td class="k">MQL and MQA definitions</td><td>Owns</td><td>Agrees</td></tr>
+      <tr><td class="k">SQL and HIRO definitions</td><td>Agrees</td><td>Owns</td></tr>
+      <tr><td class="k">Campaign records and fields</td><td>Owns</td><td>Owns Sales Prospecting and agency campaigns</td></tr>
+      <tr><td class="k">Review queue</td><td>Reviews</td><td>Joins for deal attribution</td></tr>
+      <tr><td class="k">Conversation notes at events</td><td>Owns the tool</td><td>Reps log them</td></tr>
+      <tr><td class="k">Deals: pipeline, stages, deal type, primary contact</td><td>—</td><td>Owns</td></tr>
+      <tr><td class="k">Primary deal source on deals created by hand</td><td>Reviews</td><td>Sets it</td></tr>
+      <tr><td class="k">Lifecycle stage</td><td>MQL (via the reconciler)</td><td>SQL and later</td></tr>
+      <tr><td class="k">Reconciler runs and the reporting lock</td><td>Owns</td><td>—</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="status">
+  <p class="eyebrow">Operations</p>
+  <h2>Rollout status</h2>
+  <div class="tbl w720"><table>
+    <thead><tr><th>Item</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Labels, MQL/MQA dates, reporting lock, review queue with evidence</td><td><span class="pill yes">Live</span></td></tr>
+      <tr><td class="k">Conversation date on notes; form and meeting dating</td><td><span class="pill yes">Live</span></td></tr>
+      <tr><td class="k">IO outcomes: Converted - MQL from the MQL rule, Deal created as the SQL outcome</td><td><span class="pill part">Ready</span> applies on the next full run</td></tr>
+      <tr><td class="k">MQL lifecycle stage set from <code>mos_mql_date</code>; MQL-setting workflows turned off</td><td><span class="pill part">Building</span></td></tr>
+      <tr><td class="k">Daily reconciler for recent activity</td><td><span class="pill part">Building</span></td></tr>
+      <tr><td class="k">HubSpot HIRO rollup aligned to Solution Review+ at ARR</td><td><span class="pill part">To do</span> in HubSpot</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="open">
+  <p class="eyebrow">Operations</p>
+  <h2>Open items</h2>
+  <div class="decisions">
+    <div class="dec">
+      <h4>Scope evidence to the campaign</h4>
+      <p>Only conversation notes are tied to a specific campaign today. Any other qualifying activity inside a window counts for <i>every</i> campaign the contact is on. A sales call four weeks after a show can qualify the contact on the show, even if nobody spoke to them there.</p>
+      <p class="rec"><b>Proposed:</b></p>
+      <div class="prose small"><ul>
+        <li><b>Event campaigns</b> count only attendance, conversation notes, and meetings or forms during the event.</li>
+        <li><b>Outreach campaigns</b> count replies to their own sends.</li>
+        <li><b>Sales calls and meetings</b> not tied to a campaign count for that quarter's Sales Prospecting campaign.</li>
+      </ul></div>
+    </div>
+    <div class="dec">
+      <h4>Stop creating deal-inferred MQLs</h4>
+      <p>These make an MQL out of a deal, without any marketing evidence. That makes the funnel add up, but it hides the case it should show: an SQL no MQL came before.</p>
+      <p class="rec"><b>Proposed:</b> from September, stop creating them, and report "SQLs without an MQL" as its own line. Existing ones before the lock stay.</p>
+    </div>
+    <div class="dec">
+      <h4>Make MQA a multi-contact threshold</h4>
+      <p>Marketing-led accounts, excluding MQAs created by the deal itself, convert to a deal within a year in line with how many contacts qualified first:</p>
+      <div class="tbl" style="margin:8px 0 10px"><table>
+        <thead><tr><th>MQL contacts on the account</th><th class="n">Accounts</th><th class="n">Became a deal</th></tr></thead>
+        <tbody>
+          <tr><td class="k">1</td><td class="n">257</td><td class="n">18%</td></tr>
+          <tr><td class="k">2</td><td class="n">53</td><td class="n">30%</td></tr>
+          <tr><td class="k">3+</td><td class="n">20</td><td class="n">40%</td></tr>
+        </tbody>
+      </table></div>
+      <p class="rec"><b>Proposed:</b> MQA = an ICP account with 2+ MQL contacts within 180 days, dated by the second. The current single-contact count becomes "engaged accounts".</p>
+    </div>
+    <div class="dec">
+      <h4>Record the SQL date on the contact</h4>
+      <p class="rec"><b>Proposed:</b> <code>mos_sql_date</code> on the deal's primary contact, set to the deal's create date. This lets contact-level MQL → SQL timing be measured without changing how SQLs are counted.</p>
+    </div>
+    <div class="dec">
+      <h4>Mark the primary contact on deals</h4>
+      <p>Until this exists, the attribution scan reads every contact on a deal.</p>
+      <p class="rec"><b>Proposed:</b> a <code>Primary contact</code> label on the deal–contact association, set by sales when the deal is created. Attribution then reads it directly.</p>
+    </div>
+    <div class="dec">
+      <h4>One writer for company breadth labels</h4>
+      <p>The reconciler and a HubSpot workflow both write Single / Multi-contact. The workflow adds labels without removing them.</p>
+      <p class="rec"><b>Status:</b> left as is for now.</p>
+    </div>
+  </div>
+</section>
+
+<section id="glossary">
+  <p class="eyebrow">Reference</p>
+  <h2>Glossary</h2>
+  <div class="tbl w720"><table>
+    <tbody>
+      <tr><td class="k">GTM Campaign</td><td>The custom HubSpot object (<code>2-41201412</code>) every campaign lives on</td></tr>
+      <tr><td class="k">Window</td><td>How long after a campaign ends it can claim activity or a deal: 90 days for events and cold outbound, 30 days otherwise</td></tr>
+      <tr><td class="k">Evidence</td><td>A recorded qualifying activity: reply, connected call, meeting, conversation note, buying form or attendance</td></tr>
+      <tr><td class="k">Basis</td><td>How an MQL qualified: engagement, attendance or deal-inferred</td></tr>
+      <tr><td class="k">Held change</td><td>A label change that adds a contact to a campaign or makes them an MQL. Needs approval.</td></tr>
+      <tr><td class="k">Re-engagement</td><td>An MQL's return after 210+ days of silence. Reported separately from MQLs.</td></tr>
+      <tr><td class="k">Reporting lock</td><td>MQL and MQA dates before 1 Sep 2026 are final</td></tr>
+      <tr><td class="k">Primary deal source</td><td>The one campaign credited with a deal</td></tr>
+      <tr><td class="k">Owning function</td><td>Who owns a campaign's number: Marketing or Sales</td></tr>
+      <tr><td class="k">HIRO</td><td>High-intent revenue opportunity: an SQL at Solution Review or beyond</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer class="end">
+  Reflects the system as of 24 September 2026. Definitions match "Eighteen Months of Pipeline" and replace the MQL, window and HIRO sections of <code>docs/attribution-guide.md</code>.
+</footer>
+
+</main>
+</div>
+</div>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on')}
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s)});
+})();
+</script>
+
+</body></html>
