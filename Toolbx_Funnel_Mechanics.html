@@ -193,7 +193,7 @@ html{scroll-behavior:smooth}
     <h1>MQL, SQL and campaign attribution at Toolbx</h1>
     <p class="lede">How contacts, accounts and deals move through the funnel, how each is labelled and dated in HubSpot, and what runs automatically.</p>
     <div class="meta">
-      <span><b>State as of</b> 24 September 2026</span>
+      <span><b>State as of</b> 28 September 2026</span>
       <span><b>Scope</b> GTM Campaigns, contacts, companies, Sales Pipeline deals</span>
       <span><b>Owner</b> Marketing (Marketing OS)</span>
     </div>
@@ -210,7 +210,7 @@ html{scroll-behavior:smooth}
     <li class="grp">Definitions</li>
     <li><a href="#stages">Funnel stages</a></li>
     <li><a href="#model">Data model</a></li>
-    <li><a href="#campaigns">Campaigns</a></li>
+    <li><a href="#campaigns">GTM Campaign</a></li>
     <li><a href="#labels">Contact–campaign labels</a></li>
     <li class="grp">Qualification</li>
     <li><a href="#mql">MQL</a></li>
@@ -279,6 +279,8 @@ html{scroll-behavior:smooth}
       <tr><td class="k">MQA → SQL</td><td>Accounts to deals, the like-for-like conversion rate</td><td class="n">644 → 415</td></tr>
       <tr><td class="k">SQL → HIRO</td><td>Deal quality</td><td class="n">71%</td></tr>
       <tr><td class="k">MQL : SQL</td><td>A ratio, not a rate: MQL counts people and SQL counts deals</td><td class="n">894 : 415</td></tr>
+      <tr><td class="k">SQL → Closed Won</td><td>Deal win rate</td><td class="n">—</td></tr>
+      <tr><td class="k">MQL : Closed Won</td><td>End-to-end ratio: MQLs to won deals. A ratio, not a rate.</td><td class="n">—</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -295,7 +297,8 @@ html{scroll-behavior:smooth}
       <tr><td class="k"></td><td><code>mos_mql_reengaged_date</code> / <code>_count</code></td><td>Latest return after 210+ days' silence, and how many times</td><td>Reconciler</td></tr>
       <tr><td class="k"></td><td><code>lifecyclestage</code></td><td>Marketing Qualified Lead is set from <code>mos_mql_date</code>; later stages by sales and deals</td><td>Reconciler (MQL) · Sales</td></tr>
       <tr><td class="k">Company</td><td><code>mos_mqa_date</code></td><td>Earliest <code>mos_mql_date</code> among contacts whose primary company it is</td><td>Reconciler</td></tr>
-      <tr><td class="k"></td><td><code>is_icp</code></td><td>Company is in our ideal customer profile</td><td>HubSpot</td></tr>
+      <tr><td class="k"></td><td><code>mos_mqa_last_date</code></td><td>Latest <code>mos_mql_date</code> among the account's primary contacts (<a href="#open">open item 7</a>)</td><td>Reconciler (proposed)</td></tr>
+      <tr><td class="k"></td><td><code>is_icp</code></td><td>Company is in our ideal customer profile (<a href="#icp-determination">see below</a>)</td><td>HubSpot workflow</td></tr>
       <tr><td class="k">Deal</td><td>pipeline · <code>createdate</code> · <code>dealstage</code> · <code>dealtype</code> · <code>annual_recurring_revenue_w_est</code></td><td>What makes a deal an SQL or HIRO, and its value</td><td>Sales</td></tr>
       <tr><td class="k">GTM Campaign</td><td>See <a href="#campaigns">Campaigns</a></td><td>Custom object <code>2-41201412</code></td><td>Marketing</td></tr>
     </tbody>
@@ -310,11 +313,21 @@ html{scroll-behavior:smooth}
       <tr><td class="k">Deal ↔ Campaign</td><td><code>Primary deal source</code> · <code>Sourced by</code> · <code>Accelerated by</code> · <code>Influenced by</code> (<a href="#attribution">Deal attribution</a>)</td><td>Daily attribution scan (proposals) and by hand</td></tr>
     </tbody>
   </table></div>
+
+  <div class="callout sea" id="icp-determination">
+    <span class="k">How is_icp is determined</span>
+    <p><code>is_icp</code> is set by a <a href="https://app.hubspot.com/workflows/49044619/platform/flow/1754209870/edit/actions/2/list-branch" target="_blank" rel="noopener">HubSpot workflow</a> that evaluates company properties against ICP criteria. The logic includes a product-category vertical branch that is still <b>work in progress</b>. Until the vertical logic ships, some companies may carry a stale ICP status.</p>
+  </div>
+
+  <div class="callout warn" id="icp-revocation">
+    <span class="k">ICP status revocation</span>
+    <p>If <code>is_icp</code> is cleared on a company, existing MQL and MQA dates on its contacts and the company itself are <b>not</b> removed: those dates reflect that the contact qualified when the company was ICP. Reporting filters on current ICP status, so revoked companies drop out of reported counts automatically. The reconciler will not create new MQLs for contacts at non-ICP companies.</p>
+  </div>
 </section>
 
 <section id="campaigns">
   <p class="eyebrow">Definitions</p>
-  <h2>Campaigns</h2>
+  <h2>GTM Campaign <span class="small muted">(custom CRM object)</span></h2>
   <div class="tbl w860"><table>
     <thead><tr><th>Field</th><th>Meaning</th><th>Values</th></tr></thead>
     <tbody>
@@ -328,6 +341,7 @@ html{scroll-behavior:smooth}
     </tbody>
   </table></div>
   <p class="small">Agency outbound is tagged Outbound / Sales Prospecting / Cold Outbound, with <code>owning_function = Sales</code>, <code>execution_model = Outsourced (Agency)</code> and the vendor set. Each quarter has a <i>Sales Prospecting (YYYY-QN)</i> campaign for rep-sourced work, and <i>Customer Expansion</i> campaigns hold upsell and cross-sell.</p>
+  <p class="small"><b>Sales-owned campaigns use the same automation as marketing-owned ones.</b> The reconciler and daily attribution scan treat all GTM campaigns identically regardless of <code>owning_function</code>. Labels, MQL dates and deal attribution all follow the same rules.</p>
 
   <h3>Attribution windows</h3>
   <p>How long after a campaign ends it can claim a contact's activity or a new deal.</p>
@@ -417,8 +431,8 @@ html{scroll-behavior:smooth}
     <thead><tr><th>Activity</th><th>Qualifies?</th></tr></thead>
     <tbody>
       <tr><td class="k">Email reply</td><td><span class="pill yes">Yes</span></td></tr>
-      <tr><td class="k">Connected call</td><td><span class="pill yes">Yes</span> 2 minutes or longer</td></tr>
-      <tr><td class="k">Meeting</td><td><span class="pill yes">Yes</span></td></tr>
+      <tr><td class="k">Connected call</td><td><span class="pill yes">Yes</span> 2 minutes or longer; excludes calls with a "Gatekeeper" outcome</td></tr>
+      <tr><td class="k">Meeting</td><td><span class="pill yes">Yes</span> excludes no-shows</td></tr>
       <tr><td class="k">Conversation note (logged in Marketing OS)</td><td><span class="pill yes">Yes</span> counts only for the campaign it's logged against</td></tr>
       <tr><td class="k">Buying form: demo booking, meetings link, waitlist, early access</td><td><span class="pill yes">Yes</span></td></tr>
       <tr><td class="k">Event attendance</td><td><span class="pill yes">Yes</span></td></tr>
@@ -469,6 +483,11 @@ Re-engaged           contacts with mos_mql_reengaged_date in the period (reporte
   <p class="eyebrow">Qualification</p>
   <h2>MQA</h2>
   <p><code>mos_mqa_date</code> is the earliest <code>mos_mql_date</code> among the contacts whose <b>primary</b> company is the account. It can move earlier if an earlier-dated contact appears, never later. Only ICP accounts are reported. <a href="#open">See open item 3</a> for a proposed tighter definition.</p>
+
+  <div class="callout warn">
+    <span class="k">MQA gap risk</span>
+    <p>Because the reconciler runs weekly (daily for recent activity, once built), there can be a lag between a contact becoming an MQL and the company's <code>mos_mqa_date</code> being set. During this window, reports that count MQAs may undercount by the unprocessed MQLs. The daily run (building) will narrow the lag to &lt;24 hours for recent activity. Until then, expect up to a 7-day delay between MQL and MQA for contacts processed in the weekly full run.</p>
+  </div>
 </section>
 
 <section id="sql">
@@ -535,7 +554,7 @@ Re-engaged           contacts with mos_mql_reengaged_date in the period (reporte
       <tr><td class="k">Meeting</td><td>When it was booked, or when it took place if it was logged afterwards. A booking made before the campaign started is dated by the meeting itself.</td></tr>
       <tr><td class="k">Buying form</td><td>The submission</td></tr>
       <tr><td class="k">Conversation note</td><td>The conversation date the rep enters. A note logged during the event defaults to that moment; one logged after it defaults to the event's last day.</td></tr>
-      <tr><td class="k">Attendance, with no other activity</td><td>The campaign start date</td></tr>
+      <tr><td class="k">Attendance, with no other activity</td><td>The GTM campaign start date</td></tr>
       <tr><td class="k">Deal-inferred</td><td>The deal's create date</td></tr>
     </tbody>
   </table></div>
@@ -620,18 +639,19 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
 <section id="ownership">
   <p class="eyebrow">Operations</p>
   <h2>Responsibilities</h2>
-  <div class="tbl w720"><table>
-    <thead><tr><th>Area</th><th>Marketing</th><th>Sales Ops</th></tr></thead>
+  <div class="tbl w860"><table>
+    <thead><tr><th>Area</th><th>Marketing</th><th>Sales Ops</th><th>AE / Sales</th></tr></thead>
     <tbody>
-      <tr><td class="k">MQL and MQA definitions</td><td>Owns</td><td>Agrees</td></tr>
-      <tr><td class="k">SQL and HIRO definitions</td><td>Agrees</td><td>Owns</td></tr>
-      <tr><td class="k">Campaign records and fields</td><td>Owns</td><td>Owns Sales Prospecting and agency campaigns</td></tr>
-      <tr><td class="k">Review queue</td><td>Reviews</td><td>Joins for deal attribution</td></tr>
-      <tr><td class="k">Conversation notes at events</td><td>Owns the tool</td><td>Reps log them</td></tr>
-      <tr><td class="k">Deals: pipeline, stages, deal type, primary contact</td><td>—</td><td>Owns</td></tr>
-      <tr><td class="k">Primary deal source on deals created by hand</td><td>Reviews</td><td>Sets it</td></tr>
-      <tr><td class="k">Lifecycle stage</td><td>MQL (via the reconciler)</td><td>SQL and later</td></tr>
-      <tr><td class="k">Reconciler runs and the reporting lock</td><td>Owns</td><td>—</td></tr>
+      <tr><td class="k">MQL and MQA definitions</td><td>Owns</td><td>Agrees</td><td>—</td></tr>
+      <tr><td class="k">SQL and HIRO definitions</td><td>Agrees</td><td>Owns</td><td>—</td></tr>
+      <tr><td class="k">Campaign records and fields</td><td>Owns</td><td>Owns Sales Prospecting and agency campaigns</td><td>—</td></tr>
+      <tr><td class="k">Review queue</td><td>Reviews</td><td>Joins for deal attribution</td><td>—</td></tr>
+      <tr><td class="k">Conversation notes at events</td><td>Owns the tool</td><td>—</td><td>Logs notes per attendee</td></tr>
+      <tr><td class="k">Deals: pipeline, stages, deal type</td><td>—</td><td>Owns</td><td>Creates and maintains deals</td></tr>
+      <tr><td class="k">Primary contact on deals</td><td>—</td><td>Supports</td><td>Sets it at deal creation</td></tr>
+      <tr><td class="k">Primary deal source on deals created by hand</td><td>Reviews</td><td>Sets it</td><td>—</td></tr>
+      <tr><td class="k">Lifecycle stage</td><td>MQL (via the reconciler)</td><td>SQL and later</td><td>—</td></tr>
+      <tr><td class="k">Reconciler runs and the reporting lock</td><td>Owns</td><td>—</td><td>—</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -686,17 +706,37 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
     </div>
     <div class="dec">
       <h4>Record the SQL date on the contact</h4>
-      <p class="rec"><b>Proposed:</b> <code>mos_sql_date</code> on the deal's primary contact, set to the deal's create date. This lets contact-level MQL → SQL timing be measured without changing how SQLs are counted.</p>
+      <p class="rec"><b>Approved.</b> <code>mos_sql_date</code> on the deal's primary contact, set to the deal's create date. This lets contact-level MQL → SQL timing be measured without changing how SQLs are counted.</p>
     </div>
     <div class="dec">
       <h4>Mark the primary contact on deals</h4>
       <p>Until this exists, the attribution scan reads every contact on a deal.</p>
-      <p class="rec"><b>Proposed:</b> a <code>Primary contact</code> label on the deal–contact association, set by sales when the deal is created. Attribution then reads it directly.</p>
+      <p class="rec"><b>Proposed:</b> a <code>Primary contact</code> label on the deal–contact association. AEs set this when they create the deal; Sales Ops supports with training and auditing. Attribution then reads it directly.</p>
     </div>
     <div class="dec">
       <h4>One writer for company breadth labels</h4>
       <p>The reconciler and a HubSpot workflow both write Single / Multi-contact. The workflow adds labels without removing them.</p>
       <p class="rec"><b>Status:</b> left as is for now.</p>
+    </div>
+    <div class="dec">
+      <h4>Record the latest MQA date on the company</h4>
+      <p class="rec"><b>Proposed:</b> <code>mos_mqa_last_date</code> on the company, set to the latest <code>mos_mql_date</code> among its primary contacts. Mirrors <code>mos_mql_last_date</code> at the account level for re-engagement and recency analysis.</p>
+    </div>
+    <div class="dec">
+      <h4><span class="pill part">Flag for Connor</span> Connected calls exclude "Gatekeeper" outcomes</h4>
+      <p>Calls whose outcome is "Gatekeeper" are not treated as qualifying evidence, even if they meet the 2-minute threshold. Confirm this exclusion is correctly applied in call-activity scoring.</p>
+    </div>
+    <div class="dec">
+      <h4><span class="pill part">Flag for Connor</span> Meetings exclude no-shows</h4>
+      <p>Meetings where the prospect did not attend are excluded from qualifying evidence. Confirm no-show detection logic and how it interacts with the meeting booking date vs. meeting date evidence rule.</p>
+    </div>
+    <div class="dec">
+      <h4><span class="pill part">Flag for Connor</span> New Logo and Pipeline mutual exclusivity</h4>
+      <p>The Intent labels New Logo and Pipeline should be mutually exclusive. A contact in active pipeline at a campaign's start should never also be labelled New Logo. Confirm the reconciler enforces this.</p>
+    </div>
+    <div class="dec">
+      <h4><span class="pill part">Flag for Connor</span> Who sets IO: Disqualified</h4>
+      <p>Disqualified is set by hand today. Determine who should own setting this label (Marketing, Sales Ops or AEs) and whether any guardrails or approval flow are needed.</p>
     </div>
   </div>
 </section>
@@ -721,7 +761,7 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
 </section>
 
 <footer class="end">
-  Reflects the system as of 24 September 2026. Definitions match "Eighteen Months of Pipeline" and replace the MQL, window and HIRO sections of <code>docs/attribution-guide.md</code>.
+  Reflects the system as of 28 September 2026. Definitions match "Eighteen Months of Pipeline" and replace the MQL, window and HIRO sections of <code>docs/attribution-guide.md</code>.
 </footer>
 
 </main>
