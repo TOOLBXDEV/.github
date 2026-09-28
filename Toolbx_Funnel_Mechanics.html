@@ -157,22 +157,22 @@ td.wrapk{white-space:normal;min-width:130px}
 .tl-wait::after{content:"";flex-shrink:0;width:0;height:0;border-left:5px solid var(--ink-3);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;opacity:.25}
 
 /* reconciler bar */
-.tl-recon{display:flex;align-items:center;gap:10px;padding:10px 20px 10px calc(80px + 20px + 8px);border-bottom:1px solid var(--rule-2);background:var(--sunk);position:relative}
+.tl-recon{display:grid;grid-template-columns:auto 1fr 1fr 1fr;align-items:center;padding:12px 20px;background:var(--sunk);gap:10px;position:relative}
 .tl-recon::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sea),var(--blue),var(--yellow))}
+.tl-recon-info{display:flex;align-items:center;gap:10px}
 .tl-recon-icon{width:28px;height:28px;border-radius:6px;background:var(--surface);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;color:var(--ink-2)}
-.tl-recon-title{font-family:var(--fd);font-weight:700;font-size:.95rem;letter-spacing:-.01em;flex-shrink:0}
+.tl-recon-title{font-family:var(--fd);font-weight:700;font-size:.95rem;letter-spacing:-.01em}
 .tl-recon-ds{font-size:12.5px;color:var(--ink-2);line-height:1.35}
-
-/* pipeline stages in deal lane */
-.tl-pipe{min-width:0}
-.tl-pipe>.tl-node{margin-bottom:10px}
-.tl-pipe-stages{display:flex;align-items:center;gap:0;flex-wrap:wrap;row-gap:6px}
-.tl-pipe-stage{flex:0 0 auto;padding:5px 10px;font-size:11.5px;font-weight:500;color:var(--ink-2);background:var(--sunk);border:1px solid var(--rule-2);border-radius:4px;white-space:nowrap}
-.tl-pipe-stage.hiro{background:var(--tint);border-color:var(--yellow);color:var(--ink);font-weight:600;box-shadow:0 0 0 2px var(--yellow)}
-.tl-pipe-sep{flex:0 0 auto;width:14px;display:flex;align-items:center;justify-content:center}
-.tl-pipe-sep::before{content:"";width:5px;height:5px;border-right:1.5px solid var(--ink-3);border-top:1.5px solid var(--ink-3);transform:rotate(45deg);display:block}
-.tl-pipe-note{margin-top:6px;font-size:11px;color:var(--ink-3);line-height:1.4}
-.tl-pipe-note b{font-weight:600;color:var(--ink-2)}
+.tl-recon-conn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 12px;border-radius:6px;border:1px solid var(--rule-2);background:var(--surface);min-width:0;text-align:center}
+.tl-recon-conn .arr{width:16px;height:16px;display:flex;align-items:center;justify-content:center}
+.tl-recon-conn .arr::before{content:"";display:block}
+.tl-recon-conn.writes .arr::before{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid currentColor}
+.tl-recon-conn.reads .arr::before{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:6px solid currentColor}
+.tl-recon-conn .obj{font-size:12px;font-weight:600;line-height:1.2}
+.tl-recon-conn .act{font-size:10.5px;color:var(--ink-2);line-height:1.3}
+.tl-recon-conn.contact{color:var(--sea);border-color:var(--sea)}
+.tl-recon-conn.company{color:var(--blue);border-color:var(--blue)}
+.tl-recon-conn.deal{color:var(--gold);border-color:var(--gold);border-style:dashed}
 
 /* timeline key */
 .timeline-key{display:flex;gap:14px 22px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
@@ -230,7 +230,7 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   .flow{grid-template-columns:1fr 1fr}
   .step{border-bottom:1px solid var(--rule-2)}
   .tl-header,.tl-lane{grid-template-columns:60px minmax(100px,1fr) 20px minmax(90px,1fr) 20px minmax(0,2fr);padding-inline:14px}
-  .tl-recon{padding-left:calc(60px + 14px + 8px)}
+  .tl-recon{padding-inline:14px}
 }
 @media (max-width:640px){
   .wrap,.masthead .inner{padding-inline:16px}
@@ -246,9 +246,9 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   .tl-arrow{justify-self:center;transform:rotate(90deg)}
   .tl-spacer{display:none}
   .tl-wait{grid-column:auto;padding:4px 0}
-  .tl-recon{padding:10px 16px;flex-wrap:wrap}
-  .tl-pipe-stages{flex-wrap:wrap;gap:6px}
-  .tl-pipe-sep{width:auto;padding:0 2px}
+  .tl-recon{grid-template-columns:1fr;gap:8px;padding:12px 16px}
+  .tl-recon-conn{flex-direction:row;gap:8px;padding:8px 12px}
+  .tl-recon-conn .arr{transform:rotate(90deg)}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 html{scroll-behavior:smooth}
@@ -356,13 +356,6 @@ html{scroll-behavior:smooth}
       <div class="tl-spacer"></div>
     </div>
 
-    <!-- Reconciler bar -->
-    <div class="tl-recon">
-      <div class="tl-recon-icon">&#9881;</div>
-      <div class="tl-recon-title">Reconciler</div>
-      <div class="tl-recon-ds">Reads campaign activity and writes MQL/MQA dates, contact&ndash;campaign labels, and lifecycle stages</div>
-    </div>
-
     <!-- Company swim lane -->
     <div class="tl-lane company">
       <div class="tl-label">Company</div>
@@ -383,25 +376,35 @@ html{scroll-behavior:smooth}
     <div class="tl-lane deal">
       <div class="tl-label">Deal</div>
       <div class="tl-wait"></div>
-      <div class="tl-pipe">
-        <div class="tl-node event">
-          <div class="tl-nm">SQL</div>
-          <div class="tl-ds">Deal created in the Sales Pipeline. New biz and expansion; renewals excluded.</div>
+      <div class="tl-node event">
+        <div class="tl-nm">SQL</div>
+        <div class="tl-ds">Deal created in the Sales Pipeline. New biz and expansion; renewals excluded.</div>
+      </div>
+    </div>
+
+    <!-- Reconciler — shows how the tool interacts with each object -->
+    <div class="tl-recon">
+      <div class="tl-recon-info">
+        <div class="tl-recon-icon">&#9881;</div>
+        <div>
+          <div class="tl-recon-title">Reconciler</div>
+          <div class="tl-recon-ds">Automation that syncs campaign activity across all three objects</div>
         </div>
-        <div class="tl-pipe-stages">
-          <div class="tl-pipe-stage">Mtg Booked</div>
-          <div class="tl-pipe-sep"></div>
-          <div class="tl-pipe-stage hiro">Solution Review</div>
-          <div class="tl-pipe-sep"></div>
-          <div class="tl-pipe-stage">Proposal Review</div>
-          <div class="tl-pipe-sep"></div>
-          <div class="tl-pipe-stage">Negotiation</div>
-          <div class="tl-pipe-sep"></div>
-          <div class="tl-pipe-stage">Contract Sent</div>
-          <div class="tl-pipe-sep"></div>
-          <div class="tl-pipe-stage">Closed Won</div>
-        </div>
-        <div class="tl-pipe-note"><b>HIRO</b> = any opportunity that has ever entered Solution Review (also can be used to filter out unworked deals)</div>
+      </div>
+      <div class="tl-recon-conn contact writes">
+        <div class="arr"></div>
+        <div class="obj">Contact</div>
+        <div class="act">Writes MQL dates, campaign labels, lifecycle stage</div>
+      </div>
+      <div class="tl-recon-conn company writes">
+        <div class="arr"></div>
+        <div class="obj">Company</div>
+        <div class="act">Writes MQA dates</div>
+      </div>
+      <div class="tl-recon-conn deal reads">
+        <div class="arr"></div>
+        <div class="obj">Deal</div>
+        <div class="act">Reads deal &amp; lifecycle history</div>
       </div>
     </div>
   </div>
