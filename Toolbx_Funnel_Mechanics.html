@@ -118,6 +118,53 @@ td.wrapk{white-space:normal;min-width:130px}
 .flowkey{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
 .flowkey i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--rule)}
 
+/* swim-lane funnel */
+.swim{display:flex;flex-direction:column;gap:0;margin:22px 0 14px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--surface)}
+.lane{display:grid;grid-template-columns:110px 1fr;align-items:stretch;border-bottom:1px solid var(--rule-2)}
+.lane:last-child{border-bottom:0}
+.lane-label{display:flex;align-items:center;justify-content:center;padding:12px 8px;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;writing-mode:horizontal-tb;text-align:center;line-height:1.3}
+.lane.contact .lane-label{color:var(--sea);background:var(--sea-tint)}
+.lane.company .lane-label{color:var(--blue);background:rgba(58,80,107,.08)}
+.lane.deal .lane-label{color:var(--gold);background:var(--tint)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .lane.company .lane-label{background:rgba(147,193,200,.06)}}
+:root[data-theme="dark"] .lane.company .lane-label{background:rgba(147,193,200,.06)}
+
+.lane-stages{display:flex;align-items:center;gap:0;padding:14px 12px;flex-wrap:nowrap;overflow-x:auto}
+.stage{flex:0 0 auto;width:180px;padding:14px 14px 16px;border:1px solid var(--rule);border-radius:6px;position:relative;background:var(--surface);min-width:0}
+.stage .obj{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.stage .nm{font-family:var(--fd);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin:3px 0 5px;line-height:1.1}
+.stage .ds{font-size:12.5px;color:var(--ink-2);line-height:1.4}
+.stage .fld{margin-top:8px;font-family:var(--fm);font-size:11px;color:var(--ink-3);word-break:break-word}
+.stage.state{border-style:dashed;background:var(--sunk)}
+.stage.event{border-top:3px solid var(--yellow)}
+.lane.contact .stage.event{border-top-color:var(--sea)}
+.lane.company .stage.event{border-top-color:var(--blue)}
+.lane.deal .stage.event{border-top-color:var(--yellow)}
+
+.arrow{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:40px;color:var(--ink-3);font-size:18px;line-height:1}
+.arrow svg{width:24px;height:12px;display:block}
+.arrow svg path{fill:none;stroke:var(--ink-3);stroke-width:1.5}
+
+.merge-zone{display:flex;align-items:stretch;position:relative}
+.merge-zone .merge-line{position:absolute;right:0;width:2px;background:var(--rule);top:0;bottom:0}
+.lane.contact .merge-zone .merge-line{top:50%;border-radius:0 0 0 0}
+.lane.company .merge-zone .merge-line{bottom:50%;border-radius:0 0 0 0}
+
+.merge-arrow{flex:0 0 auto;display:flex;align-items:center;width:36px;color:var(--ink-3)}
+.merge-arrow svg{width:20px;height:12px;display:block}
+.merge-arrow svg path{fill:none;stroke:var(--ink-3);stroke-width:1.5}
+
+.merge-label{position:absolute;right:-24px;top:50%;transform:translate(50%,-50%);font-size:9.5px;font-weight:500;color:var(--ink-3);background:var(--surface);padding:2px 5px;border:1px solid var(--rule-2);border-radius:3px;white-space:nowrap;z-index:1;letter-spacing:.04em}
+
+.swim-key{display:flex;gap:16px 22px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
+.swim-key span{display:inline-flex;align-items:center;gap:6px}
+.swim-key i{display:inline-block;width:14px;height:14px;border-radius:3px;flex-shrink:0}
+.swim-key i.k-state{border:1.5px dashed var(--rule);background:var(--sunk)}
+.swim-key i.k-event{border:1px solid var(--rule);border-top:3px solid var(--yellow);background:var(--surface)}
+.swim-key i.k-contact{background:var(--sea-tint);border:1px solid var(--sea)}
+.swim-key i.k-company{background:rgba(58,80,107,.08);border:1px solid var(--blue)}
+.swim-key i.k-deal{background:var(--tint);border:1px solid var(--gold)}
+
 /* ladders */
 .ladders{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0}
 .ladder{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 16px}
@@ -161,6 +208,8 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   nav.toc ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
   .flow{grid-template-columns:1fr 1fr}
   .step{border-bottom:1px solid var(--rule-2)}
+  .lane{grid-template-columns:80px 1fr}
+  .stage{width:150px}
 }
 @media (max-width:640px){
   .wrap,.masthead .inner{padding-inline:16px}
@@ -170,6 +219,13 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   .num{border-right:0;border-bottom:1px solid var(--rule-2)}
   .dec{padding-left:18px;padding-top:52px}
   .dec::before{top:14px}
+  .lane{grid-template-columns:1fr}
+  .lane-label{writing-mode:horizontal-tb;padding:10px 14px;justify-content:flex-start;border-bottom:1px solid var(--rule-2)}
+  .lane-stages{flex-wrap:wrap;gap:10px;padding:12px}
+  .stage{width:100%;flex:1 1 100%}
+  .arrow{width:auto;padding:0 4px}
+  .merge-zone{display:none}
+  .merge-arrow{display:none}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 html{scroll-behavior:smooth}
@@ -225,6 +281,7 @@ html{scroll-behavior:smooth}
     <li><a href="#ownership">Responsibilities</a></li>
     <li><a href="#status">Rollout status</a></li>
     <li><a href="#open">Open items</a></li>
+    <li><a href="#rag-alignment">RAG Board alignment</a></li>
     <li><a href="#glossary">Glossary</a></li>
   </ol>
 </nav>
@@ -251,14 +308,80 @@ html{scroll-behavior:smooth}
 <section id="stages">
   <p class="eyebrow">Definitions</p>
   <h2>Funnel stages</h2>
-  <div class="flow" role="list">
-    <div class="step state" role="listitem"><div class="obj">Contact · company</div><div class="nm">Engaged ICP</div><div class="ds">Did something deliberate in the last 90 days.</div><div class="fld">rolling 90 days</div></div>
-    <div class="step mark" role="listitem"><div class="obj">Contact</div><div class="nm">MQL</div><div class="ds">First time a campaign qualifies them. Counted once.</div><div class="fld">mos_mql_date</div></div>
-    <div class="step mark" role="listitem"><div class="obj">Company</div><div class="nm">MQA</div><div class="ds">The account's first MQL.</div><div class="fld">mos_mqa_date</div></div>
-    <div class="step mark" role="listitem"><div class="obj">Deal</div><div class="nm">SQL</div><div class="ds">Deal created in the Sales Pipeline.</div><div class="fld">deal createdate</div></div>
-    <div class="step mark" role="listitem"><div class="obj">Deal</div><div class="nm">HIRO</div><div class="ds">SQL at Solution Review or beyond.</div><div class="fld">date entered Solution Review</div></div>
+  <div class="swim" role="img" aria-label="Three-lane funnel diagram showing Contact, Company and Deal tracks">
+    <!-- Contact lane -->
+    <div class="lane contact">
+      <div class="lane-label">Contact</div>
+      <div class="lane-stages">
+        <div class="stage state">
+          <div class="obj">Contact</div>
+          <div class="nm">Engaged ICP</div>
+          <div class="ds">Active in the last 90 days. Contacts move in and out.</div>
+          <div class="fld">rolling 90 days</div>
+        </div>
+        <div class="arrow"><svg viewBox="0 0 24 12"><path d="M2 6h16M14 2l5 4-5 4"/></svg></div>
+        <div class="stage event">
+          <div class="obj">Contact</div>
+          <div class="nm">MQL</div>
+          <div class="ds">First time a campaign qualifies them. Counted once.</div>
+          <div class="fld">mos_mql_date</div>
+        </div>
+        <div class="merge-zone">
+          <div class="merge-line"></div>
+          <div class="merge-label">rolls up</div>
+        </div>
+      </div>
+    </div>
+    <!-- Company lane -->
+    <div class="lane company">
+      <div class="lane-label">Company</div>
+      <div class="lane-stages">
+        <div class="stage state">
+          <div class="obj">Company</div>
+          <div class="nm">Engaged ICP</div>
+          <div class="ds">ICP account with at least one engaged contact. Not a customer.</div>
+          <div class="fld">rolling 90 days</div>
+        </div>
+        <div class="arrow"><svg viewBox="0 0 24 12"><path d="M2 6h16M14 2l5 4-5 4"/></svg></div>
+        <div class="stage event">
+          <div class="obj">Company</div>
+          <div class="nm">MQA</div>
+          <div class="ds">The account's first MQL sets this date.</div>
+          <div class="fld">mos_mqa_date</div>
+        </div>
+        <div class="merge-zone">
+          <div class="merge-line"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Deal lane -->
+    <div class="lane deal">
+      <div class="lane-label">Deal</div>
+      <div class="lane-stages">
+        <div class="merge-arrow"><svg viewBox="0 0 20 12"><path d="M2 6h14M12 2l5 4-5 4"/></svg></div>
+        <div class="stage event">
+          <div class="obj">Deal</div>
+          <div class="nm">SQL</div>
+          <div class="ds">Deal created in the Sales Pipeline.</div>
+          <div class="fld">deal createdate</div>
+        </div>
+        <div class="arrow"><svg viewBox="0 0 24 12"><path d="M2 6h16M14 2l5 4-5 4"/></svg></div>
+        <div class="stage event">
+          <div class="obj">Deal</div>
+          <div class="nm">HIRO</div>
+          <div class="ds">SQL at Solution Review or beyond.</div>
+          <div class="fld">date entered Solution Review</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="flowkey"><span><i style="background:var(--sunk)"></i>State: contacts and accounts move in and out</span><span><i style="background:var(--yellow);border-color:transparent"></i>Event: dated once, never reverses</span></div>
+  <div class="swim-key">
+    <span><i class="k-state"></i>State: move in and out</span>
+    <span><i class="k-event"></i>Event: dated once, never reverses</span>
+    <span><i class="k-contact"></i>Contact</span>
+    <span><i class="k-company"></i>Company</span>
+    <span><i class="k-deal"></i>Deal</span>
+  </div>
 
   <div class="tbl w860"><table>
     <thead><tr><th>Stage</th><th>Object</th><th>Definition</th><th>Date</th><th class="n">Q2 25 – Q3 26</th></tr></thead>
@@ -739,6 +862,71 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
       <p>Disqualified is set by hand today. Determine who should own setting this label (Marketing, Sales Ops or AEs) and whether any guardrails or approval flow are needed.</p>
     </div>
   </div>
+</section>
+
+<section id="rag-alignment">
+  <p class="eyebrow">Cross-document review</p>
+  <h2>Growth RAG Board alignment</h2>
+  <p class="small">Compared against the <b>Growth RAG Board: Metric Rules &amp; Definitions</b> (Scott Hamilton, v1.0, 24 Sep 2026). Reviewed by the RevOps Council across all 11 seats.</p>
+
+  <h3>Critical discrepancies</h3>
+
+  <div class="callout warn">
+    <span class="k">Critical — MQL counting unit</span>
+    <p><b>Funnel Mechanics:</b> MQLs are <b>contacts</b> — "MQLs in a period = contacts at ICP companies with <code>mos_mql_date</code> in the period" (894 contacts Q2 25 – Q3 26).</p>
+    <p><b>RAG Board:</b> MQLs are "count of distinct ICP <b>companies</b> that first qualify in the period." This is actually the MQA definition (644 companies).</p>
+    <p><b>Impact:</b> Every MQL-based metric in the RAG Board is affected. The RAG Board appears to be reporting MQAs and labelling them MQLs.</p>
+    <p><b>Resolution:</b> RAG Board should use the term MQA for its company-level count, or add a note: "One MQA = one ICP company with at least one MQL contact."</p>
+    <p><span class="pill no">Open — needs decision</span></p>
+  </div>
+
+  <div class="callout warn">
+    <span class="k">Critical — MQL : SQL ratio means different things</span>
+    <p>Compounds the counting-unit issue above.</p>
+    <p><b>Funnel Mechanics:</b> 894 : 415 (contacts to deals, ~46%). Explicitly called "a ratio, not a rate" because the units differ.</p>
+    <p><b>RAG Board:</b> 415 ÷ 644 = ~64% (companies to deals). The ratio label is the same but the number is 18 points higher.</p>
+    <p><b>Resolution:</b> Resolve the counting-unit issue first. Then present both: MQL:SQL ratio (contacts:deals) and MQA→SQL rate (accounts:deals, like-for-like).</p>
+    <p><span class="pill no">Open — needs decision</span></p>
+  </div>
+
+  <div class="callout warn">
+    <span class="k">Critical — SQL scope: does expansion count?</span>
+    <p><b>Funnel Mechanics:</b> "New business and expansion both count; <code>dealtype</code> separates them. Renewals are in their own pipeline and don't count."</p>
+    <p><b>RAG Board:</b> "Every SQL is new business." This implies expansion is excluded.</p>
+    <p><b>Impact:</b> The SQL count (415) includes or excludes expansion deals depending on which document is correct. Affects SQL counts, HIRO counts, and every downstream conversion rate.</p>
+    <p><b>Resolution:</b> Confirm with data: query deals in the Sales Pipeline with <code>dealtype = expansion</code>. If they exist and are counted, update the RAG Board.</p>
+    <p><span class="pill no">Open — needs decision</span></p>
+  </div>
+
+  <div class="callout warn">
+    <span class="k">Critical — Exclusion filter missing from Funnel Mechanics</span>
+    <p><b>RAG Board:</b> Deals with <code>exclude_from_reporting = true</code> are dropped. This covers 385 legacy Marketplace deals, deals closed Won/Lost before Feb 28 2025, deals closed Lost before Mar 2025 (poor data), and 33 manual non-ICP deals.</p>
+    <p><b>Funnel Mechanics:</b> No mention of this flag or filter anywhere.</p>
+    <p><b>Impact:</b> If the reconciler and attribution scan do not respect this flag, the SQL (415) and HIRO (296) counts here may be inflated relative to the RAG Board.</p>
+    <p><b>Resolution:</b> Document the <code>exclude_from_reporting</code> field in Funnel Mechanics. Audit whether the reconciler filters on it.</p>
+    <p><span class="pill no">Open — needs decision</span></p>
+  </div>
+
+  <h3>Important gaps</h3>
+
+  <div class="tbl w860"><table>
+    <thead><tr><th>Issue</th><th>Severity</th><th>Detail</th><th>Resolution</th></tr></thead>
+    <tbody>
+      <tr><td class="k">ARR field name</td><td>Important</td><td>RAG Board uses <code>booked_arr</code>. Funnel Mechanics uses <code>annual_recurring_revenue_w_est</code>. May be the same field with different labels, or two different fields.</td><td>Confirm in HubSpot whether these are the same property. Standardise the reference.</td></tr>
+      <tr><td class="k">MQL evidence types</td><td>Important</td><td>RAG Board omits conversation notes, buying forms, and email clicks from its MQL evidence list. These are qualifying evidence in Funnel Mechanics.</td><td>Add a cross-reference in the RAG Board or list all evidence types.</td></tr>
+      <tr><td class="k">Win rate blank</td><td>Important</td><td>SQL → Closed Won row is blank (—) here. RAG Board defines it as Won ÷ (Won + Lost) for deals closed in the period.</td><td>Populate using the RAG Board's formula. Add the "all-stage view" variant as a note.</td></tr>
+      <tr><td class="k">Calendar invite rule</td><td>Minor</td><td>RAG Board says a deal requires a calendar invite at creation. Not mentioned here.</td><td>Process rule, not a definition. Note in the sales playbook, cross-reference if desired.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Items correctly excluded from Funnel Mechanics</h3>
+  <p class="small">These RAG Board items are operational/forecasting metrics, not funnel definitions. The council confirmed they do not belong in this document:</p>
+  <div class="prose small"><ul>
+    <li><b>Speed to lead</b> — operational efficiency metric (median hours MQL → first sales touch)</li>
+    <li><b>Pipeline coverage</b> — forecasting metric (open ARR ÷ remaining plan)</li>
+    <li><b>Companies reached</b> — sales activity metric (distinct domains with outbound)</li>
+    <li><b>Stage conversion thresholds</b> — operational targets, not definitions</li>
+  </ul></div>
 </section>
 
 <section id="glossary">
