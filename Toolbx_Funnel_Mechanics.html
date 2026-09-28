@@ -118,52 +118,86 @@ td.wrapk{white-space:normal;min-width:130px}
 .flowkey{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
 .flowkey i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--rule)}
 
-/* swim-lane funnel */
-.swim{display:flex;flex-direction:column;gap:0;margin:22px 0 14px;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--surface)}
-.lane{display:grid;grid-template-columns:110px 1fr;align-items:stretch;border-bottom:1px solid var(--rule-2)}
-.lane:last-child{border-bottom:0}
-.lane-label{display:flex;align-items:center;justify-content:center;padding:12px 8px;font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;writing-mode:horizontal-tb;text-align:center;line-height:1.3}
-.lane.contact .lane-label{color:var(--sea);background:var(--sea-tint)}
-.lane.company .lane-label{color:var(--blue);background:rgba(58,80,107,.08)}
-.lane.deal .lane-label{color:var(--gold);background:var(--tint)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .lane.company .lane-label{background:rgba(147,193,200,.06)}}
-:root[data-theme="dark"] .lane.company .lane-label{background:rgba(147,193,200,.06)}
+/* funnel diagram */
+.funnel{margin:22px 0 14px;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--surface)}
+.funnel-phase{padding:0 0 2px}
+.funnel-phase-head{display:flex;align-items:center;gap:10px;padding:14px 20px 10px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.funnel-phase-head::after{content:"";flex:1;height:1px;background:var(--rule-2)}
 
-.lane-stages{display:flex;align-items:center;gap:0;padding:14px 12px;flex-wrap:nowrap;overflow-x:auto}
-.stage{flex:0 0 auto;width:180px;padding:14px 14px 16px;border:1px solid var(--rule);border-radius:6px;position:relative;background:var(--surface);min-width:0}
-.stage .obj{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
-.stage .nm{font-family:var(--fd);font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin:3px 0 5px;line-height:1.1}
-.stage .ds{font-size:12.5px;color:var(--ink-2);line-height:1.4}
-.stage .fld{margin-top:8px;font-family:var(--fm);font-size:11px;color:var(--ink-3);word-break:break-word}
-.stage.state{border-style:dashed;background:var(--sunk)}
-.stage.event{border-top:3px solid var(--yellow)}
-.lane.contact .stage.event{border-top-color:var(--sea)}
-.lane.company .stage.event{border-top-color:var(--blue)}
-.lane.deal .stage.event{border-top-color:var(--yellow)}
+.funnel-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:0;padding:0 20px 18px;align-items:start}
+.funnel-in,.funnel-out{display:flex;flex-direction:column;gap:12px}
+.funnel-center{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 8px;position:relative;align-self:stretch}
+.funnel-center .f-arrow{flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:28px}
+.funnel-center .f-arrow svg{width:40px;height:14px}
+.funnel-center .f-arrow svg path{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:4 3}
+.funnel-center .f-arrow.solid svg path{stroke-dasharray:none}
 
-.arrow{flex:0 0 auto;display:flex;align-items:center;justify-content:center;width:40px;color:var(--ink-3);font-size:18px;line-height:1}
-.arrow svg{width:24px;height:12px;display:block}
-.arrow svg path{fill:none;stroke:var(--ink-3);stroke-width:1.5}
+.f-card{padding:16px 18px;border-radius:8px;border:1px solid var(--rule);position:relative}
+.f-card .f-obj{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
+.f-card .f-nm{font-family:var(--fd);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;line-height:1.1;margin-bottom:5px}
+.f-card .f-ds{font-size:13px;color:var(--ink-2);line-height:1.4}
+.f-card .f-fld{margin-top:8px;font-family:var(--fm);font-size:11px;color:var(--ink-3);word-break:break-word}
+.f-card .f-count{margin-top:8px;font-family:var(--fd);font-weight:800;font-size:1.5rem;letter-spacing:-.02em;line-height:1}
 
-.merge-zone{display:flex;align-items:stretch;position:relative}
-.merge-zone .merge-line{position:absolute;right:0;width:2px;background:var(--rule);top:0;bottom:0}
-.lane.contact .merge-zone .merge-line{top:50%;border-radius:0 0 0 0}
-.lane.company .merge-zone .merge-line{bottom:50%;border-radius:0 0 0 0}
+.f-card.state{border-style:dashed;background:var(--sunk)}
+.f-card.event{border-left:4px solid var(--yellow);background:var(--surface)}
+.f-card.contact{--accent:var(--sea)}
+.f-card.contact .f-obj{color:var(--sea)}
+.f-card.contact.event{border-left-color:var(--sea)}
+.f-card.company{--accent:var(--blue)}
+.f-card.company .f-obj{color:var(--blue)}
+.f-card.company.event{border-left-color:var(--blue)}
+.f-card.deal{--accent:var(--gold)}
+.f-card.deal .f-obj{color:var(--gold)}
+.f-card.deal.event{border-left-color:var(--yellow)}
 
-.merge-arrow{flex:0 0 auto;display:flex;align-items:center;width:36px;color:var(--ink-3)}
-.merge-arrow svg{width:20px;height:12px;display:block}
-.merge-arrow svg path{fill:none;stroke:var(--ink-3);stroke-width:1.5}
+.f-rollup{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:11px;font-weight:500;color:var(--ink-3);letter-spacing:.04em}
+.f-rollup svg{width:16px;height:16px;flex-shrink:0}
+.f-rollup svg path{fill:none;stroke:var(--ink-3);stroke-width:1.5}
 
-.merge-label{position:absolute;right:-24px;top:50%;transform:translate(50%,-50%);font-size:9.5px;font-weight:500;color:var(--ink-3);background:var(--surface);padding:2px 5px;border:1px solid var(--rule-2);border-radius:3px;white-space:nowrap;z-index:1;letter-spacing:.04em}
+/* reconciler engine */
+.recon{margin:0 20px 18px;border:2px solid var(--rule);border-radius:10px;background:var(--sunk);padding:20px 22px;position:relative;overflow:hidden}
+.recon::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--sea),var(--blue),var(--yellow))}
+.recon-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.recon-icon{width:36px;height:36px;border-radius:8px;background:var(--surface);border:1px solid var(--rule);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.recon-icon svg{width:20px;height:20px}
+.recon-icon svg path{fill:none;stroke:var(--ink-2);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.recon-title{font-family:var(--fd);font-weight:800;font-size:1.15rem;letter-spacing:-.01em}
+.recon-sub{font-size:12px;color:var(--ink-3)}
+.recon-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.recon-col h5{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--rule-2)}
+.recon-col ul{list-style:none;margin:0;padding:0;font-size:13px;color:var(--ink-2);line-height:1.5}
+.recon-col li{padding:2px 0 2px 16px;position:relative}
+.recon-col li::before{content:"";position:absolute;left:0;top:9px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--rule);background:var(--surface)}
+.recon-col.writes li::before{background:var(--good-tint);border-color:var(--good)}
+.recon-review{margin-top:14px;padding:10px 14px;border:1px dashed var(--warn);border-radius:6px;background:var(--warn-tint);font-size:13px;color:var(--ink-2);display:flex;align-items:start;gap:8px}
+.recon-review b{color:var(--ink);font-weight:600;white-space:nowrap}
 
-.swim-key{display:flex;gap:16px 22px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
-.swim-key span{display:inline-flex;align-items:center;gap:6px}
-.swim-key i{display:inline-block;width:14px;height:14px;border-radius:3px;flex-shrink:0}
-.swim-key i.k-state{border:1.5px dashed var(--rule);background:var(--sunk)}
-.swim-key i.k-event{border:1px solid var(--rule);border-top:3px solid var(--yellow);background:var(--surface)}
-.swim-key i.k-contact{background:var(--sea-tint);border:1px solid var(--sea)}
-.swim-key i.k-company{background:rgba(58,80,107,.08);border:1px solid var(--blue)}
-.swim-key i.k-deal{background:var(--tint);border:1px solid var(--gold)}
+/* deal pipeline */
+.funnel-pipe{margin:0 20px 20px;border:1px solid var(--rule);border-radius:8px;padding:16px 18px;background:var(--surface)}
+.funnel-pipe-label{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.pipe-stages{display:flex;align-items:center;gap:0;overflow-x:auto;padding-bottom:4px}
+.pipe-stage{flex:0 0 auto;padding:8px 14px;font-size:12px;font-weight:500;color:var(--ink-2);background:var(--sunk);border:1px solid var(--rule-2);border-radius:5px;position:relative;white-space:nowrap}
+.pipe-stage.sql{background:var(--tint);border-color:var(--yellow);color:var(--ink);font-weight:600}
+.pipe-stage.hiro{background:var(--tint);border-color:var(--yellow);color:var(--ink);font-weight:600;box-shadow:0 0 0 2px var(--yellow)}
+.pipe-sep{flex:0 0 auto;width:20px;display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:11px}
+.pipe-sep svg{width:14px;height:8px}
+.pipe-sep svg path{fill:none;stroke:var(--ink-3);stroke-width:1.5}
+.pipe-bracket{margin-top:8px;display:flex;align-items:start;gap:6px;font-size:11px;color:var(--ink-3)}
+.pipe-bracket svg{width:14px;height:14px;flex-shrink:0;margin-top:1px}
+.pipe-bracket svg path{fill:none;stroke:var(--ink-3);stroke-width:1.5}
+
+/* funnel key */
+.funnel-key{display:flex;gap:14px 22px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
+.funnel-key span{display:inline-flex;align-items:center;gap:6px}
+.funnel-key i{display:inline-block;width:14px;height:14px;border-radius:3px;flex-shrink:0}
+.funnel-key i.k-state{border:1.5px dashed var(--rule);background:var(--sunk)}
+.funnel-key i.k-event{border:1px solid var(--rule);border-left:3px solid var(--yellow);background:var(--surface)}
+.funnel-key i.k-contact{background:var(--sea-tint);border:1px solid var(--sea)}
+.funnel-key i.k-company{background:rgba(58,80,107,.08);border:1px solid var(--blue)}
+.funnel-key i.k-deal{background:var(--tint);border:1px solid var(--gold)}
+.funnel-key i.k-recon{background:var(--sunk);border:1px solid var(--rule);position:relative;overflow:hidden}
+.funnel-key i.k-recon::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sea),var(--blue),var(--yellow))}
 
 /* ladders */
 .ladders{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0}
@@ -208,8 +242,10 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   nav.toc ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
   .flow{grid-template-columns:1fr 1fr}
   .step{border-bottom:1px solid var(--rule-2)}
-  .lane{grid-template-columns:80px 1fr}
-  .stage{width:150px}
+  .funnel-grid{grid-template-columns:1fr auto 1fr;gap:0;padding:0 14px 16px}
+  .recon{margin:0 14px 16px}
+  .recon-cols{grid-template-columns:1fr 1fr}
+  .funnel-pipe{margin:0 14px 16px}
 }
 @media (max-width:640px){
   .wrap,.masthead .inner{padding-inline:16px}
@@ -219,13 +255,14 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   .num{border-right:0;border-bottom:1px solid var(--rule-2)}
   .dec{padding-left:18px;padding-top:52px}
   .dec::before{top:14px}
-  .lane{grid-template-columns:1fr}
-  .lane-label{writing-mode:horizontal-tb;padding:10px 14px;justify-content:flex-start;border-bottom:1px solid var(--rule-2)}
-  .lane-stages{flex-wrap:wrap;gap:10px;padding:12px}
-  .stage{width:100%;flex:1 1 100%}
-  .arrow{width:auto;padding:0 4px}
-  .merge-zone{display:none}
-  .merge-arrow{display:none}
+  .funnel-grid{grid-template-columns:1fr;gap:12px;padding:0 16px 16px}
+  .funnel-center{flex-direction:row;padding:0;gap:4px}
+  .funnel-center .f-arrow svg{width:24px;transform:rotate(90deg)}
+  .recon{margin:0 16px 16px}
+  .recon-cols{grid-template-columns:1fr}
+  .funnel-pipe{margin:0 16px 16px}
+  .pipe-stages{flex-wrap:wrap;gap:6px}
+  .pipe-sep{width:auto;padding:0 2px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 html{scroll-behavior:smooth}
@@ -308,79 +345,143 @@ html{scroll-behavior:smooth}
 <section id="stages">
   <p class="eyebrow">Definitions</p>
   <h2>Funnel stages</h2>
-  <div class="swim" role="img" aria-label="Three-lane funnel diagram showing Contact, Company and Deal tracks">
-    <!-- Contact lane -->
-    <div class="lane contact">
-      <div class="lane-label">Contact</div>
-      <div class="lane-stages">
-        <div class="stage state">
-          <div class="obj">Contact</div>
-          <div class="nm">Engaged ICP</div>
-          <div class="ds">Active in the last 90 days. Contacts move in and out.</div>
-          <div class="fld">rolling 90 days</div>
+  <div class="funnel" role="img" aria-label="Funnel flow diagram showing engagement, reconciler processing, and qualification stages">
+
+    <!-- Phase 1: Engagement → Qualification -->
+    <div class="funnel-phase">
+      <div class="funnel-phase-head">Engagement → Qualification</div>
+      <div class="funnel-grid">
+        <!-- Input: states -->
+        <div class="funnel-in">
+          <div class="f-card state contact">
+            <div class="f-obj">Contact</div>
+            <div class="f-nm">Engaged ICP Contact</div>
+            <div class="f-ds">Active in the last 90 days. Contacts move in and out.</div>
+            <div class="f-fld">rolling 90-day window</div>
+            <div class="f-count">1,001</div>
+          </div>
+          <div class="f-card state company">
+            <div class="f-obj">Company</div>
+            <div class="f-nm">Engaged ICP Account</div>
+            <div class="f-ds">ICP account with at least one engaged contact. Not a customer.</div>
+            <div class="f-fld">rolling 90-day window</div>
+            <div class="f-count">240</div>
+          </div>
         </div>
-        <div class="arrow"><svg viewBox="0 0 24 12"><path d="M2 6h16M14 2l5 4-5 4"/></svg></div>
-        <div class="stage event">
-          <div class="obj">Contact</div>
-          <div class="nm">MQL</div>
-          <div class="ds">First time a campaign qualifies them. Counted once.</div>
-          <div class="fld">mos_mql_date</div>
+
+        <!-- Center: arrows -->
+        <div class="funnel-center">
+          <div class="f-arrow"><svg viewBox="0 0 40 14"><path d="M4 7h28M28 3l6 4-6 4"/></svg></div>
+          <div class="f-arrow"><svg viewBox="0 0 40 14"><path d="M4 7h28M28 3l6 4-6 4"/></svg></div>
         </div>
-        <div class="merge-zone">
-          <div class="merge-line"></div>
-          <div class="merge-label">rolls up</div>
+
+        <!-- Output: events -->
+        <div class="funnel-out">
+          <div class="f-card event contact">
+            <div class="f-obj">Contact</div>
+            <div class="f-nm">MQL</div>
+            <div class="f-ds">First time a campaign qualifies them. Dated once, never reverses.</div>
+            <div class="f-fld">mos_mql_date</div>
+            <div class="f-count">894</div>
+          </div>
+          <div class="f-rollup">
+            <svg viewBox="0 0 16 16"><path d="M8 3v10M8 13l-3-3M8 13l3-3"/></svg>
+            earliest MQL rolls up to account
+          </div>
+          <div class="f-card event company">
+            <div class="f-obj">Company</div>
+            <div class="f-nm">MQA</div>
+            <div class="f-ds">The account's first MQL contact sets this date.</div>
+            <div class="f-fld">mos_mqa_date</div>
+            <div class="f-count">644</div>
+          </div>
         </div>
       </div>
     </div>
-    <!-- Company lane -->
-    <div class="lane company">
-      <div class="lane-label">Company</div>
-      <div class="lane-stages">
-        <div class="stage state">
-          <div class="obj">Company</div>
-          <div class="nm">Engaged ICP</div>
-          <div class="ds">ICP account with at least one engaged contact. Not a customer.</div>
-          <div class="fld">rolling 90 days</div>
+
+    <!-- Reconciler engine -->
+    <div class="recon">
+      <div class="recon-head">
+        <div class="recon-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         </div>
-        <div class="arrow"><svg viewBox="0 0 24 12"><path d="M2 6h16M14 2l5 4-5 4"/></svg></div>
-        <div class="stage event">
-          <div class="obj">Company</div>
-          <div class="nm">MQA</div>
-          <div class="ds">The account's first MQL sets this date.</div>
-          <div class="fld">mos_mqa_date</div>
-        </div>
-        <div class="merge-zone">
-          <div class="merge-line"></div>
+        <div>
+          <div class="recon-title">Reconciler</div>
+          <div class="recon-sub">Weekly full run · daily for recent activity (building) · <code>scripts/reconcile-campaign-labels.ts</code></div>
         </div>
       </div>
-    </div>
-    <!-- Deal lane -->
-    <div class="lane deal">
-      <div class="lane-label">Deal</div>
-      <div class="lane-stages">
-        <div class="merge-arrow"><svg viewBox="0 0 20 12"><path d="M2 6h14M12 2l5 4-5 4"/></svg></div>
-        <div class="stage event">
-          <div class="obj">Deal</div>
-          <div class="nm">SQL</div>
-          <div class="ds">Deal created in the Sales Pipeline.</div>
-          <div class="fld">deal createdate</div>
+      <div class="recon-cols">
+        <div class="recon-col">
+          <h5>Reads</h5>
+          <ul>
+            <li>Campaign associations &amp; windows</li>
+            <li>Replies, connected calls, meetings</li>
+            <li>Conversation notes &amp; buying forms</li>
+            <li>Event attendance</li>
+            <li>Deal &amp; lifecycle history</li>
+          </ul>
         </div>
-        <div class="arrow"><svg viewBox="0 0 24 12"><path d="M2 6h16M14 2l5 4-5 4"/></svg></div>
-        <div class="stage event">
-          <div class="obj">Deal</div>
-          <div class="nm">HIRO</div>
-          <div class="ds">SQL at Solution Review or beyond.</div>
-          <div class="fld">date entered Solution Review</div>
+        <div class="recon-col writes">
+          <h5>Writes</h5>
+          <ul>
+            <li>Contact–campaign labels (Status, Depth, IO, RO)</li>
+            <li><code>mos_mql_date</code> and <code>mos_mql_basis</code></li>
+            <li><code>mos_mqa_date</code> on the company</li>
+            <li>MQL lifecycle stage (building)</li>
+            <li>Re-engagement dates &amp; counts</li>
+          </ul>
+        </div>
+      </div>
+      <div class="recon-review">
+        <b>Review gate</b>
+        Changes that add a contact to a campaign or make them an MQL are held and routed to the Marketing OS review queue for approval before they write to HubSpot.
+      </div>
+    </div>
+
+    <!-- Deal pipeline -->
+    <div class="funnel-pipe">
+      <div class="funnel-pipe-label">Deal pipeline</div>
+      <div class="pipe-stages">
+        <div class="pipe-stage sql">SQL</div>
+        <div class="pipe-sep"><svg viewBox="0 0 14 8"><path d="M2 4h8M8 1.5l3 2.5-3 2.5"/></svg></div>
+        <div class="pipe-stage">Solution Review</div>
+        <div class="pipe-sep"><svg viewBox="0 0 14 8"><path d="M2 4h8M8 1.5l3 2.5-3 2.5"/></svg></div>
+        <div class="pipe-stage">Proposal Review</div>
+        <div class="pipe-sep"><svg viewBox="0 0 14 8"><path d="M2 4h8M8 1.5l3 2.5-3 2.5"/></svg></div>
+        <div class="pipe-stage">Negotiation</div>
+        <div class="pipe-sep"><svg viewBox="0 0 14 8"><path d="M2 4h8M8 1.5l3 2.5-3 2.5"/></svg></div>
+        <div class="pipe-stage">Contract Sent</div>
+        <div class="pipe-sep"><svg viewBox="0 0 14 8"><path d="M2 4h8M8 1.5l3 2.5-3 2.5"/></svg></div>
+        <div class="pipe-stage hiro">Closed Won</div>
+      </div>
+      <div class="pipe-bracket">
+        <svg viewBox="0 0 14 14"><path d="M2 2h10v10H2z"/><path d="M5 7h4"/></svg>
+        <span><b>SQL</b> = deal created in Sales Pipeline (new biz + expansion; <code>dealtype</code> separates). <b>HIRO</b> = reached Solution Review+. Renewals are in their own pipeline and don't count.</span>
+      </div>
+      <div style="display:flex;gap:16px;margin-top:12px">
+        <div class="f-card event deal" style="flex:1;padding:12px 14px">
+          <div class="f-obj">Deal</div>
+          <div class="f-nm">SQL</div>
+          <div class="f-fld">deal createdate</div>
+          <div class="f-count">415</div>
+        </div>
+        <div class="f-card event deal" style="flex:1;padding:12px 14px">
+          <div class="f-obj">Deal</div>
+          <div class="f-nm">HIRO</div>
+          <div class="f-fld">date entered Solution Review</div>
+          <div class="f-count">296 · $7.82M</div>
         </div>
       </div>
     </div>
   </div>
-  <div class="swim-key">
+
+  <div class="funnel-key">
     <span><i class="k-state"></i>State: move in and out</span>
-    <span><i class="k-event"></i>Event: dated once, never reverses</span>
+    <span><i class="k-event"></i>Event: dated once</span>
     <span><i class="k-contact"></i>Contact</span>
     <span><i class="k-company"></i>Company</span>
     <span><i class="k-deal"></i>Deal</span>
+    <span><i class="k-recon"></i>Reconciler</span>
   </div>
 
   <div class="tbl w860"><table>
@@ -877,7 +978,7 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
     <p><b>RAG Board:</b> MQLs are "count of distinct ICP <b>companies</b> that first qualify in the period." This is actually the MQA definition (644 companies).</p>
     <p><b>Impact:</b> Every MQL-based metric in the RAG Board is affected. The RAG Board appears to be reporting MQAs and labelling them MQLs.</p>
     <p><b>Resolution:</b> RAG Board should use the term MQA for its company-level count, or add a note: "One MQA = one ICP company with at least one MQL contact."</p>
-    <p><span class="pill no">Open — needs decision</span></p>
+    <p><span class="pill part">Agreed — update RAG Board</span></p>
   </div>
 
   <div class="callout warn">
@@ -885,8 +986,8 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
     <p>Compounds the counting-unit issue above.</p>
     <p><b>Funnel Mechanics:</b> 894 : 415 (contacts to deals, ~46%). Explicitly called "a ratio, not a rate" because the units differ.</p>
     <p><b>RAG Board:</b> 415 ÷ 644 = ~64% (companies to deals). The ratio label is the same but the number is 18 points higher.</p>
-    <p><b>Resolution:</b> Resolve the counting-unit issue first. Then present both: MQL:SQL ratio (contacts:deals) and MQA→SQL rate (accounts:deals, like-for-like).</p>
-    <p><span class="pill no">Open — needs decision</span></p>
+    <p><b>Resolution:</b> Follows from #1. Once the RAG Board relabels its company count as MQA, present both: MQL:SQL ratio (contacts:deals) and MQA→SQL rate (accounts:deals, like-for-like).</p>
+    <p><span class="pill part">Agreed — follows from #1</span></p>
   </div>
 
   <div class="callout warn">
@@ -894,8 +995,8 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
     <p><b>Funnel Mechanics:</b> "New business and expansion both count; <code>dealtype</code> separates them. Renewals are in their own pipeline and don't count."</p>
     <p><b>RAG Board:</b> "Every SQL is new business." This implies expansion is excluded.</p>
     <p><b>Impact:</b> The SQL count (415) includes or excludes expansion deals depending on which document is correct. Affects SQL counts, HIRO counts, and every downstream conversion rate.</p>
-    <p><b>Resolution:</b> Confirm with data: query deals in the Sales Pipeline with <code>dealtype = expansion</code>. If they exist and are counted, update the RAG Board.</p>
-    <p><span class="pill no">Open — needs decision</span></p>
+    <p><b>Recommendation:</b> Keep Funnel Mechanics as-is — expansion deals are in the Sales Pipeline, which is the system of record. The <code>dealtype</code> field already segments them. Update the RAG Board to say "new business and expansion; <code>dealtype</code> separates them." <b>Note:</b> MQL→SQL conversion rates must be new-business-only to be meaningful, because expansion deals don't flow through MQL/MQA — mixing them inflates the apparent rate.</p>
+    <p><span class="pill part">Recommended — update RAG Board</span></p>
   </div>
 
   <div class="callout warn">
@@ -904,20 +1005,24 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
     <p><b>Funnel Mechanics:</b> No mention of this flag or filter anywhere.</p>
     <p><b>Impact:</b> If the reconciler and attribution scan do not respect this flag, the SQL (415) and HIRO (296) counts here may be inflated relative to the RAG Board.</p>
     <p><b>Resolution:</b> Document the <code>exclude_from_reporting</code> field in Funnel Mechanics. Audit whether the reconciler filters on it.</p>
-    <p><span class="pill no">Open — needs decision</span></p>
+    <p><span class="pill auto">Documented — review later</span></p>
   </div>
 
   <h3>Important gaps</h3>
 
-  <div class="tbl w860"><table>
-    <thead><tr><th>Issue</th><th>Severity</th><th>Detail</th><th>Resolution</th></tr></thead>
-    <tbody>
-      <tr><td class="k">ARR field name</td><td>Important</td><td>RAG Board uses <code>booked_arr</code>. Funnel Mechanics uses <code>annual_recurring_revenue_w_est</code>. May be the same field with different labels, or two different fields.</td><td>Confirm in HubSpot whether these are the same property. Standardise the reference.</td></tr>
-      <tr><td class="k">MQL evidence types</td><td>Important</td><td>RAG Board omits conversation notes, buying forms, and email clicks from its MQL evidence list. These are qualifying evidence in Funnel Mechanics.</td><td>Add a cross-reference in the RAG Board or list all evidence types.</td></tr>
-      <tr><td class="k">Win rate blank</td><td>Important</td><td>SQL → Closed Won row is blank (—) here. RAG Board defines it as Won ÷ (Won + Lost) for deals closed in the period.</td><td>Populate using the RAG Board's formula. Add the "all-stage view" variant as a note.</td></tr>
-      <tr><td class="k">Calendar invite rule</td><td>Minor</td><td>RAG Board says a deal requires a calendar invite at creation. Not mentioned here.</td><td>Process rule, not a definition. Note in the sales playbook, cross-reference if desired.</td></tr>
-    </tbody>
-  </table></div>
+  <div class="callout sea">
+    <span class="k">Important — ARR field name (investigated)</span>
+    <p><b>RAG Board</b> refers to <code>booked_arr</code>. <b>Funnel Mechanics</b> uses <code>annual_recurring_revenue_w_est</code>.</p>
+    <p><b>Finding:</b> <code>booked_arr</code> does not exist as a HubSpot deal property. Three ARR-related properties do exist:</p>
+    <div class="prose small"><ul>
+      <li><code>arr</code> — "ARR" — uses actual amount if available, otherwise assumes <b>$25,000</b></li>
+      <li><code>annual_recurring_revenue_w_est</code> — "Annual Recurring Revenue (ARR)" — uses actual amount if available, otherwise assumes <b>$27,000</b></li>
+      <li><code>hs_arr</code> — HubSpot's native "Annual recurring revenue" field</li>
+    </ul></div>
+    <p>These are <b>different properties with different default assumptions</b>. The RAG Board likely means <code>arr</code> (the $25k default), while Funnel Mechanics uses <code>annual_recurring_revenue_w_est</code> (the $27k default). The $2k gap in defaults affects every HIRO pipeline-value total.</p>
+    <p><b>Resolution:</b> Decide which property is the single source of truth for ARR reporting. Standardise both documents to use the same field.</p>
+    <p><span class="pill no">Open — needs decision</span></p>
+  </div>
 
   <h3>Items correctly excluded from Funnel Mechanics</h3>
   <p class="small">These RAG Board items are operational/forecasting metrics, not funnel definitions. The council confirmed they do not belong in this document:</p>
