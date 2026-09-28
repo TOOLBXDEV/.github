@@ -151,6 +151,11 @@ td.wrapk{white-space:normal;min-width:130px}
 
 .tl-spacer{min-height:1px}
 
+/* deal lane: dashed connector through empty phases */
+.tl-wait{grid-column:2/6;display:flex;align-items:center;min-height:1px}
+.tl-wait::before{content:"";flex:1;height:0;border-top:1.5px dashed var(--ink-3);opacity:.25}
+.tl-wait::after{content:"";flex-shrink:0;width:0;height:0;border-left:5px solid var(--ink-3);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;opacity:.25}
+
 /* reconciler bar */
 .tl-recon{display:flex;align-items:center;gap:10px;padding:10px 20px 10px calc(80px + 20px + 8px);border-bottom:1px solid var(--rule-2);background:var(--sunk);position:relative}
 .tl-recon::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sea),var(--blue),var(--yellow))}
@@ -160,6 +165,7 @@ td.wrapk{white-space:normal;min-width:130px}
 
 /* pipeline stages in deal lane */
 .tl-pipe{min-width:0}
+.tl-pipe>.tl-node{margin-bottom:10px}
 .tl-pipe-stages{display:flex;align-items:center;gap:0;flex-wrap:wrap;row-gap:6px}
 .tl-pipe-stage{flex:0 0 auto;padding:5px 10px;font-size:11.5px;font-weight:500;color:var(--ink-2);background:var(--sunk);border:1px solid var(--rule-2);border-radius:4px;white-space:nowrap}
 .tl-pipe-stage.hiro{background:var(--tint);border-color:var(--yellow);color:var(--ink);font-weight:600;box-shadow:0 0 0 2px var(--yellow)}
@@ -239,6 +245,7 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   .tl-label{padding-bottom:4px;border-bottom:1px solid var(--rule-2);margin-bottom:2px}
   .tl-arrow{justify-self:center;transform:rotate(90deg)}
   .tl-spacer{display:none}
+  .tl-wait{grid-column:auto;padding:4px 0}
   .tl-recon{padding:10px 16px;flex-wrap:wrap}
   .tl-pipe-stages{flex-wrap:wrap;gap:6px}
   .tl-pipe-sep{width:auto;padding:0 2px}
@@ -372,17 +379,15 @@ html{scroll-behavior:smooth}
       <div class="tl-spacer"></div>
     </div>
 
-    <!-- Deal swim lane -->
+    <!-- Deal swim lane — content pushed right to show it happens later -->
     <div class="tl-lane deal">
       <div class="tl-label">Deal</div>
-      <div class="tl-spacer"></div>
-      <div class="tl-spacer"></div>
-      <div class="tl-node event">
-        <div class="tl-nm">SQL</div>
-        <div class="tl-ds">Deal created in the Sales Pipeline. New biz and expansion; renewals excluded.</div>
-      </div>
-      <div class="tl-arrow"></div>
+      <div class="tl-wait"></div>
       <div class="tl-pipe">
+        <div class="tl-node event">
+          <div class="tl-nm">SQL</div>
+          <div class="tl-ds">Deal created in the Sales Pipeline. New biz and expansion; renewals excluded.</div>
+        </div>
         <div class="tl-pipe-stages">
           <div class="tl-pipe-stage">Mtg Booked</div>
           <div class="tl-pipe-sep"></div>
