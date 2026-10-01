@@ -576,7 +576,7 @@ html{scroll-behavior:smooth}
     <thead><tr><th>Activity</th><th>Qualifies?</th></tr></thead>
     <tbody>
       <tr><td class="k">Email reply</td><td><span class="pill yes">Yes</span></td></tr>
-      <tr><td class="k">Connected call</td><td><span class="pill yes">Yes</span> 2 minutes or longer; excludes calls with a "Gatekeeper" outcome</td></tr>
+      <tr><td class="k">Connected call</td><td><span class="pill yes">Yes</span> 2 minutes or longer; excludes calls with any of these outcomes (<code>hs_call_disposition</code>): Connected&nbsp;–&nbsp;Gatekeeper, Wrong&nbsp;number, Wrong&nbsp;Contact, No&nbsp;answer, Not&nbsp;Interested, Left&nbsp;voicemail, Disqualified, Do&nbsp;Not&nbsp;Call, Left&nbsp;live&nbsp;message</td></tr>
       <tr><td class="k">Meeting</td><td><span class="pill yes">Yes</span> excludes no-shows</td></tr>
       <tr><td class="k">Conversation note (logged in Marketing OS)</td><td><span class="pill yes">Yes</span> counts only for the campaign it's logged against</td></tr>
       <tr><td class="k">Buying form: demo booking, meetings link, waitlist, early access</td><td><span class="pill yes">Yes</span></td></tr>
@@ -868,8 +868,8 @@ CONFIRM_APPLY=yes npx tsx scripts/reconcile-campaign-labels.ts --apply</code></p
       <p class="rec"><b>Proposed:</b> <code>mos_mqa_last_date</code> on the company, set to the latest <code>mos_mql_date</code> among its primary contacts. Mirrors <code>mos_mql_last_date</code> at the account level for re-engagement and recency analysis.</p>
     </div>
     <div class="dec">
-      <h4><span class="pill part">Flag for Connor</span> Connected calls exclude "Gatekeeper" outcomes</h4>
-      <p>Calls whose outcome is "Gatekeeper" are not treated as qualifying evidence, even if they meet the 2-minute threshold. Confirm this exclusion is correctly applied in call-activity scoring.</p>
+      <h4><span class="pill part">Flag for Connor</span> Connected calls exclude non-qualifying outcomes</h4>
+      <p>Calls with any of the following <code>hs_call_disposition</code> values are not treated as qualifying evidence, even if they meet the 2-minute threshold: Connected&nbsp;–&nbsp;Gatekeeper, Wrong&nbsp;number, Wrong&nbsp;Contact, No&nbsp;answer, Not&nbsp;Interested, Left&nbsp;voicemail, Disqualified, Do&nbsp;Not&nbsp;Call, Left&nbsp;live&nbsp;message. Confirm this exclusion list is correctly applied in call-activity scoring.</p>
     </div>
     <div class="dec">
       <h4><span class="pill part">Flag for Connor</span> Meetings exclude no-shows</h4>
