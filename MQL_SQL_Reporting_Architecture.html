@@ -1,0 +1,1228 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>MQL &amp; SQL Reporting Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Rubik:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --page:#F2F2F2; --surface:#FFFFFF; --sunk:#F7F7F6;
+  --ink:#1C1C1E; --ink-2:#46464A; --ink-3:#6E6E73;
+  --rule:#DCDCDA; --rule-2:#EAEAE8;
+  --yellow:#FFCA05; --gold:#8A6D00; --tint:#FFF5CC;
+  --blue:#3A506B; --sea:#457F86; --sea-tint:#E4EFF0;
+  --good:#4F7A0E; --good-tint:#EAF3DC;
+  --warn:#B4450F; --warn-tint:#FCE9DF;
+  --fd:"Bitter",Georgia,"Times New Roman",serif;
+  --fb:"Rubik",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+  --fm:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --page:#111113; --surface:#1C1C1E; --sunk:#232326;
+    --ink:#F2F2F2; --ink-2:#CACACD; --ink-3:#9A9AA0;
+    --rule:#36363A; --rule-2:#2B2B2E;
+    --gold:#FFD84D; --tint:rgba(255,202,5,.12);
+    --blue:#93C1C8; --sea:#93C1C8; --sea-tint:rgba(147,193,200,.12);
+    --good:#9BD13A; --good-tint:rgba(124,181,24,.14);
+    --warn:#FF8A5B; --warn-tint:rgba(255,107,53,.14);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --page:#111113; --surface:#1C1C1E; --sunk:#232326;
+  --ink:#F2F2F2; --ink-2:#CACACD; --ink-3:#9A9AA0;
+  --rule:#36363A; --rule-2:#2B2B2E;
+  --gold:#FFD84D; --tint:rgba(255,202,5,.12);
+  --blue:#93C1C8; --sea:#93C1C8; --sea-tint:rgba(147,193,200,.12);
+  --good:#9BD13A; --good-tint:rgba(124,181,24,.14);
+  --warn:#FF8A5B; --warn-tint:rgba(255,107,53,.14);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-underline-offset:2px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:2px}
+code,.mono{font-family:var(--fm);font-size:.86em;background:var(--sunk);border:1px solid var(--rule-2);border-radius:4px;padding:.05em .35em;white-space:nowrap}
+pre{font-family:var(--fm);font-size:13px;line-height:1.55;background:var(--sunk);border:1px solid var(--rule-2);border-radius:6px;padding:14px 16px;overflow-x:auto;margin:14px 0}
+pre code{background:none;border:0;padding:0;font-size:inherit;white-space:pre}
+
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+.masthead{background:var(--surface);border-bottom:1px solid var(--rule)}
+.masthead .inner{max-width:1180px;margin:0 auto;padding:28px 20px 34px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{height:26px;width:auto;color:var(--ink);display:block}
+.tag{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+h1{font-family:var(--fd);font-weight:800;font-size:clamp(2.1rem,4.4vw,3.1rem);line-height:1.06;letter-spacing:-.03em;margin:30px 0 12px;text-wrap:balance;max-width:20ch}
+.lede{font-size:clamp(1.05rem,1.6vw,1.2rem);font-weight:400;color:var(--ink-2);max-width:62ch;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:22px;font-size:13px;color:var(--ink-3)}
+.meta b{color:var(--ink);font-weight:500}
+
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:48px;margin-top:40px}
+nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 20px);align-self:start;max-height:calc(100vh - 40px);overflow:auto;font-size:13.5px;padding-right:6px}
+nav.toc .h{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;counter-reset:t}
+nav.toc a{display:block;color:var(--ink-2);text-decoration:none;padding:5px 10px;border-left:2px solid transparent;line-height:1.35}
+nav.toc a:hover{color:var(--ink);background:var(--surface)}
+nav.toc a.on{color:var(--ink);border-left-color:var(--yellow);background:var(--surface);font-weight:500}
+nav.toc .grp{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin:14px 0 4px 12px}
+
+main{min-width:0}
+section{scroll-margin-top:20px;padding-top:8px;margin-bottom:56px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin:0 0 8px}
+h2{font-family:var(--fb);font-weight:300;font-size:clamp(1.75rem,3vw,2.35rem);line-height:1.12;letter-spacing:-.025em;margin:0 0 14px;text-wrap:balance}
+h3{font-family:var(--fd);font-weight:700;font-size:1.28rem;line-height:1.25;letter-spacing:-.015em;margin:34px 0 10px;text-wrap:balance}
+h4{font-size:1rem;font-weight:600;margin:22px 0 6px}
+p{margin:0 0 14px;max-width:68ch}
+.prose ul,.prose ol{margin:0 0 16px;padding-left:1.25em;max-width:66ch}
+.prose li{margin:4px 0}
+.small{font-size:14px;color:var(--ink-2)}
+.muted{color:var(--ink-3)}
+
+/* callouts */
+.callout{border:1px solid var(--rule);border-left:4px solid var(--yellow);background:var(--surface);padding:14px 18px;border-radius:0 6px 6px 0;margin:18px 0;max-width:72ch}
+.callout p:last-child{margin-bottom:0}
+.callout .k{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);display:block;margin-bottom:4px}
+.callout.warn{border-left-color:var(--warn)}
+.callout.sea{border-left-color:var(--sea)}
+
+/* tables */
+.tbl{overflow-x:auto;margin:16px 0 20px;border:1px solid var(--rule);border-radius:6px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:1.45}
+th{text-align:left;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);padding:10px 14px;border-bottom:1px solid var(--rule);background:var(--sunk);white-space:nowrap}
+td{padding:10px 14px;border-bottom:1px solid var(--rule-2);vertical-align:top;color:var(--ink-2)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.wrapk{white-space:normal;min-width:130px}
+.tbl.w720 table{min-width:720px}
+.tbl.w860 table{min-width:860px}
+.tbl.w960 table{min-width:960px}
+
+/* pills */
+.pill{display:inline-block;font-size:11.5px;font-weight:500;line-height:1;padding:4px 8px;border-radius:999px;white-space:nowrap;border:1px solid var(--rule)}
+.pill.yes{color:var(--good);background:var(--good-tint);border-color:transparent}
+.pill.no{color:var(--warn);background:var(--warn-tint);border-color:transparent}
+.pill.part{color:var(--gold);background:var(--tint);border-color:transparent}
+.pill.auto{color:var(--sea);background:var(--sea-tint);border-color:transparent}
+
+/* flow diagram — 5 columns default, 6 for data-flow */
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:22px 0 10px;background:var(--surface);border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.flow.flow-6{grid-template-columns:repeat(6,minmax(0,1fr))}
+.step{padding:16px 16px 18px;border-right:1px solid var(--rule-2);position:relative;min-width:0}
+.step:last-child{border-right:0}
+.step .obj{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.step .nm{font-family:var(--fd);font-weight:800;font-size:1.35rem;letter-spacing:-.02em;margin:4px 0 6px;line-height:1.1}
+.step .ds{font-size:13px;color:var(--ink-2);line-height:1.45}
+.step .fld{margin-top:10px;font-family:var(--fm);font-size:11.5px;color:var(--ink-3);word-break:break-word}
+.step.state{background:var(--sunk)}
+.step.mark::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--yellow)}
+.flowkey{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
+.flowkey i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--rule)}
+
+/* cadence swim-lane diagram */
+.cadence{margin:22px 0 14px;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--surface)}
+.cad-lane{display:grid;grid-template-columns:130px minmax(0,1fr);align-items:stretch;border-bottom:1px solid var(--rule-2)}
+.cad-lane:last-child{border-bottom:0}
+.cad-label{padding:14px 16px;font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);background:var(--sunk);border-right:1px solid var(--rule);display:flex;align-items:center}
+.cad-bar{padding:12px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cad-node{padding:8px 12px;border-radius:6px;font-size:13px;line-height:1.35;border:1px solid var(--rule);background:var(--surface)}
+.cad-node.rt{border-left:3px solid var(--good)}
+.cad-node.daily{border-left:3px solid var(--sea)}
+.cad-node.weekly{border-left:3px solid var(--blue)}
+.cad-node.manual{border-left:3px solid var(--gold)}
+.cad-node.derived{border-left:3px solid var(--yellow)}
+.cad-arrow{width:20px;height:0;border-top:1.5px solid var(--ink-3);position:relative;flex-shrink:0}
+.cad-arrow::after{content:"";position:absolute;right:-1px;top:-4px;width:0;height:0;border-left:5px solid var(--ink-3);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
+
+/* numbers */
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;background:var(--surface);border:1px solid var(--rule);border-radius:6px;margin:16px 0}
+.num{padding:14px 16px;border-right:1px solid var(--rule-2)}
+.num:last-child{border-right:0}
+.num .v{font-family:var(--fd);font-weight:800;font-size:1.7rem;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.num .l{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:8px}
+.num .d{font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.35}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px 18px}
+.card h4{margin-top:0}
+.card p{font-size:14.5px}
+.card p:last-child{margin-bottom:0}
+
+/* side-by-side mapping */
+.mapping{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:18px 0;border:1px solid var(--rule);border-radius:8px;overflow:hidden;background:var(--surface)}
+.mapping .side{padding:18px 20px}
+.mapping .side:first-child{border-right:1px solid var(--rule);background:var(--sunk)}
+.mapping .side-h{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.mapping .row{display:flex;align-items:baseline;gap:8px;padding:6px 0;border-bottom:1px solid var(--rule-2);font-size:13.5px}
+.mapping .row:last-child{border-bottom:0}
+.mapping .row code{font-size:12px}
+
+/* ladders */
+.ladders{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:18px 0}
+.ladder{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 16px}
+.ladder .t{font-family:var(--fd);font-weight:700;font-size:1.05rem;margin:0 0 2px}
+.ladder .q{font-size:13px;color:var(--ink-3);margin:0 0 10px}
+.ladder ol{list-style:none;margin:0;padding:0;font-size:13.5px}
+.ladder li{display:flex;justify-content:space-between;gap:10px;padding:4px 0;border-top:1px solid var(--rule-2)}
+.ladder li:first-child{border-top:0}
+.ladder li span:last-child{font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:12px}
+.ladder li.bar{box-shadow:inset 3px 0 0 var(--yellow);padding-left:8px;margin-left:-8px}
+
+/* decisions */
+.decisions{counter-reset:d;display:flex;flex-direction:column;gap:12px;margin:18px 0}
+.dec{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:16px 18px 16px 58px;position:relative}
+.dec::before{counter-increment:d;content:counter(d);position:absolute;left:16px;top:15px;width:28px;height:28px;border-radius:50%;background:var(--yellow);color:#1C1C1E;font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center}
+.dec h4{margin:0 0 6px;font-size:1.02rem}
+.dec p{margin:0 0 8px;font-size:14.5px}
+.dec p:last-child{margin-bottom:0}
+.dec .rec{font-size:14px;color:var(--ink)}
+.dec .rec b{font-weight:600}
+
+footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;color:var(--ink-3);max-width:72ch}
+
+@media (max-width:980px){
+  .layout{grid-template-columns:1fr;gap:18px}
+  nav.toc{position:static;max-height:none;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:14px 12px}
+  nav.toc ol{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+  .flow{grid-template-columns:1fr 1fr}
+  .flow.flow-6{grid-template-columns:1fr 1fr 1fr}
+  .step{border-bottom:1px solid var(--rule-2)}
+  .mapping{grid-template-columns:1fr}
+  .mapping .side:first-child{border-right:0;border-bottom:1px solid var(--rule)}
+  .cadence .cad-lane{grid-template-columns:100px minmax(0,1fr)}
+}
+@media (max-width:640px){
+  .wrap,.masthead .inner{padding-inline:16px}
+  .flow,.flow.flow-6{grid-template-columns:1fr}
+  .step{border-right:0}
+  .two{grid-template-columns:1fr}
+  .num{border-right:0;border-bottom:1px solid var(--rule-2)}
+  .dec{padding-left:18px;padding-top:52px}
+  .dec::before{top:14px}
+  .cadence .cad-lane{grid-template-columns:1fr}
+  .cad-label{border-right:0;border-bottom:1px solid var(--rule);padding:10px 16px}
+  .cad-bar{flex-direction:column;align-items:stretch}
+  .cad-arrow{width:0;height:16px;border-top:0;border-left:1.5px solid var(--ink-3);align-self:center}
+  .cad-arrow::after{right:auto;top:auto;bottom:-1px;left:-4px;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:5px solid var(--ink-3);border-bottom:0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{scroll-behavior:smooth}
+</style>
+
+<header class="masthead">
+  <div class="inner">
+    <div class="brandrow">
+      <svg class="logo" viewBox="0 0 696 163" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Toolbx">
+        <path d="M587.4 81.2C586.2 81.8 586.4 83.6 587.6 84C589.5 84.8 591.3 85.9 593 87.2C598 91.5 599.2 97.2 598.6 103.4C597.6 115.6 588.3 121.9 577.3 122.8C571.9 123.2 566.6 123.2 561.2 123.2C551.5 123.2 541.8 123.2 531.9 123.2C530.9 123.2 530.3 122.4 530.3 121.7V46.3C530.3 45.4 531.1 44.8 531.9 44.8C538.1 44.8 560.4 44.8 572 44.8C579.9 44.8 586.7 47.1 592.2 53.1C597.6 59.5 598.8 73.1 590.6 79.1C589.7 80.1 588.6 80.6 587.4 81.2ZM550 107.7C550.2 107.7 550.4 107.9 550.6 107.9C557.2 107.9 563.8 107.9 570.6 107.7C572.2 107.7 573.9 106.9 575.3 106C578.6 103.9 579.2 100.5 578.4 97.2C577.6 93.4 575.1 91 571.4 90.8C564.4 90.4 557.4 90.6 550.3 90.4C550.3 90.4 550.1 90.6 549.9 90.6C550 96.2 550 101.9 550 107.7ZM550 61.6V75.7C550 76.6 550.8 77.2 551.6 77.2C557.2 77.2 563 77.2 568.7 77.2C569.5 77.2 570.1 77 570.8 76.8C575.3 75.5 577.6 71.9 577 67C576.6 63 573.1 60 568.9 60C565.8 60 562.5 60 559.4 60C556.9 60 554.4 60 551.8 60C550.8 59.9 550 60.7 550 61.6Z" fill="currentColor"/>
+        <path d="M446.7 85C447.5 106.5 427.7 127.2 401.5 126.2C379.8 125.4 359 107.7 360 83.1C360.8 61.8 379.8 42.4 405.2 43.4C427.5 44.3 447.3 62 446.7 85ZM403.3 61.2C389.9 61.2 379.8 71.2 379.6 84.2C379.6 97.9 389.3 107.7 402.9 108.1C415.7 108.5 426.6 98.5 426.6 84.7C426.5 71 416.2 61.2 403.3 61.2Z" fill="currentColor"/>
+        <path d="M308.5 126.4C289.3 126.6 273.4 114.3 268.2 99.7C263 85.2 264.7 71.6 274.6 59.4C282 50.4 291.7 45.3 303.5 44C315.7 42.7 326.8 45.5 336.3 53C345.4 60 350.6 69.2 351.8 80.3C353 91.6 350.4 101.8 343.1 110.6C336.7 118.5 328.4 123.6 318.1 125.5C314.9 125.8 311.6 126 308.5 126.4ZM308.5 108.1C320.7 108.7 332 98.5 332 84.9C331.8 71.2 322.3 61.2 308.7 61.2C295.3 61.2 285.2 71.2 285 84.4C284.6 98.5 296 108.7 308.5 108.1Z" fill="currentColor"/>
+        <path d="M685.9 122.2C686.1 122.6 685.9 123.1 685.3 123.1C678.1 123.1 671 123.1 664 123.1C663.6 123.1 663 122.5 662.8 122.2C657.8 114.1 652.5 106 647.5 97.9C647.1 97.3 646.7 97 646.3 96.2C643.8 100.2 641.5 103.7 639.1 107.5C636 112.4 632.9 117.3 629.8 122C629.6 122.4 628.8 122.9 628.4 122.9C622.2 122.9 610.8 123.1 606.9 123.1C606.3 123.1 606.1 122.5 606.3 122.2C608.4 118.8 610.8 115.2 612.9 111.8C618.5 103.1 624.1 94.3 630 85.6C630.8 84.3 630.8 82.8 630 81.6C622.8 70.7 609.8 50.2 606.7 45.4C606.5 45 606.7 44.5 607.3 44.5C610.4 44.5 613.3 44.5 616 44.5C619.9 44.5 623.8 44.7 627.4 44.5C628.9 44.5 629.5 45.1 630.1 46.2C635.1 54.3 640.2 62.2 645 70.3C645.2 70.5 645.4 70.7 645.6 71.2C646.2 70.3 647 69.3 647.3 68.6C652.2 61.1 656.8 53.3 661.6 45.8C662 45.2 662.8 44.7 663.3 44.7C670.3 44.7 677.1 44.7 684.2 44.7C684.8 44.7 685.2 45.3 684.8 45.6C681.7 50.5 668.1 71.6 661.3 82.3C660.5 83.4 660.5 84.2 661.3 85.3C669.2 96.2 682.8 117.3 685.9 122.2Z" fill="currentColor"/>
+        <path d="M233.6 123.5H216C215 123.5 214.4 122.7 214.4 122C214.4 114.3 214.4 79.3 214.4 66.6C214.4 63.6 211.1 60 207.8 59.8C203.7 59.4 200.6 60.7 198.9 64.3C198.7 64.7 198.1 64.9 197.9 64.9C195.4 64.9 192.7 64.9 190.1 64.9C188.2 64.9 186.6 63.4 186.6 61.5C186.6 56.6 186.6 51.5 186.6 46.6C186.6 44.7 188.2 43.2 189.9 43.2C192.6 43.2 195.1 43.2 197.8 43.2C198.2 43.2 198.8 43.6 199 44C200.6 47 203.1 48.5 206.4 48.5C209.9 48.5 212.4 47 214.2 44C214.4 43.6 214.8 43.2 215.2 43.2C224.3 43.2 233.6 43.6 242.5 45.8C250.3 47.9 256.5 52.2 261.3 58.2C261.9 58.8 262.3 59.5 262.9 60.1C263.9 61 263.5 61.6 262.7 62.2C261.9 63 261.3 63.9 259.8 63C255.3 59.8 250.3 59 244.9 59.8C242.2 60.2 239.5 60.9 237.3 62.6C236.1 63.5 235.6 64.5 235.6 66C235.6 78.8 235.6 114 235.6 121.9C235.2 123 234.4 123.5 233.6 123.5Z" fill="currentColor"/>
+        <path d="M457.5 121.7V46.3C457.5 45.4 458.3 44.8 459.1 44.8H476C477 44.8 477.6 45.6 477.6 46.3V104.7C477.6 105.6 478.4 106.2 479.2 106.2H516C517 106.2 517.6 107 517.6 107.7V121.4C517.6 122.3 516.8 122.9 516 122.9H459C458.3 123.4 457.5 122.6 457.5 121.7Z" fill="currentColor"/>
+        <path d="M121.3 152.3H94.3L121.3 126.1V132.3C125.4 132.3 129 130.7 131.7 128.1C134.3 125.6 136.1 121.9 136.1 118V54.2H156.6V118C156.6 127.4 152.7 136 146.3 142.2C139.8 148.5 131 152.3 121.3 152.3ZM30.6 54.2V118C30.6 121.9 32.2 125.5 35 128.1C37.6 130.6 41.4 132.3 45.4 132.3H67.9C70.9 132.3 73.4 129.9 73.4 126.9V98.9V76.9C70.5 69.4 59.9 69.4 57 76.9H48.3C46.3 76.9 44.5 75.2 44.5 73.2V57.9C44.5 55.9 46.2 54.2 48.3 54.2H57C59.9 61.7 70.5 61.7 73.4 54.2C107.1 54.2 114 60.3 124.2 72.8C124.3 73.4 121.9 76 120.9 75.3C114.8 69.7 99.3 69.8 95.2 76.3V127V132.4V134.4C95.2 144.3 86.9 152.4 76.6 152.4H45.3C35.6 152.4 26.7 148.6 20.3 142.4C13.9 136.1 10 127.5 10 118.1V54.2H30.6Z" fill="currentColor"/>
+        <path d="M45.3 10H121.3C131 10 139.9 13.8 146.3 20C152.7 26.2 156.6 34.8 156.6 44.2H136C136 40.3 134.4 36.7 131.6 34.1C129 31.6 125.2 29.9 121.2 29.9H45.3C41.2 29.9 37.6 31.5 34.9 34.1C32.3 36.6 30.5 40.3 30.5 44.2H10C10 34.8 13.9 26.2 20.3 20C26.7 13.8 35.5 10 45.3 10Z" fill="#FFCA05"/>
+      </svg>
+      <span class="tag">Reporting architecture</span>
+    </div>
+    <h1>MQL &amp; SQL Reporting Architecture</h1>
+    <p class="lede">How data flows from HubSpot through automation into reports, what refreshes when, and what still needs building.</p>
+    <div class="meta">
+      <span><b>State as of</b> 1 October 2026</span>
+      <span><b>Companion to</b> <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G">Funnel Mechanics</a></span>
+      <span><b>Owner</b> Marketing (Marketing OS)</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="layout">
+
+<nav class="toc" aria-label="Contents">
+  <div class="h">Contents</div>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li class="grp">Architecture</li>
+    <li><a href="#data-flow">Data flow</a></li>
+    <li><a href="#cadence">Refresh cadence</a></li>
+    <li class="grp">Definitions</li>
+    <li><a href="#definitions">Reporting definitions</a></li>
+    <li><a href="#rates">Rates &amp; ratios</a></li>
+    <li><a href="#pipeline">Pipeline attribution</a></li>
+    <li class="grp">Data Definition Library</li>
+    <li><a href="#library">Library overview</a></li>
+    <li><a href="#dashboard">Dashboard architecture</a></li>
+    <li class="grp">Operations</li>
+    <li><a href="#workflows">Workflows</a></li>
+    <li><a href="#dependencies">Dependencies</a></li>
+    <li class="grp">Build plan</li>
+    <li><a href="#build">What needs building</a></li>
+    <li><a href="#open-items">Open items</a></li>
+    <li class="grp">Governance</li>
+    <li><a href="#council">RevOps Council</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ─── OVERVIEW ─── -->
+<section id="overview">
+  <p class="eyebrow">Start here</p>
+  <h2>Overview</h2>
+  <div class="prose">
+    <p>This document describes how MQL, SQL and pipeline data moves from HubSpot into reports. It is a companion to <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G">Funnel Mechanics</a>, which defines what each stage means and how contacts, accounts and deals are labelled.</p>
+    <p>This artifact covers three things Funnel Mechanics does not:</p>
+    <ul>
+      <li><b>Data flow and cadence</b> — source systems, processing steps, refresh timing and latency at each stage.</li>
+      <li><b>Reporting definitions</b> — the exact counting rules, formulas, and exclusions used to produce numbers.</li>
+      <li><b>The Data Definition Library</b> — a machine-readable configuration layer (not yet built) that will live in the Sales Hub and power every Claude-built dashboard.</li>
+    </ul>
+    <p>For canonical definitions of MQL, MQA, SQL, HIRO, campaigns and labelling rules, see <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G">Funnel Mechanics</a>.</p>
+  </div>
+</section>
+
+<!-- ─── DATA FLOW ─── -->
+<section id="data-flow">
+  <p class="eyebrow">Architecture</p>
+  <h2>Data flow</h2>
+  <div class="prose">
+    <p>Data moves through six stages from source to report. Each stage has a distinct owner, cadence and output.</p>
+  </div>
+
+  <svg class="pipeline-svg" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data flow pipeline: HubSpot CRM to Dashboards through 6 stages">
+    <style>
+      .pipeline-svg{width:100%;max-width:960px;height:auto;margin:22px 0 10px;display:block}
+      .pipeline-svg text{font-family:var(--fb);fill:var(--ink)}
+      .pipeline-svg .stage-box{fill:var(--surface);stroke:var(--rule);stroke-width:1.5;rx:10}
+      .pipeline-svg .stage-box.final{fill:var(--tint);stroke:var(--yellow);stroke-width:2}
+      .pipeline-svg .stage-num{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;fill:var(--ink-3)}
+      .pipeline-svg .stage-name{font-family:var(--fd);font-size:20px;font-weight:800;fill:var(--ink)}
+      .pipeline-svg .stage-desc{font-size:12.5px;fill:var(--ink-2);line-height:1.4}
+      .pipeline-svg .stage-field{font-family:var(--fm);font-size:11px;fill:var(--ink-3)}
+      .pipeline-svg .arrow-line{stroke:var(--ink-3);stroke-width:1.5;fill:none;marker-end:url(#arrowhead)}
+      .pipeline-svg .arrow-label{font-size:10px;fill:var(--ink-3);font-weight:500;text-anchor:middle}
+      .pipeline-svg .top-bar{fill:var(--yellow)}
+      .pipeline-svg .review-branch{stroke:var(--warn);stroke-width:1.5;stroke-dasharray:6,4;fill:none;marker-end:url(#arrowhead-warn)}
+      .pipeline-svg .review-box{fill:var(--warn-tint);stroke:var(--warn);stroke-width:1.5;rx:8;stroke-dasharray:6,4}
+      .pipeline-svg .review-text{font-size:11.5px;fill:var(--warn);font-weight:600}
+      @media (prefers-color-scheme:dark){
+        :root:not([data-theme="light"]) .pipeline-svg .stage-box{fill:var(--surface);stroke:var(--rule)}
+        :root:not([data-theme="light"]) .pipeline-svg .stage-box.final{fill:rgba(255,202,5,.12);stroke:var(--gold)}
+      }
+      :root[data-theme="dark"] .pipeline-svg .stage-box{fill:var(--surface);stroke:var(--rule)}
+      :root[data-theme="dark"] .pipeline-svg .stage-box.final{fill:rgba(255,202,5,.12);stroke:var(--gold)}
+    </style>
+    <defs>
+      <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--ink-3)"/></marker>
+      <marker id="arrowhead-warn" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--warn)"/></marker>
+    </defs>
+
+    <!-- Row 1: Source → Ingest → Process -->
+    <rect class="stage-box" x="20" y="20" width="270" height="150"/>
+    <text class="stage-num" x="40" y="50">1 · Source</text>
+    <text class="stage-name" x="40" y="78">HubSpot CRM</text>
+    <text class="stage-desc" x="40" y="100">Contacts, companies, deals,</text>
+    <text class="stage-desc" x="40" y="116">GTM Campaigns, activity logs</text>
+    <text class="stage-field" x="40" y="148">Real-time writes by users &amp; integrations</text>
+
+    <line class="arrow-line" x1="290" y1="95" x2="338" y2="95"/>
+    <text class="arrow-label" x="314" y="86">reads</text>
+
+    <rect class="stage-box" x="345" y="20" width="270" height="150"/>
+    <text class="stage-num" x="365" y="50">2 · Ingest</text>
+    <text class="stage-name" x="365" y="78">Reconciler</text>
+    <text class="stage-desc" x="365" y="100">Reads associations &amp; activity.</text>
+    <text class="stage-desc" x="365" y="116">Weekly full; daily recent (building)</text>
+    <text class="stage-field" x="365" y="148">reconcile-campaign-labels.ts</text>
+
+    <line class="arrow-line" x1="615" y1="95" x2="663" y2="95"/>
+    <text class="arrow-label" x="639" y="86">writes</text>
+
+    <rect class="stage-box" x="670" y="20" width="270" height="150"/>
+    <text class="stage-num" x="690" y="50">3 · Process</text>
+    <text class="stage-name" x="690" y="78">Label &amp; Date</text>
+    <text class="stage-desc" x="690" y="100">Sets contact–campaign labels,</text>
+    <text class="stage-desc" x="690" y="116">MQL/MQA dates</text>
+    <text class="stage-field" x="690" y="148">Held changes → Review queue</text>
+
+    <!-- Review queue branch (dashed, off to the side) -->
+    <rect class="review-box" x="760" y="195" width="180" height="50"/>
+    <text class="review-text" x="790" y="220">Approval required</text>
+    <text class="stage-field" x="790" y="236">Marketing OS review queue</text>
+    <path class="review-branch" d="M850,170 L850,193"/>
+
+    <!-- Vertical connector from row 1 to row 2 -->
+    <path class="arrow-line" d="M805,170 L805,210 L805,290 L710,290" style="marker-end:none"/>
+    <line class="arrow-line" x1="710" y1="290" x2="622" y2="290"/>
+
+    <!-- Row 2: Attribute ← (from Process) → Store → Report -->
+    <rect class="stage-box" x="345" y="225" width="270" height="150"/>
+    <text class="stage-num" x="365" y="255">4 · Attribute</text>
+    <text class="stage-name" x="365" y="283">Attribution Scan</text>
+    <text class="stage-desc" x="365" y="305">Proposes campaign links and</text>
+    <text class="stage-desc" x="365" y="321">Primary deal source per deal</text>
+    <text class="stage-field" x="365" y="353">Daily 07:00 · daily-attribution.ts</text>
+
+    <line class="arrow-line" x1="338" y1="300" x2="290" y2="300"/>
+
+    <rect class="stage-box" x="20" y="225" width="270" height="150"/>
+    <text class="stage-num" x="40" y="255">5 · Store</text>
+    <text class="stage-name" x="40" y="283">HubSpot Properties</text>
+    <text class="stage-desc" x="40" y="305">Written back to CRM objects.</text>
+    <text class="stage-desc" x="40" y="321">Locked dates never change.</text>
+    <text class="stage-field" x="40" y="353">mos_mql_date, mos_mqa_date, mos_last_deliberate_action, primary_deal_source</text>
+
+    <!-- Final stage spanning full width -->
+    <rect class="top-bar" x="20" y="410" width="920" height="4" rx="2"/>
+    <rect class="stage-box final" x="20" y="414" width="920" height="90"/>
+    <text class="stage-num" x="40" y="444">6 · Report</text>
+    <text class="stage-name" x="40" y="472">Dashboards &amp; Library</text>
+    <text class="stage-desc" x="300" y="444">Data Definition Library provides metric configs</text>
+    <text class="stage-desc" x="300" y="462">Sales Hub serves configs to dashboard engine</text>
+    <text class="stage-desc" x="300" y="480">Growth RAG Board, AE Scorecard, future dashboards</text>
+    <text class="stage-field" x="700" y="472">Powered by Library definitions</text>
+
+    <!-- Arrow from Store down to Report -->
+    <line class="arrow-line" x1="155" y1="375" x2="155" y2="408"/>
+  </svg>
+
+  <div class="flowkey">
+    <span><i style="background:var(--yellow)"></i> Final output</span>
+    <span><i style="background:var(--surface);border:1px solid var(--rule)"></i> Processing stage</span>
+    <span><i style="background:var(--warn-tint);border:1px dashed var(--warn)"></i> Requires approval</span>
+  </div>
+
+  <div class="callout sea">
+    <span class="k">Key principle</span>
+    <p>Definitions come from <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G">Funnel Mechanics</a>. This pipeline applies those definitions to produce numbers. If a counting rule isn't documented in Funnel Mechanics, it doesn't belong in a report.</p>
+  </div>
+</section>
+
+<!-- ─── CADENCE ─── -->
+<section id="cadence">
+  <p class="eyebrow">Architecture</p>
+  <h2>Refresh cadence</h2>
+  <div class="prose">
+    <p>Each stage introduces latency. The total time from a user action in HubSpot to its appearance in a report depends on which stage the data passes through.</p>
+  </div>
+
+  <div class="cadence">
+    <div class="cad-lane">
+      <div class="cad-label">HubSpot</div>
+      <div class="cad-bar">
+        <div class="cad-node rt"><b>Real-time</b><br>User creates/updates contacts, deals, activities</div>
+      </div>
+    </div>
+    <div class="cad-lane">
+      <div class="cad-label">Reconciler</div>
+      <div class="cad-bar">
+        <div class="cad-node weekly"><b>Weekly</b> full scan</div>
+        <span class="cad-arrow"></span>
+        <div class="cad-node daily"><b>Daily</b> recent activity <span class="pill part">Building</span></div>
+      </div>
+    </div>
+    <div class="cad-lane">
+      <div class="cad-label">Attribution</div>
+      <div class="cad-bar">
+        <div class="cad-node daily"><b>Daily 07:00</b><br>Deal–campaign linking and primary source</div>
+      </div>
+    </div>
+    <div class="cad-lane">
+      <div class="cad-label">Review</div>
+      <div class="cad-bar">
+        <div class="cad-node manual"><b>On approval</b><br>Held changes released by Marketing</div>
+      </div>
+    </div>
+    <div class="cad-lane">
+      <div class="cad-label">Reports</div>
+      <div class="cad-bar">
+        <div class="cad-node derived"><b>After next write cycle</b><br>Dashboard reads stored properties</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nums">
+    <div class="num"><div class="v">≤ 7d</div><div class="l">Max lag</div><div class="d">Full reconciler cycle</div></div>
+    <div class="num"><div class="v">≤ 24h</div><div class="l">Target lag</div><div class="d">When daily reconciler ships</div></div>
+    <div class="num"><div class="v">07:00</div><div class="l">Attribution</div><div class="d">Daily scan start time</div></div>
+    <div class="num"><div class="v">1 Sep 2026</div><div class="l">Lock date</div><div class="d">MQL/MQA dates before this are final</div></div>
+  </div>
+</section>
+
+<!-- ─── REPORTING DEFINITIONS ─── -->
+<section id="definitions">
+  <p class="eyebrow">Definitions for reporting</p>
+  <h2>Reporting definitions</h2>
+  <div class="prose">
+    <p>Each metric below has a canonical definition in <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G">Funnel Mechanics</a>. This table adds the counting rules used for reporting: the exact formula, the date field that determines when a metric is counted, and any filters applied.</p>
+  </div>
+
+  <div class="tbl w960"><table>
+    <thead><tr>
+      <th>Metric</th><th>Unit</th><th>Date field</th><th>Filter</th><th>Formula</th><th>Source</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="k"><a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#mql">MQL</a></td>
+        <td>Contacts</td>
+        <td><code>mos_mql_date</code></td>
+        <td><code>is_icp = true</code></td>
+        <td><code>COUNT DISTINCT contact_id WHERE mos_mql_date IN period AND is_icp = true</code></td>
+        <td>Reconciler</td>
+      </tr>
+      <tr>
+        <td class="k"><a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#mqa">MQA</a></td>
+        <td>Companies</td>
+        <td><code>mos_mqa_date</code></td>
+        <td><code>is_icp = true</code></td>
+        <td><code>COUNT DISTINCT company_id WHERE mos_mqa_date IN period AND is_icp = true</code></td>
+        <td>Reconciler</td>
+      </tr>
+      <tr>
+        <td class="k"><a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#sql">SQL</a></td>
+        <td>Deals</td>
+        <td><code>createdate</code></td>
+        <td>Sales Pipeline, ICP associated company</td>
+        <td><code>COUNT DISTINCT deal_id WHERE pipeline = 'Sales' AND createdate IN period AND associated_company.is_icp = true</code></td>
+        <td>Sales</td>
+      </tr>
+      <tr>
+        <td class="k"><a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#sql">HIRO</a></td>
+        <td>Deals</td>
+        <td>Solution Review entry</td>
+        <td>Sales Pipeline, ICP, reached Solution Review+</td>
+        <td><code>COUNT DISTINCT deal_id WHERE ever_in_stage >= 'Solution Review' AND pipeline = 'Sales' AND associated_company.is_icp = true</code></td>
+        <td>Sales</td>
+      </tr>
+      <tr>
+        <td class="k">Engaged ICP Contact</td>
+        <td>Contacts</td>
+        <td><code>mos_last_deliberate_action</code></td>
+        <td><code>is_icp = true</code>, deliberate action within 90 days</td>
+        <td><code>COUNT DISTINCT contact_id WHERE is_icp = true AND mos_last_deliberate_action >= (today - 90d)</code></td>
+        <td>HubSpot workflows</td>
+      </tr>
+      <tr>
+        <td class="k">Engaged ICP Account</td>
+        <td>Companies</td>
+        <td>Derived</td>
+        <td><code>is_icp = true</code>, &ge;1 engaged contact</td>
+        <td><code>COUNT DISTINCT company_id WHERE is_icp = true AND engaged_contact_count >= 1</code></td>
+        <td>Derived</td>
+      </tr>
+      <tr>
+        <td class="k">Re-engagement</td>
+        <td>Contacts</td>
+        <td><code>mos_mql_reengaged_date</code></td>
+        <td>210+ day gap since last activity</td>
+        <td><code>COUNT DISTINCT contact_id WHERE mos_mql_reengaged_date IN period</code></td>
+        <td>Reconciler</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout sea">
+    <span class="k">mos_last_deliberate_action</span>
+    <p>This contact property tracks the timestamp of a contact's most recent deliberate action (calls, meetings, form submissions, etc.). It's set by two HubSpot workflows and is used to determine Engaged ICP Contact and Engaged ICP Account counts. A contact is "engaged" if <code>mos_last_deliberate_action</code> falls within the last 90 days.</p>
+  </div>
+
+  <h3>Exclusions from reporting</h3>
+  <div class="prose">
+    <p>Records flagged with <code>exclude_from_reporting = true</code> are excluded from all metric counts. This flag currently covers:</p>
+    <ul>
+      <li>385 legacy Marketplace deals (pre-platform era)</li>
+      <li>Pre-February 2025 closed deals</li>
+      <li>33 manually flagged non-ICP deals</li>
+    </ul>
+  </div>
+  <div class="callout warn">
+    <span class="k">Open issue</span>
+    <p>The <code>exclude_from_reporting</code> flag is documented in the Growth RAG Board but not yet in <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G">Funnel Mechanics</a>. A full audit of flagged records has not been completed.</p>
+  </div>
+</section>
+
+<!-- ─── RATES & RATIOS ─── -->
+<section id="rates">
+  <p class="eyebrow">Definitions for reporting</p>
+  <h2>Rates &amp; ratios</h2>
+  <div class="prose">
+    <p>Rates compare metrics within the same funnel. A <b>rate</b> divides two same-unit metrics (e.g., deals ÷ deals). A <b>ratio</b> compares different units (e.g., deals ÷ contacts) and requires care in interpretation. See <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#stages">Funnel stages</a> for how each stage feeds the next.</p>
+  </div>
+
+  <div class="tbl w720"><table>
+    <thead><tr><th>Rate / Ratio</th><th>Formula</th><th>Type</th><th>Unit</th></tr></thead>
+    <tbody>
+      <tr><td class="k">MQL → SQL</td><td>SQL count ÷ MQL count</td><td>Ratio</td><td>deals / contacts</td></tr>
+      <tr><td class="k">SQL → HIRO</td><td>HIRO count ÷ SQL count</td><td>Rate</td><td>deals / deals</td></tr>
+      <tr><td class="k">HIRO → Won</td><td>Won count ÷ HIRO count</td><td>Rate</td><td>deals / deals</td></tr>
+      <tr><td class="k">SQL → Won</td><td>Won count ÷ SQL count</td><td>Rate</td><td>deals / deals</td></tr>
+      <tr><td class="k">MQL → Won</td><td>Won count ÷ MQL count</td><td>Ratio</td><td>deals / contacts</td></tr>
+      <tr><td class="k">MQA → SQL</td><td>SQL count ÷ MQA count</td><td>Ratio</td><td>deals / companies</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="two">
+    <div class="card">
+      <h4>Rate (same-unit)</h4>
+      <p>Both numerator and denominator count the same object type (deals). The result is a true conversion rate and can be read as a percentage.</p>
+      <p class="small"><b>Example:</b> SQL → HIRO = 45% means 45% of SQLs reach Solution Review.</p>
+    </div>
+    <div class="card">
+      <h4>Ratio (cross-unit)</h4>
+      <p>Numerator and denominator count different objects (deals vs contacts). The result indicates efficiency but is not a direct conversion rate.</p>
+      <p class="small"><b>Example:</b> MQL → SQL = 22% means 22 deals per 100 MQL contacts — not that 22% of MQLs "converted."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PIPELINE ATTRIBUTION ─── -->
+<section id="pipeline">
+  <p class="eyebrow">Definitions for reporting</p>
+  <h2>Sourced &amp; influenced pipeline</h2>
+  <div class="prose">
+    <p>Pipeline value is attributed to campaigns in three ways. See <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#attribution">Deal attribution</a> in Funnel Mechanics for the full rules on Primary deal source.</p>
+  </div>
+
+  <div class="tbl w720"><table>
+    <thead><tr><th>Attribution type</th><th>Definition</th><th>Field</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="k">Marketing-sourced</td>
+        <td>Deal where Primary deal source is a Marketing-owned campaign. Full deal value credited.</td>
+        <td><code>primary_deal_source</code> → campaign with <code>owning_function = Marketing</code></td>
+      </tr>
+      <tr>
+        <td class="k">Sales-sourced</td>
+        <td>Deal where Primary deal source is a Sales-owned campaign. Full deal value credited.</td>
+        <td><code>primary_deal_source</code> → campaign with <code>owning_function = Sales</code></td>
+      </tr>
+      <tr>
+        <td class="k">Influenced</td>
+        <td>Deal where any associated contact has a campaign label, regardless of Primary deal source. Multi-touch, weighted.</td>
+        <td>All associated campaign labels on deal contacts</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Multi-touch weighting</h3>
+  <div class="prose">
+    <p>Influenced pipeline uses a <b>W-shape</b> attribution model. Credit is distributed across three key touchpoints:</p>
+    <ul>
+      <li><b>First touch</b> (30%) — the campaign that first engaged the contact</li>
+      <li><b>MQL touch</b> (30%) — the campaign that qualified the contact as MQL</li>
+      <li><b>Deal-creation touch</b> (30%) — the campaign closest to deal creation</li>
+      <li><b>Remaining touches</b> (10%) — split equally among all other campaign touches</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─── DATA DEFINITION LIBRARY ─── -->
+<section id="library">
+  <p class="eyebrow">Data Definition Library</p>
+  <h2>The dashboard data layer</h2>
+  <div class="prose">
+    <p>The Data Definition Library is a <b>machine-readable configuration layer</b> that will live in the Sales Hub and power every Claude-built dashboard. Where Funnel Mechanics is the human-readable "what and why," the Library is the machine-readable "how to query and display."</p>
+    <p>Dashboards like the Growth RAG Board consume library entries to know what to count, how to filter, what thresholds trigger RAG status, and how to format the output.</p>
+  </div>
+
+  <h3>How it works</h3>
+  <svg class="lib-pipeline-svg" viewBox="0 0 960 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Library-to-Dashboard pipeline: Define, Encode, Serve, Render, Display">
+    <style>
+      .lib-pipeline-svg{width:100%;max-width:960px;height:auto;margin:22px 0 10px;display:block}
+      .lib-pipeline-svg text{font-family:var(--fb);fill:var(--ink)}
+      .lib-pipeline-svg .lp-box{fill:var(--surface);stroke:var(--rule);stroke-width:1.5;rx:10}
+      .lib-pipeline-svg .lp-box.lp-final{fill:var(--tint);stroke:var(--yellow);stroke-width:2}
+      .lib-pipeline-svg .lp-num{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;fill:var(--ink-3)}
+      .lib-pipeline-svg .lp-name{font-family:var(--fd);font-size:16px;font-weight:800;fill:var(--ink)}
+      .lib-pipeline-svg .lp-desc{font-size:11px;fill:var(--ink-2)}
+      .lib-pipeline-svg .lp-arrow{stroke:var(--ink-3);stroke-width:1.5;fill:none;marker-end:url(#lp-ah)}
+      .lib-pipeline-svg .lp-bar{fill:var(--yellow)}
+      @media (prefers-color-scheme:dark){
+        :root:not([data-theme="light"]) .lib-pipeline-svg .lp-box{fill:var(--surface);stroke:var(--rule)}
+        :root:not([data-theme="light"]) .lib-pipeline-svg .lp-box.lp-final{fill:rgba(255,202,5,.12);stroke:var(--gold)}
+      }
+      :root[data-theme="dark"] .lib-pipeline-svg .lp-box{fill:var(--surface);stroke:var(--rule)}
+      :root[data-theme="dark"] .lib-pipeline-svg .lp-box.lp-final{fill:rgba(255,202,5,.12);stroke:var(--gold)}
+    </style>
+    <defs>
+      <marker id="lp-ah" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--ink-3)"/></marker>
+    </defs>
+    <!-- Box 1: Define -->
+    <rect class="lp-box" x="10" y="20" width="168" height="160"/>
+    <text class="lp-num" x="26" y="46">1 · Define</text>
+    <text class="lp-name" x="26" y="70">Funnel</text>
+    <text class="lp-name" x="26" y="92">Mechanics</text>
+    <text class="lp-desc" x="26" y="116">What each metric</text>
+    <text class="lp-desc" x="26" y="132">means, properties,</text>
+    <text class="lp-desc" x="26" y="148">filters</text>
+    <line class="lp-arrow" x1="178" y1="100" x2="198" y2="100"/>
+    <!-- Box 2: Encode -->
+    <rect class="lp-box" x="202" y="20" width="168" height="160"/>
+    <text class="lp-num" x="218" y="46">2 · Encode</text>
+    <text class="lp-name" x="218" y="70">Library</text>
+    <text class="lp-name" x="218" y="92">Config</text>
+    <text class="lp-desc" x="218" y="116">Machine-readable:</text>
+    <text class="lp-desc" x="218" y="132">id, formula, filters,</text>
+    <text class="lp-desc" x="218" y="148">thresholds, display</text>
+    <line class="lp-arrow" x1="370" y1="100" x2="390" y2="100"/>
+    <!-- Box 3: Serve -->
+    <rect class="lp-box" x="394" y="20" width="168" height="160"/>
+    <text class="lp-num" x="410" y="46">3 · Serve</text>
+    <text class="lp-name" x="410" y="70">Sales Hub</text>
+    <text class="lp-name" x="410" y="92">API</text>
+    <text class="lp-desc" x="410" y="116">Exposes configs to</text>
+    <text class="lp-desc" x="410" y="132">dashboards via MCP</text>
+    <text class="lp-desc" x="410" y="148">or direct read</text>
+    <line class="lp-arrow" x1="562" y1="100" x2="582" y2="100"/>
+    <!-- Box 4: Render -->
+    <rect class="lp-box" x="586" y="20" width="168" height="160"/>
+    <text class="lp-num" x="602" y="46">4 · Render</text>
+    <text class="lp-name" x="602" y="70">Dashboard</text>
+    <text class="lp-name" x="602" y="92">Engine</text>
+    <text class="lp-desc" x="602" y="116">Queries HubSpot,</text>
+    <text class="lp-desc" x="602" y="132">computes RAG status,</text>
+    <text class="lp-desc" x="602" y="148">builds visualizations</text>
+    <line class="lp-arrow" x1="754" y1="100" x2="774" y2="100"/>
+    <!-- Box 5: Display (final) -->
+    <rect class="lp-bar" x="778" y="16" width="168" height="4" rx="2"/>
+    <rect class="lp-box lp-final" x="778" y="20" width="168" height="160"/>
+    <text class="lp-num" x="794" y="46">5 · Display</text>
+    <text class="lp-name" x="794" y="70">Dashboards</text>
+    <text class="lp-desc" x="794" y="96">Growth RAG Board,</text>
+    <text class="lp-desc" x="794" y="112">AE Scorecard, and</text>
+    <text class="lp-desc" x="794" y="128">future dashboards</text>
+    <text class="lp-desc" x="794" y="152" style="font-weight:600;fill:var(--gold)">Same definitions</text>
+    <text class="lp-desc" x="794" y="168" style="font-weight:600;fill:var(--gold)">power all of them</text>
+  </svg>
+
+  <h3>Library entry → Dashboard mapping</h3>
+  <p class="small">Each entry in the Library maps directly to dashboard components. The Growth RAG Board is the reference implementation.</p>
+
+  <div class="mapping">
+    <div class="side">
+      <div class="side-h">Library entry (config)</div>
+      <div class="row"><code>name</code> + <code>description</code></div>
+      <div class="row"><code>formula</code> + <code>filters</code></div>
+      <div class="row"><code>thresholds</code> + <code>quarterly_target</code></div>
+      <div class="row"><code>format</code></div>
+      <div class="row"><code>rates[]</code></div>
+      <div class="row"><code>date_field</code> + <code>sparkline: true</code></div>
+      <div class="row"><code>area</code></div>
+    </div>
+    <div class="side">
+      <div class="side-h">Dashboard rendering</div>
+      <div class="row">Area card heading + tooltip text</div>
+      <div class="row">HubSpot query → produces the count</div>
+      <div class="row">RAG status calculation (green / amber / red)</div>
+      <div class="row">Value formatting (number, currency, %)</div>
+      <div class="row">Derived rows in scorecard table</div>
+      <div class="row">Monthly data array → sparkline SVG</div>
+      <div class="row">Groups metrics into dashboard sections</div>
+    </div>
+  </div>
+
+  <h3>Proposed schema</h3>
+  <div class="tbl w960"><table>
+    <thead><tr><th>Field</th><th>Type</th><th>Example</th><th>Dashboard use</th></tr></thead>
+    <tbody>
+      <tr><td class="k">id</td><td>string</td><td><code>mql</code></td><td>Internal key</td></tr>
+      <tr><td class="k">name</td><td>string</td><td><code>MQL</code></td><td>Card/row heading</td></tr>
+      <tr><td class="k">description</td><td>string</td><td>Contact at an ICP company who qualified on a campaign</td><td>Tooltip / subtitle</td></tr>
+      <tr><td class="k">object</td><td>enum</td><td><code>contact</code> / <code>company</code> / <code>deal</code></td><td>HubSpot API target</td></tr>
+      <tr><td class="k">date_field</td><td>string</td><td><code>mos_mql_date</code></td><td>Time-series x-axis, period filtering</td></tr>
+      <tr><td class="k">filters</td><td>object[]</td><td><code>[{field: "is_icp", op: "eq", value: true}]</code></td><td>HubSpot query WHERE clause</td></tr>
+      <tr><td class="k">formula</td><td>string</td><td><code>COUNT DISTINCT contact_id WHERE&hellip;</code></td><td>Computation logic</td></tr>
+      <tr><td class="k">unit</td><td>string</td><td><code>contacts</code></td><td>Display label</td></tr>
+      <tr><td class="k">format</td><td>enum</td><td><code>number</code> / <code>currency</code> / <code>percentage</code></td><td>Value formatting</td></tr>
+      <tr><td class="k">area</td><td>string</td><td><code>marketing</code></td><td>Dashboard section grouping</td></tr>
+      <tr><td class="k">thresholds</td><td>object</td><td><code>{green: "≥105%", amber: "≥90%", red: "&lt;90%"}</code></td><td>RAG status calculation</td></tr>
+      <tr><td class="k">quarterly_target</td><td>number</td><td><code>60</code></td><td>Target for RAG comparison</td></tr>
+      <tr><td class="k">sparkline</td><td>boolean</td><td><code>true</code></td><td>Show trend line</td></tr>
+      <tr><td class="k">owner</td><td>string</td><td><code>Marketing</code></td><td>Accountability</td></tr>
+      <tr><td class="k">funnel_mechanics_ref</td><td>string</td><td><code>#mql</code></td><td>Link to canonical definition</td></tr>
+      <tr><td class="k">rates</td><td>object[]</td><td><code>[{id: "mql_to_sql", role: "numerator"}]</code></td><td>Rate/ratio participation</td></tr>
+      <tr><td class="k">exclude_filter</td><td>object</td><td><code>{field: "exclude_from_reporting", op: "eq", value: true}</code></td><td>Records to skip</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn">
+    <span class="k">Not yet created</span>
+    <p>The Data Definition Library does not exist today. Building it requires: schema finalization, Sales Hub integration endpoint, HubSpot query layer, and dashboard rendering engine. See <a href="#build">What needs building</a>.</p>
+  </div>
+
+  <div class="callout sea">
+    <span class="k">Reference implementation</span>
+    <p>The <a href="https://claude.ai/artifact/8mDziDcU9nR9t7PgXgVwDg">Growth RAG Board</a> is the reference for what Library-powered dashboards look like. Today it hardcodes its data model in JavaScript (<code>D.mql</code>, <code>METRICS</code>, <code>status()</code>). The Library replaces that hardcoded pattern with config-driven queries.</p>
+  </div>
+</section>
+
+<!-- ─── DASHBOARD ARCHITECTURE ─── -->
+<section id="dashboard">
+  <p class="eyebrow">Data Definition Library</p>
+  <h2>Dashboard architecture</h2>
+  <div class="prose">
+    <p>Every Claude-built dashboard will consume Library entries. Here's how each Library field maps to dashboard components, using the Growth RAG Board as a worked example.</p>
+  </div>
+
+  <div class="tbl w860"><table>
+    <thead><tr>
+      <th>Dashboard component</th><th>Library field(s)</th><th>RAG Board example</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="k">Area cards</td>
+        <td><code>area</code> groups metrics</td>
+        <td>Marketing, Sales, Sales Ops, Hitting Target — each card groups related metrics</td>
+      </tr>
+      <tr>
+        <td class="k">KPI rows</td>
+        <td><code>name</code>, <code>formula</code>, <code>format</code></td>
+        <td>Each row shows a metric name, current value, and trend vs. prior period</td>
+      </tr>
+      <tr>
+        <td class="k">RAG status</td>
+        <td><code>thresholds</code>, <code>quarterly_target</code></td>
+        <td>Green / Amber / Red pills comparing current vs. target and prior period</td>
+      </tr>
+      <tr>
+        <td class="k">Sparklines</td>
+        <td><code>date_field</code>, <code>sparkline</code></td>
+        <td>Monthly trend SVGs inline with scorecard rows</td>
+      </tr>
+      <tr>
+        <td class="k">Scorecard table</td>
+        <td><code>name</code>, <code>format</code>, <code>thresholds</code></td>
+        <td>Tabular view with quarterly actuals, targets, status, and trend</td>
+      </tr>
+      <tr>
+        <td class="k">Drill-down tabs</td>
+        <td><code>rates[]</code>, <code>area</code></td>
+        <td>Funnel stages, MQL &amp; SQL source mix, AE scorecard</td>
+      </tr>
+      <tr>
+        <td class="k">Exclusion filter</td>
+        <td><code>exclude_filter</code></td>
+        <td>Records with <code>exclude_from_reporting = true</code> silently omitted</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <h3>Today vs. future</h3>
+  <div class="two">
+    <div class="card">
+      <h4>Today (hardcoded)</h4>
+      <p>The Growth RAG Board embeds data arrays and metric definitions directly in JavaScript. Adding a metric means editing HTML. Each dashboard is independent — no shared definitions.</p>
+      <pre><code>const D = {
+  mql: [14, 18, 22, ...],
+  sql: [8, 12, 15, ...]
+};
+const METRICS = {
+  mql: {name:"MQL", fmt:"n", data:D.mql}
+};</code></pre>
+    </div>
+    <div class="card">
+      <h4>Future (Library-driven)</h4>
+      <p>Dashboards read metric definitions from the Library. Adding a metric means adding a Library entry. All dashboards share the same source of truth.</p>
+      <pre><code>// Dashboard reads from Library
+const metrics = await salesHub
+  .getLibraryEntries({area: "marketing"});
+// Each entry has: name, formula,
+// filters, thresholds, format
+// Dashboard renders automatically</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WORKFLOWS ─── -->
+<section id="workflows">
+  <p class="eyebrow">Operations</p>
+  <h2>Associated workflows</h2>
+  <div class="prose">
+    <p>These automated processes read from and write to HubSpot. Each has a defined schedule, input, and output. See <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#automation">Automation</a> in Funnel Mechanics for implementation details.</p>
+  </div>
+
+  <div class="tbl w860"><table>
+    <thead><tr><th>Process</th><th>Schedule</th><th>Reads</th><th>Writes</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="k">Reconciler (full)</td>
+        <td>Weekly</td>
+        <td>All contacts, campaigns, associations, activity logs</td>
+        <td>Contact–campaign labels, <code>mos_mql_date</code>, <code>mos_mqa_date</code></td>
+        <td><span class="pill yes">Live</span></td>
+      </tr>
+      <tr>
+        <td class="k">Reconciler (daily)</td>
+        <td>Daily</td>
+        <td>Recent activity (last 48h)</td>
+        <td>Same as full, scoped to recent</td>
+        <td><span class="pill part">Building</span></td>
+      </tr>
+      <tr>
+        <td class="k">Attribution scan</td>
+        <td>Daily 07:00</td>
+        <td>Deals, associated contacts, campaign labels</td>
+        <td><code>primary_deal_source</code>, deal–campaign associations</td>
+        <td><span class="pill yes">Live</span></td>
+      </tr>
+      <tr>
+        <td class="k">Review queue</td>
+        <td>On demand</td>
+        <td>Held changes from reconciler</td>
+        <td>Approved labels + dates written to CRM</td>
+        <td><span class="pill yes">Live</span></td>
+      </tr>
+      <tr>
+        <td class="k">MQL lifecycle update</td>
+        <td>After reconciler</td>
+        <td>Contacts with <code>mos_mql_date</code></td>
+        <td><code>lifecyclestage = MQL</code></td>
+        <td><span class="pill part">Building</span></td>
+      </tr>
+      <tr>
+        <td class="k">Last Deliberate Action (workflow 1)</td>
+        <td>Trigger-based</td>
+        <td>Contact deliberate actions (calls, meetings, forms, etc.)</td>
+        <td><code>mos_last_deliberate_action</code> timestamp on contact</td>
+        <td><span class="pill yes">Live</span></td>
+      </tr>
+      <tr>
+        <td class="k">Last Deliberate Action (workflow 2)</td>
+        <td>Trigger-based</td>
+        <td>Contact deliberate actions (additional triggers)</td>
+        <td><code>mos_last_deliberate_action</code> timestamp on contact</td>
+        <td><span class="pill yes">Live</span></td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ─── DEPENDENCIES ─── -->
+<section id="dependencies">
+  <p class="eyebrow">Operations</p>
+  <h2>Workflow dependencies</h2>
+  <div class="prose">
+    <p>Workflows have ordering constraints. Running them out of order produces incorrect data.</p>
+  </div>
+
+  <div class="tbl w720"><table>
+    <thead><tr><th>Process</th><th>Depends on</th><th>Must complete before</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="k">Reconciler</td>
+        <td>HubSpot activity data</td>
+        <td>Attribution scan, MQL lifecycle update</td>
+      </tr>
+      <tr>
+        <td class="k">Attribution scan</td>
+        <td>Reconciler (labels must be current)</td>
+        <td>Reports (primary source must be set)</td>
+      </tr>
+      <tr>
+        <td class="k">Review queue</td>
+        <td>Reconciler (produces held changes)</td>
+        <td>Next reconciler run (approved changes in CRM)</td>
+      </tr>
+      <tr>
+        <td class="k">MQL lifecycle</td>
+        <td>Reconciler (mos_mql_date must be set)</td>
+        <td>Reports (lifecycle must be current)</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <span class="k">Write conflict risk</span>
+    <p>The reconciler and the attribution scan both write to contact and deal records. They must not run concurrently. The attribution scan is scheduled for 07:00 to avoid overlap with the reconciler, which runs during overnight hours.</p>
+  </div>
+
+  <div class="callout sea">
+    <span class="k">Reporting lock</span>
+    <p>MQL and MQA dates set before 1 September 2026 are final and cannot be changed by any workflow. This prevents retroactive changes to historical reporting. See <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#dates">Dates</a> in Funnel Mechanics.</p>
+  </div>
+</section>
+
+<!-- ─── BUILD ─── -->
+<section id="build">
+  <p class="eyebrow">Build plan</p>
+  <h2>What needs building</h2>
+  <div class="prose">
+    <p>Items are grouped by status. See <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#status">Rollout status</a> in Funnel Mechanics for the upstream pipeline items.</p>
+  </div>
+
+  <div class="tbl w860"><table>
+    <thead><tr><th>Item</th><th>Status</th><th>Owner</th><th>Downstream impact</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="k">Daily reconciler for recent activity</td>
+        <td><span class="pill part">Building</span></td>
+        <td>Marketing</td>
+        <td>Library queries need fresh data</td>
+      </tr>
+      <tr>
+        <td class="k">MQL lifecycle stage from mos_mql_date</td>
+        <td><span class="pill part">Building</span></td>
+        <td>Marketing</td>
+        <td>Dashboard lifecycle filtering</td>
+      </tr>
+      <tr>
+        <td class="k">mos_sql_date on contact</td>
+        <td><span class="pill auto">Approved</span></td>
+        <td>Marketing</td>
+        <td>SQL time-series in dashboard</td>
+      </tr>
+      <tr>
+        <td class="k">HIRO rollup at Solution Review+</td>
+        <td><span class="pill">To do</span></td>
+        <td>Sales Ops</td>
+        <td>HIRO metric in dashboard</td>
+      </tr>
+      <tr>
+        <td class="k">mos_mqa_last_date on company</td>
+        <td><span class="pill">Proposed</span></td>
+        <td>Marketing</td>
+        <td>MQA recency tracking</td>
+      </tr>
+      <tr>
+        <td class="k">Data Definition Library schema</td>
+        <td><span class="pill no">Not created</span></td>
+        <td>Data Engineering</td>
+        <td>Foundation for all dashboards</td>
+      </tr>
+      <tr>
+        <td class="k">Data Definition Library in Sales Hub</td>
+        <td><span class="pill no">Not created</span></td>
+        <td>Data Engineering + UX</td>
+        <td>Serves configs to dashboard engine</td>
+      </tr>
+      <tr>
+        <td class="k">Library → HubSpot query layer</td>
+        <td><span class="pill no">Not created</span></td>
+        <td>Data Engineering</td>
+        <td>Translates library entries to API calls</td>
+      </tr>
+      <tr>
+        <td class="k">Growth Dashboard (RAG Board v2)</td>
+        <td><span class="pill no">Not created</span></td>
+        <td>Data Engineering + UX</td>
+        <td>First consumer of Library</td>
+      </tr>
+      <tr>
+        <td class="k">exclude_from_reporting audit</td>
+        <td><span class="pill">Not started</span></td>
+        <td>Rev Ops</td>
+        <td>Library exclude_filter entries</td>
+      </tr>
+      <tr>
+        <td class="k">ARR field standardization</td>
+        <td><span class="pill no">Decision needed</span></td>
+        <td>Rev Ops</td>
+        <td>Which field Library uses for revenue</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="ladders">
+    <div class="ladder">
+      <div class="t">In Progress</div>
+      <div class="q">Actively being built</div>
+      <ol>
+        <li class="bar"><span>Daily reconciler</span><span>Marketing</span></li>
+        <li class="bar"><span>MQL lifecycle stage</span><span>Marketing</span></li>
+      </ol>
+    </div>
+    <div class="ladder">
+      <div class="t">Approved</div>
+      <div class="q">Ready to start</div>
+      <ol>
+        <li><span>mos_sql_date on contact</span><span>Marketing</span></li>
+        <li><span>HIRO rollup</span><span>Sales Ops</span></li>
+      </ol>
+    </div>
+    <div class="ladder">
+      <div class="t">Proposed</div>
+      <div class="q">Needs decision</div>
+      <ol>
+        <li><span>mos_mqa_last_date</span><span>Marketing</span></li>
+        <li><span>ARR standardization</span><span>Rev Ops</span></li>
+      </ol>
+    </div>
+    <div class="ladder">
+      <div class="t">Not Created</div>
+      <div class="q">New work items</div>
+      <ol>
+        <li><span>Library schema</span><span>Data Eng</span></li>
+        <li><span>Library in Sales Hub</span><span>Data Eng + UX</span></li>
+        <li><span>Query layer</span><span>Data Eng</span></li>
+        <li><span>Growth Dashboard v2</span><span>Data Eng + UX</span></li>
+        <li><span>Exclusion audit</span><span>Rev Ops</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OPEN ITEMS ─── -->
+<section id="open-items">
+  <p class="eyebrow">Build plan</p>
+  <h2>Open items</h2>
+  <div class="prose">
+    <p>These are reporting-specific decisions and issues that need resolution. See also <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#open">Open items</a> in Funnel Mechanics for upstream issues.</p>
+  </div>
+
+  <div class="decisions">
+    <div class="dec">
+      <h4><code>exclude_from_reporting</code> audit</h4>
+      <p>The flag is used in the Growth RAG Board but is not documented in Funnel Mechanics. It covers 385 legacy Marketplace deals, pre-Feb-2025 closed deals, and 33 manually flagged non-ICP deals. A complete audit is needed to verify coverage and add the flag to Funnel Mechanics.</p>
+      <div class="rec"><b>Owner:</b> Revenue Operations</div>
+    </div>
+    <div class="dec">
+      <h4>ARR field standardization</h4>
+      <p>Three revenue fields exist in HubSpot: <code>arr</code> ($25k default), <code>annual_recurring_revenue_w_est</code> ($27k default), and <code>hs_arr</code> (native). The Library needs a single canonical ARR field for revenue metrics.</p>
+      <div class="rec"><b>Owner:</b> Revenue Operations · <b>Decision needed before:</b> Library schema finalization</div>
+    </div>
+    <div class="dec">
+      <h4>MQL counting unit</h4>
+      <p>The Growth RAG Board appears to count MQLs at the company level in some views but the canonical definition in Funnel Mechanics counts MQLs at the contact level. The Library must encode one counting rule per metric — which unit does each dashboard use?</p>
+      <div class="rec"><b>Owner:</b> Revenue Operations · <b>Reference:</b> <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#mql">MQL definition</a></div>
+    </div>
+    <div class="dec">
+      <h4>RAG threshold definitions</h4>
+      <p>The Growth RAG Board uses a vs-previous + vs-last-year comparison to determine green/amber/red status. Should the Library encode the same logic, or should thresholds be target-based (≥105% = green, ≥90% = amber, &lt;90% = red)?</p>
+      <div class="rec"><b>Owner:</b> Revenue Operations + Data Engineering</div>
+    </div>
+    <div class="dec">
+      <h4>Dashboard query layer architecture</h4>
+      <p>How should the dashboard engine query HubSpot using Library definitions? Options: direct HubSpot API calls at render time, a cached intermediate data store, or pre-computed snapshots. Trade-offs: freshness vs. performance vs. complexity.</p>
+      <div class="rec"><b>Owner:</b> Data Engineering</div>
+    </div>
+    <div class="dec">
+      <h4>Library serving mechanism</h4>
+      <p>How should dashboards access Library configs? Options: Sales Hub MCP tool (consistent with existing architecture), static JSON config file, or a dedicated API endpoint. Each has different implications for caching, versioning and access control.</p>
+      <div class="rec"><b>Owner:</b> Data Engineering</div>
+    </div>
+    <div class="dec">
+      <h4>Library governance</h4>
+      <p>Who can add, modify, or retire Library entries? Changes to a Library entry change every downstream dashboard. Proposed: changes require RevOps Council review; entries reference Funnel Mechanics anchors so they stay aligned with canonical definitions.</p>
+      <div class="rec"><b>Owner:</b> Revenue Operations</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COUNCIL ─── -->
+<section id="council">
+  <p class="eyebrow">Governance</p>
+  <h2>RevOps Council review</h2>
+  <div class="prose">
+    <p>Each Council seat reviews specific sections and has priority items to validate. This artifact, the Library schema, and the first dashboard all require Council sign-off before shipping.</p>
+  </div>
+
+  <div class="tbl w960"><table>
+    <thead><tr><th>Seat</th><th>Sections to review</th><th>Priority items</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="k">Data Integrity</td>
+        <td>Data Flow, Cadence, Dependencies</td>
+        <td>Verify <code>exclude_from_reporting</code> coverage; validate latency claims</td>
+      </tr>
+      <tr>
+        <td class="k">HubSpot Best Practices</td>
+        <td>Data Flow, Definitions, Workflows</td>
+        <td>Confirm property names match HubSpot; review write-conflict risks</td>
+      </tr>
+      <tr>
+        <td class="k">AE / Sales</td>
+        <td>Rates, Pipeline</td>
+        <td>Validate SQL/HIRO definitions match sales workflow; confirm primary contact process</td>
+      </tr>
+      <tr>
+        <td class="k">Account Management</td>
+        <td>Definitions, Rates</td>
+        <td>Confirm expansion deals in SQL counts; validate customer exclusion logic</td>
+      </tr>
+      <tr>
+        <td class="k">Onboarding</td>
+        <td>Definitions</td>
+        <td>Confirm lifecycle stages (Awaiting Kick Off / In Flight / Customer) are correctly excluded from MQL counts</td>
+      </tr>
+      <tr>
+        <td class="k">Revenue Operations</td>
+        <td>Definitions, Rates, Library, Build</td>
+        <td>End-to-end sign-off; ARR field decision; RAG Board alignment</td>
+      </tr>
+      <tr>
+        <td class="k">Data Engineering</td>
+        <td>Data Flow, Cadence, Library, Workflows, Dependencies</td>
+        <td>Library schema review; query layer architecture; reconciler performance; Library → Dashboard data pipeline</td>
+      </tr>
+      <tr>
+        <td class="k">UX / UI Design</td>
+        <td>Library, Dashboard</td>
+        <td>Library config UI in Sales Hub; dashboard layout patterns (area cards, scorecard, drill-downs); how definitions surface to end users</td>
+      </tr>
+      <tr>
+        <td class="k">Visual Presentation</td>
+        <td>Full document</td>
+        <td>Design system compliance; diagram clarity; readability</td>
+      </tr>
+      <tr>
+        <td class="k">Data Accuracy</td>
+        <td>Definitions, Rates, Open Items, Library</td>
+        <td>Cross-check counts against HubSpot; validate formulas match actual data; verify Library entry formulas produce same numbers as manual HubSpot queries</td>
+      </tr>
+      <tr>
+        <td class="k">Testing</td>
+        <td>Cadence, Workflows, Build, Library</td>
+        <td>Test plan for daily reconciler; regression testing for reporting lock; Library-to-dashboard round-trip verification; sample data checks against HubSpot</td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ─── GLOSSARY ─── -->
+<section id="glossary">
+  <p class="eyebrow">Governance</p>
+  <h2>Glossary</h2>
+  <div class="tbl w720"><table>
+    <tbody>
+      <tr><td class="k">Data Definition Library</td><td>Machine-readable configuration layer in the Sales Hub that encodes metric definitions, filters, thresholds and display hints. Powers all Claude-built dashboards.</td></tr>
+      <tr><td class="k">Library entry</td><td>A single metric definition in the Library. Contains the formula, filters, RAG thresholds, and display settings.</td></tr>
+      <tr><td class="k">RAG status</td><td>Red / Amber / Green classification of a metric's health. Computed by comparing actual values against thresholds defined in the Library entry.</td></tr>
+      <tr><td class="k">Area card</td><td>A dashboard component that groups related metrics (e.g., Marketing, Sales). Maps to the <code>area</code> field in a Library entry.</td></tr>
+      <tr><td class="k">Sparkline</td><td>A small inline trend chart showing monthly values over time. Generated from the metric's <code>date_field</code> data.</td></tr>
+      <tr><td class="k">Scorecard</td><td>A tabular dashboard view showing all metrics with their current value, target, status, and trend.</td></tr>
+      <tr><td class="k">Reporting lock</td><td>MQL and MQA dates before 1 Sep 2026 are final and cannot be changed by any workflow.</td></tr>
+      <tr><td class="k">Reconciler</td><td>The automation that reads HubSpot activity and sets contact–campaign labels, MQL dates and MQA dates.</td></tr>
+      <tr><td class="k">Attribution scan</td><td>Daily automation (07:00) that links deals to campaigns and sets Primary deal source.</td></tr>
+      <tr><td class="k">Review queue</td><td>Held changes from the reconciler that add contacts to campaigns or promote to MQL. Requires approval.</td></tr>
+      <tr><td class="k">mos_last_deliberate_action</td><td>Contact property tracking the timestamp of the most recent qualifying action (call, meeting, form, etc.). Set by two HubSpot workflows. Used to compute Engaged ICP Contact and Account counts.</td></tr>
+      <tr><td class="k">exclude_from_reporting</td><td>Boolean flag on deal records. Flagged records are silently excluded from all metric counts.</td></tr>
+      <tr><td class="k">Primary deal source</td><td>The single campaign credited with a deal. Set by the attribution scan.</td></tr>
+      <tr><td class="k">W-shape attribution</td><td>Multi-touch model: 30% first touch, 30% MQL touch, 30% deal-creation touch, 10% split across remaining.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer class="end">
+  Reflects the reporting architecture as of 1 October 2026. Definitions referenced from <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G">Funnel Mechanics</a> (28 September 2026). Growth RAG Board referenced as <a href="https://claude.ai/artifact/8mDziDcU9nR9t7PgXgVwDg">dashboard architecture model</a>.
+</footer>
+
+</main>
+</div>
+</div>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on')}
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s)});
+})();
+</script>
+
+</body></html>
