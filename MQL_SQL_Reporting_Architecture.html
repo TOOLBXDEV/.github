@@ -135,6 +135,56 @@ td.wrapk{white-space:normal;min-width:130px}
 .cad-arrow{width:20px;height:0;border-top:1.5px solid var(--ink-3);position:relative;flex-shrink:0}
 .cad-arrow::after{content:"";position:absolute;right:-1px;top:-4px;width:0;height:0;border-left:5px solid var(--ink-3);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent}
 
+/* timeline swim-lane diagram (from Funnel Mechanics) */
+.timeline{margin:22px 0 14px;border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--surface)}
+.tl-header{display:grid;grid-template-columns:80px minmax(130px,1fr) 24px minmax(110px,1fr) 24px minmax(0,2fr);column-gap:8px;padding:0 20px;background:var(--sunk);border-bottom:1px solid var(--rule)}
+.tl-phase{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);padding:10px 0}
+.tl-phase:nth-child(1){grid-column:2}
+.tl-phase:nth-child(2){grid-column:4}
+.tl-phase:nth-child(3){grid-column:6}
+.tl-lane{display:grid;grid-template-columns:80px minmax(130px,1fr) 24px minmax(110px,1fr) 24px minmax(0,2fr);align-items:center;column-gap:8px;padding:16px 20px;border-bottom:1px solid var(--rule-2)}
+.tl-lane:last-child{border-bottom:0}
+.tl-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;line-height:1.2}
+.tl-lane.contact .tl-label{color:var(--sea)}
+.tl-lane.company .tl-label{color:var(--blue)}
+.tl-lane.deal .tl-label{color:var(--gold)}
+.tl-node{padding:12px 14px;border-radius:6px;border:1px solid var(--rule);min-width:0}
+.tl-node.state{border-style:dashed;background:var(--sunk)}
+.tl-node.event{border-left:3px solid var(--yellow);background:var(--surface)}
+.tl-lane.contact .tl-node.event{border-left-color:var(--sea)}
+.tl-lane.company .tl-node.event{border-left-color:var(--blue)}
+.tl-lane.deal .tl-node.event{border-left-color:var(--yellow)}
+.tl-nm{font-family:var(--fd);font-weight:800;font-size:1.1rem;letter-spacing:-.02em;line-height:1.15;margin-bottom:3px}
+.tl-ds{font-size:12.5px;color:var(--ink-2);line-height:1.35}
+.tl-arrow{width:24px;height:24px;position:relative;display:flex;align-items:center;justify-self:center}
+.tl-arrow::before{content:"";display:block;width:14px;height:1.5px;background:var(--ink-3)}
+.tl-arrow::after{content:"";position:absolute;right:3px;top:50%;transform:translateY(-50%);width:0;height:0;border-left:5px solid var(--ink-3);border-top:4px solid transparent;border-bottom:4px solid transparent}
+.tl-spacer{min-height:1px}
+.tl-wait{grid-column:2/6;display:flex;align-items:center;min-height:1px}
+.tl-wait::before{content:"";flex:1;height:0;border-top:1.5px dashed var(--ink-3);opacity:.25}
+.tl-wait::after{content:"";flex-shrink:0;width:0;height:0;border-left:5px solid var(--ink-3);border-top:3.5px solid transparent;border-bottom:3.5px solid transparent;opacity:.25}
+.tl-recon-badge{font-size:11.5px;padding:8px 10px;border-radius:5px;background:var(--sunk);border:1px solid var(--rule-2);display:flex;align-items:flex-start;gap:6px;min-width:0;line-height:1.35}
+.tl-recon-badge .ri{flex-shrink:0;font-weight:700;white-space:nowrap}
+.tl-recon-badge.writes{border-left:3px solid currentColor}
+.tl-recon-badge.reads{border-left:3px dashed currentColor}
+.tl-lane.contact .tl-recon-badge{color:var(--sea)}
+.tl-lane.company .tl-recon-badge{color:var(--blue)}
+.tl-lane.deal .tl-recon-badge{color:var(--gold)}
+.tl-recon-badge .act{color:var(--ink-2)}
+.tl-col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.tl-recon{padding:8px 20px;background:var(--sunk);border-top:3px solid;border-image:linear-gradient(90deg,var(--sea),var(--blue),var(--yellow)) 1;font-size:12px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.tl-recon b{font-family:var(--fd);font-weight:700;font-size:.9rem;color:var(--ink);letter-spacing:-.01em}
+.timeline-key{display:flex;gap:14px 22px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-3);margin:6px 0 0}
+.timeline-key span{display:inline-flex;align-items:center;gap:6px}
+.timeline-key i{display:inline-block;width:14px;height:14px;border-radius:3px;flex-shrink:0}
+.timeline-key i.k-state{border:1.5px dashed var(--rule);background:var(--sunk)}
+.timeline-key i.k-event{border:1px solid var(--rule);border-left:3px solid var(--yellow);background:var(--surface)}
+.timeline-key i.k-contact{background:var(--sea-tint);border:1px solid var(--sea)}
+.timeline-key i.k-company{background:rgba(58,80,107,.08);border:1px solid var(--blue)}
+.timeline-key i.k-deal{background:var(--tint);border:1px solid var(--gold)}
+.timeline-key i.k-recon{background:var(--sunk);border:1px solid var(--rule);position:relative;overflow:hidden}
+.timeline-key i.k-recon::after{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--sea),var(--blue),var(--yellow))}
+
 /* numbers */
 .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;background:var(--surface);border:1px solid var(--rule);border-radius:6px;margin:16px 0}
 .num{padding:14px 16px;border-right:1px solid var(--rule-2)}
@@ -191,6 +241,8 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   .mapping{grid-template-columns:1fr}
   .mapping .side:first-child{border-right:0;border-bottom:1px solid var(--rule)}
   .cadence .cad-lane{grid-template-columns:100px minmax(0,1fr)}
+  .tl-header,.tl-lane{grid-template-columns:60px minmax(100px,1fr) 20px minmax(90px,1fr) 20px minmax(0,2fr);column-gap:8px;padding-inline:14px}
+  .tl-recon{padding-inline:14px}
 }
 @media (max-width:640px){
   .wrap,.masthead .inner{padding-inline:16px}
@@ -205,6 +257,13 @@ footer.end{border-top:1px solid var(--rule);padding-top:18px;font-size:13px;colo
   .cad-bar{flex-direction:column;align-items:stretch}
   .cad-arrow{width:0;height:16px;border-top:0;border-left:1.5px solid var(--ink-3);align-self:center}
   .cad-arrow::after{right:auto;top:auto;bottom:-1px;left:-4px;border-left:3.5px solid transparent;border-right:3.5px solid transparent;border-top:5px solid var(--ink-3);border-bottom:0}
+  .tl-header{display:none}
+  .tl-lane{grid-template-columns:1fr;gap:8px;padding:14px 16px}
+  .tl-label{padding-bottom:4px;border-bottom:1px solid var(--rule-2);margin-bottom:2px}
+  .tl-arrow{justify-self:center;transform:rotate(90deg)}
+  .tl-spacer{display:none}
+  .tl-wait{grid-column:auto;padding:4px 0}
+  .tl-recon{padding:8px 16px;flex-wrap:wrap}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 html{scroll-behavior:smooth}
@@ -226,7 +285,7 @@ html{scroll-behavior:smooth}
       <span class="tag">Reporting architecture</span>
     </div>
     <h1>MQL &amp; SQL Reporting Architecture</h1>
-    <p class="lede">How data flows from HubSpot through automation into reports, what refreshes when, and what still needs building.</p>
+    <p class="lede">How data flows from HubSpot through automation into reports, what refreshes when, and how definitions power dashboards.</p>
     <div class="meta">
       <span><b>State as of</b> 1 October 2026</span>
       <span><b>Companion to</b> <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G">Funnel Mechanics</a></span>
@@ -255,11 +314,9 @@ html{scroll-behavior:smooth}
     <li class="grp">Operations</li>
     <li><a href="#workflows">Workflows</a></li>
     <li><a href="#dependencies">Dependencies</a></li>
-    <li class="grp">Build plan</li>
-    <li><a href="#build">What needs building</a></li>
     <li><a href="#open-items">Open items</a></li>
-    <li class="grp">Governance</li>
-    <li><a href="#council">RevOps Council</a></li>
+    <li class="grp">Reference</li>
+    <li><a href="#funnel-stages">Funnel stages</a></li>
     <li><a href="#glossary">Glossary</a></li>
   </ol>
 </nav>
@@ -290,106 +347,136 @@ html{scroll-behavior:smooth}
     <p>Data moves through six stages from source to report. Each stage has a distinct owner, cadence and output.</p>
   </div>
 
-  <svg class="pipeline-svg" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data flow pipeline: HubSpot CRM to Dashboards through 6 stages">
+  <svg class="pipeline-svg" viewBox="0 0 960 790" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data flow pipeline: Sources through processing, attribution and storage to dashboards">
     <style>
       .pipeline-svg{width:100%;max-width:960px;height:auto;margin:22px 0 10px;display:block}
       .pipeline-svg text{font-family:var(--fb);fill:var(--ink)}
-      .pipeline-svg .stage-box{fill:var(--surface);stroke:var(--rule);stroke-width:1.5;rx:10}
-      .pipeline-svg .stage-box.final{fill:var(--tint);stroke:var(--yellow);stroke-width:2}
-      .pipeline-svg .stage-num{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;fill:var(--ink-3)}
-      .pipeline-svg .stage-name{font-family:var(--fd);font-size:20px;font-weight:800;fill:var(--ink)}
-      .pipeline-svg .stage-desc{font-size:12.5px;fill:var(--ink-2);line-height:1.4}
-      .pipeline-svg .stage-field{font-family:var(--fm);font-size:11px;fill:var(--ink-3)}
-      .pipeline-svg .arrow-line{stroke:var(--ink-3);stroke-width:1.5;fill:none;marker-end:url(#arrowhead)}
-      .pipeline-svg .arrow-label{font-size:10px;fill:var(--ink-3);font-weight:500;text-anchor:middle}
-      .pipeline-svg .top-bar{fill:var(--yellow)}
-      .pipeline-svg .review-branch{stroke:var(--warn);stroke-width:1.5;stroke-dasharray:6,4;fill:none;marker-end:url(#arrowhead-warn)}
-      .pipeline-svg .review-box{fill:var(--warn-tint);stroke:var(--warn);stroke-width:1.5;rx:8;stroke-dasharray:6,4}
-      .pipeline-svg .review-text{font-size:11.5px;fill:var(--warn);font-weight:600}
+      .p-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;rx:12}
+      .p-box-acc{fill:var(--surface);stroke:var(--sea);stroke-width:1.5;rx:12}
+      .p-box-gold{fill:var(--surface);stroke:var(--gold);stroke-width:1.5;rx:12;stroke-dasharray:6,4}
+      .p-box-final{fill:var(--tint);stroke:var(--yellow);stroke-width:1.5;rx:12}
+      .p-badge{font-size:11px;font-weight:700;fill:#fff}
+      .p-label{font-size:10px;font-weight:600;letter-spacing:0.14em;fill:var(--ink-3)}
+      .p-name{font-family:var(--fd);font-size:17px;font-weight:800;fill:var(--ink)}
+      .p-desc{font-size:12px;fill:var(--ink-2)}
+      .p-field{font-family:var(--fm);font-size:10.5px;fill:var(--ink-3)}
+      .p-arr{stroke:var(--ink-3);stroke-width:1.5;fill:none;marker-end:url(#pah)}
+      .p-arr-w{stroke:var(--warn);stroke-width:1.5;stroke-dasharray:6,4;fill:none;marker-end:url(#pahw)}
+      .p-bar{fill:var(--yellow)}
+      .p-review{fill:var(--warn-tint);stroke:var(--warn);stroke-width:1;rx:8;stroke-dasharray:6,4}
+      .p-review-t{font-size:11px;fill:var(--warn);font-weight:600}
+      .p-status-bg{fill:var(--tint);rx:4}
+      .p-status{font-size:9.5px;font-weight:600;fill:var(--gold);letter-spacing:0.04em}
+      .p-divider{stroke:var(--rule);stroke-width:1;stroke-dasharray:4,4}
       @media (prefers-color-scheme:dark){
-        :root:not([data-theme="light"]) .pipeline-svg .stage-box{fill:var(--surface);stroke:var(--rule)}
-        :root:not([data-theme="light"]) .pipeline-svg .stage-box.final{fill:rgba(255,202,5,.12);stroke:var(--gold)}
+        :root:not([data-theme="light"]) .p-box{fill:var(--surface);stroke:var(--rule)}
+        :root:not([data-theme="light"]) .p-box-acc{fill:var(--surface);stroke:var(--sea)}
+        :root:not([data-theme="light"]) .p-box-gold{fill:var(--surface);stroke:var(--gold)}
+        :root:not([data-theme="light"]) .p-box-final{fill:rgba(255,202,5,.12);stroke:var(--gold)}
       }
-      :root[data-theme="dark"] .pipeline-svg .stage-box{fill:var(--surface);stroke:var(--rule)}
-      :root[data-theme="dark"] .pipeline-svg .stage-box.final{fill:rgba(255,202,5,.12);stroke:var(--gold)}
+      :root[data-theme="dark"] .p-box{fill:var(--surface);stroke:var(--rule)}
+      :root[data-theme="dark"] .p-box-acc{fill:var(--surface);stroke:var(--sea)}
+      :root[data-theme="dark"] .p-box-gold{fill:var(--surface);stroke:var(--gold)}
+      :root[data-theme="dark"] .p-box-final{fill:rgba(255,202,5,.12);stroke:var(--gold)}
     </style>
     <defs>
-      <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--ink-3)"/></marker>
-      <marker id="arrowhead-warn" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--warn)"/></marker>
+      <marker id="pah" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--ink-3)"/></marker>
+      <marker id="pahw" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="var(--warn)"/></marker>
     </defs>
 
-    <!-- Row 1: Source → Ingest → Process -->
-    <rect class="stage-box" x="20" y="20" width="270" height="150"/>
-    <text class="stage-num" x="40" y="50">1 · Source</text>
-    <text class="stage-name" x="40" y="78">HubSpot CRM</text>
-    <text class="stage-desc" x="40" y="100">Contacts, companies, deals,</text>
-    <text class="stage-desc" x="40" y="116">GTM Campaigns, activity logs</text>
-    <text class="stage-field" x="40" y="148">Real-time writes by users &amp; integrations</text>
+    <!-- ═══ ROW 1: SOURCES ═══ -->
+    <rect class="p-box" x="20" y="16" width="440" height="120" rx="12"/>
+    <circle fill="var(--sea)" cx="44" cy="40" r="12"/><text class="p-badge" x="44" y="44" text-anchor="middle">1</text>
+    <text class="p-label" x="62" y="44">SOURCE</text>
+    <text class="p-name" x="40" y="72">HubSpot CRM</text>
+    <text class="p-desc" x="40" y="92">Contacts, companies, deals, GTM</text>
+    <text class="p-desc" x="40" y="108">Campaigns, activity logs</text>
+    <text class="p-field" x="40" y="128">Real-time writes by users &amp; integrations</text>
 
-    <line class="arrow-line" x1="290" y1="95" x2="338" y2="95"/>
-    <text class="arrow-label" x="314" y="86">reads</text>
+    <rect class="p-box" x="500" y="16" width="440" height="120" rx="12"/>
+    <circle fill="var(--sea)" cx="524" cy="40" r="12"/><text class="p-badge" x="524" y="44" text-anchor="middle">2</text>
+    <text class="p-label" x="542" y="44">IMPORT</text>
+    <text class="p-name" x="520" y="72">Attendee List Imports</text>
+    <text class="p-desc" x="520" y="92">Associate contacts to GTM campaigns.</text>
+    <text class="p-desc" x="520" y="108">Assign initial association labels</text>
+    <text class="p-field" x="520" y="128">e.g. "targeted" on contact–campaign link</text>
 
-    <rect class="stage-box" x="345" y="20" width="270" height="150"/>
-    <text class="stage-num" x="365" y="50">2 · Ingest</text>
-    <text class="stage-name" x="365" y="78">Reconciler</text>
-    <text class="stage-desc" x="365" y="100">Reads associations &amp; activity.</text>
-    <text class="stage-desc" x="365" y="116">Weekly full; daily recent (building)</text>
-    <text class="stage-field" x="365" y="148">reconcile-campaign-labels.ts</text>
+    <!-- Arrows down from sources -->
+    <line class="p-arr" x1="240" y1="136" x2="240" y2="170"/>
+    <line class="p-arr" x1="720" y1="136" x2="720" y2="170"/>
 
-    <line class="arrow-line" x1="615" y1="95" x2="663" y2="95"/>
-    <text class="arrow-label" x="639" y="86">writes</text>
+    <!-- ═══ ROW 2: PROCESSING ═══ -->
+    <rect class="p-box-acc" x="20" y="176" width="440" height="168" rx="12"/>
+    <circle fill="var(--blue)" cx="44" cy="200" r="12"/><text class="p-badge" x="44" y="204" text-anchor="middle">3</text>
+    <text class="p-label" x="62" y="204">INGEST &amp; PROCESS</text>
+    <text class="p-name" x="40" y="232">Reconciler + Event Outcomes</text>
+    <text class="p-desc" x="40" y="252">Reads associations &amp; activity. Weekly</text>
+    <text class="p-desc" x="40" y="268">full scan; daily recent (building).</text>
+    <text class="p-desc" x="40" y="288">At events, updates association labels</text>
+    <text class="p-desc" x="40" y="304">(e.g. targeted → engaged). Sets MQL/MQA</text>
+    <text class="p-desc" x="40" y="320">dates, company &amp; GTM campaign labels.</text>
+    <text class="p-field" x="40" y="338">reconcile-campaign-labels.ts</text>
 
-    <rect class="stage-box" x="670" y="20" width="270" height="150"/>
-    <text class="stage-num" x="690" y="50">3 · Process</text>
-    <text class="stage-name" x="690" y="78">Label &amp; Date</text>
-    <text class="stage-desc" x="690" y="100">Sets contact–campaign labels,</text>
-    <text class="stage-desc" x="690" y="116">MQL/MQA dates</text>
-    <text class="stage-field" x="690" y="148">Held changes → Review queue</text>
+    <rect class="p-box-gold" x="500" y="176" width="440" height="168" rx="12"/>
+    <circle fill="var(--gold)" cx="524" cy="200" r="12"/><text class="p-badge" x="524" y="204" text-anchor="middle" fill="#1C1C1E">4</text>
+    <text class="p-label" x="542" y="204">ENGAGE</text>
+    <text class="p-name" x="520" y="232">Engagement Workflows</text>
+    <rect class="p-status-bg" x="520" y="242" width="128" height="18" rx="4"/>
+    <text class="p-status" x="530" y="254">BUILT · NOT YET ON</text>
+    <text class="p-desc" x="520" y="278">Two HubSpot workflows scan connected</text>
+    <text class="p-desc" x="520" y="294">calls, meetings, interactions, form</text>
+    <text class="p-desc" x="520" y="310">submissions, and email replies to</text>
+    <text class="p-desc" x="520" y="326">determine if a contact is engaged.</text>
+    <text class="p-field" x="520" y="338">→ sets mos_last_deliberate_action on contact</text>
 
-    <!-- Review queue branch (dashed, off to the side) -->
-    <rect class="review-box" x="760" y="195" width="180" height="50"/>
-    <text class="review-text" x="790" y="220">Approval required</text>
-    <text class="stage-field" x="790" y="236">Marketing OS review queue</text>
-    <path class="review-branch" d="M850,170 L850,193"/>
+    <!-- Review queue branch -->
+    <path class="p-arr-w" d="M350,344 L350,382"/>
+    <rect class="p-review" x="270" y="388" width="160" height="44" rx="8"/>
+    <text class="p-review-t" x="296" y="407">Approval required</text>
+    <text class="p-field" x="296" y="422">Review queue</text>
 
-    <!-- Vertical connector from row 1 to row 2 -->
-    <path class="arrow-line" d="M805,170 L805,210 L805,290 L710,290" style="marker-end:none"/>
-    <line class="arrow-line" x1="710" y1="290" x2="622" y2="290"/>
+    <!-- Arrows down from processing -->
+    <line class="p-arr" x1="240" y1="344" x2="240" y2="466"/>
+    <line class="p-arr" x1="720" y1="344" x2="720" y2="612"/>
 
-    <!-- Row 2: Attribute ← (from Process) → Store → Report -->
-    <rect class="stage-box" x="345" y="225" width="270" height="150"/>
-    <text class="stage-num" x="365" y="255">4 · Attribute</text>
-    <text class="stage-name" x="365" y="283">Attribution Scan</text>
-    <text class="stage-desc" x="365" y="305">Proposes campaign links and</text>
-    <text class="stage-desc" x="365" y="321">Primary deal source per deal</text>
-    <text class="stage-field" x="365" y="353">Daily 07:00 · daily-attribution.ts</text>
+    <!-- ═══ ROW 3: ATTRIBUTION ═══ -->
+    <rect class="p-box" x="20" y="472" width="440" height="120" rx="12"/>
+    <circle fill="var(--blue)" cx="44" cy="496" r="12"/><text class="p-badge" x="44" y="500" text-anchor="middle">5</text>
+    <text class="p-label" x="62" y="500">ATTRIBUTE</text>
+    <text class="p-name" x="40" y="528">Attribution Scan</text>
+    <text class="p-desc" x="40" y="548">Proposes campaign links and Primary</text>
+    <text class="p-desc" x="40" y="564">deal source per deal. Requires labels.</text>
+    <text class="p-field" x="40" y="584">Daily 07:00 · daily-attribution.ts</text>
 
-    <line class="arrow-line" x1="338" y1="300" x2="290" y2="300"/>
+    <!-- Arrow from attribution down -->
+    <line class="p-arr" x1="240" y1="592" x2="240" y2="612"/>
 
-    <rect class="stage-box" x="20" y="225" width="270" height="150"/>
-    <text class="stage-num" x="40" y="255">5 · Store</text>
-    <text class="stage-name" x="40" y="283">HubSpot Properties</text>
-    <text class="stage-desc" x="40" y="305">Written back to CRM objects.</text>
-    <text class="stage-desc" x="40" y="321">Locked dates never change.</text>
-    <text class="stage-field" x="40" y="353">mos_mql_date, mos_mqa_date, mos_last_deliberate_action, primary_deal_source</text>
+    <!-- ═══ ROW 4: STORE (full width) ═══ -->
+    <rect class="p-box" x="20" y="618" width="920" height="78" rx="12"/>
+    <circle fill="var(--blue)" cx="44" cy="642" r="12"/><text class="p-badge" x="44" y="646" text-anchor="middle">6</text>
+    <text class="p-label" x="62" y="646">STORE</text>
+    <text class="p-name" x="40" y="674">HubSpot Properties</text>
+    <text class="p-desc" x="310" y="646">Written back to CRM objects. Locked dates never change.</text>
+    <text class="p-field" x="310" y="668">mos_mql_date · mos_mqa_date · mos_last_deliberate_action · primary_deal_source</text>
 
-    <!-- Final stage spanning full width -->
-    <rect class="top-bar" x="20" y="410" width="920" height="4" rx="2"/>
-    <rect class="stage-box final" x="20" y="414" width="920" height="90"/>
-    <text class="stage-num" x="40" y="444">6 · Report</text>
-    <text class="stage-name" x="40" y="472">Dashboards &amp; Library</text>
-    <text class="stage-desc" x="300" y="444">Data Definition Library provides metric configs</text>
-    <text class="stage-desc" x="300" y="462">Sales Hub serves configs to dashboard engine</text>
-    <text class="stage-desc" x="300" y="480">Growth RAG Board, AE Scorecard, future dashboards</text>
-    <text class="stage-field" x="700" y="472">Powered by Library definitions</text>
+    <!-- Arrow down to report -->
+    <line class="p-arr" x1="480" y1="696" x2="480" y2="718"/>
 
-    <!-- Arrow from Store down to Report -->
-    <line class="arrow-line" x1="155" y1="375" x2="155" y2="408"/>
+    <!-- ═══ ROW 5: REPORT (full width, yellow accent) ═══ -->
+    <rect class="p-bar" x="20" y="724" width="920" height="4" rx="2"/>
+    <rect class="p-box-final" x="20" y="728" width="920" height="56" rx="12"/>
+    <circle fill="var(--yellow)" cx="44" cy="748" r="12"/><text class="p-badge" x="44" y="752" text-anchor="middle" fill="#1C1C1E">7</text>
+    <text class="p-label" x="62" y="752">REPORT</text>
+    <text class="p-name" x="40" y="772">Dashboards &amp; Library</text>
+    <text class="p-desc" x="310" y="748">Data Definition Library, Sales Hub, Growth RAG Board,</text>
+    <text class="p-desc" x="310" y="766">AE Scorecard, future dashboards — all powered by same definitions</text>
   </svg>
 
   <div class="flowkey">
     <span><i style="background:var(--yellow)"></i> Final output</span>
     <span><i style="background:var(--surface);border:1px solid var(--rule)"></i> Processing stage</span>
+    <span><i style="background:var(--surface);border:1.5px solid var(--sea)"></i> Automated pipeline</span>
+    <span><i style="background:var(--surface);border:1px dashed var(--gold)"></i> Built / not yet active</span>
     <span><i style="background:var(--warn-tint);border:1px dashed var(--warn)"></i> Requires approval</span>
   </div>
 
@@ -605,16 +692,6 @@ html{scroll-behavior:smooth}
     </tbody>
   </table></div>
 
-  <h3>Multi-touch weighting</h3>
-  <div class="prose">
-    <p>Influenced pipeline uses a <b>W-shape</b> attribution model. Credit is distributed across three key touchpoints:</p>
-    <ul>
-      <li><b>First touch</b> (30%) — the campaign that first engaged the contact</li>
-      <li><b>MQL touch</b> (30%) — the campaign that qualified the contact as MQL</li>
-      <li><b>Deal-creation touch</b> (30%) — the campaign closest to deal creation</li>
-      <li><b>Remaining touches</b> (10%) — split equally among all other campaign touches</li>
-    </ul>
-  </div>
 </section>
 
 <!-- ─── DATA DEFINITION LIBRARY ─── -->
@@ -748,7 +825,7 @@ html{scroll-behavior:smooth}
 
   <div class="callout warn">
     <span class="k">Not yet created</span>
-    <p>The Data Definition Library does not exist today. Building it requires: schema finalization, Sales Hub integration endpoint, HubSpot query layer, and dashboard rendering engine. See <a href="#build">What needs building</a>.</p>
+    <p>The Data Definition Library does not exist today. Building it requires: schema finalization, Sales Hub integration endpoint, HubSpot query layer, and dashboard rendering engine.</p>
   </div>
 
   <div class="callout sea">
@@ -883,16 +960,16 @@ const metrics = await salesHub
       <tr>
         <td class="k">Last Deliberate Action (workflow 1)</td>
         <td>Trigger-based</td>
-        <td>Contact deliberate actions (calls, meetings, forms, etc.)</td>
+        <td>Connected calls, meetings, form submissions, email replies</td>
         <td><code>mos_last_deliberate_action</code> timestamp on contact</td>
-        <td><span class="pill yes">Live</span></td>
+        <td><span class="pill part">Built / Not on</span></td>
       </tr>
       <tr>
         <td class="k">Last Deliberate Action (workflow 2)</td>
         <td>Trigger-based</td>
-        <td>Contact deliberate actions (additional triggers)</td>
+        <td>Additional interaction triggers (calls, meetings, forms)</td>
         <td><code>mos_last_deliberate_action</code> timestamp on contact</td>
-        <td><span class="pill yes">Live</span></td>
+        <td><span class="pill part">Built / Not on</span></td>
       </tr>
     </tbody>
   </table></div>
@@ -943,128 +1020,9 @@ const metrics = await salesHub
   </div>
 </section>
 
-<!-- ─── BUILD ─── -->
-<section id="build">
-  <p class="eyebrow">Build plan</p>
-  <h2>What needs building</h2>
-  <div class="prose">
-    <p>Items are grouped by status. See <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#status">Rollout status</a> in Funnel Mechanics for the upstream pipeline items.</p>
-  </div>
-
-  <div class="tbl w860"><table>
-    <thead><tr><th>Item</th><th>Status</th><th>Owner</th><th>Downstream impact</th></tr></thead>
-    <tbody>
-      <tr>
-        <td class="k">Daily reconciler for recent activity</td>
-        <td><span class="pill part">Building</span></td>
-        <td>Marketing</td>
-        <td>Library queries need fresh data</td>
-      </tr>
-      <tr>
-        <td class="k">MQL lifecycle stage from mos_mql_date</td>
-        <td><span class="pill part">Building</span></td>
-        <td>Marketing</td>
-        <td>Dashboard lifecycle filtering</td>
-      </tr>
-      <tr>
-        <td class="k">mos_sql_date on contact</td>
-        <td><span class="pill auto">Approved</span></td>
-        <td>Marketing</td>
-        <td>SQL time-series in dashboard</td>
-      </tr>
-      <tr>
-        <td class="k">HIRO rollup at Solution Review+</td>
-        <td><span class="pill">To do</span></td>
-        <td>Sales Ops</td>
-        <td>HIRO metric in dashboard</td>
-      </tr>
-      <tr>
-        <td class="k">mos_mqa_last_date on company</td>
-        <td><span class="pill">Proposed</span></td>
-        <td>Marketing</td>
-        <td>MQA recency tracking</td>
-      </tr>
-      <tr>
-        <td class="k">Data Definition Library schema</td>
-        <td><span class="pill no">Not created</span></td>
-        <td>Data Engineering</td>
-        <td>Foundation for all dashboards</td>
-      </tr>
-      <tr>
-        <td class="k">Data Definition Library in Sales Hub</td>
-        <td><span class="pill no">Not created</span></td>
-        <td>Data Engineering + UX</td>
-        <td>Serves configs to dashboard engine</td>
-      </tr>
-      <tr>
-        <td class="k">Library → HubSpot query layer</td>
-        <td><span class="pill no">Not created</span></td>
-        <td>Data Engineering</td>
-        <td>Translates library entries to API calls</td>
-      </tr>
-      <tr>
-        <td class="k">Growth Dashboard (RAG Board v2)</td>
-        <td><span class="pill no">Not created</span></td>
-        <td>Data Engineering + UX</td>
-        <td>First consumer of Library</td>
-      </tr>
-      <tr>
-        <td class="k">exclude_from_reporting audit</td>
-        <td><span class="pill">Not started</span></td>
-        <td>Rev Ops</td>
-        <td>Library exclude_filter entries</td>
-      </tr>
-      <tr>
-        <td class="k">ARR field standardization</td>
-        <td><span class="pill no">Decision needed</span></td>
-        <td>Rev Ops</td>
-        <td>Which field Library uses for revenue</td>
-      </tr>
-    </tbody>
-  </table></div>
-
-  <div class="ladders">
-    <div class="ladder">
-      <div class="t">In Progress</div>
-      <div class="q">Actively being built</div>
-      <ol>
-        <li class="bar"><span>Daily reconciler</span><span>Marketing</span></li>
-        <li class="bar"><span>MQL lifecycle stage</span><span>Marketing</span></li>
-      </ol>
-    </div>
-    <div class="ladder">
-      <div class="t">Approved</div>
-      <div class="q">Ready to start</div>
-      <ol>
-        <li><span>mos_sql_date on contact</span><span>Marketing</span></li>
-        <li><span>HIRO rollup</span><span>Sales Ops</span></li>
-      </ol>
-    </div>
-    <div class="ladder">
-      <div class="t">Proposed</div>
-      <div class="q">Needs decision</div>
-      <ol>
-        <li><span>mos_mqa_last_date</span><span>Marketing</span></li>
-        <li><span>ARR standardization</span><span>Rev Ops</span></li>
-      </ol>
-    </div>
-    <div class="ladder">
-      <div class="t">Not Created</div>
-      <div class="q">New work items</div>
-      <ol>
-        <li><span>Library schema</span><span>Data Eng</span></li>
-        <li><span>Library in Sales Hub</span><span>Data Eng + UX</span></li>
-        <li><span>Query layer</span><span>Data Eng</span></li>
-        <li><span>Growth Dashboard v2</span><span>Data Eng + UX</span></li>
-        <li><span>Exclusion audit</span><span>Rev Ops</span></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
 <!-- ─── OPEN ITEMS ─── -->
 <section id="open-items">
-  <p class="eyebrow">Build plan</p>
+  <p class="eyebrow">Operations</p>
   <h2>Open items</h2>
   <div class="prose">
     <p>These are reporting-specific decisions and issues that need resolution. See also <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#open">Open items</a> in Funnel Mechanics for upstream issues.</p>
@@ -1109,74 +1067,91 @@ const metrics = await salesHub
   </div>
 </section>
 
-<!-- ─── COUNCIL ─── -->
-<section id="council">
-  <p class="eyebrow">Governance</p>
-  <h2>RevOps Council review</h2>
-  <div class="prose">
-    <p>Each Council seat reviews specific sections and has priority items to validate. This artifact, the Library schema, and the first dashboard all require Council sign-off before shipping.</p>
+<!-- ─── FUNNEL STAGES ─── -->
+<section id="funnel-stages">
+  <p class="eyebrow">Reference</p>
+  <h2>Funnel stages</h2>
+  <p>The swim-lane diagram below shows how contacts, companies and deals move through the funnel. For full definitions of each stage, see <a href="https://claude.ai/artifact/BUtMUdA8g8eSe4EuQCSi6G#stages">Funnel Mechanics — Stages</a>.</p>
+
+  <div class="timeline" role="img" aria-label="Timeline diagram showing Contact, Company and Deal swim lanes from engagement through qualification to pipeline">
+
+    <!-- Phase column headers -->
+    <div class="tl-header">
+      <div class="tl-phase">Engagement</div>
+      <div class="tl-phase">Qualification</div>
+      <div class="tl-phase">Pipeline</div>
+    </div>
+
+    <!-- Contact swim lane -->
+    <div class="tl-lane contact">
+      <div class="tl-label">Contact</div>
+      <div class="tl-node state">
+        <div class="tl-nm">Engaged ICP Contact</div>
+        <div class="tl-ds">Active in the last 90 days. Contacts move in and out.</div>
+      </div>
+      <div class="tl-arrow"></div>
+      <div class="tl-node event">
+        <div class="tl-nm">MQL</div>
+        <div class="tl-ds">First time a campaign qualifies them. Dated once, never reverses.</div>
+      </div>
+      <div class="tl-spacer"></div>
+      <div class="tl-recon-badge writes">
+        <span class="ri">&#9881; &#8595;</span>
+        <span class="act">Writes MQL dates, campaign labels, lifecycle stage</span>
+      </div>
+    </div>
+
+    <!-- Company swim lane -->
+    <div class="tl-lane company">
+      <div class="tl-label">Company</div>
+      <div class="tl-node state">
+        <div class="tl-nm">Engaged ICP Account</div>
+        <div class="tl-ds">ICP account with at least one engaged contact. Not a customer.</div>
+      </div>
+      <div class="tl-arrow"></div>
+      <div class="tl-node event">
+        <div class="tl-nm">MQA</div>
+        <div class="tl-ds">Set when the account&#8217;s first contact becomes an MQL.</div>
+      </div>
+      <div class="tl-spacer"></div>
+      <div class="tl-recon-badge writes">
+        <span class="ri">&#9881; &#8595;</span>
+        <span class="act">Writes MQA dates</span>
+      </div>
+    </div>
+
+    <!-- Deal swim lane -->
+    <div class="tl-lane deal">
+      <div class="tl-label">Deal</div>
+      <div class="tl-wait"></div>
+      <div class="tl-col">
+        <div class="tl-node event">
+          <div class="tl-nm">SQL</div>
+          <div class="tl-ds">Deal created in the Sales Pipeline. New biz and expansion; renewals excluded.</div>
+        </div>
+        <div class="tl-recon-badge reads">
+          <span class="ri">&#9881; &#8593;</span>
+          <span class="act">Reads deal &amp; lifecycle history</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reconciler footer -->
+    <div class="tl-recon">
+      <span>&#9881;</span>
+      <b>Reconciler</b>
+      <span>Automation that syncs campaign activity across all three objects. &#8595; = writes, &#8593; = reads.</span>
+    </div>
   </div>
 
-  <div class="tbl w960"><table>
-    <thead><tr><th>Seat</th><th>Sections to review</th><th>Priority items</th></tr></thead>
-    <tbody>
-      <tr>
-        <td class="k">Data Integrity</td>
-        <td>Data Flow, Cadence, Dependencies</td>
-        <td>Verify <code>exclude_from_reporting</code> coverage; validate latency claims</td>
-      </tr>
-      <tr>
-        <td class="k">HubSpot Best Practices</td>
-        <td>Data Flow, Definitions, Workflows</td>
-        <td>Confirm property names match HubSpot; review write-conflict risks</td>
-      </tr>
-      <tr>
-        <td class="k">AE / Sales</td>
-        <td>Rates, Pipeline</td>
-        <td>Validate SQL/HIRO definitions match sales workflow; confirm primary contact process</td>
-      </tr>
-      <tr>
-        <td class="k">Account Management</td>
-        <td>Definitions, Rates</td>
-        <td>Confirm expansion deals in SQL counts; validate customer exclusion logic</td>
-      </tr>
-      <tr>
-        <td class="k">Onboarding</td>
-        <td>Definitions</td>
-        <td>Confirm lifecycle stages (Awaiting Kick Off / In Flight / Customer) are correctly excluded from MQL counts</td>
-      </tr>
-      <tr>
-        <td class="k">Revenue Operations</td>
-        <td>Definitions, Rates, Library, Build</td>
-        <td>End-to-end sign-off; ARR field decision; RAG Board alignment</td>
-      </tr>
-      <tr>
-        <td class="k">Data Engineering</td>
-        <td>Data Flow, Cadence, Library, Workflows, Dependencies</td>
-        <td>Library schema review; query layer architecture; reconciler performance; Library → Dashboard data pipeline</td>
-      </tr>
-      <tr>
-        <td class="k">UX / UI Design</td>
-        <td>Library, Dashboard</td>
-        <td>Library config UI in Sales Hub; dashboard layout patterns (area cards, scorecard, drill-downs); how definitions surface to end users</td>
-      </tr>
-      <tr>
-        <td class="k">Visual Presentation</td>
-        <td>Full document</td>
-        <td>Design system compliance; diagram clarity; readability</td>
-      </tr>
-      <tr>
-        <td class="k">Data Accuracy</td>
-        <td>Definitions, Rates, Open Items, Library</td>
-        <td>Cross-check counts against HubSpot; validate formulas match actual data; verify Library entry formulas produce same numbers as manual HubSpot queries</td>
-      </tr>
-      <tr>
-        <td class="k">Testing</td>
-        <td>Cadence, Workflows, Build, Library</td>
-        <td>Test plan for daily reconciler; regression testing for reporting lock; Library-to-dashboard round-trip verification; sample data checks against HubSpot</td>
-      </tr>
-    </tbody>
-  </table></div>
+  <div class="timeline-key">
+    <span><i class="k-state"></i>State: move in and out</span>
+    <span><i class="k-event"></i>Event: dated once</span>
+    <span><i class="k-contact"></i>Contact</span>
+    <span><i class="k-company"></i>Company</span>
+    <span><i class="k-deal"></i>Deal</span>
+    <span><i class="k-recon"></i>Reconciler</span>
+  </div>
 </section>
 
 <!-- ─── GLOSSARY ─── -->
@@ -1198,7 +1173,6 @@ const metrics = await salesHub
       <tr><td class="k">mos_last_deliberate_action</td><td>Contact property tracking the timestamp of the most recent qualifying action (call, meeting, form, etc.). Set by two HubSpot workflows. Used to compute Engaged ICP Contact and Account counts.</td></tr>
       <tr><td class="k">exclude_from_reporting</td><td>Boolean flag on deal records. Flagged records are silently excluded from all metric counts.</td></tr>
       <tr><td class="k">Primary deal source</td><td>The single campaign credited with a deal. Set by the attribution scan.</td></tr>
-      <tr><td class="k">W-shape attribution</td><td>Multi-touch model: 30% first touch, 30% MQL touch, 30% deal-creation touch, 10% split across remaining.</td></tr>
     </tbody>
   </table></div>
 </section>
